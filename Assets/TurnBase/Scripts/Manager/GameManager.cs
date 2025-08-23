@@ -22,8 +22,9 @@ public class GameManager : MonoBehaviour
     public string Room;
     private const string Player_Path = "Prefabs/Charactor/Player/Player";
 
-    public void SpawnPlayer()
+    IEnumerator SpawnPlayer()
     {
+        yield return null;
         Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlayerSpawnPoint, BoardManager.Instance.GetRoom(Room));
         Pos += new Vector3(0f, 1.49f, 0f);
 
@@ -35,6 +36,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SpawnPlayer();
+        StartCoroutine(SpawnPlayer());
     }
 }

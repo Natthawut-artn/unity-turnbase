@@ -170,7 +170,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   PlayerSpawnPoint: {x: 1, y: 1}
-  Room: 
+  Room: Room1
 --- !u!1001 &366604625
 PrefabInstance:
   m_ObjectHideFlags: 0
