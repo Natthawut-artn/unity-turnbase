@@ -68,21 +68,26 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public Vector3 GetMarkerWorldPosition(Vector2 GridPosition)
+    public GameObject GetRoom(string RoomName)
     {
-        for (int i = 0; i < ListRooms.Count; i++)
+        foreach (GameObject Room in ListRooms)
         {
-            Room room = ListRooms[i].GetComponent<Room>();
-            if (room.roomState == RoomState.Playing)
+            if (Room.name == RoomName)
             {
-                for (int j = 0; j < ListRooms[i].transform.childCount; j++)
-                {
-                    Marker markerScript = ListRooms[i].GetComponentInChildren<Marker>();
-                    if (GridPosition == markerScript.GridPosition)
-                    {
-                        return markerScript.transform.position;
-                    }
-                }    
+                return Room;
+            }
+        }
+        return null;
+    }
+
+    public Vector3 GetMarkerWorldPosition(Vector2 GridPosition , GameObject Room)
+    {
+        for (int j = 0; j < Room.transform.childCount; j++)
+        {
+            Marker markerScript = Room.GetComponentInChildren<Marker>();
+            if (GridPosition == markerScript.GridPosition)
+            {
+                return markerScript.transform.position;
             }
         }
         return Vector3.zero;
@@ -128,6 +133,24 @@ public class BoardManager : MonoBehaviour
                     }
                 }
             }    
+        }
+    }
+
+    public void CheckPlayerInWhatRoom()
+    {
+        for (int i = 0; i < ListRooms.Count; i++)
+        {
+            Collider col = ListRooms[i].GetComponent<Collider>();    
+            Collider[] hits = Physics.OverlapBox(col.bounds.center, col.bounds.extents, Quaternion.identity);
+            foreach (Collider hit in hits)
+            {
+                if (hit.gameObject != ListRooms[i] && hit.gameObject.CompareTag("Player"))
+                {
+                    Debug.Log($"Player in {ListRooms[i]}");
+                    Room room = ListRooms[i].GetComponent<Room>();
+                    room.roomState = RoomState.Playing;
+                }
+            }
         }
     }
 

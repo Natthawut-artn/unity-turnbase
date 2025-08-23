@@ -170,6 +170,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   PlayerSpawnPoint: {x: 1, y: 1}
+  Room: 
 --- !u!1001 &366604625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -713,7 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64847e0d96b480340bfed43b90bd604a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomState: 0
+  roomState: 1
 --- !u!33 &7696903647022776748
 MeshFilter:
   m_ObjectHideFlags: 0

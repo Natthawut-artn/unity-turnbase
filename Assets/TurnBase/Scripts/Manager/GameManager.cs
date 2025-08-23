@@ -19,13 +19,22 @@ public class GameManager : MonoBehaviour
 
     public LayerMask MarkerLayer;
     public Vector2 PlayerSpawnPoint;
-    private const string Player_Path = "Prefabs/Charactor/Player/Player"; 
+    public string Room;
+    private const string Player_Path = "Prefabs/Charactor/Player/Player";
 
     public void SpawnPlayer()
     {
-        Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlayerSpawnPoint);
+        Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlayerSpawnPoint, BoardManager.Instance.GetRoom(Room));
         Pos += new Vector3(0f, 1.49f, 0f);
+
         GameObject MainHero = Instantiate(Resources.Load<GameObject>(Player_Path), Pos, Quaternion.identity);
         PlayerData.GridPosition = PlayerSpawnPoint;
+
+        BoardManager.Instance.CheckPlayerInWhatRoom();
+    }
+
+    void Start()
+    {
+        SpawnPlayer();
     }
 }
