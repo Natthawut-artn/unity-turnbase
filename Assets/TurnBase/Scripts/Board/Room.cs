@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    public Dictionary<Vector2, Vector3> MarkerPositions = new Dictionary<Vector2, Vector3>();
     public RoomState roomState = RoomState.UnPlaying;
+    public List<Marker> exitMarkers = new List<Marker>();
 }

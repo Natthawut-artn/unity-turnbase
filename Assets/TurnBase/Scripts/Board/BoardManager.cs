@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
 
 public enum RoomState
 {
     Playing,
     UnPlaying,
+    CanExit,
     Clear
 }
 
@@ -24,16 +27,64 @@ public class BoardManager : MonoBehaviour
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
-            GameObject Room = gameObject.transform.GetChild(i).gameObject;
-            ListRooms.Add(Room);
+            GameObject gameObj = gameObject.transform.GetChild(i).gameObject;
+            if (gameObj.GetComponent<Room>())
+            {
+                ListRooms.Add(gameObj);
+            }
+            else if (gameObj.GetComponent<Bridge>())
+            {
+                ListBridges.Add(gameObj);    
+            }
         }
     }
 
     private const string MarkerPath = "Prefabs/Board/Marker";
     public List<GameObject> ListRooms = new List<GameObject>();
+    public List<GameObject> ListBridges = new List<GameObject>();
+    public List<Vector2Int> ExitGridPosition = new List<Vector2Int>();
     public List<Vector2Int> SizeRoomsData = new List<Vector2Int>();
     public LayerMask MarkerLayer;
     private MeshRenderer currentMarker;
+    private bool justTransferred = false;
+
+    public void LinkExitsWithBridges()
+    {
+        foreach (var bridgeObj in ListBridges)
+        {
+            Bridge bridge = bridgeObj.GetComponent<Bridge>();
+
+            GameObject room1 = GetRoom(bridge.ConnectWith1);
+            GameObject room2 = GetRoom(bridge.ConnectWith2);
+
+            if (room1 == null || room2 == null)
+            {
+                Debug.LogWarning($"Bridge {bridge.name} ไม่เจอห้อง {bridge.ConnectWith1} หรือ {bridge.ConnectWith2}");
+                continue;
+            }
+
+            Room room1Script = room1.GetComponent<Room>();
+            Room room2Script = room2.GetComponent<Room>();
+
+            // หา Exit Marker ของแต่ละห้อง
+            Marker exit1 = room1Script.exitMarkers.Find(m => m.isExit);
+            Marker exit2 = room2Script.exitMarkers.Find(m => m.isExit);
+
+            if (exit1 != null)
+            {
+                exit1.connectedBridge = bridge;
+                exit1.connectedRoomName = room2.name;
+                bridge.exitMarker1 = exit1;
+            }
+
+            if (exit2 != null)
+            {
+                exit2.connectedBridge = bridge;
+                exit2.connectedRoomName = room1.name;
+                bridge.exitMarker2 = exit2;
+            }
+        }
+    }
 
     public void InitMarkersForEveryRooms()
     {
@@ -41,11 +92,11 @@ public class BoardManager : MonoBehaviour
         {
             int rows = SizeRoomsData[i].y;
             int cols = SizeRoomsData[i].x;
-            SpawnMarkers(rows, cols, ListRooms[i]);
+            SpawnMarkers(rows, cols, ListRooms[i], i);
         }
     }
 
-    public void SpawnMarkers(int rows, int cols, GameObject Room)
+    public void SpawnMarkers(int rows, int cols, GameObject Room , int Index)
     {
         int spacing = 1;
 
@@ -64,6 +115,13 @@ public class BoardManager : MonoBehaviour
                 Vector2 MarkerPositionKey = new Vector2(c + 1, r + 1);
                 Marker markerScript = marker.GetComponent<Marker>();
                 markerScript.GridPosition = MarkerPositionKey;
+
+                if (MarkerPositionKey == ExitGridPosition[Index])
+                {
+                    markerScript.isExit = true;    
+                    Room roomScript = Room.GetComponent<Room>();
+                    roomScript.exitMarkers.Add(markerScript);
+                }  
             }
         }
     }
@@ -104,7 +162,7 @@ public class BoardManager : MonoBehaviour
         for (int i = 0; i < ListRooms.Count; i++)
         {
             Room room = ListRooms[i].GetComponent<Room>();
-            if (room.roomState == RoomState.Playing)
+            if (room.roomState == RoomState.Playing || room.roomState == RoomState.CanExit)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
@@ -142,21 +200,63 @@ public class BoardManager : MonoBehaviour
         {
             Collider col = ListRooms[i].GetComponent<Collider>();    
             Collider[] hits = Physics.OverlapBox(col.bounds.center, col.bounds.extents, Quaternion.identity);
+
+            bool playerFound = false;
+
             foreach (Collider hit in hits)
             {
-                if (hit.gameObject != ListRooms[i] && hit.gameObject.CompareTag("Player"))
+                if (hit.gameObject.CompareTag("Player"))
                 {
-                    Debug.Log($"Player in {ListRooms[i]}");
-                    Room room = ListRooms[i].GetComponent<Room>();
+                    playerFound = true;
+                    break; // เจอแล้วไม่ต้องวนต่อ
+                }
+            }
+
+            Room room = ListRooms[i].GetComponent<Room>();
+            if (playerFound)
+            {
+                if (room.roomState == RoomState.UnPlaying)
+                {
                     room.roomState = RoomState.Playing;
+                }
+            }
+            else
+            {
+                if (room.roomState == RoomState.CanExit)
+                {
+                    room.roomState = RoomState.Clear;
                 }
             }
         }
     }
 
+    public void CheckPlayerOnExit(GameObject marker)
+    {
+        foreach (GameObject room in ListRooms)
+        {
+            Room roomScript = room.GetComponent<Room>();
+            if (roomScript.roomState == RoomState.CanExit || roomScript.roomState == RoomState.Clear)
+            {
+                Marker markerScript = marker.GetComponent<Marker>();
+                if (markerScript.isExit)
+                {
+                    Debug.Log("Player on Exit");
+                    TranferPlayerToOtherRoom(marker);
+                    return;
+                }    
+            }
+        }
+    }
+
+    public void TranferPlayerToOtherRoom(GameObject markerObj)
+    {
+        
+    }
+
     void Start()
     {
         InitMarkersForEveryRooms();
+        LinkExitsWithBridges();
     }
 
     void Update()

@@ -38,4 +38,25 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(SpawnPlayer());
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            foreach (GameObject room in BoardManager.Instance.ListRooms)
+            {
+                Room roomScript = room.GetComponent<Room>();
+                if (roomScript.roomState == RoomState.Playing)
+                {
+                    roomScript.roomState = RoomState.CanExit;
+                    Debug.Log($"Now {roomScript.gameObject.name} is {roomScript.roomState}");
+                }
+            }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log($"Player Grid Position : {PlayerData.GridPosition}");    
+        }
+    }
 }

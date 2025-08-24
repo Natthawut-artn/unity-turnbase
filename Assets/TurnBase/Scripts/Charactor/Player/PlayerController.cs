@@ -11,11 +11,13 @@ public class PlayerController : MonoBehaviour
     }
     public LayerMask MarkerLayer;
 
-    private IEnumerator MoveToCell(GameObject To)
+    public IEnumerator MoveToCell(GameObject To)
     {
         if (transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
         {
             PlayerData.playerMoveState = PlayerMoveState.Stand;
+            BoardManager.Instance.CheckPlayerOnExit(To);
+            BoardManager.Instance.CheckPlayerInWhatRoom();
             yield break;
         }
 
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
                 yield return null;
             }
             transform.position = targetPos;
-            PlayerData.GridPosition.y -= x;
+            PlayerData.GridPosition.x -= x;
 
             StartCoroutine(MoveToCell(To));
         }
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour
                 yield return null;
             }
             transform.position = targetPos;
-            PlayerData.GridPosition.x -= z;
+            PlayerData.GridPosition.y -= z;
 
             StartCoroutine(MoveToCell(To));
         }
@@ -71,11 +73,6 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine(MoveToCell(hit.collider.gameObject));
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log($"Player Grid Position : {PlayerData.GridPosition}");    
         }
     }
 }
