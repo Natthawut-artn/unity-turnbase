@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
         GameObject MainHero = Instantiate(Resources.Load<GameObject>(Player_Path), Pos, Quaternion.identity);
         PlayerData.GridPosition = PlayerSpawnPoint;
 
+        MainCamera.Instance.SetPlayer(MainHero);
+
         BoardManager.Instance.CheckPlayerInWhatRoom();
     }
 
