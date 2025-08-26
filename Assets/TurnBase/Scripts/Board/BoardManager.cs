@@ -34,9 +34,12 @@ public class BoardManager : MonoBehaviour
             }
             else if (gameObj.GetComponent<Bridge>())
             {
-                ListBridges.Add(gameObj);    
+                ListBridges.Add(gameObj);
             }
         }
+
+        InitMarkersForEveryRooms();
+        LinkBridgesWithRooms();
     }
 
     private const string MarkerPath = "Prefabs/Board/Marker";
@@ -46,11 +49,12 @@ public class BoardManager : MonoBehaviour
     public List<Vector2Int> SizeRoomsData = new List<Vector2Int>();
     public LayerMask MarkerLayer;
     private MeshRenderer currentMarker;
-    private bool justTransferred = false;
+    public bool isTransferring = false;
 
-    public void LinkExitsWithBridges()
+
+    private void LinkBridgesWithRooms()
     {
-        foreach (var bridgeObj in ListBridges)
+        foreach (GameObject bridgeObj in ListBridges)
         {
             Bridge bridge = bridgeObj.GetComponent<Bridge>();
 
@@ -59,29 +63,35 @@ public class BoardManager : MonoBehaviour
 
             if (room1 == null || room2 == null)
             {
-                Debug.LogWarning($"Bridge {bridge.name} ไม่เจอห้อง {bridge.ConnectWith1} หรือ {bridge.ConnectWith2}");
+                Debug.LogError($"Bridge {bridge.name} cannot find connected rooms!");
                 continue;
             }
 
             Room room1Script = room1.GetComponent<Room>();
             Room room2Script = room2.GetComponent<Room>();
 
-            // หา Exit Marker ของแต่ละห้อง
-            Marker exit1 = room1Script.exitMarkers.Find(m => m.isExit);
-            Marker exit2 = room2Script.exitMarkers.Find(m => m.isExit);
-
-            if (exit1 != null)
+            // หา exit marker ของห้อง1
+            foreach (Marker marker in room1.GetComponentsInChildren<Marker>())
             {
-                exit1.connectedBridge = bridge;
-                exit1.connectedRoomName = room2.name;
-                bridge.exitMarker1 = exit1;
+                if (marker.isExit && !marker.ConnectedBridge)
+                {
+                    marker.ConnectedBridge = bridge;
+                    room1Script.ExitMarkers.Add(marker);
+                    bridge.ExitMarkerRoom1 = marker;
+                    break;
+                }
             }
 
-            if (exit2 != null)
+            // หา exit marker ของห้อง2
+            foreach (Marker marker in room2.GetComponentsInChildren<Marker>())
             {
-                exit2.connectedBridge = bridge;
-                exit2.connectedRoomName = room1.name;
-                bridge.exitMarker2 = exit2;
+                if (marker.isExit && !marker.ConnectedBridge)
+                {
+                    marker.ConnectedBridge = bridge;
+                    room2Script.ExitMarkers.Add(marker);
+                    bridge.ExitMarkerRoom2 = marker;
+                    break;
+                }
             }
         }
     }
@@ -120,7 +130,7 @@ public class BoardManager : MonoBehaviour
                 {
                     markerScript.isExit = true;    
                     Room roomScript = Room.GetComponent<Room>();
-                    roomScript.exitMarkers.Add(markerScript);
+                    roomScript.ExitMarkers.Add(markerScript);
                 }  
             }
         }
@@ -250,13 +260,25 @@ public class BoardManager : MonoBehaviour
 
     public void TranferPlayerToOtherRoom(GameObject markerObj)
     {
-        
+        if (isTransferring) return; // ป้องกัน loop
+        isTransferring = true;
+
+        Marker markerScript = markerObj.GetComponent<Marker>();
+        if (!markerScript.isExit || markerScript.ConnectedBridge == null) { isTransferring = false; return; }
+
+        Bridge bridge = markerScript.ConnectedBridge;
+        Marker otherExit = bridge.GetOtherExit(markerScript);
+        if (otherExit == null) { isTransferring = false; return; }
+
+        PlayerData.playerMoveState = PlayerMoveState.Walk;
+        StartCoroutine(PlayerController.Instance.MoveToCell(otherExit.gameObject));
+
+        Debug.Log($"Player transfered to room {bridge.GetOtherRoom(markerObj.transform.parent.name)}");
     }
+
 
     void Start()
     {
-        InitMarkersForEveryRooms();
-        LinkExitsWithBridges();
     }
 
     void Update()

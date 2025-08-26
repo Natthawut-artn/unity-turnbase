@@ -16,7 +16,12 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
         {
             PlayerData.playerMoveState = PlayerMoveState.Stand;
-            BoardManager.Instance.CheckPlayerOnExit(To);
+            Room room = To.GetComponentInParent<Room>();
+            if (room.roomState == RoomState.CanExit)
+            {
+                BoardManager.Instance.CheckPlayerOnExit(To);
+            }
+            BoardManager.Instance.isTransferring = false;
             BoardManager.Instance.CheckPlayerInWhatRoom();
             yield break;
         }
@@ -27,10 +32,9 @@ public class PlayerController : MonoBehaviour
             Vector3 Dir = new Vector3(transform.position.x - To.transform.position.x, 0, 0).normalized;
             int x = Dir.x > 0 ? x = -1 : x = 1;
             Vector3 targetPos = transform.position + new Vector3(x, 0, 0);
-            float speed = 5f;
             while (Vector3.Distance(transform.position, targetPos) > 0.01f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, PlayerData.moveSpeed * Time.deltaTime);
                 yield return null;
             }
             transform.position = targetPos;
@@ -44,10 +48,9 @@ public class PlayerController : MonoBehaviour
             Vector3 Dir = new Vector3(0, 0, transform.position.z - To.transform.position.z).normalized;
             int z = Dir.z > 0 ? z = -1 : z = 1;
             Vector3 targetPos = transform.position + new Vector3(0, 0, z);
-            float speed = 5f;
             while (Vector3.Distance(transform.position, targetPos) > 0.01f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, PlayerData.moveSpeed * Time.deltaTime);
                 yield return null;
             }
             transform.position = targetPos;
