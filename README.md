@@ -8,7 +8,7 @@
 - N/A
 
 # Dev Platform
-- Unity 2022.3.61f1
+- Unity 2022.3.60f1
 
 # Build Platform
 - Pc(window)
