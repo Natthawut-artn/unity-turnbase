@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public Vector2 PlayerSpawnPoint;
     public string Room;
     private const string Player_Path = "Prefabs/Charactor/Player/Player";
+    public Vector2 EnemySpawnPoint;
+    private const string Enemy_Path = "Prefabs/Charactor/Enemy/Enemy";
 
     IEnumerator SpawnPlayer()
     {
@@ -36,9 +38,22 @@ public class GameManager : MonoBehaviour
         BoardManager.Instance.CheckPlayerInWhatRoom();
     }
 
+    IEnumerator SpawnEnemy()
+    {
+        yield return null;
+        Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(EnemySpawnPoint, BoardManager.Instance.GetRoom(Room));
+        Pos += new Vector3(0f, 1.49f, 0f);
+
+        GameObject MainEnemy = Instantiate(Resources.Load<GameObject>(Enemy_Path), Pos, Quaternion.identity);
+        PlayerData.GridPosition = EnemySpawnPoint;
+
+        
+    }
+
     void Start()
     {
         StartCoroutine(SpawnPlayer());
+        StartCoroutine(SpawnEnemy());
     }
 
     void Update()
