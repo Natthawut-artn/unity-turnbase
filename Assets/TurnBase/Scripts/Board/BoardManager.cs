@@ -9,7 +9,15 @@ public enum RoomState
     Playing,
     UnPlaying,
     CanExit,
-    Clear
+    Clear,
+    Visit
+}
+
+[System.Serializable]
+public class ExitGridData
+{
+    public int RoomIndex;
+    public List<Vector2Int> Positions;
 }
 
 public class BoardManager : MonoBehaviour
@@ -45,7 +53,7 @@ public class BoardManager : MonoBehaviour
     private const string MarkerPath = "Prefabs/Board/Marker";
     public List<GameObject> ListRooms = new List<GameObject>();
     public List<GameObject> ListBridges = new List<GameObject>();
-    public List<Vector2Int> ExitGridPosition = new List<Vector2Int>();
+    public List<ExitGridData> ExitGridPositions = new List<ExitGridData>();
     public List<Vector2Int> SizeRoomsData = new List<Vector2Int>();
     public LayerMask MarkerLayer;
     private MeshRenderer currentMarker;
@@ -70,31 +78,42 @@ public class BoardManager : MonoBehaviour
             Room room1Script = room1.GetComponent<Room>();
             Room room2Script = room2.GetComponent<Room>();
 
-            // หา exit marker ของห้อง1
-            foreach (Marker marker in room1.GetComponentsInChildren<Marker>())
+            // หา exit marker ของห้อง1 ตามตำแหน่งที่กำหนด
+            Marker marker1 = room1.GetComponentsInChildren<Marker>()
+                .FirstOrDefault(m => m.isExit && m.GridPosition == bridge.ExitPosRoom1);
+
+            if (marker1 != null && marker1.ConnectedBridge == null)
             {
-                if (marker.isExit && !marker.ConnectedBridge)
-                {
-                    marker.ConnectedBridge = bridge;
-                    room1Script.ExitMarkers.Add(marker);
-                    bridge.ExitMarkerRoom1 = marker;
-                    break;
-                }
+                marker1.ConnectedBridge = bridge;
+                if (!room1Script.ExitMarkers.Contains(marker1))
+                    room1Script.ExitMarkers.Add(marker1);
+
+                bridge.ExitMarkerRoom1 = marker1;
+            }
+            else
+            {
+                Debug.LogWarning($"Bridge {bridge.name} could not find ExitMarker at {bridge.ExitPosRoom1} in room {room1.name}");
             }
 
-            // หา exit marker ของห้อง2
-            foreach (Marker marker in room2.GetComponentsInChildren<Marker>())
+            // หา exit marker ของห้อง2 ตามตำแหน่งที่กำหนด
+            Marker marker2 = room2.GetComponentsInChildren<Marker>()
+                .FirstOrDefault(m => m.isExit && m.GridPosition == bridge.ExitPosRoom2);
+
+            if (marker2 != null && marker2.ConnectedBridge == null)
             {
-                if (marker.isExit && !marker.ConnectedBridge)
-                {
-                    marker.ConnectedBridge = bridge;
-                    room2Script.ExitMarkers.Add(marker);
-                    bridge.ExitMarkerRoom2 = marker;
-                    break;
-                }
+                marker2.ConnectedBridge = bridge;
+                if (!room2Script.ExitMarkers.Contains(marker2))
+                    room2Script.ExitMarkers.Add(marker2);
+
+                bridge.ExitMarkerRoom2 = marker2;
+            }
+            else
+            {
+                Debug.LogWarning($"Bridge {bridge.name} could not find ExitMarker at {bridge.ExitPosRoom2} in room {room2.name}");
             }
         }
     }
+
 
     public void InitMarkersForEveryRooms()
     {
@@ -106,9 +125,11 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void SpawnMarkers(int rows, int cols, GameObject Room , int Index)
+    public void SpawnMarkers(int rows, int cols, GameObject Room, int roomIndex)
     {
         int spacing = 1;
+        Room roomScript = Room.GetComponent<Room>();
+        ExitGridData exitData = ExitGridPositions.Find(e => e.RoomIndex == roomIndex);
 
         for (int r = 0; r < rows; r++)
         {
@@ -120,18 +141,17 @@ public class BoardManager : MonoBehaviour
 
                 Vector3 pos = new Vector3(x, y, z) + Room.transform.position;
                 GameObject marker = Instantiate(Resources.Load<GameObject>(MarkerPath), pos, Quaternion.identity, Room.transform);
-                marker.name = $"Marker R{r + 1} C{c + 1}";
+                marker.name = $"Marker R{r + 1} C{c + 1} in Room{roomIndex + 1}";
 
-                Vector2 MarkerPositionKey = new Vector2(c + 1, r + 1);
+                Vector2Int markerPos = new Vector2Int(c + 1, r + 1);
                 Marker markerScript = marker.GetComponent<Marker>();
-                markerScript.GridPosition = MarkerPositionKey;
+                markerScript.GridPosition = markerPos;
 
-                if (MarkerPositionKey == ExitGridPosition[Index])
+                if (exitData != null && exitData.Positions.Contains(markerPos))
                 {
-                    markerScript.isExit = true;    
-                    Room roomScript = Room.GetComponent<Room>();
+                    markerScript.isExit = true;
                     roomScript.ExitMarkers.Add(markerScript);
-                }  
+                }
             }
         }
     }
@@ -148,7 +168,7 @@ public class BoardManager : MonoBehaviour
         return null;
     }
 
-    public Vector3 GetMarkerWorldPosition(Vector2 GridPosition , GameObject Room)
+    public Vector3 GetMarkerWorldPosition(Vector2 GridPosition, GameObject Room)
     {
         for (int j = 0; j < Room.transform.childCount; j++)
         {
@@ -200,7 +220,7 @@ public class BoardManager : MonoBehaviour
                         // currentMarker = null;
                     }
                 }
-            }    
+            }
         }
     }
 
@@ -208,7 +228,7 @@ public class BoardManager : MonoBehaviour
     {
         for (int i = 0; i < ListRooms.Count; i++)
         {
-            Collider col = ListRooms[i].GetComponent<Collider>();    
+            Collider col = ListRooms[i].GetComponent<Collider>();
             Collider[] hits = Physics.OverlapBox(col.bounds.center, col.bounds.extents, Quaternion.identity);
 
             bool playerFound = false;
@@ -228,6 +248,10 @@ public class BoardManager : MonoBehaviour
                 if (room.roomState == RoomState.UnPlaying)
                 {
                     room.roomState = RoomState.Playing;
+                }
+                else if (room.roomState == RoomState.Clear)
+                {
+                    room.roomState = RoomState.CanExit;
                 }
             }
             else
@@ -253,7 +277,7 @@ public class BoardManager : MonoBehaviour
                     Debug.Log("Player on Exit");
                     TranferPlayerToOtherRoom(marker);
                     return;
-                }    
+                }
             }
         }
     }

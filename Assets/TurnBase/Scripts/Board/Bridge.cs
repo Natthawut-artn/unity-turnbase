@@ -6,8 +6,12 @@ public class Bridge : MonoBehaviour
 {
     public string ConnectWith1;
     public string ConnectWith2;
-    public Marker ExitMarkerRoom1; 
-    public Marker ExitMarkerRoom2; 
+    public Vector2Int ExitPosRoom1;   // กำหนดใน Inspector
+    public Vector2Int ExitPosRoom2;   // กำหนดใน Inspector
+
+    [Header("Assigned Exit Markers (Auto)")]
+    public Marker ExitMarkerRoom1;
+    public Marker ExitMarkerRoom2;
 
     public string GetOtherRoom(string currentRoomName)
     {

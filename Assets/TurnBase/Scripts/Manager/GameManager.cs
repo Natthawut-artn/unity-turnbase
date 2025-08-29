@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnPlayer());
-        StartCoroutine(SpawnEnemy());
+        // StartCoroutine(SpawnEnemy());
     }
 
     void Update()
