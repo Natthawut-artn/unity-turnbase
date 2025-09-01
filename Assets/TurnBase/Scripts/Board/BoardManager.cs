@@ -40,11 +40,18 @@ public class BoardManager : MonoBehaviour
             {
                 ListRooms.Add(gameObj);
             }
-            else if (gameObj.GetComponent<Bridge>())
-            {
-                ListBridges.Add(gameObj);
-            }
         }
+
+        GameObject BridgesParent = gameObject.transform.Find("Bridges").gameObject;
+        for (int i = 0; i < BridgesParent.transform.childCount; i++)
+        {
+            GameObject bridge = BridgesParent.transform.GetChild(i).gameObject;
+            if (bridge.GetComponent<Bridge>())
+            {
+                ListBridges.Add(bridge);
+            }    
+        }
+        
 
         InitMarkersForEveryRooms();
         LinkBridgesWithRooms();
@@ -228,7 +235,7 @@ public class BoardManager : MonoBehaviour
     {
         for (int i = 0; i < ListRooms.Count; i++)
         {
-            Collider col = ListRooms[i].GetComponent<Collider>();
+            BoxCollider col = ListRooms[i].GetComponent<BoxCollider>();
             Collider[] hits = Physics.OverlapBox(col.bounds.center, col.bounds.extents, Quaternion.identity);
 
             bool playerFound = false;
