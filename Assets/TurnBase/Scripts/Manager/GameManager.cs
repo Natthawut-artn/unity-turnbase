@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    public GameObject CurrentStage;
     public LayerMask MarkerLayer;
     public Vector2 PlayerSpawnPoint;
     public string Room;
@@ -24,9 +25,18 @@ public class GameManager : MonoBehaviour
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Enemy";
 
-    IEnumerator SpawnPlayer()
+    public void StartGame()
     {
-        yield return null;
+        CurrentStage = Instantiate(Resources.Load<GameObject>("Prefabs/Stages/Sci-fi/Sci-fi 1"));
+    }
+
+    public void StopGame()
+    {
+        Destroy(CurrentStage);
+    }
+
+    public void SpawnPlayer()
+    {
         Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlayerSpawnPoint, BoardManager.Instance.GetRoom(Room));
         Pos += new Vector3(0f, 1.49f, 0f);
 
@@ -52,7 +62,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnPlayer());
+        StartGame();
+        if (CurrentStage != null)
+        {
+            SpawnPlayer();   
+        }
         // StartCoroutine(SpawnEnemy());
     }
 
