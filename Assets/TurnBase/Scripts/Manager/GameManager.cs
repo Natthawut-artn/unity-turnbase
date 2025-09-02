@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         CurrentStage = Instantiate(Resources.Load<GameObject>("Prefabs/Stages/Sci-fi/Sci-fi 1"));
+
+        if (CurrentStage != null)
+        {
+            SpawnPlayer();
+        }
     }
 
     public void StopGame()
@@ -48,26 +53,18 @@ public class GameManager : MonoBehaviour
         BoardManager.Instance.CheckPlayerInWhatRoom();
     }
 
-    IEnumerator SpawnEnemy()
+    public void SpawnEnemy()
     {
-        yield return null;
         Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(EnemySpawnPoint, BoardManager.Instance.GetRoom(Room));
         Pos += new Vector3(0f, 1.49f, 0f);
 
         GameObject MainEnemy = Instantiate(Resources.Load<GameObject>(Enemy_Path), Pos, Quaternion.identity);
         PlayerData.GridPosition = EnemySpawnPoint;
-
-        
     }
 
     void Start()
     {
         StartGame();
-        if (CurrentStage != null)
-        {
-            SpawnPlayer();   
-        }
-        // StartCoroutine(SpawnEnemy());
     }
 
     void Update()
@@ -84,10 +81,15 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        
+
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log($"Player Grid Position : {PlayerData.GridPosition}");    
+            Debug.Log($"Player Grid Position : {PlayerData.GridPosition}");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SpawnEnemy();    
         }
     }
 }
