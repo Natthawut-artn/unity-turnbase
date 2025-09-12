@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartGame();
+        SpawnEnemy();  
+        SwiftTurnHUDController.Show();
     }
 
     void Update()

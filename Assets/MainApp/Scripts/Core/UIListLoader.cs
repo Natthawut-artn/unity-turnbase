@@ -4,7 +4,7 @@ public class UIListLoader
 {
     public List<object> HUDs { get; private set; } = new List<object>()
     {
-       
+        new SwiftTurnHUD()
     };
     public List<object> PopUps { get; private set; } = new List<object>()
     {
