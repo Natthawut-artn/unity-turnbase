@@ -5,10 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
-    void Awake()
-    {
-        Instance = this;
-    }
+    void Awake() { Instance = this; }
+
+
     public LayerMask MarkerLayer;
 
     public IEnumerator MoveToCell(GameObject To)
@@ -21,11 +20,12 @@ public class PlayerController : MonoBehaviour
             yield break;
         }
 
+
         if (transform.position.x != To.transform.position.x)
         {
             PlayerData.playerMoveState = PlayerMoveState.Walk;
             Vector3 Dir = new Vector3(transform.position.x - To.transform.position.x, 0, 0).normalized;
-            int x = Dir.x > 0 ? x = -1 : x = 1;
+            int x = Dir.x > 0 ? -1 : 1;
             Vector3 targetPos = transform.position + new Vector3(x, 0, 0);
             float speed = 5f;
             while (Vector3.Distance(transform.position, targetPos) > 0.01f)
@@ -35,14 +35,13 @@ public class PlayerController : MonoBehaviour
             }
             transform.position = targetPos;
             PlayerData.GridPosition.x -= x;
-
             StartCoroutine(MoveToCell(To));
         }
         else if (transform.position.z != To.transform.position.z)
         {
             PlayerData.playerMoveState = PlayerMoveState.Walk;
             Vector3 Dir = new Vector3(0, 0, transform.position.z - To.transform.position.z).normalized;
-            int z = Dir.z > 0 ? z = -1 : z = 1;
+            int z = Dir.z > 0 ? -1 : 1;
             Vector3 targetPos = transform.position + new Vector3(0, 0, z);
             float speed = 5f;
             while (Vector3.Distance(transform.position, targetPos) > 0.01f)
@@ -52,23 +51,21 @@ public class PlayerController : MonoBehaviour
             }
             transform.position = targetPos;
             PlayerData.GridPosition.y -= z;
-
             StartCoroutine(MoveToCell(To));
         }
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
+        // Only allow input during Player phase
+        if (TurnManager.Instance == null || TurnManager.Instance.currentPhase != Phase.Player)
+            return;
+
+
         if (Input.GetMouseButtonDown(0) && PlayerData.playerMoveState == PlayerMoveState.Stand)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
             {
                 StartCoroutine(MoveToCell(hit.collider.gameObject));
