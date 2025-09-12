@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : CharactorInheritance
 {
     public NavMeshAgent agent;
     public Transform Player;
@@ -30,20 +30,50 @@ public class EnemyAI : MonoBehaviour
         agent.updateUpAxis = false;
     }
 
-    private void Update()
+    public IEnumerator TakeTurn()
     {
+        Debug.Log($"{name} starting turn");
+
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        // Decide action
+        if (!playerInSightRange && !playerInAttackRange)
+        {
+            Patroling();
+        }
+        else if (playerInSightRange && !playerInAttackRange)
+        {
+            ChasePlayer();
+        }
+        else if (playerInSightRange && playerInAttackRange)
+        {
+            AttackPlayer();
+            yield return new WaitForSeconds(1f); // wait so player sees attack
+            Debug.Log($"{name} finished turn (attack)");
+            yield break;
+        }
 
-        FaceMovementDirection();
+        // Wait for movement
+        float maxTime = 2f;
+        float timer = 0f;
+
+        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance + 0.05f)
+        {
+            FaceMovementDirection();
+            timer += Time.deltaTime;
+            if (timer >= maxTime) break;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        Debug.Log($"{name} finished turn (move)");
     }
 
     public void Patroling()
     {
+
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -133,5 +163,3 @@ public class EnemyAI : MonoBehaviour
         }
     }
 }
-
-
