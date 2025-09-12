@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 364832683}
   - component: {fileID: 364832684}
+  - component: {fileID: 364832685}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -173,6 +174,19 @@ MonoBehaviour:
   PlayerSpawnPoint: {x: 1, y: 1}
   Room: Room1
   EnemySpawnPoint: {x: 0, y: 0}
+--- !u!114 &364832685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364832682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 694d2aac6c738544b88fed3b83a36fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPhase: 0
 --- !u!1001 &366604625
 PrefabInstance:
   m_ObjectHideFlags: 0
