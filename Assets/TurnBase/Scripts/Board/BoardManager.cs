@@ -143,7 +143,7 @@ public class BoardManager : MonoBehaviour
             for (int c = 0; c < cols; c++)
             {
                 float x = (c - (cols - 1) / 2f) * spacing * -1;
-                float y = -0.49f;
+                float y = -0.3f;
                 float z = (r - (rows - 1) / 2f) * spacing * -1;
 
                 Vector3 pos = new Vector3(x, y, z) + Room.transform.position;
@@ -204,7 +204,7 @@ public class BoardManager : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer) && PlayerData.playerMoveState == PlayerMoveState.Stand)
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer) && PlayerData.Instance.playerMoveState == PlayerMoveState.Stand)
                 {
                     MeshRenderer newMarker = hit.collider.GetComponent<MeshRenderer>();
                     if (newMarker != currentMarker)
@@ -301,7 +301,6 @@ public class BoardManager : MonoBehaviour
         Marker otherExit = bridge.GetOtherExit(markerScript);
         if (otherExit == null) { isTransferring = false; return; }
 
-        PlayerData.playerMoveState = PlayerMoveState.Walk;
         StartCoroutine(PlayerController.Instance.MoveToCell(otherExit.gameObject));
 
         Debug.Log($"Player transfered to room {bridge.GetOtherRoom(markerObj.transform.parent.name)}");

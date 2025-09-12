@@ -14,8 +14,10 @@ GameObject:
   - component: {fileID: 9156395593988656490}
   - component: {fileID: 3698508552941554605}
   - component: {fileID: 2645992936480487872}
+  - component: {fileID: 4633635948782707846}
+  - component: {fileID: 4173118286789655855}
   m_Layer: 7
-  m_Name: Player
+  m_Name: Striker
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,3 +153,38 @@ MonoBehaviour:
   MarkerLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &4633635948782707846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4369664836341055693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccce5ecd70d97404cb82f997582fcc69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroclass: 0
+  HP: 100
+  ATK: 15
+  MagicATK: 10
+  Defense: 5
+  CritRate: 7
+  CritDGM: 7
+  Speed: 10
+  GridPosition: {x: 0, y: 0}
+  moveSpeed: 5
+  playerMoveState: 0
+--- !u!114 &4173118286789655855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4369664836341055693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83796cc32f34f448acf42598f3ec387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public LayerMask MarkerLayer;
     public Vector2 PlayerSpawnPoint;
     public string Room;
-    private const string Player_Path = "Prefabs/Charactor/Player/Player";
+    private const string Player_Path = "Prefabs/Charactor/Player/Striker";
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Enemy";
 
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         Pos += new Vector3(0f, 1.49f, 0f);
 
         GameObject MainHero = Instantiate(Resources.Load<GameObject>(Player_Path), Pos, Quaternion.identity);
-        PlayerData.GridPosition = PlayerSpawnPoint;
+        PlayerData.Instance.GridPosition = PlayerSpawnPoint;
 
         MainCamera.Instance.SetPlayer(MainHero);
 
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         Pos += new Vector3(0f, 1.49f, 0f);
 
         GameObject MainEnemy = Instantiate(Resources.Load<GameObject>(Enemy_Path), Pos, Quaternion.identity);
-        PlayerData.GridPosition = EnemySpawnPoint;
+        PlayerData.Instance.GridPosition = EnemySpawnPoint;
     }
 
     void Start()
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log($"Player Grid Position : {PlayerData.GridPosition}");
+            Debug.Log($"Player Grid Position : {PlayerData.Instance.GridPosition}");
         }
 
         if (Input.GetKeyDown(KeyCode.Q))

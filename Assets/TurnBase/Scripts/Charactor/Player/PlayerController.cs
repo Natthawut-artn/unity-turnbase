@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
         {
-            PlayerData.playerMoveState = PlayerMoveState.Stand;
+            PlayerData.Instance.playerMoveState = PlayerMoveState.Stand;
             Room room = To.GetComponentInParent<Room>();
             if (room.roomState == RoomState.CanExit)
             {
@@ -28,33 +28,33 @@ public class PlayerController : MonoBehaviour
 
         if (transform.position.x != To.transform.position.x)
         {
-            PlayerData.playerMoveState = PlayerMoveState.Walk;
+            PlayerData.Instance.playerMoveState = PlayerMoveState.Walk;
             Vector3 Dir = new Vector3(transform.position.x - To.transform.position.x, 0, 0).normalized;
             int x = Dir.x > 0 ? x = -1 : x = 1;
             Vector3 targetPos = transform.position + new Vector3(x, 0, 0);
             while (Vector3.Distance(transform.position, targetPos) > 0.01f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, PlayerData.moveSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, PlayerData.Instance.moveSpeed * Time.deltaTime);
                 yield return null;
             }
             transform.position = targetPos;
-            PlayerData.GridPosition.x -= x;
+            PlayerData.Instance.GridPosition.x -= x;
 
             StartCoroutine(MoveToCell(To));
         }
         else if (transform.position.z != To.transform.position.z)
         {
-            PlayerData.playerMoveState = PlayerMoveState.Walk;
+            PlayerData.Instance.playerMoveState = PlayerMoveState.Walk;
             Vector3 Dir = new Vector3(0, 0, transform.position.z - To.transform.position.z).normalized;
             int z = Dir.z > 0 ? z = -1 : z = 1;
             Vector3 targetPos = transform.position + new Vector3(0, 0, z);
             while (Vector3.Distance(transform.position, targetPos) > 0.01f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, PlayerData.moveSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, PlayerData.Instance.moveSpeed * Time.deltaTime);
                 yield return null;
             }
             transform.position = targetPos;
-            PlayerData.GridPosition.y -= z;
+            PlayerData.Instance.GridPosition.y -= z;
 
             StartCoroutine(MoveToCell(To));
         }
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && PlayerData.playerMoveState == PlayerMoveState.Stand)
+        if (Input.GetMouseButtonDown(0) && PlayerData.Instance.playerMoveState == PlayerMoveState.Stand)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

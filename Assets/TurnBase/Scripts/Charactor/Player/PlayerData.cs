@@ -6,9 +6,15 @@ public enum PlayerMoveState
     Walk
 }
 
-public static class PlayerData
+public class PlayerData : CharactorInheritance
 {
-    public static Vector2 GridPosition;
-    public static float moveSpeed = 5f; 
-    public static PlayerMoveState playerMoveState = PlayerMoveState.Stand;
+    public static PlayerData Instance;
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    public Vector2 GridPosition;
+    public float moveSpeed = 5f; 
+    public PlayerMoveState playerMoveState = PlayerMoveState.Stand;
 }
