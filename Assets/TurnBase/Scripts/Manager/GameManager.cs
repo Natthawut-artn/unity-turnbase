@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
+
+        playerData = GetComponent<PlayerData>();
     }
 
+    private PlayerData playerData;
     private GameObject Player;
     public GameObject CurrentStage;
     public LayerMask MarkerLayer;
@@ -67,7 +70,7 @@ public class GameManager : MonoBehaviour
             Pos += new Vector3(0f, 1.49f, 0f);
 
             Player = Instantiate(Resources.Load<GameObject>(Player_Path), Pos, Quaternion.identity);
-            PlayerData.Instance.GridPosition = PlayerSpawnPoint;
+            playerData.GridPosition = PlayerSpawnPoint;
 
             BoardManager.Instance.CheckPlayerInWhatRoom();
         }
@@ -80,7 +83,7 @@ public class GameManager : MonoBehaviour
         Pos += new Vector3(0f, 1.49f, 0f);
 
         GameObject MainEnemy = Instantiate(Resources.Load<GameObject>(Enemy_Path), Pos, Quaternion.identity);
-        PlayerData.Instance.GridPosition = EnemySpawnPoint;
+        playerData.GridPosition = EnemySpawnPoint;
     }
 
     public void BackToTheHub()
@@ -109,11 +112,6 @@ public class GameManager : MonoBehaviour
                     Debug.Log($"Now {roomScript.gameObject.name} is {roomScript.roomState}");
                 }
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log($"Player Grid Position : {PlayerData.Instance.GridPosition}");
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
