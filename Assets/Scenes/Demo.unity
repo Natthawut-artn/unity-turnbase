@@ -267,6 +267,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainApp
       objectReference: {fileID: 0}
+    - target: {fileID: 2054327270534318141, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054327270534318141, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054327270534318141, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 10180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914502573055694867, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914502573055694867, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914502573055694867, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 10180
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571657361779382803, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571657361779382803, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571657361779382803, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 10180
+      objectReference: {fileID: 0}
     - target: {fileID: 7733285534880139676, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -307,6 +343,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8228280864174983901, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228280864174983901, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228280864174983901, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 10180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311603276766252077, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311603276766252077, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311603276766252077, guid: f1868089c210b754dbd94f071bc7da74, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 10180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -343,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf0ee56e67879a4dbf8cb62d244e3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: {x: 5, y: 5, z: 5}
+  Player: {fileID: 0}
 --- !u!81 &1507329472
 AudioListener:
   m_ObjectHideFlags: 0
