@@ -57,7 +57,12 @@ public class PlayerController : CharactorInheritance
             StartCoroutine(MoveToCell(To));
         }
     }
-
+    public IEnumerator SwitchTurn()
+    {
+        yield return new WaitForSeconds(1f);
+        TurnManager.Instance.currentPhase = Phase.Enemy;
+        TurnManager.Instance.StartCoroutine(TurnManager.Instance.EnemyPhase());
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && PlayerData.Instance.playerMoveState == PlayerMoveState.Stand)
@@ -72,6 +77,7 @@ public class PlayerController : CharactorInheritance
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
             {
                 StartCoroutine(MoveToCell(hit.collider.gameObject));
+                StartCoroutine(SwitchTurn());
             }
         }
     }
