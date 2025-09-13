@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    private GameObject Player;
+    public GameObject Player;
     public GameObject CurrentStage;
     public LayerMask MarkerLayer;
     public Vector2 PlayerSpawnPoint;
@@ -70,9 +70,18 @@ public class GameManager : MonoBehaviour
             PlayerData playerData = Player.GetComponent<PlayerData>();
             playerData.GridPosition = PlayerSpawnPoint;
 
+            StartCoroutine(Wait());
+
             BoardManager.Instance.CheckPlayerInWhatRoom();
+
         }
         MainCamera.Instance.SetPlayer(Player.transform);
+    }
+
+    IEnumerator Wait()
+    {
+        yield return null;
+        HPBarHUDController.Show();
     }
 
     public void SpawnEnemy()
@@ -87,6 +96,7 @@ public class GameManager : MonoBehaviour
 
     public void BackToTheHub()
     {
+        HPBarHUDController.Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();

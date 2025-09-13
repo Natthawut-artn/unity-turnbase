@@ -3,7 +3,8 @@ using UnityEngine;
 public enum PlayerMoveState
 {
     Stand,
-    Walk
+    Walk,
+    Die
 }
 
 public class PlayerData : CharactorInheritance

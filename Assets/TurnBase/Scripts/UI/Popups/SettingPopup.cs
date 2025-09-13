@@ -65,7 +65,7 @@ public class SettingPopup : IUIElement
         {
             Hide();
         });
-        
+
         Button confirm = _selfGameObject.transform.Find("Confirm").GetComponent<Button>();
         confirm.onClick.AddListener(() =>
         {
@@ -74,7 +74,14 @@ public class SettingPopup : IUIElement
 
         if (AppStateManager.appState == AppState.Hub)
         {
-            confirm.interactable = false;    
+            confirm.interactable = false;
+        }
+        
+        GameObject Player = GameManager.Instance.Player;
+        PlayerData playerData = Player.GetComponent<PlayerData>();
+        if (playerData.playerMoveState == PlayerMoveState.Die)
+        {
+            close.interactable = false;
         }
     }
 }

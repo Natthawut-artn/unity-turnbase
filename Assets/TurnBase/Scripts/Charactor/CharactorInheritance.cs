@@ -44,7 +44,7 @@ public class CharactorInheritance : MonoBehaviour
         currentHP += Heal;
         if (currentHP >= HP)
         {
-            currentHP = HP;    
+            currentHP = HP;
         }
         Debug.Log($"Player get Heal : {Heal}, HP {currentHP}");
     }
@@ -53,7 +53,7 @@ public class CharactorInheritance : MonoBehaviour
     {
 
     }
-    
+
     void Die()
     {
         string side;
@@ -67,8 +67,19 @@ public class CharactorInheritance : MonoBehaviour
         else
         {
             side = "Player";
+            StartCoroutine(Wait());
         }
         Debug.Log($"{side} died.");
         // Add death logic here (e.g., respawn, game over screen)
+    }
+
+    IEnumerator Wait()
+    {
+        PlayerController playerController = GetComponent<PlayerController>();
+        playerController.enabled = false;
+        PlayerData playerData = GetComponent<PlayerData>();
+        playerData.playerMoveState = PlayerMoveState.Die;
+        yield return new WaitForSeconds(0.75f);
+        SettingPopupController.Show();
     }
 }

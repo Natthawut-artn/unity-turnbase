@@ -156,7 +156,8 @@ public class EnemyAI : MonoBehaviour
             foreach (Collider player in hitEnemies)
             {
                 Debug.Log("Hit " + player.name);
-                player.GetComponent<PlayerData>().TakeDamage(10);
+                player.GetComponent<PlayerData>().TakeDamage(100);
+                HPBarHUDController.UpProgression();
             }
             Debug.Log("Attacking Player");
             alreadyAttacked = true;
