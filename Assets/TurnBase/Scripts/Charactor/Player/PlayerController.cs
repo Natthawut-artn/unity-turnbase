@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask MarkerLayer;
     public PlayerData playerData;
+    public int maxHealth;
+    public int currentHealth;
+
 
     public IEnumerator MoveToCell(GameObject To)
     {
@@ -66,14 +69,20 @@ public class PlayerController : MonoBehaviour
     public IEnumerator SwitchTurn()
     {
         yield return new WaitForSeconds(1f);
-        TurnManager.Instance.currentPhase = Phase.Enemy;
-        TurnManager.Instance.StartCoroutine(TurnManager.Instance.EnemyPhase());
+        TurnManager.Instance.EndTurn();
     }
+
+    void Start()
+    {
+        maxHealth = playerData.HP;
+        playerData.currentHP = maxHealth;
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && playerData.playerMoveState == PlayerMoveState.Stand && !EventSystem.current.IsPointerOverGameObject())
-        // Only allow input during Player phase
-        if (TurnManager.Instance == null || TurnManager.Instance.currentPhase != Phase.Player) return;
+            // Only allow input during Player phase
+            if (TurnManager.Instance == null || TurnManager.Instance.currentPhase != Phase.Player) return;
 
 
         if (Input.GetMouseButtonDown(0) && playerData.playerMoveState == PlayerMoveState.Stand && !EventSystem.current.IsPointerOverGameObject())
@@ -85,6 +94,12 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(MoveToCell(hit.collider.gameObject));
                 StartCoroutine(SwitchTurn());
             }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            playerData.Healing(20);
+            StartCoroutine(SwitchTurn());
         }
     }
 }

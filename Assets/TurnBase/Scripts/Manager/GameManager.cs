@@ -15,11 +15,8 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-
-        playerData = GetComponent<PlayerData>();
     }
 
-    private PlayerData playerData;
     private GameObject Player;
     public GameObject CurrentStage;
     public LayerMask MarkerLayer;
@@ -70,6 +67,7 @@ public class GameManager : MonoBehaviour
             Pos += new Vector3(0f, 1.49f, 0f);
 
             Player = Instantiate(Resources.Load<GameObject>(Player_Path), Pos, Quaternion.identity);
+            PlayerData playerData = Player.GetComponent<PlayerData>();
             playerData.GridPosition = PlayerSpawnPoint;
 
             BoardManager.Instance.CheckPlayerInWhatRoom();
@@ -83,7 +81,8 @@ public class GameManager : MonoBehaviour
         Pos += new Vector3(0f, 1.49f, 0f);
 
         GameObject MainEnemy = Instantiate(Resources.Load<GameObject>(Enemy_Path), Pos, Quaternion.identity);
-        playerData.GridPosition = EnemySpawnPoint;
+        EnemyData enemyData = MainEnemy.GetComponent<EnemyData>();
+        enemyData.GridPosition = EnemySpawnPoint;
     }
 
     public void BackToTheHub()

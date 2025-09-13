@@ -11,14 +11,11 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        // Detect enemies in range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsEnemy);
-        // Damage them
         foreach (Collider enemy in hitEnemies)
         {
             Debug.Log("Hit " + enemy.name);
-            // Assume enemy has a method TakeDamage(int amount)
-            enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+            enemy.GetComponent<EnemyData>().TakeDamage(attackDamage);
         }
     }
     private void Update()

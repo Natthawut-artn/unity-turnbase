@@ -6,12 +6,13 @@ public enum HeroClass
 {
     Striker,
     Protecter,
-    Support
-
+    Support,
+    Enemy
 }
 
 public class CharactorInheritance : MonoBehaviour
 {
+    // default
     public HeroClass heroclass;
     public int HP;
     public int ATK;
@@ -21,21 +22,53 @@ public class CharactorInheritance : MonoBehaviour
     public int CritDGM;
     public int Speed;
 
+    // curruent
+    public int currentHP;
+
     public void TakeDamage(int Damage)
     {
-        HP -= Damage;
-        if (HP <= 0) { HP = 0; Debug.Log("Player Died"); }
-        else { Debug.Log($"Player HP : {HP}"); }
+        currentHP -= Damage;
+        if (currentHP <= 0)
+        {
+            currentHP = 0;
+            Die();
+        }
+        else
+        {
+            Debug.Log($"Player HP : {currentHP}");
+        }
     }
 
     public void Healing(int Heal)
     {
-        HP += Heal;
-        Debug.Log($"Player get Heal : {Heal}, HP {HP}");
+        currentHP += Heal;
+        if (currentHP >= HP)
+        {
+            currentHP = HP;    
+        }
+        Debug.Log($"Player get Heal : {Heal}, HP {currentHP}");
     }
 
     public void ReceiveCC(float Time)
     {
-        
+
+    }
+    
+    void Die()
+    {
+        string side;
+        if (heroclass == HeroClass.Enemy)
+        {
+            side = "Enemy";
+            EnemyAI enemyAI = GetComponent<EnemyAI>();
+            enemyAI.enabled = false;
+            Destroy(gameObject, 1f);
+        }
+        else
+        {
+            side = "Player";
+        }
+        Debug.Log($"{side} died.");
+        // Add death logic here (e.g., respawn, game over screen)
     }
 }

@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
 
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    EnemyData enemyData;
 
     void Awake()
     {
@@ -28,6 +29,9 @@ public class EnemyAI : MonoBehaviour
         // Disable auto rotation
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        enemyData = GetComponent<EnemyData>();
+        enemyData.currentHP = enemyData.HP;
     }
     private void OnDrawGizmos()
     {
@@ -148,7 +152,12 @@ public class EnemyAI : MonoBehaviour
         transform.LookAt(Player);
         if (!alreadyAttacked)
         {
-            PlayerHealth.Instance.TakeDamage(10);
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsPlayer);
+            foreach (Collider player in hitEnemies)
+            {
+                Debug.Log("Hit " + player.name);
+                player.GetComponent<PlayerData>().TakeDamage(10);
+            }
             Debug.Log("Attacking Player");
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

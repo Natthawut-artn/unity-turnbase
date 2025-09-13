@@ -204,7 +204,7 @@ public class BoardManager : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer) && PlayerData.Instance.playerMoveState == PlayerMoveState.Stand)
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer) && TurnManager.Instance.currentPhase == Phase.Player)
                 {
                     MeshRenderer newMarker = hit.collider.GetComponent<MeshRenderer>();
                     if (newMarker != currentMarker)
