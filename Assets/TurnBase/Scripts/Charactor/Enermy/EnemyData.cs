@@ -6,10 +6,10 @@ public enum EnemyMoveState
     Walk
 }
 
-public static class EnemyData
+public class EnemyData : CharactorInheritance
 {
-    public static Vector2 GridPosition;
-    public static float moveSpeed = 5f;
-    public static EnemyMoveState playerMoveState = EnemyMoveState.Stand;
+    public Vector2 GridPosition;
+    public float moveSpeed = 5f;
+    public EnemyMoveState playerMoveState = EnemyMoveState.Stand;
 }
 

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PlayerController : CharactorInheritance
+public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
     void Awake() { Instance = this; }
@@ -60,12 +61,12 @@ public class PlayerController : CharactorInheritance
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && PlayerData.Instance.playerMoveState == PlayerMoveState.Stand)
+        if (Input.GetMouseButtonDown(0) && PlayerData.Instance.playerMoveState == PlayerMoveState.Stand && !EventSystem.current.IsPointerOverGameObject())
         // Only allow input during Player phase
         if (TurnManager.Instance == null || TurnManager.Instance.currentPhase != Phase.Player) return;
 
 
-        if (Input.GetMouseButtonDown(0) && PlayerData.Instance.playerMoveState == PlayerMoveState.Stand)
+        if (Input.GetMouseButtonDown(0) && PlayerData.Instance.playerMoveState == PlayerMoveState.Stand && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

@@ -17,17 +17,31 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private GameObject Player;
     public GameObject CurrentStage;
     public LayerMask MarkerLayer;
     public Vector2 PlayerSpawnPoint;
     public string Room;
     private const string Player_Path = "Prefabs/Charactor/Player/Striker";
+    private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar";
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Enemy";
 
     public void StartGame()
     {
-        CurrentStage = Instantiate(Resources.Load<GameObject>("Prefabs/Stages/Sci-fi/Sci-fi 1"));
+        if (CurrentStage != null)
+        {
+            StopGame();
+        }
+
+        if (AppStateManager.appState == AppState.Hub)
+        {
+            CurrentStage = Instantiate(Resources.Load<GameObject>("Prefabs/Stages/Hub"));
+        }
+        else
+        {
+            CurrentStage = Instantiate(Resources.Load<GameObject>("Prefabs/Stages/Sci-fi/Sci-fi 1"));
+        }
 
         if (CurrentStage != null)
         {
@@ -37,20 +51,27 @@ public class GameManager : MonoBehaviour
 
     public void StopGame()
     {
+        Destroy(Player);
         Destroy(CurrentStage);
     }
 
     public void SpawnPlayer()
     {
-        Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlayerSpawnPoint, BoardManager.Instance.GetRoom(Room));
-        Pos += new Vector3(0f, 1.49f, 0f);
+        if (AppStateManager.appState == AppState.Hub)
+        {
+            Player = Instantiate(Resources.Load<GameObject>(Avatar_Path));
+        }
+        else
+        {
+            Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlayerSpawnPoint, BoardManager.Instance.GetRoom(Room));
+            Pos += new Vector3(0f, 1.49f, 0f);
 
-        GameObject MainHero = Instantiate(Resources.Load<GameObject>(Player_Path), Pos, Quaternion.identity);
-        PlayerData.Instance.GridPosition = PlayerSpawnPoint;
+            Player = Instantiate(Resources.Load<GameObject>(Player_Path), Pos, Quaternion.identity);
+            PlayerData.Instance.GridPosition = PlayerSpawnPoint;
 
-        MainCamera.Instance.SetPlayer(MainHero);
-
-        BoardManager.Instance.CheckPlayerInWhatRoom();
+            BoardManager.Instance.CheckPlayerInWhatRoom();
+        }
+        MainCamera.Instance.SetPlayer(Player.transform);
     }
 
     public void SpawnEnemy()
@@ -62,11 +83,17 @@ public class GameManager : MonoBehaviour
         PlayerData.Instance.GridPosition = EnemySpawnPoint;
     }
 
+    public void BackToTheHub()
+    {
+        StopGame();
+        AppStateManager.ChangeAppState(AppState.Hub);
+        StartGame();
+    }
+
     void Start()
     {
         StartGame();
-        SpawnEnemy();  
-        SwiftTurnHUDController.Show();
+        SettingHUDController.Show();
     }
 
     void Update()
@@ -91,7 +118,17 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SpawnEnemy();    
+            SpawnEnemy();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Debug.Log($"Now AppState is {AppStateManager.appState}");
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && AppStateManager.appState == AppState.State)
+        {
+            BackToTheHub();    
         }
     }
 }

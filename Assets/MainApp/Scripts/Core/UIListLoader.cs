@@ -4,11 +4,13 @@ public class UIListLoader
 {
     public List<object> HUDs { get; private set; } = new List<object>()
     {
-        new SwiftTurnHUD()
+        new SwiftTurnHUD(),
+        new SettingHUD()
     };
     public List<object> PopUps { get; private set; } = new List<object>()
     {
-        
+        new StartGamePopup(),
+        new SettingPopup()
     };
     public List<object> Pages { get; private set; } = new List<object>()
     {
