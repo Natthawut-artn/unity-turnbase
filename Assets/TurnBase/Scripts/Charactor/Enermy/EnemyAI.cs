@@ -29,7 +29,13 @@ public class EnemyAI : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
     public IEnumerator TakeTurn()
     {
         Debug.Log($"{name} starting turn");
@@ -142,6 +148,7 @@ public class EnemyAI : MonoBehaviour
         transform.LookAt(Player);
         if (!alreadyAttacked)
         {
+            PlayerHealth.Instance.TakeDamage(10);
             Debug.Log("Attacking Player");
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

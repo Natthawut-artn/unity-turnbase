@@ -58,7 +58,12 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(MoveToCell(To));
         }
     }
-
+    public IEnumerator SwitchTurn()
+    {
+        yield return new WaitForSeconds(1f);
+        TurnManager.Instance.currentPhase = Phase.Enemy;
+        TurnManager.Instance.StartCoroutine(TurnManager.Instance.EnemyPhase());
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && PlayerData.Instance.playerMoveState == PlayerMoveState.Stand && !EventSystem.current.IsPointerOverGameObject())
@@ -73,6 +78,7 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
             {
                 StartCoroutine(MoveToCell(hit.collider.gameObject));
+                StartCoroutine(SwitchTurn());
             }
         }
     }

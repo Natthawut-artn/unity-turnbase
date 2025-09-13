@@ -27,7 +27,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator EnemyPhase()
+    public IEnumerator EnemyPhase()
     {
         Debug.Log("Enemy Phase started");
 
