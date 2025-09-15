@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
 public enum RoomState
 {
     Playing,
@@ -49,12 +48,13 @@ public class BoardManager : MonoBehaviour
             if (bridge.GetComponent<Bridge>())
             {
                 ListBridges.Add(bridge);
-            }    
+            }
         }
-        
 
         InitMarkersForEveryRooms();
         LinkBridgesWithRooms();
+
+        eventList = System.Enum.GetValues(typeof(EventType)).Cast<EventType>().ToList();
     }
 
     private const string MarkerPath = "Prefabs/Board/Marker";
@@ -62,6 +62,7 @@ public class BoardManager : MonoBehaviour
     public List<GameObject> ListBridges = new List<GameObject>();
     public List<ExitGridData> ExitGridPositions = new List<ExitGridData>();
     public List<Vector2Int> SizeRoomsData = new List<Vector2Int>();
+    private List<EventType> eventList = new List<EventType>();
     public LayerMask MarkerLayer;
     private MeshRenderer currentMarker;
     public bool isTransferring = false;
@@ -255,6 +256,7 @@ public class BoardManager : MonoBehaviour
                 if (room.roomState == RoomState.UnPlaying)
                 {
                     room.roomState = RoomState.Playing;
+                    RandomEvent(room);
                 }
                 else if (room.roomState == RoomState.Clear)
                 {
@@ -268,6 +270,27 @@ public class BoardManager : MonoBehaviour
                     room.roomState = RoomState.Clear;
                 }
             }
+        }
+    }
+
+    public void RandomEvent(Room room)
+    {
+        if (room.roomColor == RoomColor.Start) return;
+
+        int index = Random.Range(1, 4);
+        if (room.roomColor == RoomColor.Red)
+        {
+            Debug.Log($"Event is {eventList[index]}");
+        }
+        else if (room.roomColor == RoomColor.Green)
+        {
+            index += 2;
+            Debug.Log($"Event is {eventList[index]}");
+        }
+        else if (room.roomColor == RoomColor.Yellow)
+        {
+            index += 5;
+            Debug.Log($"Event is {eventList[index]}");
         }
     }
 
@@ -305,7 +328,6 @@ public class BoardManager : MonoBehaviour
 
         Debug.Log($"Player transfered to room {bridge.GetOtherRoom(markerObj.transform.parent.name)}");
     }
-
 
     void Start()
     {
