@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public PlayerData playerData;
     public int maxHealth;
     public int currentHealth;
-
+    public LayerMask Enemy;
 
     public IEnumerator MoveToCell(GameObject To)
     {
@@ -34,37 +34,47 @@ public class PlayerController : MonoBehaviour
             yield break;
         }
 
+        Vector3 targetPos = transform.position;
 
         if (transform.position.x != To.transform.position.x)
         {
             playerData.playerMoveState = PlayerMoveState.Walk;
-            Vector3 Dir = new Vector3(transform.position.x - To.transform.position.x, 0, 0).normalized;
-            int x = Dir.x > 0 ? -1 : 1;
-            Vector3 targetPos = transform.position + new Vector3(x, 0, 0);
-            while (Vector3.Distance(transform.position, targetPos) > 0.01f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, playerData.moveSpeed * Time.deltaTime);
-                yield return null;
-            }
-            transform.position = targetPos;
-            playerData.GridPosition.x -= x;
-            StartCoroutine(MoveToCell(To));
+            int x = (To.transform.position.x > transform.position.x) ? 1 : -1;
+            targetPos = transform.position + new Vector3(x, 0, 0);
         }
         else if (transform.position.z != To.transform.position.z)
         {
             playerData.playerMoveState = PlayerMoveState.Walk;
-            Vector3 Dir = new Vector3(0, 0, transform.position.z - To.transform.position.z).normalized;
-            int z = Dir.z > 0 ? -1 : 1;
-            Vector3 targetPos = transform.position + new Vector3(0, 0, z);
-            while (Vector3.Distance(transform.position, targetPos) > 0.01f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, playerData.moveSpeed * Time.deltaTime);
-                yield return null;
-            }
-            transform.position = targetPos;
-            playerData.GridPosition.y -= z;
-            StartCoroutine(MoveToCell(To));
+            int z = (To.transform.position.z > transform.position.z) ? 1 : -1;
+            targetPos = transform.position + new Vector3(0, 0, z);
         }
+
+        // 🛑 Check if targetPos has an enemy
+        Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 0.4f, Enemy);
+        if (hitEnemies.Length > 0)
+        {
+            Debug.Log("Enemy blocking path → stop movement.");
+            playerData.playerMoveState = PlayerMoveState.Stand;
+            yield break; // stop moving if enemy is there
+        }
+
+        // ✅ Move toward target cell
+        while (Vector3.Distance(transform.position, targetPos) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, playerData.moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        transform.position = targetPos;
+
+        // Update grid position
+        if (transform.position.x != To.transform.position.x)
+            playerData.GridPosition.x += (targetPos.x > transform.position.x) ? 1 : -1;
+        else if (transform.position.z != To.transform.position.z)
+            playerData.GridPosition.y += (targetPos.z > transform.position.z) ? 1 : -1;
+
+        // Continue toward target
+        StartCoroutine(MoveToCell(To));
     }
     public IEnumerator SwitchTurn()
     {
@@ -95,7 +105,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(SwitchTurn());
             }
         }
-        
+
         if (Input.GetKeyDown(KeyCode.H))
         {
             playerData.Healing(20);
@@ -103,3 +113,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+

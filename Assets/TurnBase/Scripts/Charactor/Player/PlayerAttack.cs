@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+
 
 public class PlayerAttack : MonoBehaviour
 {
     public float attackRange = 1.5f;
     public int attackDamage = 20;
+    
+
 
     public LayerMask WhatIsEnemy;
 
@@ -16,9 +20,12 @@ public class PlayerAttack : MonoBehaviour
         {
             Debug.Log("Hit " + enemy.name);
             enemy.GetComponent<EnemyData>().TakeDamage(attackDamage);
+            
+
         }
     }
-    private void Update()
+
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    public static EnemyAI Instance;
     public NavMeshAgent agent;
     public Transform Player;
+    public float StoppingDistance = 2f;
 
     public LayerMask WhatIsGround, WhatIsPlayer;
 
@@ -16,13 +19,16 @@ public class EnemyAI : MonoBehaviour
 
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    public bool Stopzone = false;
 
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
     EnemyData enemyData;
-
+    
+    
     void Awake()
     {
+        Instance = this;
         agent = GetComponent<NavMeshAgent>();
         Player = GameObject.FindWithTag("Player").transform;
 
@@ -52,7 +58,7 @@ public class EnemyAI : MonoBehaviour
         {
             Patroling();
         }
-        else if (playerInSightRange && !playerInAttackRange)
+        else if (playerInSightRange && !playerInAttackRange && Stopzone == false)
         {
             ChasePlayer();
         }
@@ -125,6 +131,13 @@ public class EnemyAI : MonoBehaviour
     public void ChasePlayer()
     {
         Vector3 direction = Player.position - transform.position;
+        float distance = direction.magnitude;
+
+        if (distance <= StoppingDistance)
+        {
+            agent.SetDestination(transform.position); 
+            return;
+        }
 
         // Snap direction to grid (only X or Z)
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
@@ -156,7 +169,7 @@ public class EnemyAI : MonoBehaviour
             foreach (Collider player in hitEnemies)
             {
                 Debug.Log("Hit " + player.name);
-                player.GetComponent<PlayerData>().TakeDamage(100);
+                player.GetComponent<PlayerData>().TakeDamage(10);
                 HPBarHUDController.UpProgression();
             }
             Debug.Log("Attacking Player");
