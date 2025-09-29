@@ -12,15 +12,26 @@ public class PlayerController : MonoBehaviour
         playerData = GetComponent<PlayerData>();
     }
 
-
     public LayerMask MarkerLayer;
     public PlayerData playerData;
     public int maxHealth;
     public int currentHealth;
     public LayerMask Enemy;
 
+    // ✅ Movement limit
+    public int maxTilesPerTurn = 4;
+    public int tilesMoved = 0;
+
     public IEnumerator MoveToCell(GameObject To)
     {
+        // 🛑 Stop if reached max movement
+        if (tilesMoved >= maxTilesPerTurn)
+        {
+            Debug.Log("Movement limit reached! Auto ending turn...");
+            StartCoroutine(SwitchTurn());
+            yield break;
+        }
+
         if (transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
         {
             playerData.playerMoveState = PlayerMoveState.Stand;
@@ -55,7 +66,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Enemy blocking path → stop movement.");
             playerData.playerMoveState = PlayerMoveState.Stand;
-            yield break; // stop moving if enemy is there
+            yield break;
         }
 
         // ✅ Move toward target cell
@@ -67,18 +78,38 @@ public class PlayerController : MonoBehaviour
 
         transform.position = targetPos;
 
+        // ✅ Count tile
+        tilesMoved++;
+
         // Update grid position
         if (transform.position.x != To.transform.position.x)
             playerData.GridPosition.x += (targetPos.x > transform.position.x) ? 1 : -1;
         else if (transform.position.z != To.transform.position.z)
             playerData.GridPosition.y += (targetPos.z > transform.position.z) ? 1 : -1;
 
-        // Continue toward target
-        StartCoroutine(MoveToCell(To));
+        // ✅ Auto-end turn if movement used up
+        if (tilesMoved >= maxTilesPerTurn)
+        {
+            Debug.Log("Used all moves → switching turn.");
+            StartCoroutine(SwitchTurn());
+        }
+        else
+        {
+            // Continue toward destination if not final cell
+            StartCoroutine(MoveToCell(To));
+        }
     }
+
     public IEnumerator SwitchTurn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+
+        // Reset movement for next turn
+        tilesMoved = 0;
+
+        playerData.playerMoveState = PlayerMoveState.Stand;
+
+        // Switch to Enemy phase
         TurnManager.Instance.EndTurn();
     }
 
@@ -91,18 +122,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && playerData.playerMoveState == PlayerMoveState.Stand && !EventSystem.current.IsPointerOverGameObject())
-            // Only allow input during Player phase
+        {
             if (TurnManager.Instance == null || TurnManager.Instance.currentPhase != Phase.Player) return;
 
-
-        if (Input.GetMouseButtonDown(0) && playerData.playerMoveState == PlayerMoveState.Stand && !EventSystem.current.IsPointerOverGameObject())
-        {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
             {
                 StartCoroutine(MoveToCell(hit.collider.gameObject));
-                StartCoroutine(SwitchTurn());
             }
         }
 
@@ -113,4 +140,3 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
-

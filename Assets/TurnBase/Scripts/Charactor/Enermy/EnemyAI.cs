@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class EnemyAI : MonoBehaviour
 {
     public static EnemyAI Instance;
@@ -23,6 +24,8 @@ public class EnemyAI : MonoBehaviour
 
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    private Animator animator;
+    
     EnemyData enemyData;
     
     
@@ -38,6 +41,10 @@ public class EnemyAI : MonoBehaviour
 
         enemyData = GetComponent<EnemyData>();
         enemyData.currentHP = enemyData.HP;
+    }
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
     }
     private void OnDrawGizmos()
     {
@@ -65,7 +72,7 @@ public class EnemyAI : MonoBehaviour
         else if (playerInSightRange && playerInAttackRange)
         {
             AttackPlayer();
-            yield return new WaitForSeconds(1f); // wait so player sees attack
+            yield return new WaitForSeconds(1.5f); // wait so player sees attack
             Debug.Log($"{name} finished turn (attack)");
             yield break;
         }
@@ -82,6 +89,8 @@ public class EnemyAI : MonoBehaviour
             yield return null;
         }
 
+        animator.SetBool("isWalking", false);
+
         yield return new WaitForSeconds(0.2f);
 
         Debug.Log($"{name} finished turn (move)");
@@ -95,11 +104,13 @@ public class EnemyAI : MonoBehaviour
         if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
+            animator.SetBool("isWalking", true);
         }
 
         if (Vector3.Distance(transform.position, walkPoint) < 0.2f)
         {
             walkPointSet = false;
+            animator.SetBool("isWalking", false);
         }
     }
 
@@ -135,7 +146,9 @@ public class EnemyAI : MonoBehaviour
 
         if (distance <= StoppingDistance)
         {
-            agent.SetDestination(transform.position); 
+            agent.SetDestination(transform.position);
+            animator.SetBool("isWalking", false);
+
             return;
         }
 
@@ -157,14 +170,19 @@ public class EnemyAI : MonoBehaviour
         );
 
         agent.SetDestination(chasePoint);
+        
+
     }
 
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
-        transform.LookAt(Player);
+        Vector3 targetPos = new Vector3(Player.position.x, transform.position.y, Player.position.z);
+        transform.LookAt(targetPos);
         if (!alreadyAttacked)
         {
+            animator.SetTrigger("isAttack");
+
             Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsPlayer);
             foreach (Collider player in hitEnemies)
             {
