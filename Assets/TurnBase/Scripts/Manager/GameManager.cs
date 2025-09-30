@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private const string Player_Path = "Prefabs/Charactor/Player/Striker";
     private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar";
     public Vector2 EnemySpawnPoint;
-    private const string Enemy_Path = "Prefabs/Charactor/Enemy/Enemy";
+    private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
 
     public void StartGame()
     {
