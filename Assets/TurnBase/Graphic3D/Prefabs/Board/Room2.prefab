@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3455195687338744349}
   - component: {fileID: 3707955884331461124}
   - component: {fileID: 410395090665799664}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Bay_Door_Wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 5283569192367086461}
   - component: {fileID: 3694988848155085347}
   - component: {fileID: 2216733759910951946}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 8005145657621607086}
   - component: {fileID: 7261760815711924063}
   - component: {fileID: 1763072088936509339}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Corner (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 8051792448664805569}
   - component: {fileID: 3718767161607110255}
   - component: {fileID: 6300970617453148643}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Bay_Door_Wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 1472795990594201966}
   - component: {fileID: 5882444330202994742}
   - component: {fileID: 4595008987637987611}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +647,7 @@ GameObject:
   - component: {fileID: 877468349798601082}
   - component: {fileID: 889393322123667046}
   - component: {fileID: 4730430573980888004}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -730,7 +730,7 @@ GameObject:
   - component: {fileID: 830858627391811194}
   - component: {fileID: 9144138546355410802}
   - component: {fileID: 6712215150442284029}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Fan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 7491851814639901498}
   - component: {fileID: 6681773034623233463}
   - component: {fileID: 4782966602913735285}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -985,7 +985,7 @@ GameObject:
   - component: {fileID: 740111079633096419}
   - component: {fileID: 3638393578696686737}
   - component: {fileID: 7645959179099686763}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Bay_Door_Frame_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1068,7 +1068,7 @@ GameObject:
   - component: {fileID: 2806569225436759254}
   - component: {fileID: 4740656181143326239}
   - component: {fileID: 5652873463049593434}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1149,7 +1149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 51243934838113994}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1180,7 +1180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2524237367928863690}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1214,7 +1214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8590978109906251968}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1250,7 +1250,7 @@ GameObject:
   - component: {fileID: 4037315826629848903}
   - component: {fileID: 2307618411922802117}
   - component: {fileID: 2603522431615188367}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1331,7 +1331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6354656583652041690}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Room2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1367,7 +1367,8 @@ GameObject:
   - component: {fileID: 156996577895043525}
   - component: {fileID: 4035137149739806100}
   - component: {fileID: 2478306282765203230}
-  m_Layer: 0
+  - component: {fileID: 1757895904797420067}
+  m_Layer: 9
   m_Name: LP_Bay_Door_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1439,6 +1440,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1757895904797420067
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760736185728885515}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.31775475, y: 5.7053785, z: 4.9081025}
+  m_Center: {x: 0.11238003, y: 2.350721, z: 3.0000768}
 --- !u!1 &771695063606733491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,7 +1473,7 @@ GameObject:
   - component: {fileID: 8913475261082979697}
   - component: {fileID: 3589779116665070284}
   - component: {fileID: 3245787607155926196}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1556,7 +1578,7 @@ GameObject:
   - component: {fileID: 45686539206943067}
   - component: {fileID: 1666377234047213382}
   - component: {fileID: 7774128670383053896}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1661,7 +1683,7 @@ GameObject:
   - component: {fileID: 8810224915825226869}
   - component: {fileID: 3087607676174589521}
   - component: {fileID: 4836604903753706434}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1766,7 +1788,7 @@ GameObject:
   - component: {fileID: 7645374878710971727}
   - component: {fileID: 6756777460984332892}
   - component: {fileID: 6986375483033679720}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1871,7 +1893,7 @@ GameObject:
   - component: {fileID: 1202986511207560096}
   - component: {fileID: 1495097954686337325}
   - component: {fileID: 234002859198196328}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1976,7 +1998,7 @@ GameObject:
   - component: {fileID: 8508214220915630772}
   - component: {fileID: 6127014840742976902}
   - component: {fileID: 7136735299357415398}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2078,7 +2100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2476700637340523502}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Window (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2115,7 +2137,7 @@ GameObject:
   - component: {fileID: 8167781821384050002}
   - component: {fileID: 909433872496087607}
   - component: {fileID: 6585071333190489750}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2220,7 +2242,7 @@ GameObject:
   - component: {fileID: 3567120841544147905}
   - component: {fileID: 3516600810950729488}
   - component: {fileID: 9190517937746664645}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_muntinBar_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2301,7 +2323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6738017192477298036}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2338,7 +2360,7 @@ GameObject:
   - component: {fileID: 940527109934298954}
   - component: {fileID: 5240941818904341914}
   - component: {fileID: 7692164053221280774}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2440,7 +2462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3022719091037226117}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BoneRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2475,7 +2497,7 @@ GameObject:
   - component: {fileID: 8756193021188644499}
   - component: {fileID: 7007641274304615880}
   - component: {fileID: 4354931497079870087}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Bay_Door_Frame_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2559,7 +2581,7 @@ GameObject:
   - component: {fileID: 1838721895912312696}
   - component: {fileID: 6509766723751633491}
   - component: {fileID: 7637842293711715985}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2665,7 +2687,7 @@ GameObject:
   - component: {fileID: 4621283520049706541}
   - component: {fileID: 1489902669339563957}
   - component: {fileID: 3121528016402391784}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Corner (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2788,7 +2810,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8377679341011898938}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2824,7 +2846,7 @@ GameObject:
   - component: {fileID: 2626971086563359235}
   - component: {fileID: 400037207211726494}
   - component: {fileID: 8304231373119305385}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2907,7 +2929,7 @@ GameObject:
   - component: {fileID: 1874273819209178726}
   - component: {fileID: 8076859873651248680}
   - component: {fileID: 1803907821108055538}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_muntinBar_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2991,7 +3013,7 @@ GameObject:
   - component: {fileID: 6720037506288488748}
   - component: {fileID: 5072659361648607203}
   - component: {fileID: 8855793785036922374}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3096,7 +3118,7 @@ GameObject:
   - component: {fileID: 6177070199658360759}
   - component: {fileID: 7256851935882433845}
   - component: {fileID: 4513205214498522191}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Plain (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3198,7 +3220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8733625579800482000}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3229,7 +3251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 73982421695007003}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3260,7 +3282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6718140639813420384}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BoneRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3296,7 +3318,7 @@ GameObject:
   - component: {fileID: 13291349918051740}
   - component: {fileID: 529095650956301586}
   - component: {fileID: 1036346768279422008}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3401,7 +3423,7 @@ GameObject:
   - component: {fileID: 1978090429714569730}
   - component: {fileID: 2619513214616426794}
   - component: {fileID: 6261420010688340999}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_fan_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3507,7 +3529,7 @@ GameObject:
   - component: {fileID: 7218243070254596118}
   - component: {fileID: 9069741564847692958}
   - component: {fileID: 6319550393986745481}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_fan_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3610,7 +3632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4901007383450350293}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Window (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3647,7 +3669,7 @@ GameObject:
   - component: {fileID: 5480467218254514834}
   - component: {fileID: 2632650085961465748}
   - component: {fileID: 4588008216229171991}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3752,7 +3774,7 @@ GameObject:
   - component: {fileID: 8627629220616698511}
   - component: {fileID: 181954455181038029}
   - component: {fileID: 5094187360224693554}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3857,7 +3879,7 @@ GameObject:
   - component: {fileID: 6981750010324732896}
   - component: {fileID: 8115520535515035690}
   - component: {fileID: 2243437335307399441}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Fan (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4006,7 +4028,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3019837650605105866}
   - component: {fileID: 2639310974212028640}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_rotor_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4096,7 +4118,7 @@ GameObject:
   - component: {fileID: 3430303147194149062}
   - component: {fileID: 3067131587983219614}
   - component: {fileID: 3884537327698888509}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4201,7 +4223,7 @@ GameObject:
   - component: {fileID: 1535463267027634645}
   - component: {fileID: 7002753271821992508}
   - component: {fileID: 5618252851887991352}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_guard_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4307,7 +4329,7 @@ GameObject:
   - component: {fileID: 8491949454278974178}
   - component: {fileID: 8123659982519510487}
   - component: {fileID: 3530516605061639954}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4410,7 +4432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3536221130206566481}
   - component: {fileID: 6337133561632739701}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_rotor_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4500,7 +4522,7 @@ GameObject:
   - component: {fileID: 5441608277058912846}
   - component: {fileID: 4203943288374927886}
   - component: {fileID: 6870995861995534722}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4604,7 +4626,7 @@ GameObject:
   - component: {fileID: 4313671946103123413}
   - component: {fileID: 569439800910708069}
   - component: {fileID: 910079447039144427}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4688,7 +4710,7 @@ GameObject:
   - component: {fileID: 6930256782471294058}
   - component: {fileID: 6036975874911916475}
   - component: {fileID: 2603213009046225570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4793,7 +4815,7 @@ GameObject:
   - component: {fileID: 1368984745952684146}
   - component: {fileID: 1066088677261649841}
   - component: {fileID: 381754755912030350}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4895,7 +4917,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1210212343168280301}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4926,7 +4948,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1302192498000706553}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4963,7 +4985,7 @@ GameObject:
   - component: {fileID: 3355485009383719497}
   - component: {fileID: 324659798535150635}
   - component: {fileID: 8800081841072376712}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5068,7 +5090,7 @@ GameObject:
   - component: {fileID: 8694799193293224609}
   - component: {fileID: 707380648858754008}
   - component: {fileID: 7042476789207712951}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5170,7 +5192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 639046252428056757}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5206,7 +5228,7 @@ GameObject:
   - component: {fileID: 7162503678432200879}
   - component: {fileID: 3789015908068020152}
   - component: {fileID: 6997571208357958988}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Fan (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5356,7 +5378,7 @@ GameObject:
   - component: {fileID: 8485282773246085774}
   - component: {fileID: 2588084928769447831}
   - component: {fileID: 3521741627983824565}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5440,7 +5462,7 @@ GameObject:
   - component: {fileID: 6178604408957390643}
   - component: {fileID: 5797130697705478592}
   - component: {fileID: 1359393404946261158}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5542,7 +5564,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8380688223088909346}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5576,7 +5598,7 @@ GameObject:
   - component: {fileID: 3612737615437106198}
   - component: {fileID: 3533271170325725484}
   - component: {fileID: 6971593241308697007}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_fan_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5682,7 +5704,7 @@ GameObject:
   - component: {fileID: 455415309558204016}
   - component: {fileID: 5801218850538265542}
   - component: {fileID: 8922888497817415836}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Plain (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5787,7 +5809,7 @@ GameObject:
   - component: {fileID: 7099310022032534822}
   - component: {fileID: 6165252736392513834}
   - component: {fileID: 3161894236283871689}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_guard_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5893,7 +5915,7 @@ GameObject:
   - component: {fileID: 3451680561335891910}
   - component: {fileID: 8279124313754402305}
   - component: {fileID: 5005626873394591153}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5999,7 +6021,7 @@ GameObject:
   - component: {fileID: 8935012123413371201}
   - component: {fileID: 1900796606147498972}
   - component: {fileID: 4907172583404079204}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Corner (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6125,7 +6147,7 @@ GameObject:
   - component: {fileID: 4562763938848109833}
   - component: {fileID: 3975280632938418443}
   - component: {fileID: 6249079298908438496}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6228,7 +6250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1307929064945097944}
   - component: {fileID: 3152210689350739970}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_rotor_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6318,7 +6340,7 @@ GameObject:
   - component: {fileID: 1252819557808417736}
   - component: {fileID: 6549079709630238875}
   - component: {fileID: 2636955387017604292}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (34)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6423,7 +6445,7 @@ GameObject:
   - component: {fileID: 9088767477789289401}
   - component: {fileID: 4441404998786285040}
   - component: {fileID: 7517528147153519509}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (31)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6528,7 +6550,7 @@ GameObject:
   - component: {fileID: 4272519415111938725}
   - component: {fileID: 475144794511397014}
   - component: {fileID: 3917145162101003121}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6635,7 +6657,7 @@ GameObject:
   - component: {fileID: 8890672438936111612}
   - component: {fileID: 4612274057150144622}
   - component: {fileID: 305548931323626800}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Bay_Door_Wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6779,7 +6801,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8271124662639626111}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BoneRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6815,7 +6837,7 @@ GameObject:
   - component: {fileID: 8881335747382583800}
   - component: {fileID: 1474516058282049725}
   - component: {fileID: 1153348547779055613}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6920,7 +6942,7 @@ GameObject:
   - component: {fileID: 6438248861327638715}
   - component: {fileID: 7768541410431561665}
   - component: {fileID: 4966543085628476961}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7022,13 +7044,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5074921080026290060}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5074921080026290060
 Transform:
   m_ObjectHideFlags: 0
@@ -7080,7 +7102,7 @@ GameObject:
   - component: {fileID: 5018844887062235962}
   - component: {fileID: 8467408729012395394}
   - component: {fileID: 406168262471322868}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7183,7 +7205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6402498006982588952}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7216,7 +7238,7 @@ GameObject:
   - component: {fileID: 3394055447841200275}
   - component: {fileID: 2124557966087794992}
   - component: {fileID: 5106498021546196461}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7300,7 +7322,7 @@ GameObject:
   - component: {fileID: 3719012559940822432}
   - component: {fileID: 2163920697423486460}
   - component: {fileID: 1977290326433323512}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7405,7 +7427,7 @@ GameObject:
   - component: {fileID: 7247007045283999989}
   - component: {fileID: 4283608446228239130}
   - component: {fileID: 4826268129729411513}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (33)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7510,7 +7532,7 @@ GameObject:
   - component: {fileID: 4902029741702989065}
   - component: {fileID: 382405684467551866}
   - component: {fileID: 6784769232677233258}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7615,7 +7637,7 @@ GameObject:
   - component: {fileID: 5307959493526455580}
   - component: {fileID: 7894463531391541385}
   - component: {fileID: 6069561997143630724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7720,7 +7742,7 @@ GameObject:
   - component: {fileID: 5964668301243003368}
   - component: {fileID: 8240443238389262090}
   - component: {fileID: 5423899352855668552}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Plain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7825,7 +7847,7 @@ GameObject:
   - component: {fileID: 4042711643745928031}
   - component: {fileID: 5659537655636785318}
   - component: {fileID: 5268552791901101982}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7930,7 +7952,7 @@ GameObject:
   - component: {fileID: 5561828312759753615}
   - component: {fileID: 6699616611685884269}
   - component: {fileID: 6909336891410534427}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8035,7 +8057,7 @@ GameObject:
   - component: {fileID: 8080926041617210663}
   - component: {fileID: 4457790987034479634}
   - component: {fileID: 1181953228245575228}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Plain (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8139,7 +8161,7 @@ GameObject:
   - component: {fileID: 6501014851467720900}
   - component: {fileID: 3247003782811391295}
   - component: {fileID: 2956034038117105463}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8224,7 +8246,7 @@ GameObject:
   - component: {fileID: 2346967370248165437}
   - component: {fileID: 5888023700924612395}
   - component: {fileID: 1351211954059434121}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8350,7 +8372,7 @@ GameObject:
   - component: {fileID: 5089913145218162939}
   - component: {fileID: 7906627411941172918}
   - component: {fileID: 3092647435953775083}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8455,7 +8477,7 @@ GameObject:
   - component: {fileID: 5847268255848894687}
   - component: {fileID: 4542013439193191012}
   - component: {fileID: 8406864039821673583}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8557,7 +8579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4047304755485995637}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Window (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8594,7 +8616,7 @@ GameObject:
   - component: {fileID: 3547855487884804975}
   - component: {fileID: 3181336127051132705}
   - component: {fileID: 8541193490545479612}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8698,7 +8720,8 @@ GameObject:
   - component: {fileID: 106564703385646035}
   - component: {fileID: 4726718767469544785}
   - component: {fileID: 6187567136399179012}
-  m_Layer: 0
+  - component: {fileID: 4072241656199386231}
+  m_Layer: 9
   m_Name: LP_Bay_Door_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8770,6 +8793,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4072241656199386231
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5061974743569047767}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.44220144, y: 5.7053785, z: 4.9081035}
+  m_Center: {x: 0.060076207, y: 2.350721, z: 3.0000772}
 --- !u!1 &5080174433503289217
 GameObject:
   m_ObjectHideFlags: 0
@@ -8782,7 +8826,7 @@ GameObject:
   - component: {fileID: 2956283110500585829}
   - component: {fileID: 5411617496062977111}
   - component: {fileID: 5627438966757263795}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8886,7 +8930,7 @@ GameObject:
   - component: {fileID: 1840369091772317742}
   - component: {fileID: 3709304875257030431}
   - component: {fileID: 6268971684891100553}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Fan (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9037,7 +9081,7 @@ GameObject:
   - component: {fileID: 5123213243347954147}
   - component: {fileID: 7821751495904708145}
   - component: {fileID: 5163811296618179044}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9142,7 +9186,7 @@ GameObject:
   - component: {fileID: 8362115899751782837}
   - component: {fileID: 5915945428226945432}
   - component: {fileID: 8478428088501048860}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9246,7 +9290,7 @@ GameObject:
   - component: {fileID: 1128601388600180517}
   - component: {fileID: 6148881750610319132}
   - component: {fileID: 8984591405709609312}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9329,7 +9373,7 @@ GameObject:
   - component: {fileID: 7398713664387165154}
   - component: {fileID: 7846988263808255876}
   - component: {fileID: 4486563212494223977}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_muntinBar_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9413,7 +9457,7 @@ GameObject:
   - component: {fileID: 5408872956131024691}
   - component: {fileID: 1834993833741022097}
   - component: {fileID: 2529458981229454173}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9518,7 +9562,7 @@ GameObject:
   - component: {fileID: 9037445345020194865}
   - component: {fileID: 1454031118284557632}
   - component: {fileID: 1107871123831694600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9623,7 +9667,7 @@ GameObject:
   - component: {fileID: 4020830697231859291}
   - component: {fileID: 324005151024598638}
   - component: {fileID: 958031673296643119}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9725,13 +9769,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4386774234414933688}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4386774234414933688
 Transform:
   m_ObjectHideFlags: 0
@@ -9802,7 +9846,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8906790982903959599}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9836,7 +9880,7 @@ GameObject:
   - component: {fileID: 3348419594407183546}
   - component: {fileID: 9061640774778868008}
   - component: {fileID: 3984169326052504163}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9938,7 +9982,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 783575050353627202}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9974,7 +10018,7 @@ GameObject:
   - component: {fileID: 3478954148843928079}
   - component: {fileID: 5478297564678905360}
   - component: {fileID: 1227823041630616673}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10058,7 +10102,7 @@ GameObject:
   - component: {fileID: 4580074304101885121}
   - component: {fileID: 8741407804401306770}
   - component: {fileID: 5255113309799385414}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10163,7 +10207,7 @@ GameObject:
   - component: {fileID: 4981376080482078209}
   - component: {fileID: 662878982261201862}
   - component: {fileID: 6095094219823947891}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10266,7 +10310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5444900090589789307}
   - component: {fileID: 7976915259998272953}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_rotor_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10355,7 +10399,7 @@ GameObject:
   - component: {fileID: 1822806140120782359}
   - component: {fileID: 3278738976826102519}
   - component: {fileID: 2214450192436813593}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Bay_Door_Frame_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10436,7 +10480,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4125697957711890247}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10473,7 +10517,7 @@ GameObject:
   - component: {fileID: 1854554623353881480}
   - component: {fileID: 8549519187534630428}
   - component: {fileID: 2431669236756634805}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_guard_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10579,7 +10623,7 @@ GameObject:
   - component: {fileID: 6931100218180378376}
   - component: {fileID: 8315071010444217343}
   - component: {fileID: 201498947783634743}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10684,7 +10728,7 @@ GameObject:
   - component: {fileID: 3893961971477402100}
   - component: {fileID: 8247551147425550204}
   - component: {fileID: 6794012022258307644}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10788,7 +10832,7 @@ GameObject:
   - component: {fileID: 1604545559243014813}
   - component: {fileID: 115672113701983290}
   - component: {fileID: 1926605388510301188}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10872,7 +10916,7 @@ GameObject:
   - component: {fileID: 7092640523200120847}
   - component: {fileID: 9084271809906528196}
   - component: {fileID: 3646100276027398286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Plain (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10976,7 +11020,7 @@ GameObject:
   - component: {fileID: 7216658047522933569}
   - component: {fileID: 3928736431420822031}
   - component: {fileID: 4885311282912676865}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11059,7 +11103,7 @@ GameObject:
   - component: {fileID: 7887602152615788483}
   - component: {fileID: 3534766804486212662}
   - component: {fileID: 2284596989837577161}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11143,7 +11187,7 @@ GameObject:
   - component: {fileID: 2152798733822105608}
   - component: {fileID: 4057751005035231570}
   - component: {fileID: 6186889311215045991}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_guard_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11249,7 +11293,7 @@ GameObject:
   - component: {fileID: 2769233847985264281}
   - component: {fileID: 6431253476063004080}
   - component: {fileID: 98286201030320875}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11351,7 +11395,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1472476940742189005}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11385,7 +11429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1881214162648506220}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Window (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11422,7 +11466,7 @@ GameObject:
   - component: {fileID: 373154383935034671}
   - component: {fileID: 3538455680569015786}
   - component: {fileID: 5597172177442830407}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11527,7 +11571,7 @@ GameObject:
   - component: {fileID: 5651121411374403614}
   - component: {fileID: 302823590103065199}
   - component: {fileID: 5580044782243870522}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11632,7 +11676,7 @@ GameObject:
   - component: {fileID: 1025727698084611622}
   - component: {fileID: 3928509915317899710}
   - component: {fileID: 4693343345664153884}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_vent_fan_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11735,7 +11779,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7756610755825972892}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11772,7 +11816,7 @@ GameObject:
   - component: {fileID: 6582385520048046924}
   - component: {fileID: 3719047155534015833}
   - component: {fileID: 1289875392603768390}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11876,7 +11920,7 @@ GameObject:
   - component: {fileID: 901789055464502733}
   - component: {fileID: 4692158629350101604}
   - component: {fileID: 6791875190503695640}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11960,7 +12004,7 @@ GameObject:
   - component: {fileID: 5347807126864378145}
   - component: {fileID: 8913321771783178632}
   - component: {fileID: 4931841304538912407}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12065,7 +12109,7 @@ GameObject:
   - component: {fileID: 5547418638715766517}
   - component: {fileID: 1918652444049217340}
   - component: {fileID: 5850309765691613697}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12169,7 +12213,8 @@ GameObject:
   - component: {fileID: 1764295046542339677}
   - component: {fileID: 6753118327177380925}
   - component: {fileID: 3554842040495097777}
-  m_Layer: 0
+  - component: {fileID: 6477676979198516448}
+  m_Layer: 9
   m_Name: LP_Bay_Door_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12241,6 +12286,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6477676979198516448
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502895602314370962}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.34800148, y: 5.7053785, z: 4.9081025}
+  m_Center: {x: 0.077485085, y: 2.350721, z: 3.0000768}
 --- !u!1 &7528034962937933261
 GameObject:
   m_ObjectHideFlags: 0
@@ -12253,7 +12319,7 @@ GameObject:
   - component: {fileID: 2247128930822274422}
   - component: {fileID: 7070539784126306347}
   - component: {fileID: 1146213573281605162}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Plain (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12355,7 +12421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1438321423732924429}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12389,7 +12455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2481940028165104341}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12426,7 +12492,7 @@ GameObject:
   - component: {fileID: 6968781707932361725}
   - component: {fileID: 4043389174318063809}
   - component: {fileID: 3437723646319080177}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (35)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12531,7 +12597,7 @@ GameObject:
   - component: {fileID: 7587888749100597680}
   - component: {fileID: 8847388782855545268}
   - component: {fileID: 8281423335301470153}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12633,7 +12699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5760106207556217236}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BoneRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12669,7 +12735,7 @@ GameObject:
   - component: {fileID: 5085238831291741898}
   - component: {fileID: 2472334692390980200}
   - component: {fileID: 1458950508580393834}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12774,7 +12840,7 @@ GameObject:
   - component: {fileID: 4190454749562719624}
   - component: {fileID: 376171566789162150}
   - component: {fileID: 311993280390600115}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12876,7 +12942,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7173075045072366006}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12913,7 +12979,7 @@ GameObject:
   - component: {fileID: 6062976609162944516}
   - component: {fileID: 4155475026158709818}
   - component: {fileID: 8343680356800250798}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13018,7 +13084,7 @@ GameObject:
   - component: {fileID: 6596516901174094120}
   - component: {fileID: 2706589484758652739}
   - component: {fileID: 5809043469775610768}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13122,7 +13188,7 @@ GameObject:
   - component: {fileID: 3777379914316140562}
   - component: {fileID: 5185521917098048486}
   - component: {fileID: 5240377170562335872}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_muntinBar_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13206,7 +13272,7 @@ GameObject:
   - component: {fileID: 7747045653591550116}
   - component: {fileID: 2811485560535736929}
   - component: {fileID: 6730756651120716610}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Plain (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13308,7 +13374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8514296899754649907}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bone002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13339,7 +13405,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3052072566493289399}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Skylight (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13373,7 +13439,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7198958211583960406}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13410,7 +13476,7 @@ GameObject:
   - component: {fileID: 3196922058635947517}
   - component: {fileID: 3980972974497452974}
   - component: {fileID: 4915868618271131081}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ceiling Closed (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13515,7 +13581,7 @@ GameObject:
   - component: {fileID: 3797225466294874758}
   - component: {fileID: 110714365070251208}
   - component: {fileID: 5097341903104702887}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_Wall_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13619,7 +13685,7 @@ GameObject:
   - component: {fileID: 3049363322320967723}
   - component: {fileID: 5825147804907557166}
   - component: {fileID: 7908545630992505674}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_muntinBar_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13702,7 +13768,7 @@ GameObject:
   - component: {fileID: 1234095418213416329}
   - component: {fileID: 166331201053583149}
   - component: {fileID: 826233217789676073}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13785,7 +13851,7 @@ GameObject:
   - component: {fileID: 9116841014708472710}
   - component: {fileID: 4669220703661312263}
   - component: {fileID: 1856098381512057377}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Window_muntinBar_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13868,7 +13934,7 @@ GameObject:
   - component: {fileID: 787812314824033281}
   - component: {fileID: 1914685318447842746}
   - component: {fileID: 7698498470843100421}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_Skylight_glass_snaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13952,7 +14018,7 @@ GameObject:
   - component: {fileID: 1496048610478629129}
   - component: {fileID: 656589141878653531}
   - component: {fileID: 685563067382571050}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LP_ceiling_tile_Window_snaps (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -15,7 +15,7 @@ TagManager:
   - Movable
   - Player
   - Enemy
-  - 
+  - CameraObstacle
   - 
   - 
   - 
