@@ -71,9 +71,6 @@ public class GameManager : MonoBehaviour
             playerData.GridPosition = PlayerSpawnPoint;
 
             StartCoroutine(Wait());
-
-            BoardManager.Instance.CheckPlayerInWhatRoom();
-
         }
         MainCamera.Instance.SetPlayer(Player.transform);
     }

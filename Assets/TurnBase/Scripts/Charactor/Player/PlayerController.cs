@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
                 BoardManager.Instance.CheckPlayerOnExit(To);
             }
             BoardManager.Instance.isTransferring = false;
-            BoardManager.Instance.CheckPlayerInWhatRoom();
             yield break;
         }
 

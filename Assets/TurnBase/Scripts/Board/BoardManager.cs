@@ -232,68 +232,6 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void CheckPlayerInWhatRoom()
-    {
-        for (int i = 0; i < ListRooms.Count; i++)
-        {
-            BoxCollider col = ListRooms[i].GetComponent<BoxCollider>();
-            Collider[] hits = Physics.OverlapBox(col.bounds.center, col.bounds.extents, Quaternion.identity);
-
-            bool playerFound = false;
-
-            foreach (Collider hit in hits)
-            {
-                if (hit.gameObject.CompareTag("Player"))
-                {
-                    playerFound = true;
-                    break; // เจอแล้วไม่ต้องวนต่อ
-                }
-            }
-
-            Room room = ListRooms[i].GetComponent<Room>();
-            if (playerFound)
-            {
-                if (room.roomState == RoomState.UnPlaying)
-                {
-                    room.roomState = RoomState.Playing;
-                    RandomEvent(room);
-                }
-                else if (room.roomState == RoomState.Clear)
-                {
-                    room.roomState = RoomState.CanExit;
-                }
-            }
-            else
-            {
-                if (room.roomState == RoomState.CanExit)
-                {
-                    room.roomState = RoomState.Clear;
-                }
-            }
-        }
-    }
-
-    public void RandomEvent(Room room)
-    {
-        if (room.roomColor == RoomColor.Start) return;
-
-        int index = Random.Range(1, 4);
-        if (room.roomColor == RoomColor.Red)
-        {
-            Debug.Log($"Event is {eventList[index]}");
-        }
-        else if (room.roomColor == RoomColor.Green)
-        {
-            index += 2;
-            Debug.Log($"Event is {eventList[index]}");
-        }
-        else if (room.roomColor == RoomColor.Yellow)
-        {
-            index += 5;
-            Debug.Log($"Event is {eventList[index]}");
-        }
-    }
-
     public void CheckPlayerOnExit(GameObject marker)
     {
         foreach (GameObject room in ListRooms)
