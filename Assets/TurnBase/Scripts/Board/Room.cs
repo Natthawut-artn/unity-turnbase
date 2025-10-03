@@ -7,6 +7,7 @@ public class Room : MonoBehaviour
     public RoomState roomState = RoomState.UnPlaying;
     public List<Marker> ExitMarkers = new List<Marker>();
     public RoomColor roomColor;
+    public List<GameObject> Doors = new List<GameObject>();
 
     void OnTriggerEnter(Collider other)
     {
@@ -20,6 +21,11 @@ public class Room : MonoBehaviour
             {
                 roomState = RoomState.CanExit;
             }
+        }
+
+        if (other.gameObject.tag == "Door")
+        {
+            Doors.Add(other.gameObject);    
         }
     }
 

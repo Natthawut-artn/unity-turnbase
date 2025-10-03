@@ -237,6 +237,10 @@ public class BoardManager : MonoBehaviour
         foreach (GameObject room in ListRooms)
         {
             Room roomScript = room.GetComponent<Room>();
+            if (roomScript.roomState == RoomState.CanExit)
+            {
+                OpenAllDoors(room);
+            }
             if (roomScript.roomState == RoomState.CanExit || roomScript.roomState == RoomState.Clear)
             {
                 Marker markerScript = marker.GetComponent<Marker>();
@@ -265,6 +269,71 @@ public class BoardManager : MonoBehaviour
         StartCoroutine(PlayerController.Instance.MoveToCell(otherExit.gameObject));
 
         Debug.Log($"Player transfered to room {bridge.GetOtherRoom(markerObj.transform.parent.name)}");
+    }
+
+    public void OpenAllDoors(GameObject room)
+    {
+        if (room == null) return;
+
+        string thisRoomName = room.name;
+
+        // 1. เปิดเฉพาะ door ที่เชื่อมกับห้องอื่น (ผ่าน bridge)
+        Room roomComponent = room.GetComponent<Room>();
+        if (roomComponent != null)
+        {
+            foreach (GameObject doorObj in roomComponent.Doors)
+            {
+                if (doorObj == null) continue;
+                Door door = doorObj.GetComponent<Door>();
+                if (door == null) continue;
+
+                // เช็คว่าประตูนี้มี Bridge เชื่อมอยู่จริงไหม
+                if (HasBridgeBetween(thisRoomName, door.ConnectToRoom))
+                {
+                    door.Open();
+
+                    // 2. หา room ฝั่งตรงข้าม แล้วเปิดประตูที่เชื่อมกลับมา
+                    GameObject otherRoom = GetRoom(door.ConnectToRoom);
+                    if (otherRoom != null)
+                    {
+                        Room otherRoomComp = otherRoom.GetComponent<Room>();
+                        if (otherRoomComp != null)
+                        {
+                            foreach (GameObject otherDoorObj in otherRoomComp.Doors)
+                            {
+                                Door otherDoor = otherDoorObj.GetComponent<Door>();
+                                if (otherDoor == null) continue;
+
+                                // เปิดเฉพาะ door ที่เชื่อมกลับมาห้องต้นทาง
+                                if (otherDoor.ConnectToRoom == thisRoomName)
+                                {
+                                    otherDoor.Open();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// เช็คว่ามี Bridge เชื่อมระหว่างสองห้องไหม
+    /// </summary>
+    private bool HasBridgeBetween(string roomA, string roomB)
+    {
+        foreach (GameObject bridgeObj in ListBridges)
+        {
+            Bridge bridge = bridgeObj.GetComponent<Bridge>();
+            if (bridge == null) continue;
+
+            if ((bridge.ConnectWith1 == roomA && bridge.ConnectWith2 == roomB) ||
+                (bridge.ConnectWith1 == roomB && bridge.ConnectWith2 == roomA))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     void Start()

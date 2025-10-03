@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
                 if (roomScript.roomState == RoomState.Playing)
                 {
                     roomScript.roomState = RoomState.CanExit;
+                    BoardManager.Instance.OpenAllDoors(roomScript.gameObject);
                     Debug.Log($"Now {roomScript.gameObject.name} is {roomScript.roomState}");
                 }
             }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Bridge : MonoBehaviour
 {
+
     public string ConnectWith1;
     public string ConnectWith2;
+    
     public Vector2Int ExitPosRoom1;   // กำหนดใน Inspector
     public Vector2Int ExitPosRoom2;   // กำหนดใน Inspector
 
