@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public LayerMask MarkerLayer;
     public Vector2 PlayerSpawnPoint;
     public string Room;
-    private const string Player_Path = "Prefabs/Charactor/Player/Striker";
+    private const string Player_Path = "Prefabs/Charactor/Player/Striker Variant";
     private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar";
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";

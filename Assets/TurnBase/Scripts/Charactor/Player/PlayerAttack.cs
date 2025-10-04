@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -8,20 +8,48 @@ public class PlayerAttack : MonoBehaviour
 {
     public float attackRange = 1.5f;
     public int attackDamage = 20;
-    
+    private Animator animator;
+
 
 
     public LayerMask WhatIsEnemy;
 
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
     public void Attack()
     {
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsEnemy);
-        foreach (Collider enemy in hitEnemies)
+        if (hitEnemies.Length > 0)
         {
-            Debug.Log("Hit " + enemy.name);
-            enemy.GetComponent<EnemyData>().TakeDamage(attackDamage);
-            
+            // ✅ Find the closest enemy
+            Collider closestEnemy = hitEnemies[0];
+            float closestDist = Vector3.Distance(transform.position, closestEnemy.transform.position);
 
+            foreach (Collider enemy in hitEnemies)
+            {
+                float dist = Vector3.Distance(transform.position, enemy.transform.position);
+                if (dist < closestDist)
+                {
+                    closestEnemy = enemy;
+                    closestDist = dist;
+                }
+            }
+
+            // ✅ Face the closest enemy
+            Vector3 dir = (closestEnemy.transform.position - transform.position).normalized;
+            dir.y = 0; // keep rotation flat on ground
+            if (dir != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(dir);
+            }
+
+            // ✅ Damage that enemy
+            Debug.Log("Hit " + closestEnemy.name);
+            closestEnemy.GetComponent<EnemyData>().TakeDamage(attackDamage);
+            
+            
         }
     }
 
@@ -30,6 +58,7 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
+            animator.SetTrigger("Attacking");
             StartCoroutine(SwitchTurn());
         }
     }
@@ -42,9 +71,11 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator SwitchTurn() 
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f);
         TurnManager.Instance.EndTurn();
     }
+
+  
 }
 
 
