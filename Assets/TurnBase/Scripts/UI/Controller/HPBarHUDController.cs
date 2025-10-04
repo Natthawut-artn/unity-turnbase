@@ -10,7 +10,6 @@ public static class HPBarHUDController
         playerData = Player.GetComponent<PlayerData>();
 
         currentHP = (float)playerData.currentHP / (float)playerData.HP;
-        Debug.Log(currentHP);
 
         HPBarHUD.Data data = new HPBarHUD.Data(currentHP);
 
