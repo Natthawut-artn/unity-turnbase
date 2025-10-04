@@ -154,12 +154,14 @@ MonoBehaviour:
   MarkerLayer:
     serializedVersion: 2
     m_Bits: 264
-  playerData: {fileID: 0}
+  playerData: {fileID: 7779582408910170011}
   maxHealth: 0
   currentHealth: 0
   Enemy:
     serializedVersion: 2
     m_Bits: 256
+  maxTilesPerTurn: 4
+  tilesMoved: 0
 --- !u!114 &7779582408910170011
 MonoBehaviour:
   m_ObjectHideFlags: 0
