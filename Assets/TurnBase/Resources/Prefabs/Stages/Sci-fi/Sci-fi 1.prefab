@@ -227,10 +227,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room7
   ConnectWith2: Room10
-  ExitPosRoom1: {x: 6, y: 10}
-  ExitPosRoom2: {x: 6, y: 1}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 15, y: 32}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
+  - {x: 18, y: 32}
+  ExitPosRoom2:
+  - {x: 15, y: 1}
+  - {x: 16, y: 1}
+  - {x: 17, y: 1}
+  - {x: 18, y: 1}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &106502400591912018
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,10 +501,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room13
   ConnectWith2: Room12
-  ExitPosRoom1: {x: 6, y: 1}
-  ExitPosRoom2: {x: 6, y: 10}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 15, y: 1}
+  - {x: 16, y: 1}
+  - {x: 17, y: 1}
+  - {x: 18, y: 1}
+  ExitPosRoom2:
+  - {x: 15, y: 32}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
+  - {x: 18, y: 32}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &254078241267659708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,6 +1474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConnectToRoom: Room8
+  isOpen: 0
 --- !u!1 &784422267591319931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2570,10 +2587,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room12
   ConnectWith2: Room15
-  ExitPosRoom1: {x: 6, y: 1}
-  ExitPosRoom2: {x: 6, y: 10}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 15, y: 1}
+  - {x: 16, y: 1}
+  - {x: 17, y: 1}
+  - {x: 18, y: 1}
+  ExitPosRoom2:
+  - {x: 15, y: 32}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
+  - {x: 18, y: 32}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &1325185748665542839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2925,10 +2950,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room2
   ConnectWith2: Room3
-  ExitPosRoom1: {x: 1, y: 5}
-  ExitPosRoom2: {x: 10, y: 5}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 1, y: 15}
+  - {x: 1, y: 16}
+  - {x: 1, y: 17}
+  - {x: 1, y: 18}
+  ExitPosRoom2:
+  - {x: 32, y: 15}
+  - {x: 32, y: 16}
+  - {x: 32, y: 17}
+  - {x: 32, y: 18}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &1620716118593944292
 GameObject:
   m_ObjectHideFlags: 0
@@ -3609,10 +3642,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room1
   ConnectWith2: Room15
-  ExitPosRoom1: {x: 6, y: 10}
-  ExitPosRoom2: {x: 6, y: 1}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 15, y: 32}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
+  - {x: 18, y: 32}
+  ExitPosRoom2:
+  - {x: 15, y: 1}
+  - {x: 16, y: 1}
+  - {x: 17, y: 1}
+  - {x: 18, y: 1}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &2140938339611832754
 GameObject:
   m_ObjectHideFlags: 0
@@ -4069,10 +4110,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room6
   ConnectWith2: Room7
-  ExitPosRoom1: {x: 6, y: 10}
-  ExitPosRoom2: {x: 6, y: 1}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 15, y: 32}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
+  - {x: 18, y: 32}
+  ExitPosRoom2:
+  - {x: 15, y: 1}
+  - {x: 16, y: 1}
+  - {x: 17, y: 1}
+  - {x: 18, y: 1}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &2364230249299677930
 GameObject:
   m_ObjectHideFlags: 0
@@ -4592,6 +4641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConnectToRoom: Room10
+  isOpen: 0
 --- !u!65 &7943706336727528053
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7305,10 +7355,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room7
   ConnectWith2: Room11
-  ExitPosRoom1: {x: 10, y: 5}
-  ExitPosRoom2: {x: 1, y: 5}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 32, y: 15}
+  - {x: 32, y: 16}
+  - {x: 32, y: 17}
+  - {x: 32, y: 18}
+  ExitPosRoom2:
+  - {x: 1, y: 15}
+  - {x: 1, y: 16}
+  - {x: 1, y: 17}
+  - {x: 1, y: 18}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &4002149324506658353
 GameObject:
   m_ObjectHideFlags: 0
@@ -7624,10 +7682,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room5
   ConnectWith2: Room6
-  ExitPosRoom1: {x: 10, y: 5}
-  ExitPosRoom2: {x: 1, y: 5}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 32, y: 15}
+  - {x: 32, y: 16}
+  - {x: 32, y: 17}
+  - {x: 32, y: 18}
+  ExitPosRoom2:
+  - {x: 1, y: 15}
+  - {x: 1, y: 16}
+  - {x: 1, y: 17}
+  - {x: 1, y: 18}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &4112339246335109898
 GameObject:
   m_ObjectHideFlags: 0
@@ -7750,10 +7816,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room5
   ConnectWith2: Room8
-  ExitPosRoom1: {x: 6, y: 10}
-  ExitPosRoom2: {x: 6, y: 1}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 15, y: 32}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
+  - {x: 18, y: 32}
+  ExitPosRoom2:
+  - {x: 15, y: 1}
+  - {x: 16, y: 1}
+  - {x: 17, y: 1}
+  - {x: 18, y: 1}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &4170526970358479589
 GameObject:
   m_ObjectHideFlags: 0
@@ -8498,10 +8572,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room1
   ConnectWith2: Room2
-  ExitPosRoom1: {x: 1, y: 16}
-  ExitPosRoom2: {x: 32, y: 16}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 1, y: 15}
+  - {x: 1, y: 16}
+  - {x: 1, y: 17}
+  - {x: 1, y: 18}
+  ExitPosRoom2:
+  - {x: 32, y: 15}
+  - {x: 32, y: 16}
+  - {x: 32, y: 17}
+  - {x: 32, y: 18}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &4473480117836971094
 GameObject:
   m_ObjectHideFlags: 0
@@ -8624,10 +8706,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room8
   ConnectWith2: Room9
-  ExitPosRoom1: {x: 6, y: 10}
-  ExitPosRoom2: {x: 16, y: 1}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 15, y: 32}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
+  - {x: 18, y: 32}
+  ExitPosRoom2:
+  - {x: 23, y: 1}
+  - {x: 24, y: 1}
+  - {x: 25, y: 1}
+  - {x: 26, y: 1}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &4506722544589987696
 GameObject:
   m_ObjectHideFlags: 0
@@ -8836,10 +8926,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room4
   ConnectWith2: Room5
-  ExitPosRoom1: {x: 6, y: 10}
-  ExitPosRoom2: {x: 6, y: 1}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 15, y: 32}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
+  - {x: 18, y: 32}
+  ExitPosRoom2:
+  - {x: 15, y: 1}
+  - {x: 16, y: 1}
+  - {x: 17, y: 1}
+  - {x: 18, y: 1}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &4573896258657071122
 GameObject:
   m_ObjectHideFlags: 0
@@ -10616,10 +10714,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room13
   ConnectWith2: Room14
-  ExitPosRoom1: {x: 6, y: 10}
-  ExitPosRoom2: {x: 6, y: 1}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 15, y: 32}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
+  - {x: 18, y: 32}
+  ExitPosRoom2:
+  - {x: 15, y: 1}
+  - {x: 16, y: 1}
+  - {x: 17, y: 1}
+  - {x: 18, y: 1}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &5574124210929803447
 GameObject:
   m_ObjectHideFlags: 0
@@ -11639,10 +11745,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room11
   ConnectWith2: Room13
-  ExitPosRoom1: {x: 10, y: 5}
-  ExitPosRoom2: {x: 1, y: 5}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 32, y: 15}
+  - {x: 32, y: 16}
+  - {x: 32, y: 17}
+  - {x: 32, y: 18}
+  ExitPosRoom2:
+  - {x: 1, y: 15}
+  - {x: 1, y: 16}
+  - {x: 1, y: 17}
+  - {x: 1, y: 18}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &6029982006672550525
 GameObject:
   m_ObjectHideFlags: 0
@@ -12303,10 +12417,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room7
   ConnectWith2: Room8
-  ExitPosRoom1: {x: 1, y: 5}
-  ExitPosRoom2: {x: 10, y: 5}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 1, y: 15}
+  - {x: 1, y: 16}
+  - {x: 1, y: 17}
+  - {x: 1, y: 18}
+  ExitPosRoom2:
+  - {x: 32, y: 15}
+  - {x: 32, y: 16}
+  - {x: 32, y: 17}
+  - {x: 32, y: 18}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &6231868351638079867
 GameObject:
   m_ObjectHideFlags: 0
@@ -13375,10 +13497,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room9
   ConnectWith2: Room10
-  ExitPosRoom1: {x: 20, y: 6}
-  ExitPosRoom2: {x: 1, y: 6}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 40, y: 15}
+  - {x: 40, y: 16}
+  - {x: 40, y: 17}
+  - {x: 40, y: 18}
+  ExitPosRoom2:
+  - {x: 1, y: 15}
+  - {x: 1, y: 16}
+  - {x: 1, y: 17}
+  - {x: 1, y: 18}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &6734648790938512378
 GameObject:
   m_ObjectHideFlags: 0
@@ -13866,70 +13996,178 @@ MonoBehaviour:
   ExitGridPositions:
   - RoomIndex: 0
     Positions:
+    - {x: 1, y: 15}
     - {x: 1, y: 16}
-    - {x: 6, y: 32}
+    - {x: 1, y: 17}
+    - {x: 1, y: 18}
+    - {x: 15, y: 32}
+    - {x: 16, y: 32}
+    - {x: 17, y: 32}
+    - {x: 18, y: 32}
   - RoomIndex: 1
     Positions:
-    - {x: 32, y: 16}
+    - {x: 1, y: 15}
     - {x: 1, y: 16}
+    - {x: 1, y: 17}
+    - {x: 1, y: 18}
+    - {x: 32, y: 15}
+    - {x: 32, y: 16}
+    - {x: 32, y: 17}
+    - {x: 32, y: 18}
   - RoomIndex: 2
     Positions:
-    - {x: 32, y: 16}
+    - {x: 1, y: 15}
     - {x: 1, y: 16}
+    - {x: 1, y: 17}
+    - {x: 1, y: 18}
+    - {x: 32, y: 15}
+    - {x: 32, y: 16}
+    - {x: 32, y: 17}
+    - {x: 32, y: 18}
   - RoomIndex: 3
     Positions:
+    - {x: 32, y: 15}
     - {x: 32, y: 16}
-    - {x: 6, y: 32}
+    - {x: 32, y: 17}
+    - {x: 32, y: 18}
+    - {x: 15, y: 32}
+    - {x: 16, y: 32}
+    - {x: 17, y: 32}
+    - {x: 18, y: 32}
   - RoomIndex: 4
     Positions:
-    - {x: 6, y: 1}
+    - {x: 32, y: 15}
     - {x: 32, y: 16}
-    - {x: 6, y: 32}
+    - {x: 32, y: 17}
+    - {x: 32, y: 18}
+    - {x: 15, y: 32}
+    - {x: 16, y: 32}
+    - {x: 17, y: 32}
+    - {x: 18, y: 32}
+    - {x: 15, y: 1}
+    - {x: 16, y: 1}
+    - {x: 17, y: 1}
+    - {x: 18, y: 1}
   - RoomIndex: 5
     Positions:
-    - {x: 6, y: 32}
+    - {x: 1, y: 15}
     - {x: 1, y: 16}
+    - {x: 1, y: 17}
+    - {x: 1, y: 18}
+    - {x: 15, y: 32}
+    - {x: 16, y: 32}
+    - {x: 17, y: 32}
+    - {x: 18, y: 32}
   - RoomIndex: 6
     Positions:
-    - {x: 6, y: 1}
+    - {x: 1, y: 15}
     - {x: 1, y: 16}
-    - {x: 6, y: 32}
+    - {x: 1, y: 17}
+    - {x: 1, y: 18}
+    - {x: 32, y: 15}
     - {x: 32, y: 16}
+    - {x: 32, y: 17}
+    - {x: 32, y: 18}
+    - {x: 15, y: 32}
+    - {x: 16, y: 32}
+    - {x: 17, y: 32}
+    - {x: 18, y: 32}
+    - {x: 15, y: 1}
+    - {x: 16, y: 1}
+    - {x: 17, y: 1}
+    - {x: 18, y: 1}
   - RoomIndex: 7
     Positions:
-    - {x: 6, y: 1}
+    - {x: 32, y: 15}
     - {x: 32, y: 16}
-    - {x: 6, y: 32}
+    - {x: 32, y: 17}
+    - {x: 32, y: 18}
+    - {x: 15, y: 32}
+    - {x: 16, y: 32}
+    - {x: 17, y: 32}
+    - {x: 18, y: 32}
+    - {x: 15, y: 1}
+    - {x: 16, y: 1}
+    - {x: 17, y: 1}
+    - {x: 18, y: 1}
   - RoomIndex: 8
     Positions:
-    - {x: 16, y: 1}
-    - {x: 32, y: 6}
+    - {x: 23, y: 1}
+    - {x: 24, y: 1}
+    - {x: 25, y: 1}
+    - {x: 26, y: 1}
+    - {x: 40, y: 15}
+    - {x: 40, y: 16}
+    - {x: 40, y: 17}
+    - {x: 40, y: 18}
   - RoomIndex: 9
     Positions:
-    - {x: 6, y: 1}
-    - {x: 1, y: 6}
-    - {x: 32, y: 6}
+    - {x: 1, y: 15}
+    - {x: 1, y: 16}
+    - {x: 1, y: 17}
+    - {x: 1, y: 18}
+    - {x: 32, y: 15}
+    - {x: 32, y: 16}
+    - {x: 32, y: 17}
+    - {x: 32, y: 18}
+    - {x: 15, y: 1}
+    - {x: 16, y: 1}
+    - {x: 17, y: 1}
+    - {x: 18, y: 1}
   - RoomIndex: 10
     Positions:
+    - {x: 1, y: 15}
     - {x: 1, y: 16}
+    - {x: 1, y: 17}
+    - {x: 1, y: 18}
+    - {x: 32, y: 15}
     - {x: 32, y: 16}
+    - {x: 32, y: 17}
+    - {x: 32, y: 18}
   - RoomIndex: 11
     Positions:
-    - {x: 6, y: 1}
-    - {x: 6, y: 32}
+    - {x: 15, y: 1}
+    - {x: 16, y: 1}
+    - {x: 17, y: 1}
+    - {x: 18, y: 1}
+    - {x: 15, y: 32}
+    - {x: 16, y: 32}
+    - {x: 17, y: 32}
+    - {x: 18, y: 32}
   - RoomIndex: 12
     Positions:
-    - {x: 6, y: 1}
-    - {x: 6, y: 32}
+    - {x: 15, y: 1}
+    - {x: 16, y: 1}
+    - {x: 17, y: 1}
+    - {x: 18, y: 1}
+    - {x: 15, y: 32}
+    - {x: 16, y: 32}
+    - {x: 17, y: 32}
+    - {x: 18, y: 32}
+    - {x: 1, y: 15}
     - {x: 1, y: 16}
+    - {x: 1, y: 17}
+    - {x: 1, y: 18}
   - RoomIndex: 13
     Positions:
-    - {x: 6, y: 1}
-    - {x: 1, y: 6}
+    - {x: 15, y: 1}
+    - {x: 16, y: 1}
+    - {x: 17, y: 1}
+    - {x: 18, y: 1}
+    - {x: 1, y: 15}
+    - {x: 1, y: 16}
+    - {x: 1, y: 17}
+    - {x: 1, y: 18}
   - RoomIndex: 14
     Positions:
-    - {x: 6, y: 1}
-    - {x: 6, y: 32}
+    - {x: 15, y: 1}
+    - {x: 16, y: 1}
+    - {x: 17, y: 1}
+    - {x: 18, y: 1}
+    - {x: 15, y: 32}
+    - {x: 16, y: 32}
+    - {x: 17, y: 32}
+    - {x: 18, y: 32}
   SizeRoomsData:
   - {x: 32, y: 32}
   - {x: 32, y: 32}
@@ -17596,10 +17834,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room10
   ConnectWith2: Room14
-  ExitPosRoom1: {x: 10, y: 6}
-  ExitPosRoom2: {x: 1, y: 6}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 32, y: 15}
+  - {x: 32, y: 16}
+  - {x: 32, y: 17}
+  - {x: 32, y: 18}
+  ExitPosRoom2:
+  - {x: 1, y: 15}
+  - {x: 1, y: 16}
+  - {x: 1, y: 17}
+  - {x: 1, y: 18}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &8635755921988107998
 GameObject:
   m_ObjectHideFlags: 0
@@ -18200,10 +18446,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectWith1: Room3
   ConnectWith2: Room4
-  ExitPosRoom1: {x: 1, y: 5}
-  ExitPosRoom2: {x: 10, y: 5}
-  ExitMarkerRoom1: {fileID: 0}
-  ExitMarkerRoom2: {fileID: 0}
+  ExitPosRoom1:
+  - {x: 1, y: 15}
+  - {x: 1, y: 16}
+  - {x: 1, y: 17}
+  - {x: 1, y: 18}
+  ExitPosRoom2:
+  - {x: 32, y: 15}
+  - {x: 32, y: 16}
+  - {x: 32, y: 17}
+  - {x: 32, y: 18}
+  ExitMarkersRoom1: []
+  ExitMarkersRoom2: []
 --- !u!1 &8836531703193878796
 GameObject:
   m_ObjectHideFlags: 0

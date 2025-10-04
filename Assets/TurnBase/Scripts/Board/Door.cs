@@ -3,13 +3,13 @@ using System.Collections;
 
 public class Door : MonoBehaviour
 {
-    Rigidbody rigidbody;
+    Rigidbody rb;
     public string ConnectToRoom;
     public bool isOpen = false;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     public void Open()
@@ -23,11 +23,11 @@ public class Door : MonoBehaviour
 
     IEnumerator View()
     {
-        rigidbody.isKinematic = false;
-        rigidbody.useGravity = false;
-        rigidbody.velocity = Vector3.up * 2f;
+        rb.isKinematic = false;
+        rb.useGravity = false;
+        rb.velocity = Vector3.up * 2f;
         yield return new WaitForSeconds(2.5f);
-        rigidbody.velocity = Vector3.zero;
-        rigidbody.isKinematic = true;
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
     }
 }

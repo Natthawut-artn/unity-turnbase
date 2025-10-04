@@ -67,7 +67,6 @@ public class BoardManager : MonoBehaviour
     private MeshRenderer currentMarker;
     public bool isTransferring = false;
 
-
     private void LinkBridgesWithRooms()
     {
         foreach (GameObject bridgeObj in ListBridges)
@@ -86,38 +85,39 @@ public class BoardManager : MonoBehaviour
             Room room1Script = room1.GetComponent<Room>();
             Room room2Script = room2.GetComponent<Room>();
 
-            // หา exit marker ของห้อง1 ตามตำแหน่งที่กำหนด
-            Marker marker1 = room1.GetComponentsInChildren<Marker>()
-                .FirstOrDefault(m => m.isExit && m.GridPosition == bridge.ExitPosRoom1);
+            int pairCount = Mathf.Min(bridge.ExitPosRoom1.Count, bridge.ExitPosRoom2.Count);
 
-            if (marker1 != null && marker1.ConnectedBridge == null)
+            for (int i = 0; i < pairCount; i++)
             {
-                marker1.ConnectedBridge = bridge;
-                if (!room1Script.ExitMarkers.Contains(marker1))
-                    room1Script.ExitMarkers.Add(marker1);
+                Vector2Int pos1 = bridge.ExitPosRoom1[i];
+                Vector2Int pos2 = bridge.ExitPosRoom2[i];
 
-                bridge.ExitMarkerRoom1 = marker1;
-            }
-            else
-            {
-                Debug.LogWarning($"Bridge {bridge.name} could not find ExitMarker at {bridge.ExitPosRoom1} in room {room1.name}");
-            }
+                Marker marker1 = room1.GetComponentsInChildren<Marker>()
+                    .FirstOrDefault(m => m.isExit && m.GridPosition == pos1);
 
-            // หา exit marker ของห้อง2 ตามตำแหน่งที่กำหนด
-            Marker marker2 = room2.GetComponentsInChildren<Marker>()
-                .FirstOrDefault(m => m.isExit && m.GridPosition == bridge.ExitPosRoom2);
+                Marker marker2 = room2.GetComponentsInChildren<Marker>()
+                    .FirstOrDefault(m => m.isExit && m.GridPosition == pos2);
 
-            if (marker2 != null && marker2.ConnectedBridge == null)
-            {
-                marker2.ConnectedBridge = bridge;
-                if (!room2Script.ExitMarkers.Contains(marker2))
-                    room2Script.ExitMarkers.Add(marker2);
+                if (marker1 != null && marker1.ConnectedBridge == null &&
+                    marker2 != null && marker2.ConnectedBridge == null)
+                {
+                    marker1.ConnectedBridge = bridge;
+                    marker2.ConnectedBridge = bridge;
 
-                bridge.ExitMarkerRoom2 = marker2;
-            }
-            else
-            {
-                Debug.LogWarning($"Bridge {bridge.name} could not find ExitMarker at {bridge.ExitPosRoom2} in room {room2.name}");
+                    if (!room1Script.ExitMarkers.Contains(marker1))
+                        room1Script.ExitMarkers.Add(marker1);
+                    if (!room2Script.ExitMarkers.Contains(marker2))
+                        room2Script.ExitMarkers.Add(marker2);
+
+                    bridge.ExitMarkersRoom1.Add(marker1);
+                    bridge.ExitMarkersRoom2.Add(marker2);
+
+                    bridge.AddMarkerPair(marker1, marker2);
+                }
+                else
+                {
+                    Debug.LogWarning($"Bridge {bridge.name} could not link ExitMarkers {pos1} <-> {pos2}");
+                }
             }
         }
     }
