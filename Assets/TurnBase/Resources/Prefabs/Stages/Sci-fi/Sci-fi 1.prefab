@@ -13991,6 +13991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffee7f4f1bf58e458428fbbcf6977b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GridPosition: {x: 0, y: 0}
   ListRooms: []
   ListBridges: []
   ExitGridPositions:

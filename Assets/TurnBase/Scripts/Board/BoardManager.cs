@@ -22,6 +22,7 @@ public class ExitGridData
 public class BoardManager : MonoBehaviour
 {
     public static BoardManager Instance;
+    public Vector2 GridPosition;
     void Awake()
     {
         if (Instance != null)
@@ -178,16 +179,26 @@ public class BoardManager : MonoBehaviour
 
     public Vector3 GetMarkerWorldPosition(Vector2 GridPosition, GameObject Room)
     {
-        for (int j = 0; j < Room.transform.childCount; j++)
+        // Convert Vector2 to Vector2Int
+        Vector2Int targetPos = new Vector2Int(
+            Mathf.RoundToInt(GridPosition.x),
+            Mathf.RoundToInt(GridPosition.y)
+        );
+
+        // Loop through all Marker components in the room
+        Marker[] markers = Room.GetComponentsInChildren<Marker>();
+        foreach (Marker markerScript in markers)
         {
-            Marker markerScript = Room.GetComponentInChildren<Marker>();
-            if (GridPosition == markerScript.GridPosition)
+            if (markerScript.GridPosition == targetPos)
             {
                 return markerScript.transform.position;
             }
         }
+
+        // If not found
         return Vector3.zero;
     }
+
 
     public Vector2 GetMarkerGameObject(GameObject MarkerGameObject)
     {

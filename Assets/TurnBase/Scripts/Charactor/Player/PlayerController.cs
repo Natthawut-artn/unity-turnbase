@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 targetPos = transform.position;
 
+        // 🧩 MOVE ON X AXIS
         if (Mathf.Abs(To.transform.position.x - transform.position.x) > 0.01f)
         {
             Debug.Log(tilesMoved);
@@ -75,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
             Vector3 dir = new Vector3(x, 0, 0);
             transform.rotation = Quaternion.LookRotation(dir);
+
             // ✅ Move smoothly
             while (Vector3.Distance(transform.position, targetPos) > 0.01f)
             {
@@ -82,7 +84,31 @@ public class PlayerController : MonoBehaviour
                 yield return null;
             }
             transform.position = targetPos;
+
+            // ⚔️ Enemy blocking check (X movement)
+            Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 2f, Enemy);
+            if (hitEnemies.Length > 0)
+            {
+                Debug.Log("Enemy ahead → attack instead of moving.");
+                SetAnimationState(PlayerMoveState.Stand);
+
+                // ✅ Face the enemy
+                transform.LookAt(hitEnemies[0].transform.position);
+
+                // ✅ Attack if player has attack script
+                PlayerAttack attack = GetComponent<PlayerAttack>();
+                if (attack != null)
+                {
+                    attack.Attack();
+                }
+
+                // ✅ End turn after attacking
+                StartCoroutine(SwitchTurn());
+                yield break;
+            }
         }
+
+        // 🧩 MOVE ON Z AXIS
         else if (Mathf.Abs(To.transform.position.z - transform.position.z) > 0.01f)
         {
             SetAnimationState(PlayerMoveState.Walk);
@@ -99,15 +125,28 @@ public class PlayerController : MonoBehaviour
                 yield return null;
             }
             transform.position = targetPos;
-        }
 
-        // 🛑 Enemy blocking?
-        Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 0.4f, Enemy);
-        if (hitEnemies.Length > 0)
-        {
-            Debug.Log("Enemy blocking path → stop movement.");
-            SetAnimationState(PlayerMoveState.Stand);
-            yield break;
+            // ⚔️ Enemy blocking check (Z movement)
+            Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 2f, Enemy);
+            if (hitEnemies.Length > 0)
+            {
+                Debug.Log("Enemy ahead → attack instead of moving.");
+                SetAnimationState(PlayerMoveState.Stand);
+
+                // ✅ Face the enemy
+                transform.LookAt(hitEnemies[0].transform.position);
+
+                // ✅ Attack if player has attack script
+                PlayerAttack attack = GetComponent<PlayerAttack>();
+                if (attack != null)
+                {
+                    attack.Attack();
+                }
+
+                // ✅ End turn after attacking
+                StartCoroutine(SwitchTurn());
+                yield break;
+            }
         }
 
         // ✅ Count tile
@@ -117,8 +156,8 @@ public class PlayerController : MonoBehaviour
         playerData.GridPosition.x = Mathf.RoundToInt(transform.position.x);
         playerData.GridPosition.y = Mathf.RoundToInt(transform.position.z);
 
-        if (tilesMoved >= maxTilesPerTurn || 
-        Vector3.Distance(transform.position, To.transform.position) < 0.01f)
+        // 🔁 Continue or end turn
+        if (tilesMoved >= maxTilesPerTurn || Vector3.Distance(transform.position, To.transform.position) < 0.01f)
         {
             Debug.Log("Used all moves or reached destination → switching turn.");
             SetAnimationState(PlayerMoveState.Stand);
@@ -129,7 +168,6 @@ public class PlayerController : MonoBehaviour
             // Continue toward destination if not final cell
             StartCoroutine(MoveToCell2(To));
         }
-
     }
 
 
@@ -167,7 +205,7 @@ public class PlayerController : MonoBehaviour
             transform.position = targetPos;
             playerData.GridPosition.y -= x;
 
-            Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 0.4f, Enemy);
+            Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 2f, Enemy);
             if (hitEnemies.Length > 0)
             {
                 Debug.Log("Enemy blocking path → stop movement.");
@@ -195,7 +233,7 @@ public class PlayerController : MonoBehaviour
             }
             transform.position = targetPos;
             playerData.GridPosition.x -= z;
-            Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 0.4f, Enemy);
+            Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 2f, Enemy);
             if (hitEnemies.Length > 0)
             {
                 Debug.Log("Enemy blocking path → stop movement.");

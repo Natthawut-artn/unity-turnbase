@@ -7,6 +7,9 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    // Tracks occupied grid positions (X,Z)
+    public static HashSet<Vector2> OccupiedPositions = new HashSet<Vector2>();
+    private Vector2 currentGridPos;
     public static EnemyAI Instance;
     public NavMeshAgent agent;
     public Transform Player;
@@ -41,6 +44,11 @@ public class EnemyAI : MonoBehaviour
 
         enemyData = GetComponent<EnemyData>();
         enemyData.currentHP = enemyData.HP;
+
+        // Register starting position
+        currentGridPos = GetGridPosition(transform.position);
+        OccupiedPositions.Add(currentGridPos);
+
     }
     void Start()
     {
@@ -53,48 +61,50 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+    private Vector2 GetGridPosition(Vector3 worldPos)
+    {
+        return new Vector2(Mathf.Round(worldPos.x), Mathf.Round(worldPos.z));
+    }
+
     public IEnumerator TakeTurn()
     {
-        Debug.Log($"{name} starting turn");
-
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
 
-        // Decide action
-        if (!playerInSightRange && !playerInAttackRange)
+        // Only handle movement if player not in attack range
+        if (!playerInAttackRange)
         {
-            Patroling();
+            if (!playerInSightRange)
+                Patroling();
+            else if (playerInSightRange && !Stopzone)
+                ChasePlayer();
+
+            // Wait for movement to finish
+            float maxTime = 2f;
+            float timer = 0f;
+            while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance + 0.05f)
+            {
+                FaceMovementDirection();
+                timer += Time.deltaTime;
+                if (timer >= maxTime) break;
+                yield return null;
+            }
+
+            animator.SetBool("isWalking", false);
+
+            // Update current position after movement
+            currentGridPos = GetGridPosition(transform.position);
+            OccupiedPositions.Add(currentGridPos);
         }
-        else if (playerInSightRange && !playerInAttackRange && Stopzone == false)
-        {
-            ChasePlayer();
-        }
-        else if (playerInSightRange && playerInAttackRange)
+
+        // If in attack range, just attack (no occupancy changes)
+        if (playerInAttackRange)
         {
             AttackPlayer();
-            yield return new WaitForSeconds(1.5f); // wait so player sees attack
-            Debug.Log($"{name} finished turn (attack)");
-            yield break;
+            yield return new WaitForSeconds(1.5f); // allow player to see attack
         }
-
-        // Wait for movement
-        float maxTime = 2f;
-        float timer = 0f;
-
-        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance + 0.05f)
-        {
-            FaceMovementDirection();
-            timer += Time.deltaTime;
-            if (timer >= maxTime) break;
-            yield return null;
-        }
-
-        animator.SetBool("isWalking", false);
-
-        yield return new WaitForSeconds(0.2f);
-
-        Debug.Log($"{name} finished turn (move)");
     }
+
 
     public void Patroling()
     {
@@ -103,8 +113,16 @@ public class EnemyAI : MonoBehaviour
 
         if (walkPointSet)
         {
-            agent.SetDestination(walkPoint);
-            animator.SetBool("isWalking", true);
+            Vector2 targetGrid = GetGridPosition(walkPoint);
+            if (!OccupiedPositions.Contains(targetGrid))
+            {
+                agent.SetDestination(walkPoint);
+                animator.SetBool("isWalking", true);
+            }
+            else
+            {
+                walkPointSet = false; // pick a new point next turn
+            }
         }
 
         if (Vector3.Distance(transform.position, walkPoint) < 0.2f)
@@ -116,31 +134,44 @@ public class EnemyAI : MonoBehaviour
 
     private void SearchWalkPoint()
     {
-        int dir = Random.Range(0, 4);
-        Vector3 offset = Vector3.zero;
-
-        switch (dir)
+        int attempts = 0;
+        while (attempts < 10)
         {
-            case 0: offset = new Vector3(stepSize, 0, 0); break;   // Right
-            case 1: offset = new Vector3(-stepSize, 0, 0); break;  // Left
-            case 2: offset = new Vector3(0, 0, stepSize); break;   // Forward
-            case 3: offset = new Vector3(0, 0, -stepSize); break;  // Backward
-        }
+            int dir = Random.Range(0, 4);
+            Vector3 offset = Vector3.zero;
 
-        walkPoint = new Vector3(
-            Mathf.Round(transform.position.x + offset.x),
-            transform.position.y,
-            Mathf.Round(transform.position.z + offset.z)
-        );
+            switch (dir)
+            {
+                case 0: offset = new Vector3(stepSize, 0, 0); break;
+                case 1: offset = new Vector3(-stepSize, 0, 0); break;
+                case 2: offset = new Vector3(0, 0, stepSize); break;
+                case 3: offset = new Vector3(0, 0, -stepSize); break;
+            }
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, WhatIsGround))
-        {
-            walkPointSet = true;
+            Vector3 candidate = new Vector3(
+                Mathf.Round(transform.position.x + offset.x),
+                transform.position.y,
+                Mathf.Round(transform.position.z + offset.z)
+            );
+
+            Vector2 gridPos = GetGridPosition(candidate);
+
+            if (Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround) &&
+                !OccupiedPositions.Contains(gridPos))
+            {
+                walkPoint = candidate;
+                walkPointSet = true;
+                break;
+            }
+
+            attempts++;
         }
     }
 
+
     public void ChasePlayer()
     {
+
         Vector3 direction = Player.position - transform.position;
         float distance = direction.magnitude;
 
@@ -169,8 +200,19 @@ public class EnemyAI : MonoBehaviour
             Mathf.Round(chasePoint.z)
         );
 
-        agent.SetDestination(chasePoint);
-        
+        Vector2 targetGrid = GetGridPosition(chasePoint);
+
+        if (!OccupiedPositions.Contains(targetGrid))
+        {
+            agent.SetDestination(chasePoint);
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            agent.SetDestination(transform.position);
+            animator.SetBool("isWalking", false);
+        }
+
 
     }
 
@@ -210,4 +252,14 @@ public class EnemyAI : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         }
     }
+
+    private void OnDestroy()
+    {
+        // When enemy dies or is destroyed, free up its occupied grid cell
+        if (OccupiedPositions.Contains(currentGridPos))
+        {
+            OccupiedPositions.Remove(currentGridPos);
+        }
+    }
+
 }
