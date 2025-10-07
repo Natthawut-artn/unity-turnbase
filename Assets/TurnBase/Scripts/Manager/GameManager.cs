@@ -20,9 +20,16 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject CurrentStage;
     public LayerMask MarkerLayer;
-    public Vector2 PlayerSpawnPoint;
+    public List<Vector2> PlaterSpawnPos = new List<Vector2>();
+    private List<string> Players_Path = new List<string>()
+    {
+        "Prefabs/Charactor/Player/Striker Variant",
+        "Prefabs/Charactor/Player/Protector",
+        "Prefabs/Charactor/Player/Support"
+    };
+    public List<GameObject> Players_alive = new List<GameObject>();
+
     public string Room;
-    private const string Player_Path = "Prefabs/Charactor/Player/Striker Variant";
     private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar";
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
@@ -45,40 +52,61 @@ public class GameManager : MonoBehaviour
 
         if (CurrentStage != null)
         {
-            SpawnPlayer();
+            SpawnPlayers();
+            StartCoroutine(TurnManager.Instance.PlayersPhase());
         }
     }
 
     public void StopGame()
     {
-        Destroy(Player);
+        DestroyAll();
         Destroy(CurrentStage);
     }
 
-    public void SpawnPlayer()
+    public void SpawnPlayers()
     {
         if (AppStateManager.appState == AppState.Hub)
         {
             Player = Instantiate(Resources.Load<GameObject>(Avatar_Path));
+            MainCamera.Instance.SetPlayer(Player.transform);
+            return;
         }
         else
         {
-            Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlayerSpawnPoint, BoardManager.Instance.GetRoom(Room));
+            Destroy(Player);
+        }
+
+        for (int i = 0; i < Players_Path.Count; i++)
+        {
+            Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlaterSpawnPos[i], BoardManager.Instance.GetRoom(Room));
             Pos += new Vector3(0f, 1.49f, 0f);
 
-            Player = Instantiate(Resources.Load<GameObject>(Player_Path), Pos, Quaternion.identity);
+            GameObject Player = Instantiate(Resources.Load<GameObject>(Players_Path[i]), Pos, Quaternion.identity);
             PlayerData playerData = Player.GetComponent<PlayerData>();
-            playerData.GridPosition = PlayerSpawnPoint;
+            playerData.GridPosition = PlaterSpawnPos[i];
 
-            StartCoroutine(Wait());
+            Players_alive.Add(Player);
+
+            if (i == 0)
+            {
+                MainCamera.Instance.SetPlayer(Player.transform);
+            }
         }
-        MainCamera.Instance.SetPlayer(Player.transform);
+
+    }
+
+    public void DestroyAll()
+    {
+        foreach (GameObject player in Players_alive)
+        {
+            Destroy(player);
+        }
     }
 
     IEnumerator Wait()
     {
         yield return null;
-        HPBarHUDController.Show();
+        // HPBarHUDController.Show();
     }
 
     public void SpawnEnemy()
@@ -93,7 +121,7 @@ public class GameManager : MonoBehaviour
 
     public void BackToTheHub()
     {
-        HPBarHUDController.Hide();
+        // HPBarHUDController.Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();

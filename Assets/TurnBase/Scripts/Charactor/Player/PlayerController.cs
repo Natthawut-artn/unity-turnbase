@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public LayerMask Enemy;
+    public bool alreadyAttack = false;
+    public bool alreadyWalk = false;
     private Animator animator;
 
     // ✅ Movement limit
@@ -29,8 +31,10 @@ public class PlayerController : MonoBehaviour
         maxHealth = playerData.HP;
         playerData.currentHP = maxHealth;
     }
+
     private void SetAnimationState(PlayerMoveState state)
     {
+        if (animator == null) return;
         playerData.playerMoveState = state;
 
         // Reset first
@@ -48,13 +52,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public IEnumerator MoveToCell2(GameObject To)
+    public IEnumerator MoveToCell(GameObject To)
     {
         if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
         || tilesMoved >= maxTilesPerTurn)
         {
+            alreadyWalk = true;
             SetAnimationState(PlayerMoveState.Stand);
-            // StartCoroutine(SwitchTurn());
             Room room = To.GetComponentInParent<Room>();
             if (room.roomState == RoomState.CanExit)
             {
@@ -68,7 +72,6 @@ public class PlayerController : MonoBehaviour
 
         if (Mathf.Abs(To.transform.position.x - transform.position.x) > 0.01f)
         {
-            Debug.Log(tilesMoved);
             SetAnimationState(PlayerMoveState.Walk);
             int x = (To.transform.position.x > transform.position.x) ? 1 : -1;
             targetPos = transform.position + new Vector3(x, 0, 0);
@@ -117,127 +120,52 @@ public class PlayerController : MonoBehaviour
         playerData.GridPosition.x = Mathf.RoundToInt(transform.position.x);
         playerData.GridPosition.y = Mathf.RoundToInt(transform.position.z);
 
-        if (tilesMoved >= maxTilesPerTurn || 
+        if (tilesMoved >= maxTilesPerTurn ||
         Vector3.Distance(transform.position, To.transform.position) < 0.01f)
         {
             Debug.Log("Used all moves or reached destination → switching turn.");
             SetAnimationState(PlayerMoveState.Stand);
-            StartCoroutine(SwitchTurn());
+            alreadyWalk = true;
         }
         else
         {
             // Continue toward destination if not final cell
-            StartCoroutine(MoveToCell2(To));
+            StartCoroutine(MoveToCell(To));
         }
 
     }
 
-
-    public IEnumerator MoveToCell(GameObject To)
+    public IEnumerator TakeTurn()
     {
-        if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
-        || tilesMoved >= maxTilesPerTurn)
+        MainCamera.Instance.SetPlayer(gameObject.transform);
+        bool turnEnded = false;
+        if (alreadyWalk && alreadyAttack)
         {
-            SetAnimationState(PlayerMoveState.Stand);
-            StartCoroutine(SwitchTurn());
-            Room room = To.GetComponentInParent<Room>();
-            if (room.roomState == RoomState.CanExit)
-            {
-                BoardManager.Instance.CheckPlayerOnExit(To);
-            }
-            BoardManager.Instance.isTransferring = false;
-            yield break;
+            turnEnded = true;
         }
 
-        if (transform.position.x != To.transform.position.x)
+        while (!turnEnded)
         {
-            Debug.Log($" Player : {tilesMoved})");
-            playerData.playerMoveState = PlayerMoveState.Walk;
-            Vector3 Dir = new Vector3(transform.position.x - To.transform.position.x, 0, 0).normalized;
-            int x = Dir.x > 0 ? x = -1 : x = 1;
-            Vector3 targetPos = transform.position + new Vector3(x, 0, 0);
-            float speed = 5f;
-            SetAnimationState(PlayerMoveState.Walk);
-            transform.rotation = Quaternion.LookRotation(Dir * -1);
-            while (Vector3.Distance(transform.position, targetPos) > 0.01f)
+            Debug.Log(turnEnded);
+            yield return null;
+            if (alreadyWalk && alreadyAttack)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
-                yield return null;
+                turnEnded = true;
             }
-            transform.position = targetPos;
-            playerData.GridPosition.y -= x;
-
-            Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 0.4f, Enemy);
-            if (hitEnemies.Length > 0)
-            {
-                Debug.Log("Enemy blocking path → stop movement.");
-                SetAnimationState(PlayerMoveState.Stand);
-                yield break;
-            }
-
-            tilesMoved++;
-
-            StartCoroutine(MoveToCell(To));
         }
-        else if (transform.position.z != To.transform.position.z)
-        {
-            playerData.playerMoveState = PlayerMoveState.Walk;
-            Vector3 Dir = new Vector3(0, 0, transform.position.z - To.transform.position.z).normalized;
-            int z = Dir.z > 0 ? z = -1 : z = 1;
-            Vector3 targetPos = transform.position + new Vector3(0, 0, z);
-            float speed = 5f;
-            SetAnimationState(PlayerMoveState.Walk);
-            transform.rotation = Quaternion.LookRotation(Dir * -1);
-            while (Vector3.Distance(transform.position, targetPos) > 0.01f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
-                yield return null;
-            }
-            transform.position = targetPos;
-            playerData.GridPosition.x -= z;
-            Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 0.4f, Enemy);
-            if (hitEnemies.Length > 0)
-            {
-                Debug.Log("Enemy blocking path → stop movement.");
-                SetAnimationState(PlayerMoveState.Stand);
-                yield break;
-            }
 
-            tilesMoved++;
-
-            StartCoroutine(MoveToCell(To));
-        }
-        
-        if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
-        || tilesMoved >= maxTilesPerTurn)
-        {
-            SetAnimationState(PlayerMoveState.Stand);
-            StartCoroutine(SwitchTurn());
-            Room room = To.GetComponentInParent<Room>();
-            if (room.roomState == RoomState.CanExit)
-            {
-                BoardManager.Instance.CheckPlayerOnExit(To);
-            }
-            BoardManager.Instance.isTransferring = false;
-            yield break;
-        }
+        FinishedTurn();
     }
 
-
-
-    public IEnumerator SwitchTurn()
+    public void FinishedTurn()
     {
-        yield return new WaitForSeconds(0.5f);
-
         // Reset movement for next turn
         tilesMoved = 0;
+        alreadyWalk = false;
+        alreadyAttack = false;
 
         playerData.playerMoveState = PlayerMoveState.Stand;
         SetAnimationState(PlayerMoveState.Stand);
-
-
-        // Switch to Enemy phase
-        TurnManager.Instance.EndTurn();
     }
 
     void Update()
@@ -257,7 +185,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             playerData.Healing(20);
-            StartCoroutine(SwitchTurn());
         }
     }
 }
