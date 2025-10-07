@@ -27,6 +27,7 @@ public class Room : MonoBehaviour
         {
             Doors.Add(other.gameObject);    
         }
+
     }
 
     void OnTriggerExit(Collider other)
@@ -37,6 +38,10 @@ public class Room : MonoBehaviour
             {
                 roomState = RoomState.Clear;
             }
+           
+            roomState = RoomState.UnPlaying;
+            Debug.Log($"{gameObject.name} is now {roomState}");
+
         }
     }
 }

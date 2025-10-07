@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,6 +7,9 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    // Tracks occupied grid positions (X,Z)
+    public static HashSet<Vector2> OccupiedPositions = new HashSet<Vector2>();
+    private Vector2 currentGridPos;
     public static EnemyAI Instance;
     public NavMeshAgent agent;
     public Transform Player;
@@ -25,7 +28,8 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
     private Animator animator;
-    
+
+    public Room parentRoom;
     EnemyData enemyData;
     
     
@@ -41,9 +45,15 @@ public class EnemyAI : MonoBehaviour
 
         enemyData = GetComponent<EnemyData>();
         enemyData.currentHP = enemyData.HP;
+
+        // Register starting position
+        currentGridPos = GetGridPosition(transform.position);
+        OccupiedPositions.Add(currentGridPos);
+
     }
     void Start()
     {
+        Player = GameObject.FindWithTag("Player").transform;
         animator = GetComponentInChildren<Animator>();
     }
     private void OnDrawGizmos()
@@ -53,48 +63,57 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+    private Vector2 GetGridPosition(Vector3 worldPos)
+    {
+        return new Vector2(Mathf.Round(worldPos.x), Mathf.Round(worldPos.z));
+    }
+
     public IEnumerator TakeTurn()
     {
-        Debug.Log($"{name} starting turn");
+        if (agent == null) yield break;
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
 
-        // Decide action
-        if (!playerInSightRange && !playerInAttackRange)
+        Vector2 oldGrid = currentGridPos;
+
+        if (!playerInAttackRange)
         {
-            Patroling();
+            if (agent == null) yield break;
+            if (!playerInSightRange)
+                Patroling();
+            else if (playerInSightRange && !Stopzone)
+                ChasePlayer();
+
+            OccupiedPositions.Remove(oldGrid);
+
+            float maxTime = 2f;
+            float timer = 0f;
+            while (agent != null && agent.pathPending == false &&
+                   agent.remainingDistance > agent.stoppingDistance + 0.05f)
+            {
+                if (this == null) yield break;
+                FaceMovementDirection();
+                timer += Time.deltaTime;
+                if (timer >= maxTime) break;
+                yield return null;
+            }
+
+            if (agent == null) yield break;
+            animator.SetBool("isWalking", false);
+
+            currentGridPos = GetGridPosition(transform.position);
+            OccupiedPositions.Add(currentGridPos);
         }
-        else if (playerInSightRange && !playerInAttackRange && Stopzone == false)
-        {
-            ChasePlayer();
-        }
-        else if (playerInSightRange && playerInAttackRange)
+
+        if (playerInAttackRange && this != null)
         {
             AttackPlayer();
-            yield return new WaitForSeconds(1.5f); // wait so player sees attack
-            Debug.Log($"{name} finished turn (attack)");
-            yield break;
+            yield return new WaitForSeconds(1.5f);
         }
-
-        // Wait for movement
-        float maxTime = 2f;
-        float timer = 0f;
-
-        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance + 0.05f)
-        {
-            FaceMovementDirection();
-            timer += Time.deltaTime;
-            if (timer >= maxTime) break;
-            yield return null;
-        }
-
-        animator.SetBool("isWalking", false);
-
-        yield return new WaitForSeconds(0.2f);
-
-        Debug.Log($"{name} finished turn (move)");
     }
+
+
 
     public void Patroling()
     {
@@ -103,8 +122,16 @@ public class EnemyAI : MonoBehaviour
 
         if (walkPointSet)
         {
-            agent.SetDestination(walkPoint);
-            animator.SetBool("isWalking", true);
+            Vector2 targetGrid = GetGridPosition(walkPoint);
+            if (!OccupiedPositions.Contains(targetGrid))
+            {
+                agent.SetDestination(walkPoint);
+                animator.SetBool("isWalking", true);
+            }
+            else
+            {
+                walkPointSet = false; // pick a new point next turn
+            }
         }
 
         if (Vector3.Distance(transform.position, walkPoint) < 0.2f)
@@ -116,63 +143,129 @@ public class EnemyAI : MonoBehaviour
 
     private void SearchWalkPoint()
     {
-        int dir = Random.Range(0, 4);
-        Vector3 offset = Vector3.zero;
-
-        switch (dir)
+        int attempts = 0;
+        while (attempts < 10)
         {
-            case 0: offset = new Vector3(stepSize, 0, 0); break;   // Right
-            case 1: offset = new Vector3(-stepSize, 0, 0); break;  // Left
-            case 2: offset = new Vector3(0, 0, stepSize); break;   // Forward
-            case 3: offset = new Vector3(0, 0, -stepSize); break;  // Backward
-        }
+            int dir = Random.Range(0, 4);
+            Vector3 offset = Vector3.zero;
 
-        walkPoint = new Vector3(
-            Mathf.Round(transform.position.x + offset.x),
-            transform.position.y,
-            Mathf.Round(transform.position.z + offset.z)
-        );
+            switch (dir)
+            {
+                case 0: offset = new Vector3(stepSize, 0, 0); break;
+                case 1: offset = new Vector3(-stepSize, 0, 0); break;
+                case 2: offset = new Vector3(0, 0, stepSize); break;
+                case 3: offset = new Vector3(0, 0, -stepSize); break;
+            }
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, WhatIsGround))
-        {
-            walkPointSet = true;
+            Vector3 candidate = new Vector3(
+                Mathf.Round(transform.position.x + offset.x),
+                transform.position.y,
+                Mathf.Round(transform.position.z + offset.z)
+            );
+
+            Vector2 gridPos = GetGridPosition(candidate);
+
+            if (Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround) &&
+                !OccupiedPositions.Contains(gridPos))
+            {
+                walkPoint = candidate;
+                walkPointSet = true;
+                break;
+            }
+
+            attempts++;
         }
     }
 
+
     public void ChasePlayer()
     {
-        Vector3 direction = Player.position - transform.position;
-        float distance = direction.magnitude;
+        Vector3 direction = (Player.position - transform.position).normalized;
+        float distance = Vector3.Distance(transform.position, Player.position);
 
         if (distance <= StoppingDistance)
         {
             agent.SetDestination(transform.position);
             animator.SetBool("isWalking", false);
-
             return;
         }
 
-        // Snap direction to grid (only X or Z)
+        // Main grid direction toward player
+        Vector3 mainDir = Vector3.zero;
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
+            mainDir = new Vector3(Mathf.Sign(direction.x), 0, 0);
+        else
+            mainDir = new Vector3(0, 0, Mathf.Sign(direction.z));
+
+        Vector3 mainTarget = transform.position + mainDir * stepSize;
+        mainTarget = new Vector3(Mathf.Round(mainTarget.x), transform.position.y, Mathf.Round(mainTarget.z));
+        Vector2 mainGrid = GetGridPosition(mainTarget);
+
+        // 🟩 Try main path first
+        if (!OccupiedPositions.Contains(mainGrid))
         {
-            direction = new Vector3(Mathf.Sign(direction.x), 0, 0);
+            // Reserve target immediately to avoid overlap
+            OccupiedPositions.Add(mainGrid);
+            agent.SetDestination(mainTarget);
+            animator.SetBool("isWalking", true);
+            return;
+        }
+
+        // 🟨 If blocked, check side paths that still move generally toward player
+        Vector3[] altDirs = new Vector3[]
+        {
+        new Vector3(mainDir.x, 0, 0),
+        new Vector3(0, 0, mainDir.z),
+        new Vector3(-mainDir.x, 0, 0),
+        new Vector3(0, 0, -mainDir.z)
+        };
+
+        float bestDist = Mathf.Infinity;
+        Vector3 bestPoint = transform.position;
+        bool foundBetter = false;
+
+        foreach (var dir in altDirs)
+        {
+            Vector3 candidate = transform.position + dir * stepSize;
+            candidate = new Vector3(Mathf.Round(candidate.x), transform.position.y, Mathf.Round(candidate.z));
+            Vector2 grid = GetGridPosition(candidate);
+
+            if (OccupiedPositions.Contains(grid)) continue;
+            if (!Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround)) continue;
+
+            // Only move forward or sideways toward player
+            Vector3 toCandidate = (candidate - transform.position).normalized;
+            float forwardDot = Vector3.Dot(toCandidate, direction);
+            if (forwardDot < 0.1f) continue;
+
+            float candidateDist = Vector3.Distance(candidate, Player.position);
+            if (candidateDist < bestDist)
+            {
+                bestDist = candidateDist;
+                bestPoint = candidate;
+                foundBetter = true;
+            }
+        }
+
+        if (foundBetter)
+        {
+            Vector2 targetGrid = GetGridPosition(bestPoint);
+            OccupiedPositions.Add(targetGrid); // Reserve before moving
+            agent.SetDestination(bestPoint);
+            animator.SetBool("isWalking", true);
         }
         else
         {
-            direction = new Vector3(0, 0, Mathf.Sign(direction.z));
+            // No good path found this turn
+            agent.SetDestination(transform.position);
+            animator.SetBool("isWalking", false);
+            FaceMovementDirection();
         }
-
-        Vector3 chasePoint = transform.position + direction * stepSize;
-        chasePoint = new Vector3(
-            Mathf.Round(chasePoint.x),
-            transform.position.y,
-            Mathf.Round(chasePoint.z)
-        );
-
-        agent.SetDestination(chasePoint);
-        
-
     }
+
+
+
+
 
     private void AttackPlayer()
     {
@@ -210,4 +303,36 @@ public class EnemyAI : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         }
     }
+
+    void Update()
+    {
+        // Destroy if room is unplaying
+        if (parentRoom == null || parentRoom.roomState == RoomState.UnPlaying)
+        {
+            DestroySelf();
+        }
+
+        // Destroy if player goes back to hub
+        if (GameManager.Instance != null && AppStateManager.appState == AppState.Hub)
+        {
+            DestroySelf();
+        }
+    }
+    private void OnDestroy()
+    {
+        // When enemy dies or is destroyed, free up its occupied grid cell
+        if (OccupiedPositions.Contains(currentGridPos))
+        {
+            OccupiedPositions.Remove(currentGridPos);
+        }
+    }
+
+    private void DestroySelf()
+    {
+        if (OccupiedPositions.Contains(currentGridPos))
+            OccupiedPositions.Remove(currentGridPos);
+
+        Destroy(gameObject);
+    }
+
 }
