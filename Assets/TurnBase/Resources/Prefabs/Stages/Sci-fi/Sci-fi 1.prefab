@@ -9813,7 +9813,6 @@ GameObject:
   - component: {fileID: 4254570344367004755}
   - component: {fileID: 8694949434924832630}
   - component: {fileID: 1832551019508865675}
-  - component: {fileID: 7004739357587348645}
   m_Layer: 6
   m_Name: Room12
   m_TagString: Untagged
@@ -9835,7 +9834,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7570778803991946344}
-  - {fileID: 6913580983842197863}
   m_Father: {fileID: 6990780085477869608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &552114186145630644
@@ -9947,19 +9945,6 @@ MonoBehaviour:
   ExitMarkers: []
   roomColor: 1
   Doors: []
---- !u!114 &7004739357587348645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5029591362125652453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemySpawner: {fileID: 7791326201628167023}
 --- !u!1 &5091282201698493817
 GameObject:
   m_ObjectHideFlags: 0
@@ -10944,6 +10929,7 @@ GameObject:
   - component: {fileID: 5143813613834672186}
   - component: {fileID: 2256277336733088721}
   - component: {fileID: 5112250866252854079}
+  - component: {fileID: 2993429409866112984}
   m_Layer: 6
   m_Name: Room5
   m_TagString: Untagged
@@ -10965,6 +10951,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2014995856547478236}
+  - {fileID: 6913580983842197863}
   m_Father: {fileID: 6990780085477869608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2457287150710271698
@@ -11076,6 +11063,19 @@ MonoBehaviour:
   ExitMarkers: []
   roomColor: 3
   Doors: []
+--- !u!114 &2993429409866112984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5757861845169151336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 7791326201628167023}
 --- !u!1 &5789243993797934050
 GameObject:
   m_ObjectHideFlags: 0
@@ -20280,7 +20280,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4294177198770814871}
+    m_TransformParent: {fileID: 1555027300087173748}
     m_Modifications:
     - target: {fileID: 3616352702945752637, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: m_Name
@@ -20288,7 +20288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.487656
+      value: -97.512344
       objectReference: {fileID: 0}
     - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20328,7 +20328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: RoomName
-      value: Room12
+      value: Room5
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnOnStart

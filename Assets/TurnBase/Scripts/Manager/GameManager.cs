@@ -93,6 +93,16 @@ public class GameManager : MonoBehaviour
 
     public void BackToTheHub()
     {
+        if (BoardManager.Instance != null && BoardManager.Instance.ListRooms != null)
+        {
+            foreach (GameObject roomObj in BoardManager.Instance.ListRooms)
+            {
+                Room room = roomObj.GetComponent<Room>();
+                if (room != null)
+                    room.roomState = RoomState.UnPlaying;
+            }
+        }
+
         HPBarHUDController.Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);

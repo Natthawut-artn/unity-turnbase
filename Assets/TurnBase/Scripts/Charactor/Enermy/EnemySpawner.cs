@@ -85,6 +85,12 @@ public class EnemySpawner : MonoBehaviour
             Vector3 spawnPos = worldPos + SpawnOffset;
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             enemy.name = $"Enemy_{roundedGrid.x}_{roundedGrid.y}";
+           
+            EnemyAI ai = enemy.GetComponent<EnemyAI>();
+            if (ai != null)
+            {
+                ai.parentRoom = targetRoom.GetComponent<Room>();
+            }
 
             EnemyData enemyData = enemy.GetComponent<EnemyData>();
             if (enemyData != null)

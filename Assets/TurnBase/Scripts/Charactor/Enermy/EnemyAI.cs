@@ -28,7 +28,8 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
     private Animator animator;
-    
+
+    public Room parentRoom;
     EnemyData enemyData;
     
     
@@ -69,42 +70,43 @@ public class EnemyAI : MonoBehaviour
 
     public IEnumerator TakeTurn()
     {
+        if (agent == null) yield break;
+
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
 
-        // Don’t remove immediately — keep others from entering your space until you move
         Vector2 oldGrid = currentGridPos;
 
         if (!playerInAttackRange)
         {
+            if (agent == null) yield break;
             if (!playerInSightRange)
                 Patroling();
             else if (playerInSightRange && !Stopzone)
                 ChasePlayer();
 
-            // 🟩 Once a new path is chosen, free the old grid so others can move there
             OccupiedPositions.Remove(oldGrid);
 
-            // Wait for movement to finish
             float maxTime = 2f;
             float timer = 0f;
-            while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance + 0.05f)
+            while (agent != null && agent.pathPending == false &&
+                   agent.remainingDistance > agent.stoppingDistance + 0.05f)
             {
+                if (this == null) yield break;
                 FaceMovementDirection();
                 timer += Time.deltaTime;
                 if (timer >= maxTime) break;
                 yield return null;
             }
 
+            if (agent == null) yield break;
             animator.SetBool("isWalking", false);
 
-            // 🟦 Reclaim the new position
             currentGridPos = GetGridPosition(transform.position);
             OccupiedPositions.Add(currentGridPos);
         }
 
-        // Attack phase
-        if (playerInAttackRange)
+        if (playerInAttackRange && this != null)
         {
             AttackPlayer();
             yield return new WaitForSeconds(1.5f);
@@ -302,6 +304,20 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        // Destroy if room is unplaying
+        if (parentRoom == null || parentRoom.roomState == RoomState.UnPlaying)
+        {
+            DestroySelf();
+        }
+
+        // Destroy if player goes back to hub
+        if (GameManager.Instance != null && AppStateManager.appState == AppState.Hub)
+        {
+            DestroySelf();
+        }
+    }
     private void OnDestroy()
     {
         // When enemy dies or is destroyed, free up its occupied grid cell
@@ -309,6 +325,14 @@ public class EnemyAI : MonoBehaviour
         {
             OccupiedPositions.Remove(currentGridPos);
         }
+    }
+
+    private void DestroySelf()
+    {
+        if (OccupiedPositions.Contains(currentGridPos))
+            OccupiedPositions.Remove(currentGridPos);
+
+        Destroy(gameObject);
     }
 
 }
