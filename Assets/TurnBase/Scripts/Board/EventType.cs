@@ -1,27 +1,19 @@
 public enum EventType
 {
-    // red
     HiddenMonster,
     TheCurseOfDecay,
     VaultPlunderer,
 
 
-    //grenn
     TreasureOfDimension,
     BlessingOfLife,
     EchoesOfAlchemy,
 
-    //yellow
     VanishedCargo,
     TheSilentNecropolis,
-    ShadowsOfAForgottenAge
-}
-
-public enum RoomColor
-{
+    ShadowsOfAForgottenAge,
     Boss,
-    Red,
-    Green,
+    Blue,
     Yellow,
     Start
 }

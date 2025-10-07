@@ -18,6 +18,7 @@ public class MainCamera : MonoBehaviour
     public Camera cam;
     public float fadeDuration = 0.3f;
     public float targetAlpha = 0.2f;
+    public float followSpeed = 5f;   
 
     public void SetPlayer(Transform Player)
     {
@@ -51,7 +52,9 @@ public class MainCamera : MonoBehaviour
             DoRaycasts();
         }
 
-        transform.position = Player.position + offset;
+        Vector3 desiredPos = Player.position + offset;
+
+        transform.position = Vector3.Lerp(transform.position, desiredPos, followSpeed * Time.deltaTime);
     }
 
     void DoRaycasts()

@@ -281,7 +281,7 @@ public class EnemyAI : MonoBehaviour
             {
                 Debug.Log("Hit " + player.name);
                 player.GetComponent<PlayerData>().TakeDamage(10);
-                HPBarHUDController.UpProgression();
+                // HPBarHUDController.UpProgression();
             }
             Debug.Log("Attacking Player");
             alreadyAttacked = true;
