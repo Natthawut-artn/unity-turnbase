@@ -13,7 +13,7 @@ public enum EventType
     TheSilentNecropolis,
     ShadowsOfAForgottenAge,
     Boss,
-    Green,
+    Blue,
     Yellow,
     Start
 }
