@@ -240,8 +240,8 @@ MonoBehaviour:
   MarkerLayer:
     serializedVersion: 2
     m_Bits: 8
-  PlayerSpawnPoint: {x: 1, y: 1}
-  Room: Room15
+  PlayerSpawnPoint: {x: 16, y: 16}
+  Room: Room1
   EnemySpawnPoint: {x: 0, y: 0}
 --- !u!114 &364832685
 MonoBehaviour:
