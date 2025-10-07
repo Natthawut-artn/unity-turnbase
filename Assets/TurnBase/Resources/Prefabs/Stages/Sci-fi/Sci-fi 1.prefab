@@ -1863,7 +1863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 3
+  eventType: 0
   Doors: []
 --- !u!1 &895897181020548565
 GameObject:
@@ -2463,7 +2463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 0
+  eventType: 0
   Doors: []
 --- !u!1 &1191411577137269395
 GameObject:
@@ -2826,7 +2826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 3
+  eventType: 0
   Doors: []
 --- !u!1 &1417601387786702416
 GameObject:
@@ -3986,7 +3986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 4
+  eventType: 12
   Doors: []
 --- !u!1 &2297667451706594995
 GameObject:
@@ -4834,7 +4834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 3
+  eventType: 0
   Doors: []
 --- !u!1 &2755070833464097744
 GameObject:
@@ -5329,7 +5329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 1
+  eventType: 0
   Doors: []
 --- !u!1 &2965836991883262451
 GameObject:
@@ -5791,7 +5791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 1
+  eventType: 0
   Doors: []
 --- !u!1 &3102141845448345289
 GameObject:
@@ -6042,7 +6042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 3
+  eventType: 0
   Doors: []
 --- !u!1 &3119664044172992868
 GameObject:
@@ -9883,7 +9883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 1
+  eventType: 0
   Doors: []
 --- !u!1 &5091282201698493817
 GameObject:
@@ -10485,7 +10485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 3
+  eventType: 0
   Doors: []
 --- !u!1 &5511535857620203456
 GameObject:
@@ -10984,7 +10984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 3
+  eventType: 0
   Doors: []
 --- !u!1 &5789243993797934050
 GameObject:
@@ -12293,7 +12293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 2
+  eventType: 0
   Doors: []
 --- !u!1 &6169879120988631841
 GameObject:
@@ -13058,7 +13058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 3
+  eventType: 0
   Doors: []
 --- !u!1 &6565113640778840204
 GameObject:
@@ -16817,7 +16817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 3
+  eventType: 0
   Doors: []
 --- !u!1 &8308826809701812516
 GameObject:
@@ -17624,7 +17624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomState: 1
   ExitMarkers: []
-  roomColor: 1
+  eventType: 0
   Doors: []
 --- !u!1 &8527031174522117800
 GameObject:
