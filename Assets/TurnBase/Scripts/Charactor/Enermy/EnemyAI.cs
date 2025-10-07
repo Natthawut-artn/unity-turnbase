@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -52,6 +52,7 @@ public class EnemyAI : MonoBehaviour
     }
     void Start()
     {
+        Player = GameObject.FindWithTag("Player").transform;
         animator = GetComponentInChildren<Animator>();
     }
     private void OnDrawGizmos()
@@ -71,13 +72,18 @@ public class EnemyAI : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
 
-        // Only handle movement if player not in attack range
+        // Don’t remove immediately — keep others from entering your space until you move
+        Vector2 oldGrid = currentGridPos;
+
         if (!playerInAttackRange)
         {
             if (!playerInSightRange)
                 Patroling();
             else if (playerInSightRange && !Stopzone)
                 ChasePlayer();
+
+            // 🟩 Once a new path is chosen, free the old grid so others can move there
+            OccupiedPositions.Remove(oldGrid);
 
             // Wait for movement to finish
             float maxTime = 2f;
@@ -92,18 +98,19 @@ public class EnemyAI : MonoBehaviour
 
             animator.SetBool("isWalking", false);
 
-            // Update current position after movement
+            // 🟦 Reclaim the new position
             currentGridPos = GetGridPosition(transform.position);
             OccupiedPositions.Add(currentGridPos);
         }
 
-        // If in attack range, just attack (no occupancy changes)
+        // Attack phase
         if (playerInAttackRange)
         {
             AttackPlayer();
-            yield return new WaitForSeconds(1.5f); // allow player to see attack
+            yield return new WaitForSeconds(1.5f);
         }
     }
+
 
 
     public void Patroling()
@@ -171,50 +178,92 @@ public class EnemyAI : MonoBehaviour
 
     public void ChasePlayer()
     {
-
-        Vector3 direction = Player.position - transform.position;
-        float distance = direction.magnitude;
+        Vector3 direction = (Player.position - transform.position).normalized;
+        float distance = Vector3.Distance(transform.position, Player.position);
 
         if (distance <= StoppingDistance)
         {
             agent.SetDestination(transform.position);
             animator.SetBool("isWalking", false);
-
             return;
         }
 
-        // Snap direction to grid (only X or Z)
+        // Main grid direction toward player
+        Vector3 mainDir = Vector3.zero;
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
-        {
-            direction = new Vector3(Mathf.Sign(direction.x), 0, 0);
-        }
+            mainDir = new Vector3(Mathf.Sign(direction.x), 0, 0);
         else
+            mainDir = new Vector3(0, 0, Mathf.Sign(direction.z));
+
+        Vector3 mainTarget = transform.position + mainDir * stepSize;
+        mainTarget = new Vector3(Mathf.Round(mainTarget.x), transform.position.y, Mathf.Round(mainTarget.z));
+        Vector2 mainGrid = GetGridPosition(mainTarget);
+
+        // 🟩 Try main path first
+        if (!OccupiedPositions.Contains(mainGrid))
         {
-            direction = new Vector3(0, 0, Mathf.Sign(direction.z));
+            // Reserve target immediately to avoid overlap
+            OccupiedPositions.Add(mainGrid);
+            agent.SetDestination(mainTarget);
+            animator.SetBool("isWalking", true);
+            return;
         }
 
-        Vector3 chasePoint = transform.position + direction * stepSize;
-        chasePoint = new Vector3(
-            Mathf.Round(chasePoint.x),
-            transform.position.y,
-            Mathf.Round(chasePoint.z)
-        );
-
-        Vector2 targetGrid = GetGridPosition(chasePoint);
-
-        if (!OccupiedPositions.Contains(targetGrid))
+        // 🟨 If blocked, check side paths that still move generally toward player
+        Vector3[] altDirs = new Vector3[]
         {
-            agent.SetDestination(chasePoint);
+        new Vector3(mainDir.x, 0, 0),
+        new Vector3(0, 0, mainDir.z),
+        new Vector3(-mainDir.x, 0, 0),
+        new Vector3(0, 0, -mainDir.z)
+        };
+
+        float bestDist = Mathf.Infinity;
+        Vector3 bestPoint = transform.position;
+        bool foundBetter = false;
+
+        foreach (var dir in altDirs)
+        {
+            Vector3 candidate = transform.position + dir * stepSize;
+            candidate = new Vector3(Mathf.Round(candidate.x), transform.position.y, Mathf.Round(candidate.z));
+            Vector2 grid = GetGridPosition(candidate);
+
+            if (OccupiedPositions.Contains(grid)) continue;
+            if (!Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround)) continue;
+
+            // Only move forward or sideways toward player
+            Vector3 toCandidate = (candidate - transform.position).normalized;
+            float forwardDot = Vector3.Dot(toCandidate, direction);
+            if (forwardDot < 0.1f) continue;
+
+            float candidateDist = Vector3.Distance(candidate, Player.position);
+            if (candidateDist < bestDist)
+            {
+                bestDist = candidateDist;
+                bestPoint = candidate;
+                foundBetter = true;
+            }
+        }
+
+        if (foundBetter)
+        {
+            Vector2 targetGrid = GetGridPosition(bestPoint);
+            OccupiedPositions.Add(targetGrid); // Reserve before moving
+            agent.SetDestination(bestPoint);
             animator.SetBool("isWalking", true);
         }
         else
         {
+            // No good path found this turn
             agent.SetDestination(transform.position);
             animator.SetBool("isWalking", false);
+            FaceMovementDirection();
         }
-
-
     }
+
+
+
+
 
     private void AttackPlayer()
     {

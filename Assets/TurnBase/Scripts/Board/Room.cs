@@ -27,6 +27,7 @@ public class Room : MonoBehaviour
         {
             Doors.Add(other.gameObject);    
         }
+
     }
 
     void OnTriggerExit(Collider other)
