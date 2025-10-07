@@ -241,9 +241,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   PlaterSpawnPos:
-  - {x: 2, y: 2}
-  - {x: 1, y: 1}
-  - {x: 3, y: 1}
+  - {x: 16, y: 16}
+  - {x: 17, y: 17}
+  - {x: 18, y: 18}
+  Players_alive: []
   Room: Room1
   EnemySpawnPoint: {x: 0, y: 0}
 --- !u!114 &364832685
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPhase: 0
+  CurrentPlayer: {fileID: 0}
 --- !u!1001 &366604625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,6 +416,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   fadeDuration: 0.4
   targetAlpha: 0.3
+  followSpeed: 5
 --- !u!81 &1507329472
 AudioListener:
   m_ObjectHideFlags: 0
