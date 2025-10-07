@@ -178,13 +178,11 @@ public class BoardManager : MonoBehaviour
 
     public Vector3 GetMarkerWorldPosition(Vector2 GridPosition, GameObject Room)
     {
-        for (int j = 0; j < Room.transform.childCount; j++)
+        Marker[] markers = Room.GetComponentsInChildren<Marker>();
+        foreach (Marker marker in markers)
         {
-            Marker markerScript = Room.GetComponentInChildren<Marker>();
-            if (GridPosition == markerScript.GridPosition)
-            {
-                return markerScript.transform.position;
-            }
+            if (marker.GridPosition == GridPosition)
+                return marker.transform.position;
         }
         return Vector3.zero;
     }

@@ -6,7 +6,7 @@ public class Room : MonoBehaviour
 {
     public RoomState roomState = RoomState.UnPlaying;
     public List<Marker> ExitMarkers = new List<Marker>();
-    public RoomColor roomColor;
+    public EventType eventType;
     public List<GameObject> Doors = new List<GameObject>();
 
     void OnTriggerEnter(Collider other)
