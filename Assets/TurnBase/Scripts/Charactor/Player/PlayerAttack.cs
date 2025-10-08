@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public static PlayerAttack Instance;
     public float attackRange = 1.5f;
     public int attackDamage = 20;
     private Animator animator;
@@ -15,6 +16,10 @@ public class PlayerAttack : MonoBehaviour
 
     public LayerMask WhatIsEnemy;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         animator = GetComponentInChildren<Animator>();

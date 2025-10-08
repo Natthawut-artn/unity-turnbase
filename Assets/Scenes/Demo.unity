@@ -241,11 +241,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   PlaterSpawnPos:
-  - {x: 16, y: 16}
-  - {x: 17, y: 17}
-  - {x: 18, y: 18}
+  - {x: 21, y: 21}
+  - {x: 22, y: 22}
+  - {x: 23, y: 23}
   Players_alive: []
-  Room: Room1
+  Room: Room12
   EnemySpawnPoint: {x: 0, y: 0}
 --- !u!114 &364832685
 MonoBehaviour:
