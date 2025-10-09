@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> Players_alive = new List<GameObject>();
 
     public string Room;
-    private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar";
+    private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar1";
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
 
