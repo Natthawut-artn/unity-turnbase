@@ -54,10 +54,10 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator MoveToCell(GameObject To)
     {
+        if (tilesMoved > 0) alreadyWalk = true;
         if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
         || tilesMoved >= maxTilesPerTurn)
         {
-            alreadyWalk = true;
             SetAnimationState(PlayerMoveState.Stand);
             Room room = To.GetComponentInParent<Room>();
             if (room.roomState == RoomState.CanExit)
@@ -125,7 +125,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Used all moves or reached destination → switching turn.");
             SetAnimationState(PlayerMoveState.Stand);
-            alreadyWalk = true;
         }
         else
         {

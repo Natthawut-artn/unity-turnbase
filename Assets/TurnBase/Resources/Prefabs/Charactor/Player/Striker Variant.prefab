@@ -161,7 +161,9 @@ MonoBehaviour:
   Enemy:
     serializedVersion: 2
     m_Bits: 256
-  maxTilesPerTurn: 4
+  alreadyAttack: 0
+  alreadyWalk: 0
+  maxTilesPerTurn: 16
   tilesMoved: 0
 --- !u!114 &4005674328814858402
 MonoBehaviour:
