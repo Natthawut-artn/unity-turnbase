@@ -18,6 +18,7 @@ public class RelicsStoage : MonoBehaviour
         {
             RelicsInPocket.Add(Relic);
             Relic.InstallRelic(playerData);
+            RelicStroageManager.RelicsInUserPocket.Remove(Relic);
         }
     }
 
@@ -27,6 +28,7 @@ public class RelicsStoage : MonoBehaviour
         {
             relic.RemoveRelic(playerData);
             RelicsInPocket.Remove(relic);
+            RelicStroageManager.RelicsInUserPocket.Add(relic);
         }
     }
 }
