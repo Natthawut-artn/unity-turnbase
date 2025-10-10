@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar1";
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
+    public RelicData relic;
 
     public void StartGame()
     {
@@ -161,7 +162,27 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && AppStateManager.appState == AppState.State)
         {
-            BackToTheHub();    
+            BackToTheHub();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Install relic");
+            foreach (GameObject player in Players_alive)
+            {
+                RelicsStoage relicsStoage = player.GetComponent<RelicsStoage>();
+                relicsStoage.InstallRelic(relic);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("Remove relic");
+            foreach (GameObject player in Players_alive)
+            {
+                RelicsStoage relicsStoage = player.GetComponent<RelicsStoage>();
+                relicsStoage.RemoveRelic(relic);
+            }
         }
     }
 }

@@ -20,7 +20,6 @@ public class CharactorInheritance : MonoBehaviour
     public int Defense;
     public int CritRate;
     public int CritDGM;
-    public int Speed;
 
     // curruent
     public int currentHP;

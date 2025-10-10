@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2822865519554406744}
   - component: {fileID: 9222638081031574525}
   - component: {fileID: 6207096322058030402}
+  - component: {fileID: 7615382071091227466}
   m_Layer: 7
   m_Name: Support
   m_TagString: Player
@@ -160,6 +161,8 @@ MonoBehaviour:
   Enemy:
     serializedVersion: 2
     m_Bits: 256
+  alreadyAttack: 0
+  alreadyWalk: 0
   maxTilesPerTurn: 4
   tilesMoved: 0
 --- !u!114 &2822865519554406744
@@ -181,7 +184,6 @@ MonoBehaviour:
   Defense: 5
   CritRate: 7
   CritDGM: 7
-  Speed: 10
   currentHP: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
@@ -215,3 +217,15 @@ MonoBehaviour:
   WhatIsEnemy:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &7615382071091227466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463451174537426559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f48a0639532a074b849a4c12e85aa0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

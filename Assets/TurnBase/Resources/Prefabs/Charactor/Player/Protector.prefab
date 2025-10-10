@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7496334762098826307}
   - component: {fileID: 4514471100126140715}
   - component: {fileID: 6182887865568508735}
+  - component: {fileID: 2873978971732565233}
   m_Layer: 7
   m_Name: Protector
   m_TagString: Player
@@ -183,7 +184,6 @@ MonoBehaviour:
   Defense: 20
   CritRate: 7
   CritDGM: 7
-  Speed: 10
   currentHP: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
@@ -217,3 +217,15 @@ MonoBehaviour:
   WhatIsEnemy:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &2873978971732565233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7499842061084827901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f48a0639532a074b849a4c12e85aa0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

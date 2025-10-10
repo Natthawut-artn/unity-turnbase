@@ -145,7 +145,6 @@ public class PlayerController : MonoBehaviour
 
         while (!turnEnded)
         {
-            Debug.Log(turnEnded);
             yield return null;
             if (alreadyWalk && alreadyAttack)
             {
