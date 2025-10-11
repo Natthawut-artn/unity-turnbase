@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public List<Vector2> PlaterSpawnPos = new List<Vector2>();
     private List<string> Players_Path = new List<string>()
     {
-        "Prefabs/Charactor/Player/Striker Variant",
+        "Prefabs/Charactor/Player/Striker",
         "Prefabs/Charactor/Player/Protector",
         "Prefabs/Charactor/Player/Support"
     };
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         if (CurrentStage != null)
         {
             SpawnPlayers();
-            StartCoroutine(TurnManager.Instance.PlayersPhase());
+            // StartCoroutine(TurnManager.Instance.PlayersPhase());
         }
     }
 
@@ -93,7 +93,13 @@ public class GameManager : MonoBehaviour
                 MainCamera.Instance.SetPlayer(Player.transform);
             }
         }
+        StartCoroutine(Wait());
+    }
 
+    IEnumerator Wait()
+    {
+        yield return null;
+        HPBarsHUDController.Show();
     }
 
     public void DestroyAll()
@@ -102,12 +108,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(player);
         }
-    }
-
-    IEnumerator Wait()
-    {
-        yield return null;
-        // HPBarHUDController.Show();
     }
 
     public void SpawnEnemy()
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
 
     public void BackToTheHub()
     {
-        // HPBarHUDController.Hide();
+        HPBarsHUDController.Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();
@@ -153,6 +153,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             SpawnEnemy();
+            TurnManager.Instance.EndTurn();
         }
 
         if (Input.GetKeyDown(KeyCode.W))

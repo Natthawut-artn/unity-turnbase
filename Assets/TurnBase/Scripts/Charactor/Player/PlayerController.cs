@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     public LayerMask MarkerLayer;
     public PlayerData playerData;
     public int maxHealth;
-    public int currentHealth;
     public LayerMask Enemy;
     public bool alreadyAttack = false;
     public bool alreadyWalk = false;
@@ -24,13 +23,6 @@ public class PlayerController : MonoBehaviour
     // ✅ Movement limit
     public int maxTilesPerTurn = 4;
     public int tilesMoved = 0;
-
-    void Start()
-    {
-        animator = GetComponentInChildren<Animator>();
-        maxHealth = playerData.HP;
-        playerData.currentHP = maxHealth;
-    }
 
     private void SetAnimationState(PlayerMoveState state)
     {
@@ -165,6 +157,15 @@ public class PlayerController : MonoBehaviour
         playerData.playerMoveState = PlayerMoveState.Stand;
         SetAnimationState(PlayerMoveState.Stand);
     }
+
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+        maxHealth = playerData.HP;
+        playerData.currentHP = maxHealth;
+        Debug.Log($"{gameObject.name} Hp : {playerData.currentHP}");
+    }
+
 
     void Update()
     {

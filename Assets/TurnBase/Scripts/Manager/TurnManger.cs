@@ -18,6 +18,12 @@ public class TurnManager : MonoBehaviour
         Instance = this;
     }
 
+    public void StopTurnBaseSystem()
+    {
+        StopCoroutine(EnemyPhase());
+        StopCoroutine(PlayersPhase());
+    }
+
     public void EndTurn()
     {
         if (currentPhase == Phase.Player)
@@ -32,8 +38,6 @@ public class TurnManager : MonoBehaviour
 
     public IEnumerator EnemyPhase()
     {
-        currentPhase = Phase.Enemy;
-
         Debug.Log("Enemy Phase started");
 
         EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
@@ -45,13 +49,12 @@ public class TurnManager : MonoBehaviour
 
         Debug.Log("Enemy Phase ended, switching to Player Phase");
 
+        currentPhase = Phase.Player;
         EndTurn();
     }
 
     public IEnumerator PlayersPhase()
     {
-        currentPhase = Phase.Player;
-
         List<GameObject> players = GameManager.Instance.Players_alive;
 
         foreach (GameObject player in players)
@@ -75,6 +78,7 @@ public class TurnManager : MonoBehaviour
 
         yield return null;
 
+        currentPhase = Phase.Enemy;
         EndTurn();
     }
 }

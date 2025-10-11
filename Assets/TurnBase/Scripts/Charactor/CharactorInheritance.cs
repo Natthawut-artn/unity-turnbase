@@ -32,10 +32,6 @@ public class CharactorInheritance : MonoBehaviour
             currentHP = 0;
             Die();
         }
-        else
-        {
-            Debug.Log($"Player HP : {currentHP}");
-        }
     }
 
     public void Healing(int Heal)

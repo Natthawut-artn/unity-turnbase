@@ -71,6 +71,7 @@ public class EnemyAI : MonoBehaviour
     public IEnumerator TakeTurn()
     {
         if (agent == null) yield break;
+        MainCamera.Instance.SetPlayer(gameObject.transform);
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
@@ -281,7 +282,7 @@ public class EnemyAI : MonoBehaviour
             {
                 Debug.Log("Hit " + player.name);
                 player.GetComponent<PlayerData>().TakeDamage(10);
-                // HPBarHUDController.UpProgression();
+                HPBarsHUDController.Update();
             }
             Debug.Log("Attacking Player");
             alreadyAttacked = true;
