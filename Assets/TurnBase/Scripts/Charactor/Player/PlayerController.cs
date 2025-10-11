@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator MoveToCell(GameObject To)
     {
-        if (tilesMoved > 0 && TurnManager.Instance.isInTurnSystem) alreadyWalk = true;
+        if (tilesMoved >= 16 && TurnManager.Instance.isInTurnSystem) alreadyWalk = true;
         else if(!TurnManager.Instance.isInTurnSystem){ tilesMoved = 0; }
         if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
         || tilesMoved >= maxTilesPerTurn)
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 🛑 Enemy blocking?
-        Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 0.4f, Enemy);
+        Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 2f, Enemy);
         if (hitEnemies.Length > 0)
         {
             Debug.Log("Enemy blocking path → stop movement.");
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
         PlayerOptionHUDController.Show();
 
         bool turnEnded = false;
-        if (alreadyWalk && alreadyAttack)
+        if (alreadyWalk || alreadyAttack)
         {
             turnEnded = true;
         }
@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
         while (!turnEnded)
         {
             yield return null;
-            if (alreadyWalk && alreadyAttack)
+            if (alreadyWalk || alreadyAttack)
             {
                 turnEnded = true;
             }
@@ -158,6 +158,7 @@ public class PlayerController : MonoBehaviour
 
         playerData.playerMoveState = PlayerMoveState.Stand;
         SetAnimationState(PlayerMoveState.Stand);
+        tilesMoved = 0;
     }
 
     public void SkipTurn()

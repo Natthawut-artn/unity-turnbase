@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class PlayerAttack : MonoBehaviour
     public int attackDamage = 20;
     private Animator animator;
     private PlayerController player;
+    public int playerAttackPoint = 1;
+    public int playerAttacked = 0;
+    private bool hasAttackedThisTurn = false;
 
 
 
@@ -25,8 +29,11 @@ public class PlayerAttack : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         player = GetComponent<PlayerController>();
     }
+    
     public void Attack()
     {
+        if (hasAttackedThisTurn)
+        { return; }
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsEnemy);
         if (hitEnemies.Length > 0)
         {
@@ -58,7 +65,14 @@ public class PlayerAttack : MonoBehaviour
         }
 
         if (animator != null) animator.SetTrigger("Attacking");
-        StartCoroutine(SwitchTurn());
+
+        playerAttacked++;
+
+        if (playerAttacked >= playerAttackPoint)
+        {
+            StartCoroutine(SwitchTurn());
+        }
+        
     }
 
     void Update()
@@ -77,11 +91,18 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator SwitchTurn()
     {
+        hasAttackedThisTurn = true;
         yield return new WaitForSeconds(5f);
         player.alreadyAttack = true;
+        
+    }
+    public void ResetAttackStatus()
+    {
+        hasAttackedThisTurn = false;
+        playerAttacked = 0; 
+        Debug.Log("Player attack status reset for the new turn.");
     }
 
-  
 }
 
 
