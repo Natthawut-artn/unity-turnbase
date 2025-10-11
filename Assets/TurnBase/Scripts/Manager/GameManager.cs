@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
             Destroy(Player);
         }
 
-        for (int i = 0; i < Players_Path.Count; i++)
+        for (int i = 0; i < Players_Path.Count - 2; i++)
         {
             Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlaterSpawnPos[i], BoardManager.Instance.GetRoom(Room));
             Pos += new Vector3(0f, 1.49f, 0f);

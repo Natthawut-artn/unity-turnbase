@@ -13,6 +13,7 @@ public class TurnManager : MonoBehaviour
     public static TurnManager Instance;
     public Phase currentPhase = Phase.Player;
     public GameObject CurrentPlayer;
+    public bool isInTurnSystem = false;
     private void Awake()
     {
         Instance = this;
@@ -22,10 +23,12 @@ public class TurnManager : MonoBehaviour
     {
         StopCoroutine(EnemyPhase());
         StopCoroutine(PlayersPhase());
+        isInTurnSystem = false;
     }
 
     public void EndTurn()
     {
+        isInTurnSystem = true;
         if (currentPhase == Phase.Player)
         {
             StartCoroutine(PlayersPhase());
