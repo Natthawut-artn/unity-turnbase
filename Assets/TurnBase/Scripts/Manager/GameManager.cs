@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
     public void BackToTheHub()
     {
         HPBarsHUDController.Hide();
+        PlayerOptionHUDController.Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();

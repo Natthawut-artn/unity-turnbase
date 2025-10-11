@@ -72,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (EnemySpawnData spawnData in SpawnPositions)
         {
-            // Snap to nearest whole grid so minor decimal errors don’t cause misses
+            // Snap to nearest whole grid so minor decimal errors donï¿½t cause misses
             Vector2 roundedGrid = new Vector2(Mathf.Round(spawnData.GridPosition.x), Mathf.Round(spawnData.GridPosition.y));
             Vector3 worldPos = BoardManager.Instance.GetMarkerWorldPosition(roundedGrid, targetRoom);
 
@@ -103,5 +103,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         hasSpawned = true;
+
+        TurnManager.Instance.EndTurn();
     }
 }

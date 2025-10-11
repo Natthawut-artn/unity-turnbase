@@ -6,7 +6,8 @@ public class UIListLoader
     {
         new SwiftTurnHUD(),
         new SettingHUD(),
-        new HpBarsHUD()
+        new HpBarsHUD(),
+        new PlayerOptionHUD()
     };
     public List<object> PopUps { get; private set; } = new List<object>()
     {

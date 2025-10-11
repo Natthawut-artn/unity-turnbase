@@ -56,6 +56,9 @@ public class PlayerAttack : MonoBehaviour
             Debug.Log("Hit " + closestEnemy.name);
             closestEnemy.GetComponent<EnemyData>().TakeDamage(attackDamage);
         }
+
+        if (animator != null) animator.SetTrigger("Attacking");
+        StartCoroutine(SwitchTurn());
     }
 
     void Update()
@@ -63,8 +66,6 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.isInTurnSystem)
         {
             Attack();
-            if (animator != null) animator.SetTrigger("Attacking");
-            StartCoroutine(SwitchTurn());
         }
     }
 

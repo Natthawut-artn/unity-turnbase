@@ -129,6 +129,8 @@ public class PlayerController : MonoBehaviour
     public IEnumerator TakeTurn()
     {
         MainCamera.Instance.SetPlayer(gameObject.transform);
+        PlayerOptionHUDController.Show();
+
         bool turnEnded = false;
         if (alreadyWalk && alreadyAttack)
         {
@@ -145,6 +147,7 @@ public class PlayerController : MonoBehaviour
         }
 
         FinishedTurn();
+        PlayerOptionHUDController.Hide();
     }
 
     public void FinishedTurn()
@@ -155,6 +158,12 @@ public class PlayerController : MonoBehaviour
 
         playerData.playerMoveState = PlayerMoveState.Stand;
         SetAnimationState(PlayerMoveState.Stand);
+    }
+
+    public void SkipTurn()
+    {
+        alreadyAttack = true;
+        alreadyWalk = true;
     }
 
     void Start()
