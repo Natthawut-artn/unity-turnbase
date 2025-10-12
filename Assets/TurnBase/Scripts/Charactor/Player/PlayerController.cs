@@ -189,7 +189,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && playerData.playerMoveState == PlayerMoveState.Stand && !EventSystem.current.IsPointerOverGameObject() && !alreadyWalk)
+        if (Input.GetMouseButtonDown(0)
+            && playerData.playerMoveState == PlayerMoveState.Stand
+            && !EventSystem.current.IsPointerOverGameObject()
+            && !alreadyWalk)
         {
             if (TurnManager.Instance == null || TurnManager.Instance.currentPhase != Phase.Player) return;
 
@@ -197,7 +200,22 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
             {
-                StartCoroutine(MoveToCell(hit.collider.gameObject));
+                GameObject clickedTile = hit.collider.gameObject;
+                Vector3 tilePosition = clickedTile.transform.position;
+
+                // 🛑 NEW CHECK: Check for enemies at the clicked tile's position
+                // Use a small radius (e.g., 0.1f) to check if an enemy is precisely on the tile.
+                Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 1f, Enemy);
+
+                if (enemiesOnTile.Length > 0)
+                {
+                    // Enemy is on the tile, so prevent movement
+                    Debug.Log("Cannot move to this tile. An enemy is there.");
+                    return; // Stop execution, don't start the MoveToCell coroutine
+                }
+
+                // If no enemy is found, proceed with movement
+                StartCoroutine(MoveToCell(clickedTile));
             }
         }
 
