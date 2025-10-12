@@ -4,7 +4,6 @@ public class UIListLoader
 {
     public List<object> HUDs { get; private set; } = new List<object>()
     {
-        new SwiftTurnHUD(),
         new SettingHUD(),
         new HpBarsHUD(),
         new PlayerOptionHUD()
