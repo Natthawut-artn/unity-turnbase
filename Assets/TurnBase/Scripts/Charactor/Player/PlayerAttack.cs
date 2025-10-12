@@ -61,10 +61,13 @@ public class PlayerAttack : MonoBehaviour
 
             // ✅ Damage that enemy
             Debug.Log("Hit " + closestEnemy.name);
-            closestEnemy.GetComponent<EnemyData>().TakeDamage(attackDamage);
+            closestEnemy.GetComponent<EnemyData>().TakeDamage(attackDamage * 10);
         }
 
-        if (animator != null) animator.SetTrigger("Attacking");
+        if (animator != null) {
+            animator.SetTrigger("Attacking");
+            animator.applyRootMotion = false;
+        }
 
         playerAttacked++;
 
@@ -94,6 +97,7 @@ public class PlayerAttack : MonoBehaviour
         hasAttackedThisTurn = true;
         yield return new WaitForSeconds(5f);
         player.alreadyAttack = true;
+        GameManager.Instance.CheckEnemys();
         
     }
     public void ResetAttackStatus()
