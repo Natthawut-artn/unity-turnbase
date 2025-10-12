@@ -7,6 +7,7 @@ public static class PlayersInfoPopupController
         PlayersInfoPopup.Data data = new PlayersInfoPopup.Data(() =>
         {
             PlayersInfoHUDController.Show();
+            PocketHUDController.Show();
             Hide();
         });
 

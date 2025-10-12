@@ -28,6 +28,10 @@ public class GameManager : MonoBehaviour
         "Prefabs/Charactor/Player/Protector",
         "Prefabs/Charactor/Player/Support"
     };
+    private List<string> relicDatas_Path = new List<string>()
+    {
+        "RelicsData/RevenCrew"
+    };
     public List<GameObject> Players_alive = new List<GameObject>();
     public List<GameObject> Enemys_alive = new List<GameObject>();
 
@@ -102,6 +106,7 @@ public class GameManager : MonoBehaviour
         yield return null;
         HPBarsHUDController.Show();
         PlayersInfoHUDController.Show();
+        PocketHUDController.Show();
     }
 
     public void DestroyAll()
@@ -127,6 +132,9 @@ public class GameManager : MonoBehaviour
     {
         HPBarsHUDController.Hide();
         PlayerOptionHUDController.Hide();
+        PlayersInfoHUDController.Hide();
+        PocketHUDController.Hide();
+        RelicPocketPopupController.Hide();
         PlayersInfoHUDController.Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
@@ -196,6 +204,17 @@ public class GameManager : MonoBehaviour
             {
                 RelicsStoage relicsStoage = player.GetComponent<RelicsStoage>();
                 relicsStoage.RemoveRelic(relic);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Debug.Log("Get Relic");
+            foreach (string relic in relicDatas_Path)
+            {
+                RelicData relicData = Resources.Load<RelicData>(relic);
+                RelicStroageManager.RelicsInUserPocket.Add(relicData);
+                RelicPocketPopupController.Update();
             }
         }
     }
