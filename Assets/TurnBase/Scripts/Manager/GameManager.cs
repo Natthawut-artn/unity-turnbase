@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
     {
         yield return null;
         HPBarsHUDController.Show();
+        PlayersInfoHUDController.Show();
     }
 
     public void DestroyAll()
@@ -126,6 +127,7 @@ public class GameManager : MonoBehaviour
     {
         HPBarsHUDController.Hide();
         PlayerOptionHUDController.Hide();
+        PlayersInfoHUDController.Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();

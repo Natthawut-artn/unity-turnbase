@@ -6,12 +6,14 @@ public class UIListLoader
     {
         new SettingHUD(),
         new HpBarsHUD(),
-        new PlayerOptionHUD()
+        new PlayerOptionHUD(),
+        new PlayersInfoHUD()
     };
     public List<object> PopUps { get; private set; } = new List<object>()
     {
         new StartGamePopup(),
-        new SettingPopup()
+        new SettingPopup(),
+        new PlayersInfoPopup()
     };
     public List<object> Pages { get; private set; } = new List<object>()
     {

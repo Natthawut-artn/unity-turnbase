@@ -177,8 +177,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        maxHealth = playerData.HP;
-        playerData.currentHP = maxHealth;
     }
 
 
