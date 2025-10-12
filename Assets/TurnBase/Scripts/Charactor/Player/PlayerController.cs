@@ -50,6 +50,11 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator MoveToCell(GameObject To)
     {
+        if(playerAttack.hasAttackedThisTurn && TurnManager.Instance.isInTurnSystem)
+        {
+            Debug.Log("Can't move after attacking.");
+            yield break;
+        }
         if (tilesMoved >= 16 && TurnManager.Instance.isInTurnSystem) alreadyWalk = true;
         else if(!TurnManager.Instance.isInTurnSystem){ tilesMoved = 0; }
         if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
@@ -182,7 +187,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && playerData.playerMoveState == PlayerMoveState.Stand && !EventSystem.current.IsPointerOverGameObject() && !alreadyWalk)
+        if (Input.GetMouseButtonDown(0)
+            && playerData.playerMoveState == PlayerMoveState.Stand
+            && !EventSystem.current.IsPointerOverGameObject()
+            && !alreadyWalk)
         {
             if (TurnManager.Instance == null || TurnManager.Instance.currentPhase != Phase.Player) return;
 
@@ -190,7 +198,22 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
             {
-                StartCoroutine(MoveToCell(hit.collider.gameObject));
+                GameObject clickedTile = hit.collider.gameObject;
+                Vector3 tilePosition = clickedTile.transform.position;
+
+                // 🛑 NEW CHECK: Check for enemies at the clicked tile's position
+                // Use a small radius (e.g., 0.1f) to check if an enemy is precisely on the tile.
+                Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 1f, Enemy);
+
+                if (enemiesOnTile.Length > 0)
+                {
+                    // Enemy is on the tile, so prevent movement
+                    Debug.Log("Cannot move to this tile. An enemy is there.");
+                    return; // Stop execution, don't start the MoveToCell coroutine
+                }
+
+                // If no enemy is found, proceed with movement
+                StartCoroutine(MoveToCell(clickedTile));
             }
         }
 

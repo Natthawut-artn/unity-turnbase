@@ -9,6 +9,7 @@ public class BuffEvent : MonoBehaviour
     private GameObject EventPanel;
     private GameObject player;
     private bool getBuff;
+    private bool alreadyBuffed = false;
 
     private void Update()
     {
@@ -40,11 +41,13 @@ public class BuffEvent : MonoBehaviour
 
     private void BuffPlayer()
     {
+        if (alreadyBuffed) return; // Prevent multiple buffs
         var attack = player.GetComponent<PlayerAttack>();
         if (attack != null)
         {
             attack.attackDamage += 20;
             Debug.Log("Buff applied! Player damage = " + attack.attackDamage);
+            alreadyBuffed = true;
         }
         else
         {

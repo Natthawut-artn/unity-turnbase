@@ -7,6 +7,7 @@ public class DebuffEvent : MonoBehaviour
     private GameObject EventPanel;
     private GameObject player;
     private bool getDeBuff;
+    private bool alreadyBuffed = false;
 
     private void Update()
     {
@@ -38,11 +39,13 @@ public class DebuffEvent : MonoBehaviour
 
     private void DeBuffPlayer()
     {
+        if (alreadyBuffed) return; // Prevent multiple buffs
         var health = player.GetComponent<PlayerController>();
         if (health != null)
         {
             health.maxHealth = 50;
             Debug.Log("Buff applied! Player damage = " + health.maxHealth);
+            alreadyBuffed = true;
         }
         else
         {
