@@ -29,12 +29,18 @@ public class PlayerAttack : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         player = GetComponent<PlayerController>();
     }
-    
+
     public void Attack()
     {
         if (hasAttackedThisTurn)
-        { return; }
+        {
+            return;
+        }
+
+        // Check for enemies in range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsEnemy);
+
+        // Only proceed if there is at least one enemy found
         if (hitEnemies.Length > 0)
         {
             // ✅ Find the closest enemy
@@ -62,20 +68,27 @@ public class PlayerAttack : MonoBehaviour
             // ✅ Damage that enemy
             Debug.Log("Hit " + closestEnemy.name);
             closestEnemy.GetComponent<EnemyData>().TakeDamage(attackDamage * 10);
+
+            // --- Attack successful: Play animation and proceed with turn logic ---
+
+            if (animator != null)
+            {
+                animator.SetTrigger("Attacking");
+                animator.applyRootMotion = false;
+            }
+
+            playerAttacked++;
+
+            if (playerAttacked >= playerAttackPoint)
+            {
+                StartCoroutine(SwitchTurn());
+            }
         }
-
-        if (animator != null) {
-            animator.SetTrigger("Attacking");
-            animator.applyRootMotion = false;
-        }
-
-        playerAttacked++;
-
-        if (playerAttacked >= playerAttackPoint)
+        else
         {
-            StartCoroutine(SwitchTurn());
+            // Optional: Add a debug log or sound effect for a failed attack attempt
+            Debug.Log("No enemy in range to attack.");
         }
-        
     }
 
     void Update()
