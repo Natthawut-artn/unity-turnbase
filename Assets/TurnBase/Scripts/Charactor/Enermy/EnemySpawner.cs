@@ -64,7 +64,6 @@ public class EnemySpawner : MonoBehaviour
         }
 
         GameObject enemyPrefab = Resources.Load<GameObject>(EnemyPrefabPath);
-        GameManager.Instance.Enemys_alive.Add(enemyPrefab);
         if (enemyPrefab == null)
         {
             Debug.LogError($"EnemySpawner: Could not load enemy prefab from '{EnemyPrefabPath}'");
@@ -86,6 +85,8 @@ public class EnemySpawner : MonoBehaviour
             Vector3 spawnPos = worldPos + SpawnOffset;
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             enemy.name = $"Enemy_{roundedGrid.x}_{roundedGrid.y}";
+            GameManager.Instance.Enemys_alive.Add(enemy);
+
            
             EnemyAI ai = enemy.GetComponent<EnemyAI>();
             if (ai != null)
@@ -105,6 +106,7 @@ public class EnemySpawner : MonoBehaviour
 
         hasSpawned = true;
 
+        TurnManager.Instance.isInTurnSystem = true;
         TurnManager.Instance.EndTurn();
     }
 }

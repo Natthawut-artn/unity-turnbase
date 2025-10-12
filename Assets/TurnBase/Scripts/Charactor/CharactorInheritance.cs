@@ -57,6 +57,7 @@ public class CharactorInheritance : MonoBehaviour
             side = "Enemy";
             EnemyAI enemyAI = GetComponent<EnemyAI>();
             enemyAI.enabled = false;
+            GameManager.Instance.Enemys_alive.Remove(enemyAI.gameObject);
             Destroy(gameObject, 1f);
         }
         else

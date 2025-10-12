@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -132,8 +133,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckEnemys()
     {
-        Debug.Log("L");
-        if (Enemys_alive.Count == 0)
+        if (!Enemys_alive.Any())
         {
             TurnManager.Instance.StopTurnBaseSystem();
         }

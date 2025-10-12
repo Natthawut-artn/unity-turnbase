@@ -14,6 +14,8 @@ public class TurnManager : MonoBehaviour
     public Phase currentPhase = Phase.Player;
     public GameObject CurrentPlayer;
     public bool isInTurnSystem = false;
+    private Coroutine enemyPhaseCoroutine;
+    private Coroutine playersPhaseCoroutine;
     private void Awake()
     {
         Instance = this;
@@ -21,21 +23,45 @@ public class TurnManager : MonoBehaviour
 
     public void StopTurnBaseSystem()
     {
-        StopCoroutine(EnemyPhase());
-        StopCoroutine(PlayersPhase());
+        if (enemyPhaseCoroutine != null)
+        {
+            StopCoroutine(enemyPhaseCoroutine);
+            enemyPhaseCoroutine = null;
+        }
+
+        if (playersPhaseCoroutine != null)
+        {
+            StopCoroutine(playersPhaseCoroutine);
+            playersPhaseCoroutine = null;
+        }
+
         isInTurnSystem = false;
+        currentPhase = Phase.Player;
+        PlayerOptionHUDController.Hide();
+        List<GameObject> players = GameManager.Instance.Players_alive;
+
+        foreach (GameObject player in players)
+        {
+            Debug.Log(player.name);
+            PlayerController controller = player.GetComponent<PlayerController>();
+            PlayerAttack attack = player.GetComponent<PlayerAttack>();
+            controller.enabled = true;
+            attack.enabled = true;
+        }
+
+        Debug.Log("Stop turnbase");
     }
 
     public void EndTurn()
     {
-        isInTurnSystem = true;
+        if (!isInTurnSystem) return;
         if (currentPhase == Phase.Player)
         {
-            StartCoroutine(PlayersPhase());
+            playersPhaseCoroutine = StartCoroutine(PlayersPhase());
         }
         else
         {
-            StartCoroutine(EnemyPhase());
+            enemyPhaseCoroutine = StartCoroutine(EnemyPhase());
         }
     }
 
