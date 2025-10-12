@@ -10,10 +10,14 @@ public class PlayerController : MonoBehaviour
     {
         Instance = this;
         playerData = GetComponent<PlayerData>();
+        playerAttack = GetComponent<PlayerAttack>();
+        maxHealth = playerData.HP;
+        playerData.currentHP = maxHealth;
     }
 
     public LayerMask MarkerLayer;
     public PlayerData playerData;
+    public PlayerAttack playerAttack;
     public int maxHealth;
     public LayerMask Enemy;
     public bool alreadyAttack = false;
@@ -153,6 +157,7 @@ public class PlayerController : MonoBehaviour
     public void FinishedTurn()
     {
         // Reset movement for next turn
+        playerAttack.ResetAttackStatus();
         alreadyWalk = false;
         alreadyAttack = false;
 
@@ -165,6 +170,8 @@ public class PlayerController : MonoBehaviour
     {
         alreadyAttack = true;
         alreadyWalk = true;
+        playerAttack.ResetAttackStatus();
+        tilesMoved = 0;
     }
 
     void Start()
@@ -172,7 +179,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         maxHealth = playerData.HP;
         playerData.currentHP = maxHealth;
-        Debug.Log($"{gameObject.name} Hp : {playerData.currentHP}");
     }
 
 

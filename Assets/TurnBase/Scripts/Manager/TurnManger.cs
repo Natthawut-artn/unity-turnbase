@@ -53,7 +53,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Enemy Phase ended, switching to Player Phase");
 
         currentPhase = Phase.Player;
-        PlayerAttack.Instance.ResetAttackStatus();
+
         EndTurn();
     }
 
