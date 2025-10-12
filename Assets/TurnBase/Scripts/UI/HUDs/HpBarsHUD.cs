@@ -40,6 +40,7 @@ public class HpBarsHUD : IUIElement
 
     public void Hide()
     {
+        HpBars.Clear();
         if (_selfGameObject == null)
             return;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DelegateManager;
 using UnityEngine.UI;
+using System.Linq;
 
 public class SettingPopup : IUIElement
 {
@@ -77,9 +78,7 @@ public class SettingPopup : IUIElement
             confirm.interactable = false;
         }
         
-        GameObject Player = GameManager.Instance.Player;
-        PlayerData playerData = Player.GetComponent<PlayerData>();
-        if (playerData.playerMoveState == PlayerMoveState.Die)
+        if (!GameManager.Instance.Players_alive.Any() && AppStateManager.appState == AppState.State)
         {
             close.interactable = false;
         }
