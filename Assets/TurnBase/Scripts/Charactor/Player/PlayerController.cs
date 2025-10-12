@@ -50,6 +50,11 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator MoveToCell(GameObject To)
     {
+        if(playerAttack.hasAttackedThisTurn && TurnManager.Instance.isInTurnSystem)
+        {
+            Debug.Log("Can't move after attacking.");
+            yield break;
+        }
         if (tilesMoved >= 16 && TurnManager.Instance.isInTurnSystem) alreadyWalk = true;
         else if(!TurnManager.Instance.isInTurnSystem){ tilesMoved = 0; }
         if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)

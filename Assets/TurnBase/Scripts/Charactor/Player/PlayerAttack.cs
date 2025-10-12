@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerController player;
     public int playerAttackPoint = 1;
     public int playerAttacked = 0;
-    private bool hasAttackedThisTurn = false;
+    public bool hasAttackedThisTurn = false;
 
 
 
