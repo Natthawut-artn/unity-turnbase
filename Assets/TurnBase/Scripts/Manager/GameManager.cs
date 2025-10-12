@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
         "Prefabs/Charactor/Player/Support"
     };
     public List<GameObject> Players_alive = new List<GameObject>();
+    public List<GameObject> Enemys_alive = new List<GameObject>();
 
     public string Room;
     private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar1";
@@ -54,7 +55,6 @@ public class GameManager : MonoBehaviour
         if (CurrentStage != null)
         {
             SpawnPlayers();
-            // StartCoroutine(TurnManager.Instance.PlayersPhase());
         }
     }
 
@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(player);
         }
+        Players_alive.Clear();
     }
 
     public void SpawnEnemy()
@@ -127,6 +128,15 @@ public class GameManager : MonoBehaviour
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();
+    }
+
+    public void CheckEnemys()
+    {
+        Debug.Log("L");
+        if (Enemys_alive.Count == 0)
+        {
+            TurnManager.Instance.StopTurnBaseSystem();
+        }
     }
 
     void Start()

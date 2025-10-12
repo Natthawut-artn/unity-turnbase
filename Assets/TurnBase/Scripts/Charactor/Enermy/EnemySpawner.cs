@@ -64,6 +64,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         GameObject enemyPrefab = Resources.Load<GameObject>(EnemyPrefabPath);
+        GameManager.Instance.Enemys_alive.Add(enemyPrefab);
         if (enemyPrefab == null)
         {
             Debug.LogError($"EnemySpawner: Could not load enemy prefab from '{EnemyPrefabPath}'");
