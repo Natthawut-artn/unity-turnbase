@@ -7,7 +7,8 @@ public enum HeroClass
     Striker,
     Protecter,
     Support,
-    Enemy
+    Enemy,
+    Boss
 }
 
 public class CharactorInheritance : MonoBehaviour
