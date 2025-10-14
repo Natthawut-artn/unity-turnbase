@@ -162,10 +162,9 @@ public class PlayerController : MonoBehaviour
     public void FinishedTurn()
     {
         // Reset movement for next turn
-        playerAttack.ResetAttackStatus();
         alreadyWalk = false;
         alreadyAttack = false;
-
+        playerAttack.ResetAttackStatus();
         playerData.playerMoveState = PlayerMoveState.Stand;
         SetAnimationState(PlayerMoveState.Stand);
         tilesMoved = 0;
@@ -173,9 +172,9 @@ public class PlayerController : MonoBehaviour
 
     public void SkipTurn()
     {
+        playerAttack.ResetAttackStatus();
         alreadyAttack = true;
         alreadyWalk = true;
-        playerAttack.ResetAttackStatus();
         tilesMoved = 0;
     }
 

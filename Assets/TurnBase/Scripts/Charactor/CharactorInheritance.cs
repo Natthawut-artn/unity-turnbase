@@ -66,7 +66,12 @@ public class CharactorInheritance : MonoBehaviour
             side = "Player";
             StartCoroutine(Wait());
         }
-        Debug.Log($"{side} died.");
+        if(heroclass == HeroClass.Boss)
+        {
+            side = "Boss";
+
+        }
+            Debug.Log($"{side} died.");
         // Add death logic here (e.g., respawn, game over screen)
     }
 

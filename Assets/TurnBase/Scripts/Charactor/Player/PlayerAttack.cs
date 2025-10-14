@@ -32,11 +32,11 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        if (hasAttackedThisTurn)
+        if (hasAttackedThisTurn || TurnManager.Instance.currentPhase != Phase.Player)
         {
             return;
         }
-
+        
         // Check for enemies in range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsEnemy);
 

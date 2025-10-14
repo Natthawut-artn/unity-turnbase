@@ -58,6 +58,7 @@ public class TurnManager : MonoBehaviour
         if (currentPhase == Phase.Player)
         {
             playersPhaseCoroutine = StartCoroutine(PlayersPhase());
+            
         }
         else
         {
