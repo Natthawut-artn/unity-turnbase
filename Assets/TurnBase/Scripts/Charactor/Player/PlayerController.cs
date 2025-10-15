@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
         maxHealth = playerData.HP;
         playerData.currentHP = maxHealth;
     }
+    private Marker currentOccupiedMarker;
 
     public LayerMask MarkerLayer;
     public PlayerData playerData;
@@ -27,6 +28,23 @@ public class PlayerController : MonoBehaviour
     // ✅ Movement limit
     public int maxTilesPerTurn = 4;
     public int tilesMoved = 0;
+
+    private Marker GetMarkerAtCurrentPosition()
+    {
+        Vector2 gridPos = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.z));
+
+        // Assuming the player is always in a room that is a parent or sibling of the BoardManager's rooms.
+        // We need the Room GameObject to search for markers. If the player is not currently in a room, this will fail.
+        Room playerRoom = GetComponentInParent<Room>();
+        if (playerRoom == null) return null;
+
+        GameObject markerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(gridPos, playerRoom.gameObject);
+        if (markerGO != null)
+        {
+            return markerGO.GetComponent<Marker>();
+        }
+        return null;
+    }
 
     private void SetAnimationState(PlayerMoveState state)
     {
@@ -69,7 +87,11 @@ public class PlayerController : MonoBehaviour
             BoardManager.Instance.isTransferring = false;
             yield break;
         }
-
+        if (currentOccupiedMarker != null)
+        {
+            currentOccupiedMarker.IsOccupied = false;
+            currentOccupiedMarker = null; // Clear reference until new one is acquired
+        }
         Vector3 targetPos = transform.position;
 
         if (Mathf.Abs(To.transform.position.x - transform.position.x) > 0.01f)
@@ -112,6 +134,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Enemy blocking path → stop movement.");
             SetAnimationState(PlayerMoveState.Stand);
+            currentOccupiedMarker = GetMarkerAtCurrentPosition();
+            if (currentOccupiedMarker != null) currentOccupiedMarker.IsOccupied = true;
+
             yield break;
         }
 
@@ -139,7 +164,12 @@ public class PlayerController : MonoBehaviour
             // Set the marker at the new position to occupied
             newMarker.IsOccupied = true;
         }
-
+        
+        currentOccupiedMarker = GetMarkerAtCurrentPosition();
+        if (currentOccupiedMarker != null)
+        {
+            currentOccupiedMarker.IsOccupied = true;
+        }
         // ✅ Count tile
         tilesMoved++;
 
@@ -206,6 +236,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        currentOccupiedMarker = GetMarkerAtCurrentPosition();
+        if (currentOccupiedMarker != null) currentOccupiedMarker.IsOccupied = true;
     }
 
 

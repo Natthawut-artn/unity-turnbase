@@ -5,7 +5,7 @@ public class Tentacle : MonoBehaviour
 {
     [Header("Tentacle Settings")]
     public Marker occupiedMarker;
-    public int damageAmount = 10;
+    public int damageAmount = 50;
     public float activeDuration = 1.5f;
 
     [Header("Visuals & Components")]
@@ -94,6 +94,12 @@ public class Tentacle : MonoBehaviour
     {
         if (damageCollider != null && damageCollider.enabled && other.CompareTag("Player"))
         {
+            PlayerData playerData = other.GetComponent<PlayerData>();
+            if (playerData != null)
+            {
+                playerData.TakeDamage(damageAmount);
+                HPBarsHUDController.Update();
+            }
             Debug.Log($"Tentacle dealt {damageAmount} damage to Player!");
             damageCollider.enabled = false;
         }

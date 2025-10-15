@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     // Tracks occupied grid positions (X,Z)
-    public static HashSet<Vector2> OccupiedPositions = new HashSet<Vector2>();
+    
     private Vector2 currentGridPos;
     public static EnemyAI Instance;
     public NavMeshAgent agent;
@@ -43,13 +43,16 @@ public class EnemyAI : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
+        agent.stoppingDistance = 0.05f;
+
         enemyData = GetComponent<EnemyData>();
         enemyData.currentHP = enemyData.HP;
 
         // Register starting position
         currentGridPos = GetGridPosition(transform.position);
-        
 
+
+        currentGridPos = GetGridPosition(transform.position);
         SetMarkerOccupancy(currentGridPos, true);
 
     }
@@ -139,37 +142,19 @@ public class EnemyAI : MonoBehaviour
 
         if (walkPointSet)
         {
-            // Vector2 targetGrid = GetGridPosition(walkPoint); // Keep this line for local use
+            // Vector2 targetGrid = GetGridPosition(walkPoint); // Not needed
             GameObject targetMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(GetGridPosition(walkPoint), parentRoom.gameObject);
+            Marker targetMarker = (targetMarkerGO != null) ? targetMarkerGO.GetComponent<Marker>() : null;
 
-            // Check if marker exists and is unoccupied
-            if (targetMarkerGO != null)
-            {
-                Marker targetMarker = targetMarkerGO.GetComponent<Marker>();
-                if (targetMarker != null && !targetMarker.IsOccupied)
-                {
-                    agent.SetDestination(walkPoint);
-                    animator.SetBool("isWalking", true);
-                }
-                else
-                {
-                    // Marker is occupied or doesn't exist (e.g., player/boss/another enemy is there)
-                    walkPointSet = false; // pick a new point next turn
-                }
-            }
-            else
-            {
-                walkPointSet = false;
-            }
-            Vector2 targetGrid = GetGridPosition(walkPoint);
-            if (!OccupiedPositions.Contains(targetGrid))
+            // ⭐ FIX: Check IsOccupied on the Marker
+            if (targetMarker != null && !targetMarker.IsOccupied)
             {
                 agent.SetDestination(walkPoint);
                 animator.SetBool("isWalking", true);
             }
             else
             {
-                walkPointSet = false; // pick a new point next turn
+                walkPointSet = false;
             }
         }
 
@@ -207,8 +192,9 @@ public class EnemyAI : MonoBehaviour
             GameObject candidateMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(gridPos, parentRoom.gameObject);
             bool isCandidateOccupied = (candidateMarkerGO != null && candidateMarkerGO.GetComponent<Marker>().IsOccupied);
 
-            if (Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround) &&
-                !OccupiedPositions.Contains(gridPos))
+
+            // Check if on ground AND not occupied
+            if (Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround) && !isCandidateOccupied)
             {
                 walkPoint = candidate;
                 walkPointSet = true;
@@ -222,15 +208,16 @@ public class EnemyAI : MonoBehaviour
 
     public void ChasePlayer()
     {
-        Vector3 direction = (Player.position - transform.position).normalized;
         float distance = Vector3.Distance(transform.position, Player.position);
 
-        if (distance <= StoppingDistance)
+        if (distance == attackRange) // Use attackRange or StoppingDistance here
         {
             agent.SetDestination(transform.position);
             animator.SetBool("isWalking", false);
             return;
         }
+
+        Vector3 direction = (Player.position - transform.position).normalized;
 
         // Main grid direction toward player
         Vector3 mainDir = Vector3.zero;
@@ -243,25 +230,25 @@ public class EnemyAI : MonoBehaviour
         mainTarget = new Vector3(Mathf.Round(mainTarget.x), transform.position.y, Mathf.Round(mainTarget.z));
         Vector2 mainGrid = GetGridPosition(mainTarget);
 
+        // ⭐ FIX: Check IsOccupied on the Marker
         GameObject mainTargetMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(mainGrid, parentRoom.gameObject);
         bool isMainTargetOccupied = (mainTargetMarkerGO != null && mainTargetMarkerGO.GetComponent<Marker>().IsOccupied);
+
         // 🟩 Try main path first
-        if (!isMainTargetOccupied) // NEW CHECK
+        if (!isMainTargetOccupied)
         {
-            // OccupiedPositions.Add(mainGrid); // REMOVE STATIC HASHSET LINE
-            // No need to set the Marker here; it's set at the end of TakeTurn when movement is complete.
             agent.SetDestination(mainTarget);
             animator.SetBool("isWalking", true);
             return;
         }
 
-        // 🟨 If blocked, check side paths that still move generally toward player
+        // 🟨 If blocked, check side paths...
         Vector3[] altDirs = new Vector3[]
         {
-        new Vector3(mainDir.x, 0, 0),
-        new Vector3(0, 0, mainDir.z),
-        new Vector3(-mainDir.x, 0, 0),
-        new Vector3(0, 0, -mainDir.z)
+            new Vector3(mainDir.x, 0, 0),
+            new Vector3(0, 0, mainDir.z),
+            new Vector3(-mainDir.x, 0, 0),
+            new Vector3(0, 0, -mainDir.z)
         };
 
         float bestDist = Mathf.Infinity;
@@ -274,11 +261,13 @@ public class EnemyAI : MonoBehaviour
             candidate = new Vector3(Mathf.Round(candidate.x), transform.position.y, Mathf.Round(candidate.z));
             Vector2 grid = GetGridPosition(candidate);
 
+            // ⭐ FIX: Check IsOccupied on the Marker
             GameObject candidateMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(grid, parentRoom.gameObject);
             bool isCandidateOccupied = (candidateMarkerGO != null && candidateMarkerGO.GetComponent<Marker>().IsOccupied);
 
             if (isCandidateOccupied) continue;
             if (!Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround)) continue;
+
 
             // Only move forward or sideways toward player
             Vector3 toCandidate = (candidate - transform.position).normalized;
@@ -296,7 +285,6 @@ public class EnemyAI : MonoBehaviour
 
         if (foundBetter)
         {
-            Vector2 targetGrid = GetGridPosition(bestPoint);
             agent.SetDestination(bestPoint);
             animator.SetBool("isWalking", true);
         }
