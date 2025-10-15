@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6522489536722666268}
   - component: {fileID: 1321180747241032501}
   - component: {fileID: 7543379208738471625}
+  - component: {fileID: -5118679279084328150}
   m_Layer: 0
   m_Name: The Mother
   m_TagString: Untagged
@@ -187,3 +188,21 @@ MonoBehaviour:
   - GridPosition: {x: 25, y: 30}
   - GridPosition: {x: 15, y: 20}
   SpawnOffset: {x: 0, y: 1.49, z: 0}
+--- !u!114 &-5118679279084328150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92ce8778efd6a24ea8df9b2eec1a69c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BossRoomName: Room9
+  HpThreshold: 0.5
+  PlayerTurnCooldown: 2
+  TentaclePrefabPath: Prefabs/Charactor/Boss/Tentacles
+  MaxTentaclesToSpawn: 30
+  SpawnOffset: {x: 0, y: 3.9, z: 0}

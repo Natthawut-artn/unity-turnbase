@@ -16,6 +16,8 @@ public class TurnManager : MonoBehaviour
     public bool isInTurnSystem = false;
     private Coroutine enemyPhaseCoroutine;
     private Coroutine playersPhaseCoroutine;
+
+    public int TurnCycleCount { get; private set; } = 0;
     private void Awake()
     {
         Instance = this;
@@ -79,6 +81,8 @@ public class TurnManager : MonoBehaviour
 
         Debug.Log("Enemy Phase ended, switching to Player Phase");
 
+        TurnCycleCount++;
+
         currentPhase = Phase.Player;
 
         EndTurn();
@@ -109,7 +113,27 @@ public class TurnManager : MonoBehaviour
 
         yield return null;
 
+        TriggerBossTurnEndSkills();
+
         currentPhase = Phase.Enemy;
         EndTurn();
+    }
+
+    private void TriggerBossTurnEndSkills()
+    {
+        // Find the boss (assuming it has BossData)
+        BossData bossData = FindObjectOfType<BossData>();
+
+        if (bossData != null)
+        {
+            // Now, we specifically check for the TENTACLE skill
+            BossSkill_TentacleSpawn tentacleSkill = bossData.GetComponent<BossSkill_TentacleSpawn>();
+
+            if (tentacleSkill != null)
+            {
+                // This call advances the 2-turn cooldown and checks HP.
+                tentacleSkill.CheckSkillTrigger();
+            }
+        }
     }
 }

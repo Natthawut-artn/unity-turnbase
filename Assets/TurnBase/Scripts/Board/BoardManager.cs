@@ -187,6 +187,20 @@ public class BoardManager : MonoBehaviour
         return Vector3.zero;
     }
 
+    public GameObject GetMarkerGameObjectAtGrid(Vector2 GridPosition, GameObject Room)
+    {
+        Marker[] markers = Room.GetComponentsInChildren<Marker>();
+        foreach (Marker marker in markers)
+        {
+            // Compares Vector2 to Vector2
+            if (marker.GridPosition == GridPosition)
+            {
+                return marker.gameObject;
+            }
+        }
+        return null;
+    }
+
     public Vector2 GetMarkerGameObject(GameObject MarkerGameObject)
     {
         Marker markerScript = MarkerGameObject.GetComponent<Marker>();

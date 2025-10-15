@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Room : MonoBehaviour
@@ -9,6 +10,17 @@ public class Room : MonoBehaviour
     public EventType eventType;
     public List<GameObject> Doors = new List<GameObject>();
 
+    public List<Vector2> AllGridPositions
+    {
+        get
+        {
+            // Use GetComponentsInChildren to find all Marker scripts attached to the room or its children.
+            // Select the GridPosition from each Marker (now a Vector2).
+            return GetComponentsInChildren<Marker>()
+                .Select(m => m.GridPosition)
+                .ToList();
+        }
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

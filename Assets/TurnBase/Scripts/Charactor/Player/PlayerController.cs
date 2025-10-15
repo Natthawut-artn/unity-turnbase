@@ -115,6 +115,31 @@ public class PlayerController : MonoBehaviour
             yield break;
         }
 
+        Marker newMarker = To.GetComponent<Marker>();
+
+        if (newMarker != null)
+        {
+            // 🛑 IMPORTANT: If the new marker is already occupied (e.g., by another Player/Hazard not caught by your Physics.OverlapSphere)
+            // You might want to stop here, but since your existing logic only prevents enemy block, we proceed, 
+            // relying on the movement system to prevent collisions.
+
+            // This is tricky without explicit tracking of the *previous* marker. 
+            // A better long-term solution is adding: 'public Marker currentOccupiedMarker;' to PlayerController.
+
+            // --- TEMPORARY SOLUTION: Check/Clear/Set Marker state based on position ---
+
+            // Find the marker at the old position and set it to unoccupied
+            Vector2 oldGridPos = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.z));
+            GameObject oldMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(oldGridPos, To.transform.parent.gameObject);
+            if (oldMarkerGO != null)
+            {
+                oldMarkerGO.GetComponent<Marker>().IsOccupied = false;
+            }
+
+            // Set the marker at the new position to occupied
+            newMarker.IsOccupied = true;
+        }
+
         // ✅ Count tile
         tilesMoved++;
 

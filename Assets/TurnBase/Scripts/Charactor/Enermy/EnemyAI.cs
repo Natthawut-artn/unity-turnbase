@@ -48,7 +48,9 @@ public class EnemyAI : MonoBehaviour
 
         // Register starting position
         currentGridPos = GetGridPosition(transform.position);
-        OccupiedPositions.Add(currentGridPos);
+        
+
+        SetMarkerOccupancy(currentGridPos, true);
 
     }
     void Start()
@@ -62,6 +64,20 @@ public class EnemyAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+    private void SetMarkerOccupancy(Vector2 gridPos, bool isOccupied)
+    {
+        if (parentRoom == null || BoardManager.Instance == null) return;
+
+        GameObject markerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(gridPos, parentRoom.gameObject);
+        if (markerGO != null)
+        {
+            Marker marker = markerGO.GetComponent<Marker>();
+            if (marker != null)
+            {
+                marker.IsOccupied = isOccupied;
+            }
+        }
     }
     private Vector2 GetGridPosition(Vector3 worldPos)
     {
@@ -86,7 +102,7 @@ public class EnemyAI : MonoBehaviour
             else if (playerInSightRange && !Stopzone)
                 ChasePlayer();
 
-            OccupiedPositions.Remove(oldGrid);
+            SetMarkerOccupancy(oldGrid, false);
 
             float maxTime = 2f;
             float timer = 0f;
@@ -104,7 +120,7 @@ public class EnemyAI : MonoBehaviour
             animator.SetBool("isWalking", false);
 
             currentGridPos = GetGridPosition(transform.position);
-            OccupiedPositions.Add(currentGridPos);
+            SetMarkerOccupancy(currentGridPos, true);
         }
 
         if (playerInAttackRange && this != null)
@@ -123,6 +139,28 @@ public class EnemyAI : MonoBehaviour
 
         if (walkPointSet)
         {
+            // Vector2 targetGrid = GetGridPosition(walkPoint); // Keep this line for local use
+            GameObject targetMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(GetGridPosition(walkPoint), parentRoom.gameObject);
+
+            // Check if marker exists and is unoccupied
+            if (targetMarkerGO != null)
+            {
+                Marker targetMarker = targetMarkerGO.GetComponent<Marker>();
+                if (targetMarker != null && !targetMarker.IsOccupied)
+                {
+                    agent.SetDestination(walkPoint);
+                    animator.SetBool("isWalking", true);
+                }
+                else
+                {
+                    // Marker is occupied or doesn't exist (e.g., player/boss/another enemy is there)
+                    walkPointSet = false; // pick a new point next turn
+                }
+            }
+            else
+            {
+                walkPointSet = false;
+            }
             Vector2 targetGrid = GetGridPosition(walkPoint);
             if (!OccupiedPositions.Contains(targetGrid))
             {
@@ -166,6 +204,9 @@ public class EnemyAI : MonoBehaviour
 
             Vector2 gridPos = GetGridPosition(candidate);
 
+            GameObject candidateMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(gridPos, parentRoom.gameObject);
+            bool isCandidateOccupied = (candidateMarkerGO != null && candidateMarkerGO.GetComponent<Marker>().IsOccupied);
+
             if (Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround) &&
                 !OccupiedPositions.Contains(gridPos))
             {
@@ -202,11 +243,13 @@ public class EnemyAI : MonoBehaviour
         mainTarget = new Vector3(Mathf.Round(mainTarget.x), transform.position.y, Mathf.Round(mainTarget.z));
         Vector2 mainGrid = GetGridPosition(mainTarget);
 
+        GameObject mainTargetMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(mainGrid, parentRoom.gameObject);
+        bool isMainTargetOccupied = (mainTargetMarkerGO != null && mainTargetMarkerGO.GetComponent<Marker>().IsOccupied);
         // 🟩 Try main path first
-        if (!OccupiedPositions.Contains(mainGrid))
+        if (!isMainTargetOccupied) // NEW CHECK
         {
-            // Reserve target immediately to avoid overlap
-            OccupiedPositions.Add(mainGrid);
+            // OccupiedPositions.Add(mainGrid); // REMOVE STATIC HASHSET LINE
+            // No need to set the Marker here; it's set at the end of TakeTurn when movement is complete.
             agent.SetDestination(mainTarget);
             animator.SetBool("isWalking", true);
             return;
@@ -231,7 +274,10 @@ public class EnemyAI : MonoBehaviour
             candidate = new Vector3(Mathf.Round(candidate.x), transform.position.y, Mathf.Round(candidate.z));
             Vector2 grid = GetGridPosition(candidate);
 
-            if (OccupiedPositions.Contains(grid)) continue;
+            GameObject candidateMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(grid, parentRoom.gameObject);
+            bool isCandidateOccupied = (candidateMarkerGO != null && candidateMarkerGO.GetComponent<Marker>().IsOccupied);
+
+            if (isCandidateOccupied) continue;
             if (!Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround)) continue;
 
             // Only move forward or sideways toward player
@@ -251,7 +297,6 @@ public class EnemyAI : MonoBehaviour
         if (foundBetter)
         {
             Vector2 targetGrid = GetGridPosition(bestPoint);
-            OccupiedPositions.Add(targetGrid); // Reserve before moving
             agent.SetDestination(bestPoint);
             animator.SetBool("isWalking", true);
         }
@@ -321,18 +366,12 @@ public class EnemyAI : MonoBehaviour
     }
     private void OnDestroy()
     {
-        // When enemy dies or is destroyed, free up its occupied grid cell
-        if (OccupiedPositions.Contains(currentGridPos))
-        {
-            OccupiedPositions.Remove(currentGridPos);
-        }
+        SetMarkerOccupancy(currentGridPos, false);
     }
 
     private void DestroySelf()
     {
-        if (OccupiedPositions.Contains(currentGridPos))
-            OccupiedPositions.Remove(currentGridPos);
-
+        SetMarkerOccupancy(currentGridPos, false);
         Destroy(gameObject);
     }
 
