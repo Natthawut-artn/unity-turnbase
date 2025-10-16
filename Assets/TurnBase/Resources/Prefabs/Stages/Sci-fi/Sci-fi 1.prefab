@@ -22855,6 +22855,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner Room2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3616352702945752637, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.28
@@ -24290,6 +24294,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlobeforEvent 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4305576654697226632, guid: f6d2bb23407ed8842b4f4b2932f80fae, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6463351903952799311, guid: f6d2bb23407ed8842b4f4b2932f80fae, type: 3}
       propertyPath: m_Size.x
       value: 0.12214376
@@ -24924,6 +24932,10 @@ PrefabInstance:
     - target: {fileID: 4305576654697226632, guid: f6d2bb23407ed8842b4f4b2932f80fae, type: 3}
       propertyPath: m_Name
       value: GlobeforEvent 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305576654697226632, guid: f6d2bb23407ed8842b4f4b2932f80fae, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6463351903952799311, guid: f6d2bb23407ed8842b4f4b2932f80fae, type: 3}
       propertyPath: m_Size.x

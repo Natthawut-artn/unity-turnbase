@@ -40,11 +40,11 @@ public class DebuffEvent : MonoBehaviour
     private void DeBuffPlayer()
     {
         if (alreadyBuffed) return; // Prevent multiple buffs
-        var health = player.GetComponent<PlayerController>();
+        var health = player.GetComponent<PlayerData>();
         if (health != null)
         {
-            health.maxHealth = 50;
-            Debug.Log("Buff applied! Player damage = " + health.maxHealth);
+            health.currentHP = 50;
+            Debug.Log("Debuff Applied Player Health = " + health.currentHP);
             alreadyBuffed = true;
         }
         else
