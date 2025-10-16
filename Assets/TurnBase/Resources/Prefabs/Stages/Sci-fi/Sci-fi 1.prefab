@@ -4587,10 +4587,10 @@ MonoBehaviour:
       - m_Target: {fileID: 6885340171127274838}
         m_TargetAssemblyTypeName: DebuffEvent, Assembly-CSharp
         m_MethodName: ChangeDeBuff
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 4881756328370060497}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14174,10 +14174,10 @@ MonoBehaviour:
       - m_Target: {fileID: 5236036106117225863}
         m_TargetAssemblyTypeName: BuffEvent, Assembly-CSharp
         m_MethodName: ChangeBuff
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1917346373849796288}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -15816,10 +15816,10 @@ MonoBehaviour:
       - m_Target: {fileID: 5236036106117225863}
         m_TargetAssemblyTypeName: BuffEvent, Assembly-CSharp
         m_MethodName: ChangeBuff
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2920309310502548023}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -21903,10 +21903,10 @@ MonoBehaviour:
       - m_Target: {fileID: 5236036106117225863}
         m_TargetAssemblyTypeName: BuffEvent, Assembly-CSharp
         m_MethodName: ChangeBuff
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 4062002855416445880}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

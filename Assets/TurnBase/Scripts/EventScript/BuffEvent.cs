@@ -1,47 +1,62 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BuffEvent : MonoBehaviour
 {
-    private GameObject EventPanel;
     private GameObject player;
     private bool getBuff;
     private bool alreadyBuffed = false;
+    private GameObject panelToClose; // Stores the panel reference passed from the UI
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");  
+    }
 
     private void Update()
     {
-        // If player not yet found, keep trying until found
-        if(EventPanel == null)
-        {
-            EventPanel = GameObject.FindGameObjectWithTag("PanelEvent");
-            if (EventPanel == null) return;
-        }
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            if (player == null) return;
-        }
-
         // Apply buff when triggered
         if (getBuff)
         {
             BuffPlayer();
+
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+
             getBuff = false;
-            EventPanel.SetActive(false);
         }
     }
 
-    public void ChangeBuff()
+    // This function is called by the UI Button, passing the panel reference
+    public void ChangeBuff(GameObject panelRef)
     {
         getBuff = true;
+        panelToClose = panelRef;
     }
 
     private void BuffPlayer()
     {
-        if (alreadyBuffed) return; // Prevent multiple buffs
+        if (alreadyBuffed) return;
+
+        // ⭐ THE FIX: Check if the player object still exists before accessing its components.
+        if (player == null)
+        {
+            // Attempt to find the player again. This handles scene transitions or respawns.
+            player = GameObject.FindGameObjectWithTag("Player");
+
+            if (player == null)
+            {
+                // If we still can't find the player, log the warning and exit.
+                Debug.LogWarning("Cannot apply buff: Player object is missing or has been destroyed.");
+                return;
+            }
+        }
+
         var attack = player.GetComponent<PlayerAttack>();
         if (attack != null)
         {
@@ -54,5 +69,4 @@ public class BuffEvent : MonoBehaviour
             Debug.LogWarning("PlayerAttack component not found on Player!");
         }
     }
-
 }
