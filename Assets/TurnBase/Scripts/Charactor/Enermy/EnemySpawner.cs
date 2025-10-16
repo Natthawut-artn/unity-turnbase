@@ -86,12 +86,20 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             enemy.name = $"Enemy_{roundedGrid.x}_{roundedGrid.y}";
             GameManager.Instance.Enemys_alive.Add(enemy);
+            
+            Room roomComponent = targetRoom.GetComponent<Room>();
 
-           
             EnemyAI ai = enemy.GetComponent<EnemyAI>();
             if (ai != null)
             {
                 ai.parentRoom = targetRoom.GetComponent<Room>();
+            }
+
+            BossController boss = enemy.GetComponent<BossController>();
+            if (boss != null)
+            {
+                // This assigns the room reference, which BossController.Start() will use
+                boss.parentRoom = roomComponent;
             }
 
             EnemyData enemyData = enemy.GetComponent<EnemyData>();
