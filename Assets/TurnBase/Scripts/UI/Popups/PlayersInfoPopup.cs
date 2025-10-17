@@ -2,6 +2,7 @@ using UnityEngine;
 using DelegateManager;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class PlayersInfoPopup : IUIElement
 {
@@ -80,13 +81,58 @@ public class PlayersInfoPopup : IUIElement
         }
         buttons[0].onClick.AddListener(() =>
         {
-            infos[0].SetActive(true);
-            infos[1].SetActive(false);
+            ShowInfoPage(infos[0], infos[1]);
         });
         buttons[1].onClick.AddListener(() =>
         {
-            infos[0].SetActive(false);
-            infos[1].SetActive(true);
+            ShowStatusePage(infos[0], infos[1]);
         });
+    }
+    
+    public void ShowInfoPage(GameObject infoPage, GameObject statusPage)
+    {
+        infoPage.SetActive(true);
+        statusPage.SetActive(false);
+    }
+
+    public void ShowStatusePage(GameObject infoPage, GameObject statusPage)
+    {
+        infoPage.SetActive(false);
+        statusPage.SetActive(true);
+
+        List<GameObject> Statuses = new List<GameObject>();
+        for (int i = 0; i < statusPage.transform.childCount; i++)
+        {
+            Statuses.Add(statusPage.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < GameManager.Instance.Players_alive.Count; i++)
+        {
+            if (Statuses[i].name + "(Clone)" == GameManager.Instance.Players_alive[i].name)
+            {
+                Debug.Log(Statuses[i].name);
+                PlayerData playerData = GameManager.Instance.Players_alive[i].GetComponent<PlayerData>();
+                string status =
+                $"Hp : {playerData.currentHP}\n" +
+                $"ATK : {playerData.currentATK}\n" +
+                $"Defense : {playerData.currentDefense}\n" +
+                $"Crit Rate : {playerData.currentCritRate}\n" +
+                $"Crit DGM : {playerData.currentCritDGM}\n"
+                ;
+
+                TextMeshProUGUI text = Statuses[i].transform.Find("Text (TMP) (2)").GetComponent<TextMeshProUGUI>();
+                if (text == null)
+                {
+                    Debug.Log("Null");
+                }
+                else
+                {
+                    text.SetText(status);
+                }
+            }
+        }
+        for (int i = GameManager.Instance.Players_alive.Count; i < Statuses.Count; i++)
+        {
+            Statuses[i].SetActive(false);
+        }
     }
 }

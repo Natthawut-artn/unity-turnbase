@@ -17,13 +17,25 @@ public class CharactorInheritance : MonoBehaviour
     public HeroClass heroclass;
     public int HP;
     public int ATK;
-    public int MagicATK;
     public int Defense;
     public int CritRate;
     public int CritDGM;
 
     // curruent
     public int currentHP;
+    public int currentATK;
+    public int currentDefense;
+    public int currentCritRate;
+    public int currentCritDGM;
+
+    void Awake()
+    {
+        currentHP = HP;
+        currentATK = ATK;
+        currentDefense = Defense;
+        currentCritRate = CritRate;
+        currentCritDGM = CritDGM;
+    }
 
     public void TakeDamage(int Damage)
     {

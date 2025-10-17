@@ -11,15 +11,12 @@ public class PlayerController : MonoBehaviour
         Instance = this;
         playerData = GetComponent<PlayerData>();
         playerAttack = GetComponent<PlayerAttack>();
-        maxHealth = playerData.HP;
-        playerData.currentHP = maxHealth;
     }
     private Marker currentOccupiedMarker;
 
     public LayerMask MarkerLayer;
     public PlayerData playerData;
     public PlayerAttack playerAttack;
-    public int maxHealth;
     public LayerMask Enemy;
     public bool alreadyAttack = false;
     public bool alreadyWalk = false;

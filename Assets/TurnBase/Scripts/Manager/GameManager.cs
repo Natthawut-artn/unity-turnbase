@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
     private List<string> Players_Path = new List<string>()
     {
         "Prefabs/Charactor/Player/Striker",
-        "Prefabs/Charactor/Player/Protector",
-        "Prefabs/Charactor/Player/Support"
+        "Prefabs/Charactor/Player/Support",
+        "Prefabs/Charactor/Player/Protector"
     };
     private List<string> relicDatas_Path = new List<string>()
     {
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
             Destroy(Player);
         }
 
-        for (int i = 0; i < Players_Path.Count - 2; i++)
+        for (int i = 0; i < Players_Path.Count; i++)
         {
             Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlaterSpawnPos[i], BoardManager.Instance.GetRoom(Room));
             Pos += new Vector3(0f, 1.49f, 0f);
@@ -116,6 +116,11 @@ public class GameManager : MonoBehaviour
             Destroy(player);
         }
         Players_alive.Clear();
+        foreach (GameObject enemy in Enemys_alive)
+        {
+            Destroy(enemy);
+        }
+        Enemys_alive.Clear();
     }
 
     public void SpawnEnemy()
@@ -130,6 +135,7 @@ public class GameManager : MonoBehaviour
 
     public void BackToTheHub()
     {
+        TurnManager.Instance.StopTurnBaseSystem();
         HPBarsHUDController.Hide();
         PlayerOptionHUDController.Hide();
         PlayersInfoHUDController.Hide();

@@ -17,28 +17,25 @@ public class RelicData : ScriptableObject
 
     public void InstallRelic(PlayerData player)
     {
-        player.HP += HP;
-        player.ATK += ATK;
-        player.MagicATK += MagicATK;
-        player.Defense += Defense;
-        player.CritRate += CritRate;
-        player.CritDGM += CritDGM;
+        player.currentHP += HP;
+        player.currentATK += ATK;
+        player.currentDefense += Defense;
+        player.currentCritRate += CritRate;
+        player.currentCritDGM += CritDGM;
     }
 
     public void RemoveRelic(PlayerData player)
     {
-        player.HP -= HP;
-        player.ATK -= ATK;
-        player.MagicATK -= MagicATK;
-        player.Defense -= Defense;
-        player.CritRate -= CritRate;
-        player.CritDGM -= CritDGM;
+        player.currentHP -= HP;
+        player.currentATK -= ATK;
+        player.currentDefense -= Defense;
+        player.currentCritRate -= CritRate;
+        player.currentCritDGM -= CritDGM;
 
-        if (player.HP < 0) player.HP = 0;
-        if (player.ATK < 0) player.ATK = 0;
-        if (player.MagicATK < 0) player.MagicATK = 0;
-        if (player.Defense < 0) player.Defense = 0;
-        if (player.CritDGM < 0) player.CritRate = 0;
-        if (player.CritDGM < 0) player.CritDGM = 0;
+        if (player.currentHP < 0) player.currentHP = 0;
+        if (player.currentATK < 0) player.currentATK = 0;
+        if (player.currentDefense < 0) player.currentDefense = 0;
+        if (player.currentCritRate < 0) player.currentCritRate = 0;
+        if (player.currentCritDGM < 0) player.currentCritDGM = 0;
     }
 }
