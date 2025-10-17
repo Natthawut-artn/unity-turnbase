@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RelicsStoage : MonoBehaviour
 {
-    List<RelicData> RelicsInPocket = new List<RelicData>();
+    public List<RelicData> RelicsInPocket = new List<RelicData>();
     private PlayerData playerData;
 
     void Start()
