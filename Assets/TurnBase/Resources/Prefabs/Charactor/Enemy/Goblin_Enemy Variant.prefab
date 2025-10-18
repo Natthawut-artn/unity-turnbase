@@ -70,7 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7994987525031586110, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       propertyPath: m_Speed
-      value: 4
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994987525031586110, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+      propertyPath: m_Radius
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7994987525031586110, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       propertyPath: m_Acceleration
@@ -82,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7994987525031586110, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       propertyPath: m_StoppingDistance
-      value: 1.5
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
