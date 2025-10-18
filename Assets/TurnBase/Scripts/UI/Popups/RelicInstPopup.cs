@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DelegateManager;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RelicInstPopup : IUIElement
 {
@@ -64,13 +65,15 @@ public class RelicInstPopup : IUIElement
 
 
         RelicData relicData = RelicStroageManager.RelicsInUserPocket[data.RelicIndex];
-        Image image = _selfGameObject.transform.Find("Relic").GetComponent<Image>();
+        GameObject relicdata = _selfGameObject.transform.Find("RelicData").gameObject;
+        Image image = relicdata.transform.Find("Relic").GetComponent<Image>();
         image.sprite = relicData.RelicSprite;
+        TextMeshProUGUI text = relicdata.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>();
+        text.SetText(relicData.GetInfo());
 
         Button close = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         close.onClick.AddListener(() =>
         {
-            ServiceLocator.Get<RelicPocketPopup>().CanOrCanNotPress();
             Hide();
         });
 
@@ -92,7 +95,6 @@ public class RelicInstPopup : IUIElement
                 InstallEachPlayer[index].onClick.AddListener(() =>
                 {
                     data.Callbacks[index]?.Invoke();
-                    ServiceLocator.Get<RelicPocketPopup>().CanOrCanNotPress();
                     ServiceLocator.Get<RelicPocketPopup>().Update();
                     Hide();
                 });

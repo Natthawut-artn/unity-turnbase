@@ -142,6 +142,8 @@ public class GameManager : MonoBehaviour
         PocketHUDController.Hide();
         RelicPocketPopupController.Hide();
         PlayersInfoHUDController.Hide();
+        ServiceLocator.Get<RelicInstPopup>().Hide();
+        ServiceLocator.Get<RelicUnInstPopup>().Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();

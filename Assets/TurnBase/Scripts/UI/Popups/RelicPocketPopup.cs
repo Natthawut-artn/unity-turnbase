@@ -89,26 +89,8 @@ public class RelicPocketPopup : IUIElement
             Button button = pocket[i].GetComponent<Button>();
             button.onClick.AddListener(() =>
             {
-                Debug.Log(index);
                 data.InstallRelic.Invoke(index);
-                CanOrCanNotPress();
             });
-        }
-    }
-
-    public void CanOrCanNotPress()
-    {
-        foreach (GameObject button in pocket)
-        {
-            Button btn = button.GetComponent<Button>();
-            if (btn.interactable == true)
-            {
-                btn.interactable = false;
-            }
-            else
-            {
-                btn.interactable = true;
-            }
         }
     }
 

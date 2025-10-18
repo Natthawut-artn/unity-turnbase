@@ -9,12 +9,16 @@ public class PlayersInfoPopup : IUIElement
     public class Data
     {
         public Delegate.CallBack Close;
-        public Data(Delegate.CallBack close)
+        public Delegate.CallBackWith2Int CallBackWith2Ints;
+        public Data(Delegate.CallBack close,Delegate.CallBackWith2Int callBackWith2Ints)
         {
+            CallBackWith2Ints = callBackWith2Ints;
             Close = close;
         }
     }
     public Data data;
+    private const string Emthy_Path = "Graphic2D/Mini_background";
+    private List<GameObject> infos;
 
     public GameObject SelfGameObject
     {
@@ -44,6 +48,7 @@ public class PlayersInfoPopup : IUIElement
         _selfGameObject.SetActive(false);
         Object.Destroy(_selfGameObject);
         _selfGameObject = null;
+        infos.Clear();
     }
 
     public void Show()
@@ -73,11 +78,44 @@ public class PlayersInfoPopup : IUIElement
             buttons.Add(button);
         }
         GameObject Infos = _selfGameObject.transform.Find("Infos").gameObject;
-        List<GameObject> infos = new List<GameObject>();
+        infos = new List<GameObject>();
         for (int i = 0; i < Infos.transform.childCount; i++)
         {
             GameObject gameObject = Infos.transform.GetChild(i).gameObject;
             infos.Add(gameObject);
+        }
+        List<GameObject> Players = new List<GameObject>();
+        for (int i = 0; i < infos[0].transform.childCount; i++)
+        {
+            Players.Add(infos[0].transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < GameManager.Instance.Players_alive.Count; i++)
+        {
+            if (Players[i].name + "(Clone)" == GameManager.Instance.Players_alive[i].name)
+            {
+                Transform pocket = Players[i].transform.Find("Relics");
+                RelicsStoage relicsStoage = GameManager.Instance.Players_alive[i].GetComponent<RelicsStoage>();
+                List<RelicData> relics = relicsStoage.RelicsInPocket;
+                for (int j = 0; j < pocket.childCount; j++)
+                {
+                    if (j < relics.Count)
+                    {
+                        Image image = pocket.transform.GetChild(j).GetComponent<Image>();
+                        image.sprite = relics[j].RelicSprite;
+                    }
+                    int index1 = i;
+                    int index2 = j;
+                    Button button = pocket.transform.GetChild(j).GetComponent<Button>();
+                    button.onClick.AddListener(() =>
+                    {
+                        data.CallBackWith2Ints?.Invoke(index1, index2);
+                    });
+                } 
+            }
+        }
+        for (int i = GameManager.Instance.Players_alive.Count; i < Players.Count; i++)
+        {
+            Players[i].SetActive(false);
         }
         buttons[0].onClick.AddListener(() =>
         {
@@ -93,6 +131,45 @@ public class PlayersInfoPopup : IUIElement
     {
         infoPage.SetActive(true);
         statusPage.SetActive(false);
+
+        List<GameObject> Players = new List<GameObject>();
+        for (int i = 0; i < infoPage.transform.childCount; i++)
+        {
+            Players.Add(infoPage.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < GameManager.Instance.Players_alive.Count; i++)
+        {
+            if (Players[i].name + "(Clone)" == GameManager.Instance.Players_alive[i].name)
+            {
+                Transform pocket = Players[i].transform.Find("Relics");
+                RelicsStoage relicsStoage = GameManager.Instance.Players_alive[i].GetComponent<RelicsStoage>();
+                List<RelicData> relics = relicsStoage.RelicsInPocket;
+                for (int j = 0; j < pocket.childCount; j++)
+                {
+                    Image image = pocket.transform.GetChild(j).GetComponent<Image>();
+                    if (j < relics.Count)
+                    {
+                        
+                        image.sprite = relics[j].RelicSprite;
+                    }
+                    else
+                    {
+                        image.sprite = Resources.Load<Sprite>(Emthy_Path);
+                    }
+                    int index1 = i;
+                    int index2 = j;
+                    Button button = pocket.transform.GetChild(j).GetComponent<Button>();
+                    button.onClick.AddListener(() =>
+                    {
+                        data.CallBackWith2Ints?.Invoke(index1, index2);
+                    });
+                } 
+            }
+        }
+        for (int i = GameManager.Instance.Players_alive.Count; i < Players.Count; i++)
+        {
+            Players[i].SetActive(false);
+        }
     }
 
     public void ShowStatusePage(GameObject infoPage, GameObject statusPage)
@@ -134,5 +211,10 @@ public class PlayersInfoPopup : IUIElement
         {
             Statuses[i].SetActive(false);
         }
+    }
+
+    public void Update()
+    {
+        ShowInfoPage(infos[0],infos[1]);
     }
 }
