@@ -42,13 +42,20 @@ public class TurnManager : MonoBehaviour
         PlayerOptionHUDController.Hide();
         List<GameObject> players = GameManager.Instance.Players_alive;
 
-        foreach (GameObject player in players)
+        for(int i = 0; i < players.Count; i++)
         {
-            Debug.Log(player.name);
-            PlayerController controller = player.GetComponent<PlayerController>();
-            PlayerAttack attack = player.GetComponent<PlayerAttack>();
-            controller.enabled = true;
-            attack.enabled = true;
+            PlayerController controller = players[i].GetComponent<PlayerController>();
+            PlayerAttack attack = players[i].GetComponent<PlayerAttack>();
+            if (i == 0)
+            {
+                controller.enabled = true;
+                attack.enabled = true;
+            }
+            else
+            {
+                controller.enabled = false;
+                attack.enabled = false;
+            }
         }
 
         Debug.Log("Stop turnbase");

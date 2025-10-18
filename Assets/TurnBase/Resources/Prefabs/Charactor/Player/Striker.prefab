@@ -39,6 +39,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5219645578831028370}
+  - {fileID: 1149930892484348227}
+  - {fileID: 2480512673570619674}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2049323882203820215
@@ -157,8 +159,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 264
   playerData: {fileID: 4005674328814858402}
-  maxHealth: 0
-  currentHealth: 0
+  playerAttack: {fileID: 0}
   Enemy:
     serializedVersion: 2
     m_Bits: 256
@@ -181,11 +182,14 @@ MonoBehaviour:
   heroclass: 0
   HP: 100
   ATK: 15
-  MagicATK: 10
   Defense: 5
   CritRate: 7
   CritDGM: 7
   currentHP: 0
+  currentATK: 0
+  currentDefense: 0
+  currentCritRate: 0
+  currentCritDGM: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
   playerMoveState: 0
@@ -215,6 +219,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 2
   attackDamage: 20
+  playerAttackPoint: 1
+  playerAttacked: 0
+  hasAttackedThisTurn: 0
   WhatIsEnemy:
     serializedVersion: 2
     m_Bits: 256
@@ -230,6 +237,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f48a0639532a074b849a4c12e85aa0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RelicsInPocket: []
+--- !u!1 &5882130471537878189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2480512673570619674}
+  m_Layer: 7
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2480512673570619674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5882130471537878189}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3869478880683289914}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6635803017282825501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1149930892484348227}
+  m_Layer: 7
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1149930892484348227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6635803017282825501}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3869478880683289914}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1337246662363936849
 PrefabInstance:
   m_ObjectHideFlags: 0

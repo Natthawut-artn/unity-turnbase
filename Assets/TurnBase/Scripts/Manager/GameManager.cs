@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
     public RelicData relic;
+    private List<GameObject> Friends = new List<GameObject>();
+
 
     public void StartGame()
     {
@@ -82,7 +84,7 @@ public class GameManager : MonoBehaviour
             Destroy(Player);
         }
 
-        for (int i = 0; i < Players_Path.Count -2; i++)
+        for (int i = 0; i < Players_Path.Count; i++)
         {
             Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlaterSpawnPos[i], BoardManager.Instance.GetRoom(Room));
             Pos += new Vector3(0f, 1.49f, 0f);
@@ -99,6 +101,7 @@ public class GameManager : MonoBehaviour
             }
         }
         StartCoroutine(Wait());
+        TurnManager.Instance.StopTurnBaseSystem();
     }
 
     IEnumerator Wait()
@@ -107,6 +110,11 @@ public class GameManager : MonoBehaviour
         HPBarsHUDController.Show();
         PlayersInfoHUDController.Show();
         PocketHUDController.Show();
+        GameObject MainPlayer = GameManager.Instance.Players_alive[0];
+        GameObject LeftPos = MainPlayer.transform.Find("Left").gameObject;
+        GameObject RightPos = MainPlayer.transform.Find("Right").gameObject;
+        Friends.Add(LeftPos);
+        Friends.Add(RightPos);
     }
 
     public void DestroyAll()
@@ -156,6 +164,31 @@ public class GameManager : MonoBehaviour
             TurnManager.Instance.StopTurnBaseSystem();
         }
     }
+
+    public void TeleportFriends()
+    {
+        int playerCount = GameManager.Instance.Players_alive.Count;
+        int friendCount = Friends.Count;
+
+        for (int i = 1; i < playerCount; i++)
+        {
+            if (i - 1 >= friendCount) 
+            {
+                Debug.LogWarning($"ไม่มีตำแหน่งใน Friends สำหรับ Player index {i}");
+                break; 
+            }
+
+            var player = GameManager.Instance.Players_alive[i];
+            var controller = player.GetComponent<PlayerController>();
+
+            if (!controller.enabled)
+            {
+                Vector3 newPos = Friends[i - 1].transform.position;
+                player.transform.position = newPos;
+            }
+        }
+    }
+
 
     void Start()
     {

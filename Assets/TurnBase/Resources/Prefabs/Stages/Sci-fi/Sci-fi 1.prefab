@@ -4242,7 +4242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64847e0d96b480340bfed43b90bd604a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomState: 1
+  roomState: 0
   ExitMarkers: []
   eventType: 12
   Doors: []
