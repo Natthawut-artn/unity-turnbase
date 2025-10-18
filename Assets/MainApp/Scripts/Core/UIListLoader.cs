@@ -4,11 +4,18 @@ public class UIListLoader
 {
     public List<object> HUDs { get; private set; } = new List<object>()
     {
-       
+        new SettingHUD(),
+        new HpBarsHUD(),
+        new PlayerOptionHUD(),
+        new PlayersInfoHUD(),
+        new PocketHUD()
     };
     public List<object> PopUps { get; private set; } = new List<object>()
     {
-        
+        new StartGamePopup(),
+        new SettingPopup(),
+        new PlayersInfoPopup(),
+        new RelicPocketPopup()
     };
     public List<object> Pages { get; private set; } = new List<object>()
     {

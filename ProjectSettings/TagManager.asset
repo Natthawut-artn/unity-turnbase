@@ -3,18 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Door
+  - PanelEvent
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Marker
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Movable
+  - Player
+  - Enemy
+  - CameraObstacle
   - 
   - 
   - 

@@ -1,0 +1,223 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8622140568727621501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8351725096300445355}
+  - component: {fileID: 154554470030537766}
+  - component: {fileID: 8466002647645599279}
+  - component: {fileID: 779934779727579316}
+  - component: {fileID: 6522489536722666268}
+  - component: {fileID: 1321180747241032501}
+  - component: {fileID: 7543379208738471625}
+  - component: {fileID: -5118679279084328150}
+  - component: {fileID: 1711221013800368911}
+  m_Layer: 0
+  m_Name: The Mother
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8351725096300445355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 42.08591, y: 5, z: 68.37332}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &154554470030537766
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8466002647645599279
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &779934779727579316
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6522489536722666268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc374e9b7c544f44b1bf6ebf15be31e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroclass: 3
+  HP: 1000
+  ATK: 0
+  MagicATK: 0
+  Defense: 0
+  CritRate: 0
+  CritDGM: 0
+  currentHP: 1000
+  GridPosition: {x: 0, y: 0}
+  moveSpeed: 5
+  playerMoveState: 0
+--- !u!114 &1321180747241032501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f954c0eef0a00a54da88fe3a1c989dc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivationRange: 10
+  BossRoomName: Room9
+  PlayerTransform: {fileID: 0}
+  HealthThresholdSkill: {fileID: 0}
+  MinSpawnCount: 3
+  MaxSpawnCount: 5
+  SkillCooldownTime: 2
+  EnemyPrefabPath: Prefabs/Charactor/Enemy/Goblin_Enemy Variant
+  SpawnPositions:
+  - GridPosition: {x: 5, y: 30}
+  - GridPosition: {x: 10, y: 25}
+  - GridPosition: {x: 15, y: 20}
+  - GridPosition: {x: 20, y: 25}
+  - GridPosition: {x: 25, y: 30}
+  - GridPosition: {x: 5, y: 15}
+  - GridPosition: {x: 10, y: 20}
+  - GridPosition: {x: 15, y: 25}
+  SpawnOffset: {x: 0, y: 1.49, z: 0}
+--- !u!114 &7543379208738471625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe49053043fa1e4e91100cddc97f181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BossRoomName: Room9
+  SkillCooldownTime: 0.5
+  MinSpawnCount: 2
+  MaxSpawnCount: 2
+  EnemyPrefabPath: Prefabs/Charactor/Enemy/Goblin_Enemy Variant
+  SpawnPositions:
+  - GridPosition: {x: 10, y: 25}
+  - GridPosition: {x: 20, y: 25}
+  - GridPosition: {x: 5, y: 25}
+  - GridPosition: {x: 25, y: 30}
+  - GridPosition: {x: 15, y: 20}
+  SpawnOffset: {x: 0, y: 1.49, z: 0}
+--- !u!114 &-5118679279084328150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92ce8778efd6a24ea8df9b2eec1a69c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BossRoomName: Room9
+  HpThreshold: 0.5
+  PlayerTurnCooldown: 2
+  TentaclePrefabPath: Prefabs/Charactor/Boss/Tentacles
+  MaxTentaclesToSpawn: 256
+  SpawnOffset: {x: 0, y: 3.9, z: 0}
+--- !u!114 &1711221013800368911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56bc7951f667994fa99db1103a36a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentRoom: {fileID: 0}
+  stepSize: 2
