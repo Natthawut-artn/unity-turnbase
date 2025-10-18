@@ -89,6 +89,23 @@ public class EnemySpawner : MonoBehaviour
             
             Room roomComponent = targetRoom.GetComponent<Room>();
 
+            CharactorInheritance charactorData = enemy.GetComponent<CharactorInheritance>();
+
+            if (charactorData != null && charactorData.heroclass == HeroClass.Boss)
+            {
+                // 2. Pass the instantiated boss object to the BossHPBarController
+                if (BossHPBarController.Instance != null)
+                {
+                    BossHPBarController.Instance.SetBossObject(enemy);
+                    Debug.Log($"Boss '{enemy.name}' spawned and assigned to HP Bar.");
+                }
+                else
+                {
+                    // This warning means your HP Bar UI isn't active/ready in the scene
+                    Debug.LogWarning("Boss spawned but BossHPBarController.Instance is null. Ensure the HP Bar UI is active.");
+                }
+            }
+
             EnemyAI ai = enemy.GetComponent<EnemyAI>();
             if (ai != null)
             {
