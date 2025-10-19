@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
     public RelicData relic;
     private List<GameObject> Friends = new List<GameObject>();
+    private const string BGManager_Path = "Prefabs/Board/BGSoundManager";
 
 
     public void StartGame()
@@ -63,6 +64,8 @@ public class GameManager : MonoBehaviour
         {
             SpawnPlayers();
             StartCoroutine(StartTheGame());
+            GameObject SFXManager = Instantiate(Resources.Load<GameObject>(BGManager_Path));
+            SFXManager.transform.SetParent(CurrentStage.transform);
         }
     }
 
