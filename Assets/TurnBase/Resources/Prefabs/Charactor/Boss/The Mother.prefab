@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56bc7951f667994fa99db1103a36a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endgamePanel: {fileID: 0}
   parentRoom: {fileID: 0}
   stepSize: 2
 --- !u!114 &1321180747241032501
@@ -164,14 +165,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f954c0eef0a00a54da88fe3a1c989dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivationRange: 10
+  ActivationRange: 20
   BossRoomName: Room9
   PlayerTransform: {fileID: 0}
   HealthThresholdSkill: {fileID: 0}
   MinSpawnCount: 3
   MaxSpawnCount: 5
   SkillCooldownTime: 2
-  EnemyPrefabPath: Prefabs/Charactor/Enemy/Goblin_Enemy Variant
+  EnemyPrefabPath: Prefabs/Charactor/Enemy/Spider
   SpawnPositions:
   - GridPosition: {x: 5, y: 30}
   - GridPosition: {x: 10, y: 25}
@@ -198,7 +199,7 @@ MonoBehaviour:
   SkillCooldownTime: 0.5
   MinSpawnCount: 2
   MaxSpawnCount: 2
-  EnemyPrefabPath: Prefabs/Charactor/Enemy/Goblin_Enemy Variant
+  EnemyPrefabPath: Prefabs/Charactor/Enemy/Minotaur
   SpawnPositions:
   - GridPosition: {x: 10, y: 25}
   - GridPosition: {x: 20, y: 25}
@@ -222,5 +223,5 @@ MonoBehaviour:
   HpThreshold: 0.5
   PlayerTurnCooldown: 2
   TentaclePrefabPath: Prefabs/Charactor/Boss/Tentacles
-  MaxTentaclesToSpawn: 256
+  MaxTentaclesToSpawn: 512
   SpawnOffset: {x: 0, y: 3.9, z: 0}

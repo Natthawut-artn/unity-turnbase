@@ -10,6 +10,7 @@ public class RelicData : ScriptableObject
     public Sprite RelicSprite;
     public int HP;
     public int ATK;
+    public int MagicATK;
     public int Defense;
     public int CritRate;
     public int CritDGM;
@@ -36,17 +37,5 @@ public class RelicData : ScriptableObject
         if (player.currentDefense < 0) player.currentDefense = 0;
         if (player.currentCritRate < 0) player.currentCritRate = 0;
         if (player.currentCritDGM < 0) player.currentCritDGM = 0;
-    }
-
-    public string GetInfo()
-    {
-        string text = "";
-        text += $"{RelicName} \n";
-        if(HP > 0){ text += "Hp : " + HP + "\n"; }
-        if(ATK > 0){ text += "ATK : " + ATK + "\n"; }
-        if(Defense > 0){ text += "Defense : " + Defense + "\n"; }
-        if(CritRate > 0){ text += "Crit Rate : " + CritRate + "\n"; }
-        if (CritDGM > 0) { text += "Crit DGM : " + CritDGM + "\n"; }
-        return text;
     }
 }

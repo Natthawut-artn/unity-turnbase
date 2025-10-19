@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 🛑 Enemy blocking?
-        Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 2f, Enemy);
+        Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 1f, Enemy);
         if (hitEnemies.Length > 0)
         {
             Debug.Log("Enemy blocking path → stop movement.");
@@ -169,6 +169,8 @@ public class PlayerController : MonoBehaviour
         }
         // ✅ Count tile
         tilesMoved++;
+
+        PlayerMoveUIController.Instance?.UpdateMoveUI();
 
         // Update grid position (directly based on difference)
         playerData.GridPosition.x = Mathf.RoundToInt(transform.position.x);
@@ -220,6 +222,8 @@ public class PlayerController : MonoBehaviour
         playerData.playerMoveState = PlayerMoveState.Stand;
         SetAnimationState(PlayerMoveState.Stand);
         tilesMoved = 0;
+
+        PlayerMoveUIController.Instance?.UpdateMoveUI();
     }
 
     public void SkipTurn()
@@ -228,6 +232,8 @@ public class PlayerController : MonoBehaviour
         alreadyAttack = true;
         alreadyWalk = true;
         tilesMoved = 0;
+
+        PlayerMoveUIController.Instance?.UpdateMoveUI();
     }
 
     void Start()
@@ -235,6 +241,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         currentOccupiedMarker = GetMarkerAtCurrentPosition();
         if (currentOccupiedMarker != null) currentOccupiedMarker.IsOccupied = true;
+
+        PlayerMoveUIController.Instance?.SetPlayer(this);
     }
 
 

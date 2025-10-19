@@ -9,16 +9,12 @@ public class RelicPocketPopup : IUIElement
     public class Data
     {
         public Delegate.CallBack Close;
-        public Delegate.CallBackWithInt InstallRelic;
-        public Data(Delegate.CallBack close, Delegate.CallBackWithInt installRelic)
+        public Data(Delegate.CallBack close)
         {
-            InstallRelic = installRelic;
             Close = close;
         }
     }
     public Data data;
-    public List<GameObject> pocket = new List<GameObject>();
-    private const string Emthy_Path = "Graphic2D/Mini_background";
 
     public GameObject SelfGameObject
     {
@@ -48,7 +44,6 @@ public class RelicPocketPopup : IUIElement
         _selfGameObject.SetActive(false);
         Object.Destroy(_selfGameObject);
         _selfGameObject = null;
-        pocket.Clear();
     }
 
     public void Show()
@@ -63,7 +58,7 @@ public class RelicPocketPopup : IUIElement
           (
               Resources.Load<GameObject>("Prefabs/UI/Popups/RelicPocketPopup")
         );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
+        _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
 
         Button closebtn = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         closebtn.onClick.AddListener(() =>
@@ -71,6 +66,7 @@ public class RelicPocketPopup : IUIElement
             data.Close?.Invoke();
         });
         List<RelicData> relics = RelicStroageManager.RelicsInUserPocket;
+        List<GameObject> pocket = new List<GameObject>();
         GameObject Pocket = _selfGameObject.transform.Find("RelicList").gameObject;
         for (int i = 0; i < Pocket.transform.childCount; i++)
         {
@@ -82,35 +78,22 @@ public class RelicPocketPopup : IUIElement
             Image image = pocket[i].GetComponent<Image>();
             image.sprite = sprite;
         }
-
-        for (int i = 0; i < pocket.Count; i++)
-        {
-            int index = i;
-            Button button = pocket[i].GetComponent<Button>();
-            button.onClick.AddListener(() =>
-            {
-                data.InstallRelic.Invoke(index);
-            });
-        }
     }
 
     public void Update()
     {
-        if (_selfGameObject == null) return;
         List<RelicData> relics = RelicStroageManager.RelicsInUserPocket;
-        Debug.Log(relics.Count);
-        for (int i = 0; i < pocket.Count; i++)
+        List<GameObject> pocket = new List<GameObject>();
+        GameObject Pocket = _selfGameObject.transform.Find("RelicList").gameObject;
+        for (int i = 0; i < Pocket.transform.childCount; i++)
         {
+            pocket.Add(Pocket.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < relics.Count; i++)
+        {
+            Sprite sprite = relics[i].RelicSprite;
             Image image = pocket[i].GetComponent<Image>();
-            if (i < relics.Count)
-            {
-                image.sprite = relics[i].RelicSprite;
-                image.enabled = true;
-            }
-            else
-            {
-                image.sprite = Resources.Load<Sprite>(Emthy_Path);
-            }
+            image.sprite = sprite;
         }
     }
 }

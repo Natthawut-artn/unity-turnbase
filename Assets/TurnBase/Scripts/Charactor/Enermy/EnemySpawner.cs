@@ -11,6 +11,7 @@ public class EnemySpawnData
 
 public class EnemySpawner : MonoBehaviour
 {
+    public GameObject StartBattleText;
     public static EnemySpawner Instance;
 
     [Header("Room and Enemy Settings")]
@@ -132,6 +133,14 @@ public class EnemySpawner : MonoBehaviour
         hasSpawned = true;
 
         TurnManager.Instance.isInTurnSystem = true;
+        StartCoroutine(ShowStartBattleText());
         TurnManager.Instance.EndTurn();
+    }
+
+    IEnumerator ShowStartBattleText()
+    {
+        StartBattleText.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        StartBattleText.SetActive(false);
     }
 }

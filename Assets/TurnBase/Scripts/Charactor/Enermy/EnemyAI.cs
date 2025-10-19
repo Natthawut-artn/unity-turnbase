@@ -23,6 +23,7 @@ public class EnemyAI : MonoBehaviour
 
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    public int attackDamage = 10;
     public bool Stopzone = false;
 
     public float sightRange, attackRange;
@@ -364,7 +365,7 @@ public class EnemyAI : MonoBehaviour
             foreach (Collider player in hitEnemies)
             {
                 Debug.Log("Hit " + player.name);
-                player.GetComponent<PlayerData>().TakeDamage(10);
+                player.GetComponent<PlayerData>().TakeDamage(attackDamage);
                 HPBarsHUDController.Update();
             }
             Debug.Log("Attacking Player");

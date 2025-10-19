@@ -8,7 +8,10 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
+    [Tooltip("The UI Panel to show when the boss is defeated. Must be assigned in the Inspector.")]
+    public GameObject endgamePanel;
     public static BossController Instance;
+    private bool isDefeated = false;
     // Tracks occupied grid positions (X,Z) - COPIED FROM ENEMYAI
     private Vector2 currentGridPos;
 
@@ -65,10 +68,22 @@ public class BossController : MonoBehaviour
         {
             parentRoom = GetComponentInParent<Room>();
         }
+        if (endgamePanel == null)
+        {
+            // ⭐ Make sure your panel is *in the scene* when this Awake runs.
+            // If the panel is a child of something that gets destroyed/created,
+            // or if it's in a different scene, this will fail.
+            endgamePanel = GameObject.FindWithTag("EndgamePanel");
+            if (endgamePanel == null)
+            {
+                Debug.LogError("BossController: Could not find GameObject with tag 'EndgamePanel'. Panel will not show!", this);
+            }
+        }
     }
 
     void Start()
     {
+       
         // ⭐ CRITICAL: The grid logic MUST be in Start() for spawned objects.
         if (parentRoom == null)
         {
@@ -83,6 +98,11 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GetComponent<BossData>()?.currentHP <= 0 && !isDefeated)
+        {
+            BossDefeated();
+            return;
+        }
         // 1. Destroy if room is unplaying
         if (parentRoom == null || parentRoom.roomState == RoomState.UnPlaying)
         {
@@ -109,7 +129,41 @@ public class BossController : MonoBehaviour
         }
         
     }
+    private void BossDefeated()
+    {
+        if (isDefeated) return;
+        isDefeated = true; // Set the flag immediately
 
+        // 1. Stop the turn system and remove from active lists immediately
+        GameManager.Instance.Enemys_alive.Remove(gameObject); // Use gameObject instead of GetComponent<BossController>().gameObject
+        TurnManager.Instance?.StopTurnBaseSystem();
+
+        // 2. Start the coroutine to handle panel display and timed destruction
+        StartCoroutine(ShowEndgamePanelAndDestroy());
+    }
+    private IEnumerator ShowEndgamePanelAndDestroy()
+    {
+        GameObject panel = UIEndGameManager.Instance?.endgamePanel;
+
+        if (panel != null)
+        {
+            panel.SetActive(true);
+            Debug.Log("Endgame Panel Activated via UIManager.");
+        }
+        else
+        {
+            Debug.LogError("UIManager or Endgame Panel reference is missing!");
+        }
+
+        // 2. WAIT
+        float panelDisplayTime = 3.0f;
+        yield return new WaitForSeconds(panelDisplayTime);
+
+        // 3. FINAL CLEANUP and DESTRUCTION
+        SetMarkerOccupancy(currentGridPos, false);
+
+        Destroy(gameObject);
+    }
     // ⭐ THE FIXED CLEANUP FUNCTION
     private void DestroySelf()
     {
@@ -124,6 +178,7 @@ public class BossController : MonoBehaviour
     // Safety measure: if another script destroys the boss directly
     private void OnDestroy()
     {
+        
         // This ensures the grid is cleared even if another script calls Destroy(gameObject) directly
         if (currentGridPos != Vector2.zero)
         {

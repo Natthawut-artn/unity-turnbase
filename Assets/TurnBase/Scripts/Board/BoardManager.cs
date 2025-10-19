@@ -278,14 +278,7 @@ public class BoardManager : MonoBehaviour
         Marker otherExit = bridge.GetOtherExit(markerScript);
         if (otherExit == null) { isTransferring = false; return; }
 
-        foreach (GameObject player in GameManager.Instance.Players_alive)
-        {
-            PlayerController controller = player.GetComponent<PlayerController>();
-            if(controller.enabled == true)
-            {
-                StartCoroutine(controller.MoveToCell(otherExit.gameObject));
-            }
-        }
+        StartCoroutine(PlayerController.Instance.MoveToCell(otherExit.gameObject));
 
         Debug.Log($"Player transfered to room {bridge.GetOtherRoom(markerObj.transform.parent.name)}");
     }

@@ -67,7 +67,7 @@ public class PlayerAttack : MonoBehaviour
 
             // ✅ Damage that enemy
             Debug.Log("Hit " + closestEnemy.name);
-            closestEnemy.GetComponent<EnemyData>().EnemyTakeDamage(attackDamage * 10);
+            closestEnemy.GetComponent<EnemyData>().EnemyTakeDamage(attackDamage);
 
             // --- Attack successful: Play animation and proceed with turn logic ---
 

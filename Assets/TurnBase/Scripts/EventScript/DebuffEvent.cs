@@ -5,9 +5,10 @@ using UnityEngine;
 public class DebuffEvent : MonoBehaviour
 {
     private GameObject player;
-    private bool getDeBuff;
+    public bool getDeBuff;
     private bool alreadyBuffed = false;
     private GameObject panelToClose; // Stores the panel reference passed from the UI
+    public GameObject debuffText;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class DebuffEvent : MonoBehaviour
         // Apply debuff when triggered
         if (getDeBuff)
         {
+            PlayAnimationText();
             DeBuffPlayer();
 
             if (panelToClose != null)
@@ -70,5 +72,17 @@ public class DebuffEvent : MonoBehaviour
         {
             Debug.LogWarning("PlayerData component not found on Player!");
         }
+    }
+
+    public void PlayAnimationText()
+    {
+        StartCoroutine(ShowBuffText());
+    }
+
+    private IEnumerator ShowBuffText()
+    {
+        debuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        debuffText.SetActive(false);
     }
 }

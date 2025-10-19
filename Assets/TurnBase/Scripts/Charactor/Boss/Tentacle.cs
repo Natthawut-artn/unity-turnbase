@@ -11,14 +11,35 @@ public class Tentacle : MonoBehaviour
     [Header("Visuals & Components")]
     public MeshRenderer tentacleRenderer;
     public Collider damageCollider;
-
+    public Room parentRoom;
     void Awake()
     {
         // Initially, the tentacle's mesh and collider are disabled
         if (tentacleRenderer != null) tentacleRenderer.enabled = false;
         if (damageCollider != null) damageCollider.enabled = false;
-    }
 
+        if (parentRoom == null)
+        {
+            parentRoom = GetComponentInParent<Room>();
+        }
+    }
+    private void Update()
+    {
+        if (GameManager.Instance != null && AppStateManager.appState == AppState.Hub)
+        {
+            DestroySelf();
+            return;
+        }
+    }
+    private void DestroySelf()
+    {
+        // 1. Clear grid occupancy BEFORE destroying the GameObject
+       
+        TurnManager.Instance.isInTurnSystem = false;
+
+        // 2. Destroy the boss object
+        Destroy(gameObject);
+    }
     public void Initialize(Marker markerToOccupy)
     {
         occupiedMarker = markerToOccupy;

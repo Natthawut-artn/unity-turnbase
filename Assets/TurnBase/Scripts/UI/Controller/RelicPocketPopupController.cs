@@ -1,6 +1,4 @@
 using UnityEngine;
-using DelegateManager;
-using System.Collections.Generic;
 
 public static class RelicPocketPopupController
 {
@@ -11,9 +9,6 @@ public static class RelicPocketPopupController
             PocketHUDController.Show();
             PlayersInfoHUDController.Show();
             Hide();
-        } , (index) =>
-        {
-            FindRelic(index);
         });
 
         ServiceLocator.Get<RelicPocketPopup>().Show(data);
@@ -23,41 +18,9 @@ public static class RelicPocketPopupController
     {
         ServiceLocator.Get<RelicPocketPopup>().Hide();
     }
-
+    
     public static void Update()
     {
         ServiceLocator.Get<RelicPocketPopup>().Update();
-    }
-    
-    public static void FindRelic(int index)
-    {
-        if (index >= RelicStroageManager.RelicsInUserPocket.Count) return;
-        else
-        {
-            RelicData relicData = RelicStroageManager.RelicsInUserPocket[index];
-            List<Delegate.CallBack> callBacks = new List<Delegate.CallBack>()
-            {
-                () =>
-                {
-                    GameObject striker = GameManager.Instance.Players_alive[0];
-                    RelicsStoage relicsPockt = striker.GetComponent<RelicsStoage>();
-                    relicsPockt.InstallRelic(relicData);
-                },
-                () =>
-                {
-                    GameObject support = GameManager.Instance.Players_alive[1];
-                    RelicsStoage relicsPockt = support.GetComponent<RelicsStoage>();
-                    relicsPockt.InstallRelic(relicData);
-                },
-                () =>
-                {
-                    GameObject protector = GameManager.Instance.Players_alive[2];
-                    RelicsStoage relicsPockt = protector.GetComponent<RelicsStoage>();
-                    relicsPockt.InstallRelic(relicData);
-                }
-            };
-            RelicInstPopup.Data data = new RelicInstPopup.Data(index,callBacks);
-            ServiceLocator.Get<RelicInstPopup>().Show(data);
-        }
     }
 }

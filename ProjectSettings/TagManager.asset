@@ -8,6 +8,7 @@ TagManager:
   - Door
   - PanelEvent
   - Boss
+  - EndgamePanel
   layers:
   - Default
   - TransparentFX
