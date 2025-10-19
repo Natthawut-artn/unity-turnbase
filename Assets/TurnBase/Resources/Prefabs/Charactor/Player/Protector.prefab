@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 7499842061084827901}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 1, z: 5}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -156,14 +156,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 264
   playerData: {fileID: 7496334762098826307}
-  maxHealth: 0
-  currentHealth: 0
+  playerAttack: {fileID: 0}
   Enemy:
     serializedVersion: 2
     m_Bits: 256
   alreadyAttack: 0
   alreadyWalk: 0
-  maxTilesPerTurn: 4
+  maxTilesPerTurn: 16
   tilesMoved: 0
 --- !u!114 &7496334762098826307
 MonoBehaviour:
@@ -180,11 +179,14 @@ MonoBehaviour:
   heroclass: 1
   HP: 100
   ATK: 15
-  MagicATK: 10
   Defense: 20
   CritRate: 7
   CritDGM: 7
   currentHP: 0
+  currentATK: 0
+  currentDefense: 0
+  currentCritRate: 0
+  currentCritDGM: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
   playerMoveState: 0
@@ -214,6 +216,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 2
   attackDamage: 10
+  playerAttackPoint: 1
+  playerAttacked: 0
+  hasAttackedThisTurn: 0
   WhatIsEnemy:
     serializedVersion: 2
     m_Bits: 256
@@ -229,3 +234,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f48a0639532a074b849a4c12e85aa0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RelicsInPocket: []

@@ -50,6 +50,7 @@ public class TurnManager : MonoBehaviour
             {
                 controller.enabled = true;
                 attack.enabled = true;
+                MainCamera.Instance.SetPlayer(players[i].transform);
             }
             else
             {

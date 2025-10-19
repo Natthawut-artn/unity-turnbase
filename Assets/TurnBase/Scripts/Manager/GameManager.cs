@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         if (CurrentStage != null)
         {
             SpawnPlayers();
+            StartCoroutine(StartTheGame());
         }
     }
 
@@ -104,13 +105,19 @@ public class GameManager : MonoBehaviour
         TurnManager.Instance.StopTurnBaseSystem();
     }
 
+    IEnumerator StartTheGame()
+    {
+        yield return new WaitForSeconds(5f);
+        ReleasePlayers();
+    }
+
     IEnumerator Wait()
     {
         yield return null;
         HPBarsHUDController.Show();
         PlayersInfoHUDController.Show();
         PocketHUDController.Show();
-        GameObject MainPlayer = GameManager.Instance.Players_alive[0];
+        GameObject MainPlayer = Players_alive[0];
         GameObject LeftPos = MainPlayer.transform.Find("Left").gameObject;
         GameObject RightPos = MainPlayer.transform.Find("Right").gameObject;
         Friends.Add(LeftPos);
@@ -162,33 +169,68 @@ public class GameManager : MonoBehaviour
         if (!Enemys_alive.Any())
         {
             TurnManager.Instance.StopTurnBaseSystem();
+            ReleasePlayers();
         }
     }
 
     public void TeleportFriends()
     {
-        int playerCount = GameManager.Instance.Players_alive.Count;
+        int playerCount = Players_alive.Count;
         int friendCount = Friends.Count;
 
         for (int i = 1; i < playerCount; i++)
         {
-            if (i - 1 >= friendCount) 
+            if (i - 1 >= friendCount) break;
+
+            GameObject player = Players_alive[i];
+            Vector3 newPos = Friends[i - 1].transform.position;
+            RoundToHalf(newPos.x);
+            RoundToHalf(newPos.z);
+
+            var cc = player.GetComponent<PlayerController>();
+            var rb = player.GetComponent<Rigidbody>();
+
+            if (cc != null)
             {
-                Debug.LogWarning($"ไม่มีตำแหน่งใน Friends สำหรับ Player index {i}");
-                break; 
+                cc.enabled = false;
+                player.transform.position = newPos;
+                cc.enabled = true;
             }
-
-            var player = GameManager.Instance.Players_alive[i];
-            var controller = player.GetComponent<PlayerController>();
-
-            if (!controller.enabled)
+            else if (rb != null)
             {
-                Vector3 newPos = Friends[i - 1].transform.position;
+                rb.position = newPos;
+                rb.velocity = Vector3.zero;
+            }
+            else
+            {
                 player.transform.position = newPos;
             }
+
+            Debug.Log($"Teleport {player.name} to {newPos}");
         }
     }
 
+    private float RoundToHalf(float value)
+    {
+        float intPart = Mathf.Floor(value);   
+        float result = intPart + 0.5f;       
+        return result;
+    }
+
+
+    public void ReleasePlayers()
+    {
+        foreach (GameObject room in BoardManager.Instance.ListRooms)
+        {
+            Room roomScript = room.GetComponent<Room>();
+            if (roomScript.roomState == RoomState.Playing)
+            {
+                roomScript.roomState = RoomState.CanExit;
+                BoardManager.Instance.OpenAllDoors(roomScript.gameObject);
+                Debug.Log($"Now {roomScript.gameObject.name} is {roomScript.roomState}");
+            }
+        }
+    }
 
     void Start()
     {
@@ -200,16 +242,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            foreach (GameObject room in BoardManager.Instance.ListRooms)
-            {
-                Room roomScript = room.GetComponent<Room>();
-                if (roomScript.roomState == RoomState.Playing)
-                {
-                    roomScript.roomState = RoomState.CanExit;
-                    BoardManager.Instance.OpenAllDoors(roomScript.gameObject);
-                    Debug.Log($"Now {roomScript.gameObject.name} is {roomScript.roomState}");
-                }
-            }
+            ReleasePlayers();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))

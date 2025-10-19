@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Can't move after attacking.");
             yield break;
         }
-        if (tilesMoved >= 16 && TurnManager.Instance.isInTurnSystem) alreadyWalk = true;
+        if (tilesMoved >= maxTilesPerTurn && TurnManager.Instance.isInTurnSystem) alreadyWalk = true;
         else if(!TurnManager.Instance.isInTurnSystem){ tilesMoved = 0; }
         if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
         || tilesMoved >= maxTilesPerTurn)
