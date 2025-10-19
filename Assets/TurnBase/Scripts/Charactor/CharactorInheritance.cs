@@ -62,7 +62,7 @@ public class CharactorInheritance : MonoBehaviour
 
     }
 
-    void Die()
+    public void Die()
     {
         string side;
         if (heroclass == HeroClass.Enemy)
@@ -77,11 +77,6 @@ public class CharactorInheritance : MonoBehaviour
         {
             side = "Player";
             StartCoroutine(Wait());
-        }
-        if(heroclass == HeroClass.Boss)
-        {
-            side = "Boss";
-
         }
             Debug.Log($"{side} died.");
         // Add death logic here (e.g., respawn, game over screen)

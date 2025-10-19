@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 8466002647645599279}
   - component: {fileID: 779934779727579316}
   - component: {fileID: 6522489536722666268}
+  - component: {fileID: 1711221013800368911}
   - component: {fileID: 1321180747241032501}
   - component: {fileID: 7543379208738471625}
   - component: {fileID: -5118679279084328150}
-  - component: {fileID: 1711221013800368911}
   m_Layer: 0
   m_Name: The Mother
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,17 +124,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc374e9b7c544f44b1bf6ebf15be31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroclass: 3
+  heroclass: 4
   HP: 1000
   ATK: 0
-  MagicATK: 0
   Defense: 0
   CritRate: 0
   CritDGM: 0
   currentHP: 1000
+  currentATK: 0
+  currentDefense: 0
+  currentCritRate: 0
+  currentCritDGM: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
   playerMoveState: 0
+--- !u!114 &1711221013800368911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56bc7951f667994fa99db1103a36a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentRoom: {fileID: 0}
+  stepSize: 2
 --- !u!114 &1321180747241032501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,17 +224,3 @@ MonoBehaviour:
   TentaclePrefabPath: Prefabs/Charactor/Boss/Tentacles
   MaxTentaclesToSpawn: 256
   SpawnOffset: {x: 0, y: 3.9, z: 0}
---- !u!114 &1711221013800368911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8622140568727621501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e56bc7951f667994fa99db1103a36a7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentRoom: {fileID: 0}
-  stepSize: 2

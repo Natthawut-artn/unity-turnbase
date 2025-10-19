@@ -31,8 +31,7 @@ public class EnemyAI : MonoBehaviour
 
     public Room parentRoom;
     EnemyData enemyData;
-    
-    
+
     void Awake()
     {
         Instance = this;
@@ -45,6 +44,8 @@ public class EnemyAI : MonoBehaviour
 
         agent.stoppingDistance = 0.05f;
 
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+
         enemyData = GetComponent<EnemyData>();
         enemyData.currentHP = enemyData.HP;
 
@@ -54,6 +55,7 @@ public class EnemyAI : MonoBehaviour
 
         currentGridPos = GetGridPosition(transform.position);
         SetMarkerOccupancy(currentGridPos, true);
+
 
     }
     void Start()
@@ -96,34 +98,78 @@ public class EnemyAI : MonoBehaviour
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
 
         Vector2 oldGrid = currentGridPos;
+        Vector3 intendedDestination = transform.position; // Default to current position (no move)
 
         if (!playerInAttackRange)
         {
             if (agent == null) yield break;
+
+            // 1. DETERMINE MOVEMENT DESTINATION
             if (!playerInSightRange)
                 Patroling();
             else if (playerInSightRange && !Stopzone)
                 ChasePlayer();
 
-            SetMarkerOccupancy(oldGrid, false);
+            // Retrieve the destination set by Patroling/ChasePlayer
+            intendedDestination = agent.destination;
 
-            float maxTime = 2f;
-            float timer = 0f;
-            while (agent != null && agent.pathPending == false &&
-                   agent.remainingDistance > agent.stoppingDistance + 0.05f)
+            // 2. CHECK IF A MOVE WAS PLANNED (destination changed from current position)
+            // We use a small tolerance to account for float inaccuracy.
+            bool isMoving = Vector3.Distance(transform.position, intendedDestination) > 0.1f;
+
+            if (isMoving)
             {
-                if (this == null) yield break;
-                FaceMovementDirection();
-                timer += Time.deltaTime;
-                if (timer >= maxTime) break;
-                yield return null;
+                Vector2 targetGrid = GetGridPosition(intendedDestination);
+
+                // --- CRITICAL FIX: RESERVE NEW TILE AND RELEASE OLD TILE ---
+
+                // RESERVE the target tile *BEFORE* movement starts, but only if it's currently free
+                // NOTE: Patroling/ChasePlayer should already prevent this, but this adds robustness.
+
+                // We can skip the occupancy check here if we trust Patroling/ChasePlayer methods.
+                // Assuming we trust those methods:
+
+                // Claim the new tile
+                SetMarkerOccupancy(targetGrid, true);
+
+                // Release the old tile ONLY IF we are moving to a DIFFERENT tile
+                if (oldGrid != targetGrid)
+                {
+                    SetMarkerOccupancy(oldGrid, false);
+                }
+
+                // -------------------------------------------------------------
+
+                // 3. EXECUTE MOVEMENT
+                float maxTime = 2f;
+                float timer = 0f;
+                while (agent != null && agent.pathPending == false &&
+                       agent.remainingDistance > agent.stoppingDistance + 0.05f)
+                {
+                    if (this == null) yield break;
+                    FaceMovementDirection();
+                    timer += Time.deltaTime;
+                    if (timer >= maxTime) break;
+                    yield return null;
+                }
+
+                if (agent == null) yield break;
+                animator.SetBool("isWalking", false);
+
+                // 4. Update the current grid position variable to the final landed spot
+                currentGridPos = GetGridPosition(transform.position);
+
+                // NOTE: The tile is already marked as occupied from the reservation step.
+                // We do NOT call SetMarkerOccupancy(currentGridPos, true) again.
             }
+            else
+            {
+                // If no move was planned (e.g., ChasePlayer found no path, or Patroling found no walkpoint)
+                animator.SetBool("isWalking", false);
 
-            if (agent == null) yield break;
-            animator.SetBool("isWalking", false);
-
-            currentGridPos = GetGridPosition(transform.position);
-            SetMarkerOccupancy(currentGridPos, true);
+                // IMPORTANT: If we didn't move, we still occupy the old tile, so ensure it's claimed
+                SetMarkerOccupancy(oldGrid, true);
+            }
         }
 
         if (playerInAttackRange && this != null)
@@ -210,7 +256,7 @@ public class EnemyAI : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, Player.position);
 
-        if (distance == attackRange) // Use attackRange or StoppingDistance here
+        if (distance <= StoppingDistance) // Use attackRange or StoppingDistance here
         {
             agent.SetDestination(transform.position);
             animator.SetBool("isWalking", false);
@@ -242,38 +288,45 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // 🟨 If blocked, check side paths...
-        Vector3[] altDirs = new Vector3[]
+        // 🟨 If blocked, check alternative (adjacent, unoccupied) paths
+
+        // Define all 4 cardinal step directions
+        Vector3[] cardinalDirs = new Vector3[]
         {
-            new Vector3(mainDir.x, 0, 0),
-            new Vector3(0, 0, mainDir.z),
-            new Vector3(-mainDir.x, 0, 0),
-            new Vector3(0, 0, -mainDir.z)
+        new Vector3(stepSize, 0, 0),    // Right
+        new Vector3(-stepSize, 0, 0),   // Left
+        new Vector3(0, 0, stepSize),    // Forward (Z-axis)
+        new Vector3(0, 0, -stepSize)    // Backward (Z-axis)
         };
 
         float bestDist = Mathf.Infinity;
         Vector3 bestPoint = transform.position;
         bool foundBetter = false;
 
-        foreach (var dir in altDirs)
+        // Check all 4 adjacent steps
+        foreach (var dir in cardinalDirs)
         {
-            Vector3 candidate = transform.position + dir * stepSize;
+            Vector3 candidate = transform.position + dir;
             candidate = new Vector3(Mathf.Round(candidate.x), transform.position.y, Mathf.Round(candidate.z));
             Vector2 grid = GetGridPosition(candidate);
 
-            // ⭐ FIX: Check IsOccupied on the Marker
+            // 1. Check if the target marker is occupied
             GameObject candidateMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(grid, parentRoom.gameObject);
             bool isCandidateOccupied = (candidateMarkerGO != null && candidateMarkerGO.GetComponent<Marker>().IsOccupied);
 
             if (isCandidateOccupied) continue;
+
+            // 2. Check if the candidate spot is on the ground/valid walk point
             if (!Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround)) continue;
 
-
-            // Only move forward or sideways toward player
+            // 3. Only move forward or sideways toward player (prevents stepping backwards unless necessary)
             Vector3 toCandidate = (candidate - transform.position).normalized;
             float forwardDot = Vector3.Dot(toCandidate, direction);
+
+            // This threshold (0.1f) means it must be moving forward or mostly sideways toward the player
             if (forwardDot < 0.1f) continue;
 
+            // 4. Find the closest valid, unoccupied point to the player
             float candidateDist = Vector3.Distance(candidate, Player.position);
             if (candidateDist < bestDist)
             {
@@ -290,15 +343,12 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            // No good path found this turn
+            // No good path found this turn (completely blocked on all valid adjacent steps)
             agent.SetDestination(transform.position);
             animator.SetBool("isWalking", false);
             FaceMovementDirection();
         }
     }
-
-
-
 
 
     private void AttackPlayer()

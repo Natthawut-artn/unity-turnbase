@@ -182,4 +182,31 @@ public class BossSkill_HealthThresholdSpawn : MonoBehaviour
             enemyData.currentHP = enemyData.HP;
         }
     }
+
+    private void OnDestroy()
+    {
+        // 1. Ensure the list is cleaned up before checking
+        CleanupMinionList();
+        
+        if (_spawnedMinions.Count > 0)
+        {
+            Debug.Log($"Boss destroyed. Clearing {_spawnedMinions.Count} active minions.");
+
+            // 2. Iterate through the remaining minions and destroy them
+            foreach (GameObject minion in _spawnedMinions)
+            {
+                if (minion != null)
+                {
+                    // Optionally, you might want a graceful death/destruction method on the minion instead of Destroy()
+                    // For now, we use Destroy() to instantly remove them.
+                    Destroy(minion);
+                }
+            }
+
+            // 3. Clear the list after destruction is initiated
+            _spawnedMinions.Clear();
+        }
+
+        
+    }
 }

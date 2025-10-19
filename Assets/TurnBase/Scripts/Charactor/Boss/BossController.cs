@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
+    public static BossController Instance;
     // Tracks occupied grid positions (X,Z) - COPIED FROM ENEMYAI
     private Vector2 currentGridPos;
 
@@ -24,6 +25,7 @@ public class BossController : MonoBehaviour
     // GRID UTILITY METHODS (Copied and adapted from EnemyAI)
     // ----------------------------------------------------------------------
 
+   
     private Vector2 GetGridPosition(Vector3 worldPos)
     {
         return new Vector2(Mathf.Round(worldPos.x), Mathf.Round(worldPos.z));
@@ -51,6 +53,13 @@ public class BossController : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
         // Keep optional parent search here, but don't use the reference yet.
         if (parentRoom == null)
         {
@@ -89,13 +98,16 @@ public class BossController : MonoBehaviour
         }
 
         // 3. ⭐ Boss Death Check (You need to implement the HP/death check here)
-        /* // Example check, assuming a component named BossData handles HP
+        // Example check, assuming a component named BossData handles HP
         if (GetComponent<BossData>()?.currentHP <= 0)
         {
-             DestroySelf();
+            BossController bossController = GetComponent<BossController>();
+            GameManager.Instance.Enemys_alive.Remove(bossController.gameObject);
+            TurnManager.Instance?.StopTurnBaseSystem();
+            DestroySelf();
              return;
         }
-        */
+        
     }
 
     // ⭐ THE FIXED CLEANUP FUNCTION
