@@ -40,12 +40,11 @@ public class GameManager : MonoBehaviour
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
     public RelicData relic;
-<<<<<<< HEAD
-=======
+
     private List<GameObject> Friends = new List<GameObject>();
     private const string BGManager_Path = "Prefabs/Board/BGSoundManager";
 
->>>>>>> origin/map-grid
+
 
     public void StartGame()
     {
@@ -122,14 +121,13 @@ public class GameManager : MonoBehaviour
         HPBarsHUDController.Show();
         PlayersInfoHUDController.Show();
         PocketHUDController.Show();
-<<<<<<< HEAD
-=======
+
         GameObject MainPlayer = Players_alive[0];
         GameObject LeftPos = MainPlayer.transform.Find("Left").gameObject;
         GameObject RightPos = MainPlayer.transform.Find("Right").gameObject;
         Friends.Add(LeftPos);
         Friends.Add(RightPos);
->>>>>>> origin/map-grid
+
     }
 
     public void DestroyAll()
@@ -179,8 +177,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
-=======
     public void TeleportFriends()
     {
         int playerCount = Players_alive.Count;
@@ -240,7 +236,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
->>>>>>> origin/map-grid
+
     void Start()
     {
         StartGame();

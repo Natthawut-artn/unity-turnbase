@@ -44,13 +44,13 @@ public class TurnManager : MonoBehaviour
 
         foreach (GameObject player in players)
         {
-<<<<<<< HEAD
+
             Debug.Log(player.name);
             PlayerController controller = player.GetComponent<PlayerController>();
             PlayerAttack attack = player.GetComponent<PlayerAttack>();
             controller.enabled = true;
             attack.enabled = true;
-=======
+
             PlayerController controller = players[i].GetComponent<PlayerController>();
             PlayerAttack attack = players[i].GetComponent<PlayerAttack>();
             if (i == 0)
@@ -64,7 +64,7 @@ public class TurnManager : MonoBehaviour
                 controller.enabled = false;
                 attack.enabled = false;
             }
->>>>>>> origin/map-grid
+
         }
 
         Debug.Log("Stop turnbase");
