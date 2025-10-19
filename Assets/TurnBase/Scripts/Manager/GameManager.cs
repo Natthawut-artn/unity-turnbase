@@ -40,6 +40,12 @@ public class GameManager : MonoBehaviour
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
     public RelicData relic;
+<<<<<<< HEAD
+=======
+    private List<GameObject> Friends = new List<GameObject>();
+    private const string BGManager_Path = "Prefabs/Board/BGSoundManager";
+
+>>>>>>> origin/map-grid
 
     public void StartGame()
     {
@@ -60,6 +66,9 @@ public class GameManager : MonoBehaviour
         if (CurrentStage != null)
         {
             SpawnPlayers();
+            StartCoroutine(StartTheGame());
+            GameObject SFXManager = Instantiate(Resources.Load<GameObject>(BGManager_Path));
+            SFXManager.transform.SetParent(CurrentStage.transform);
         }
     }
 
@@ -101,12 +110,26 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Wait());
     }
 
+    IEnumerator StartTheGame()
+    {
+        yield return new WaitForSeconds(5f);
+        ReleasePlayers();
+    }
+
     IEnumerator Wait()
     {
         yield return null;
         HPBarsHUDController.Show();
         PlayersInfoHUDController.Show();
         PocketHUDController.Show();
+<<<<<<< HEAD
+=======
+        GameObject MainPlayer = Players_alive[0];
+        GameObject LeftPos = MainPlayer.transform.Find("Left").gameObject;
+        GameObject RightPos = MainPlayer.transform.Find("Right").gameObject;
+        Friends.Add(LeftPos);
+        Friends.Add(RightPos);
+>>>>>>> origin/map-grid
     }
 
     public void DestroyAll()
@@ -152,9 +175,72 @@ public class GameManager : MonoBehaviour
         if (!Enemys_alive.Any())
         {
             TurnManager.Instance.StopTurnBaseSystem();
+            ReleasePlayers();
         }
     }
 
+<<<<<<< HEAD
+=======
+    public void TeleportFriends()
+    {
+        int playerCount = Players_alive.Count;
+        int friendCount = Friends.Count;
+
+        for (int i = 1; i < playerCount; i++)
+        {
+            if (i - 1 >= friendCount) break;
+
+            GameObject player = Players_alive[i];
+            Vector3 newPos = Friends[i - 1].transform.position;
+            RoundToHalf(newPos.x);
+            RoundToHalf(newPos.z);
+
+            var cc = player.GetComponent<PlayerController>();
+            var rb = player.GetComponent<Rigidbody>();
+
+            if (cc != null)
+            {
+                cc.enabled = false;
+                player.transform.position = newPos;
+                cc.enabled = true;
+            }
+            else if (rb != null)
+            {
+                rb.position = newPos;
+                rb.velocity = Vector3.zero;
+            }
+            else
+            {
+                player.transform.position = newPos;
+            }
+
+            Debug.Log($"Teleport {player.name} to {newPos}");
+        }
+    }
+
+    private float RoundToHalf(float value)
+    {
+        float intPart = Mathf.Floor(value);   
+        float result = intPart + 0.5f;       
+        return result;
+    }
+
+
+    public void ReleasePlayers()
+    {
+        foreach (GameObject room in BoardManager.Instance.ListRooms)
+        {
+            Room roomScript = room.GetComponent<Room>();
+            if (roomScript.roomState == RoomState.Playing)
+            {
+                roomScript.roomState = RoomState.CanExit;
+                BoardManager.Instance.OpenAllDoors(roomScript.gameObject);
+                Debug.Log($"Now {roomScript.gameObject.name} is {roomScript.roomState}");
+            }
+        }
+    }
+
+>>>>>>> origin/map-grid
     void Start()
     {
         StartGame();
@@ -165,16 +251,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            foreach (GameObject room in BoardManager.Instance.ListRooms)
-            {
-                Room roomScript = room.GetComponent<Room>();
-                if (roomScript.roomState == RoomState.Playing)
-                {
-                    roomScript.roomState = RoomState.CanExit;
-                    BoardManager.Instance.OpenAllDoors(roomScript.gameObject);
-                    Debug.Log($"Now {roomScript.gameObject.name} is {roomScript.roomState}");
-                }
-            }
+            ReleasePlayers();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
