@@ -14,7 +14,7 @@ public class RelicsStoage : MonoBehaviour
 
     public void InstallRelic(RelicData Relic)
     {
-        if (!RelicsInPocket.Contains(Relic))
+        if (!RelicsInPocket.Contains(Relic) && RelicsInPocket.Count < 4)
         {
             RelicsInPocket.Add(Relic);
             Relic.InstallRelic(playerData);
