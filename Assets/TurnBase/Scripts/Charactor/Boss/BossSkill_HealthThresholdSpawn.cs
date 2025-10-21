@@ -165,7 +165,7 @@ public class BossSkill_HealthThresholdSpawn : MonoBehaviour
     private void ApplySelfDamage()
     {
         if (bossEnemyData == null) return;
-        int damageAmount = Mathf.CeilToInt(bossEnemyData.currentHP * 0.1f);
+        int damageAmount = Mathf.CeilToInt(bossEnemyData.HP * 0.1f);
         bossEnemyData.TakeDamage(damageAmount);
         Debug.Log($"Boss took {damageAmount} damage for Phase Two activation.");
     }

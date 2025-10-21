@@ -171,7 +171,7 @@ MonoBehaviour:
   MinSpawnCount: 3
   MaxSpawnCount: 5
   SkillCooldownTime: 2
-  EnemyPrefabPath: Prefabs/Charactor/Enemy/Goblin_Enemy Variant
+  EnemyPrefabPath: Prefabs/Charactor/Enemy/Spider
   SpawnPositions:
   - GridPosition: {x: 5, y: 30}
   - GridPosition: {x: 10, y: 25}
@@ -198,7 +198,7 @@ MonoBehaviour:
   SkillCooldownTime: 0.5
   MinSpawnCount: 2
   MaxSpawnCount: 2
-  EnemyPrefabPath: Prefabs/Charactor/Enemy/Goblin_Enemy Variant
+  EnemyPrefabPath: Prefabs/Charactor/Enemy/Minotaur
   SpawnPositions:
   - GridPosition: {x: 10, y: 25}
   - GridPosition: {x: 20, y: 25}

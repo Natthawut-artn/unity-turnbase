@@ -18,7 +18,19 @@ public class Tentacle : MonoBehaviour
         if (tentacleRenderer != null) tentacleRenderer.enabled = false;
         if (damageCollider != null) damageCollider.enabled = false;
     }
-
+    private void Update()
+    {
+        if (GameManager.Instance != null && AppStateManager.appState == AppState.Hub)
+        {
+            DestroySelf();
+            return;
+        }
+    }
+    private void DestroySelf()
+    {
+        // 2. Destroy the boss object
+        Destroy(gameObject);
+    }
     public void Initialize(Marker markerToOccupy)
     {
         occupiedMarker = markerToOccupy;

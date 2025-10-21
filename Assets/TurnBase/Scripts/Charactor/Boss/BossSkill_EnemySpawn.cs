@@ -188,7 +188,7 @@ public class BossSkill_EnemySpawn : MonoBehaviour
     private void ApplySelfDamage()
     {
         if (bossEnemyData == null) return;
-        int damageAmount = Mathf.CeilToInt(bossEnemyData.currentHP * 0.05f);
+        int damageAmount = Mathf.CeilToInt(bossEnemyData.HP * 0.05f);
         bossEnemyData.TakeDamage(damageAmount);
     }
 
