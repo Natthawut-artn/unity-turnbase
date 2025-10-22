@@ -2,11 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SFX
-{
-    
-}
-
 public class SFXManager : MonoBehaviour
 {
     public static SFXManager Instance;
