@@ -171,7 +171,7 @@ MonoBehaviour:
   MinSpawnCount: 3
   MaxSpawnCount: 5
   SkillCooldownTime: 2
-  EnemyPrefabPath: Prefabs/Charactor/Enemy/Spider
+  EnemyPrefabPath: Prefabs/Charactor/Enemy/Goblin_Enemy Variant
   SpawnPositions:
   - GridPosition: {x: 5, y: 30}
   - GridPosition: {x: 10, y: 25}
@@ -198,7 +198,7 @@ MonoBehaviour:
   SkillCooldownTime: 0.5
   MinSpawnCount: 2
   MaxSpawnCount: 2
-  EnemyPrefabPath: Prefabs/Charactor/Enemy/Minotaur
+  EnemyPrefabPath: Prefabs/Charactor/Enemy/Goblin_Enemy Variant
   SpawnPositions:
   - GridPosition: {x: 10, y: 25}
   - GridPosition: {x: 20, y: 25}
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BossRoomName: Room9
   HpThreshold: 0.5
-  PlayerTurnCooldown: 1
+  PlayerTurnCooldown: 2
   TentaclePrefabPath: Prefabs/Charactor/Boss/Tentacles
   MaxTentaclesToSpawn: 256
   SpawnOffset: {x: 0, y: 3.9, z: 0}
