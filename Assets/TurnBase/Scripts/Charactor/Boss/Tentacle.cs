@@ -20,6 +20,11 @@ public class Tentacle : MonoBehaviour
     }
     private void Update()
     {
+        if(BossController.Instance == null)
+        {
+            DestroySelf();
+            return;
+        }
         if (GameManager.Instance != null && AppStateManager.appState == AppState.Hub)
         {
             DestroySelf();
