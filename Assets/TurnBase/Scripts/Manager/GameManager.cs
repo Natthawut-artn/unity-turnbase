@@ -63,9 +63,11 @@ public class GameManager : MonoBehaviour
         if (CurrentStage != null)
         {
             SpawnPlayers();
-            StartCoroutine(StartTheGame());
-            GameObject SFXManager = Instantiate(Resources.Load<GameObject>(BGManager_Path));
-            SFXManager.transform.SetParent(CurrentStage.transform);
+            if (AppStateManager.appState == AppState.State)
+            {
+                StartCoroutine(StartTheGame());
+                SFXManager.Instance.Play(SFX.Stages);
+            }
         }
     }
 
@@ -165,6 +167,7 @@ public class GameManager : MonoBehaviour
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();
+        SFXManager.Instance.Play(SFX.Hub);
     }
 
     public void CheckEnemys()
@@ -238,6 +241,8 @@ public class GameManager : MonoBehaviour
     {
         StartGame();
         SettingHUDController.Show();
+        GameObject SFXGameObjetc = Instantiate(Resources.Load<GameObject>(BGManager_Path));
+        SFXManager.Instance.Play(SFX.Hub);
     }
 
     void Update()

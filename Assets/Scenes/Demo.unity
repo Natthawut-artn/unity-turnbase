@@ -246,7 +246,11 @@ MonoBehaviour:
   - {x: 18, y: 17}
   Players_alive: []
   Enemys_alive: []
+<<<<<<< HEAD
+  Room: Room1
+=======
   Room: Room9
+>>>>>>> f962ad6d7352abe594f5cd3ee02ca22584a07fa6
   EnemySpawnPoint: {x: 0, y: 0}
   relic: {fileID: 11400000, guid: db43b37036670734a8a8854143c3aefb, type: 2}
 --- !u!114 &364832685
@@ -395,8 +399,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1507329474}
   - component: {fileID: 1507329473}
-  - component: {fileID: 1507329472}
   - component: {fileID: 1507329471}
+  - component: {fileID: 1507329475}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -424,14 +428,6 @@ MonoBehaviour:
   fadeDuration: 0.4
   targetAlpha: 0.3
   followSpeed: 5
---- !u!81 &1507329472
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507329470}
-  m_Enabled: 1
 --- !u!20 &1507329473
 Camera:
   m_ObjectHideFlags: 0
@@ -498,6 +494,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 53.906, y: 134.016, z: 4.816}
+--- !u!81 &1507329475
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507329470}
+  m_Enabled: 1
 --- !u!1 &1687134371
 GameObject:
   m_ObjectHideFlags: 0
