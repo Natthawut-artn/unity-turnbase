@@ -42,7 +42,7 @@ public class TurnManager : MonoBehaviour
         PlayerOptionHUDController.Hide();
         List<GameObject> players = GameManager.Instance.Players_alive;
 
-        for(int i = 0; i < players.Count; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             PlayerController controller = players[i].GetComponent<PlayerController>();
             PlayerAttack attack = players[i].GetComponent<PlayerAttack>();
@@ -59,12 +59,15 @@ public class TurnManager : MonoBehaviour
             }
         }
 
+        SFXManager.Instance.Play(SFX.Stages);
+
         Debug.Log("Stop turnbase");
     }
 
     public void EndTurn()
     {
         if (!isInTurnSystem) return;
+        SFXManager.Instance.Play(SFX.Fight);
         if (currentPhase == Phase.Player)
         {
             playersPhaseCoroutine = StartCoroutine(PlayersPhase());
