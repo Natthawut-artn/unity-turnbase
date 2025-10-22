@@ -15,7 +15,7 @@ public class PlayerAttack : MonoBehaviour
     public int playerAttackPoint = 1;
     public int playerAttacked = 0;
     public bool hasAttackedThisTurn = false;
-
+    public GameObject AtkArea;
 
 
     public LayerMask WhatIsEnemy;
@@ -26,6 +26,7 @@ public class PlayerAttack : MonoBehaviour
     }
     void Start()
     {
+        
         animator = GetComponentInChildren<Animator>();
         player = GetComponent<PlayerController>();
     }
@@ -91,8 +92,24 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (AtkArea != null)
+        {
+            AtkArea.SetActive(true); 
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (AtkArea != null)
+        {
+            AtkArea.SetActive(false); 
+        }
+    }
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.isInTurnSystem)
         {
             Attack();
