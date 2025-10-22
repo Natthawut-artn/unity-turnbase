@@ -159,7 +159,7 @@ public class BossSkill_HealthThresholdSpawn : MonoBehaviour
 
         Debug.Log($"Phase Two spawned {successfullySpawned} enemies. (Initial Trigger: {isInitialTrigger})");
 
-        if (TurnManager.Instance != null) TurnManager.Instance.EndTurn();
+        
     }
 
     private void ApplySelfDamage()

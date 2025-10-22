@@ -222,5 +222,5 @@ MonoBehaviour:
   HpThreshold: 0.5
   PlayerTurnCooldown: 1
   TentaclePrefabPath: Prefabs/Charactor/Boss/Tentacles
-  MaxTentaclesToSpawn: 256
+  MaxTentaclesToSpawn: 1200
   SpawnOffset: {x: 0, y: 3.9, z: 0}

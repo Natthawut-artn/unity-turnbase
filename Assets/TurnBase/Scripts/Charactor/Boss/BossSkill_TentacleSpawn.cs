@@ -139,7 +139,7 @@ public class BossSkill_TentacleSpawn : MonoBehaviour
 
         // Calculate 25% of the room's total grid positions (using the AVAILABLE count)
         int totalAvailableCells = availableSpawnSpots.Count;
-        int maxSpawnAreaCount = Mathf.CeilToInt(totalAvailableCells * 0.25f);
+        int maxSpawnAreaCount = Mathf.CeilToInt(totalAvailableCells * 0.75f);
         int spawnCount = Mathf.Min(MaxTentaclesToSpawn, maxSpawnAreaCount);
 
         // 3. Randomly select from the *available* list

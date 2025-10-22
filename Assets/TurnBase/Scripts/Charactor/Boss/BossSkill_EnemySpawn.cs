@@ -182,7 +182,7 @@ public class BossSkill_EnemySpawn : MonoBehaviour
             successfullySpawned++;
         }
 
-        if (TurnManager.Instance != null) TurnManager.Instance.EndTurn();
+        
     }
 
     private void ApplySelfDamage()
