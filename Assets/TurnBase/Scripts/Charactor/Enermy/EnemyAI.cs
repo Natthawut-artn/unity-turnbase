@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +7,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     // Tracks occupied grid positions (X,Z)
-    
+
     private Vector2 currentGridPos;
     public static EnemyAI Instance;
     public NavMeshAgent agent;
@@ -19,7 +18,7 @@ public class EnemyAI : MonoBehaviour
 
     public Vector3 walkPoint;
     bool walkPointSet;
-    public float stepSize = 2f;   // Grid step size
+    public float stepSize = 2f;    // Grid step size
 
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -44,6 +43,8 @@ public class EnemyAI : MonoBehaviour
 
         agent.stoppingDistance = 0.05f;
 
+        // NOTE: Obstacle Avoidance is set to NoObstacleAvoidance, which is good for grid movement.
+        // Physical collision should be disabled via Project Settings (see instructions above).
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
 
         enemyData = GetComponent<EnemyData>();
@@ -52,11 +53,7 @@ public class EnemyAI : MonoBehaviour
         // Register starting position
         currentGridPos = GetGridPosition(transform.position);
 
-
-        currentGridPos = GetGridPosition(transform.position);
         SetMarkerOccupancy(currentGridPos, true);
-
-
     }
     void Start()
     {
@@ -114,20 +111,13 @@ public class EnemyAI : MonoBehaviour
             intendedDestination = agent.destination;
 
             // 2. CHECK IF A MOVE WAS PLANNED (destination changed from current position)
-            // We use a small tolerance to account for float inaccuracy.
             bool isMoving = Vector3.Distance(transform.position, intendedDestination) > 0.1f;
 
             if (isMoving)
             {
                 Vector2 targetGrid = GetGridPosition(intendedDestination);
 
-                // --- CRITICAL FIX: RESERVE NEW TILE AND RELEASE OLD TILE ---
-
-                // RESERVE the target tile *BEFORE* movement starts, but only if it's currently free
-                // NOTE: Patroling/ChasePlayer should already prevent this, but this adds robustness.
-
-                // We can skip the occupancy check here if we trust Patroling/ChasePlayer methods.
-                // Assuming we trust those methods:
+                // --- CRITICAL STEP: RESERVE NEW TILE AND RELEASE OLD TILE ---
 
                 // Claim the new tile
                 SetMarkerOccupancy(targetGrid, true);
@@ -135,6 +125,7 @@ public class EnemyAI : MonoBehaviour
                 // Release the old tile ONLY IF we are moving to a DIFFERENT tile
                 if (oldGrid != targetGrid)
                 {
+                    // Only release the old marker if the enemy is successfully moving away from it
                     SetMarkerOccupancy(oldGrid, false);
                 }
 
@@ -143,11 +134,13 @@ public class EnemyAI : MonoBehaviour
                 // 3. EXECUTE MOVEMENT
                 float maxTime = 2f;
                 float timer = 0f;
+                // Move until remainingDistance is near zero or maxTime is hit
                 while (agent != null && agent.pathPending == false &&
                        agent.remainingDistance > agent.stoppingDistance + 0.05f)
                 {
                     if (this == null) yield break;
                     FaceMovementDirection();
+                    animator.SetBool("isWalking", true); // Ensure walking animation stays on
                     timer += Time.deltaTime;
                     if (timer >= maxTime) break;
                     yield return null;
@@ -156,18 +149,24 @@ public class EnemyAI : MonoBehaviour
                 if (agent == null) yield break;
                 animator.SetBool("isWalking", false);
 
-                // 4. Update the current grid position variable to the final landed spot
+                // 4. FIX: SNAP TO GRID
+                // Force position to the precise grid center of the intended destination to fix floating point errors
+                transform.position = new Vector3(
+                    Mathf.Round(transform.position.x),
+                    transform.position.y,
+                    Mathf.Round(transform.position.z)
+                );
+
+                // 5. Update the current grid position variable to the final landed spot
                 currentGridPos = GetGridPosition(transform.position);
 
-                // NOTE: The tile is already marked as occupied from the reservation step.
-                // We do NOT call SetMarkerOccupancy(currentGridPos, true) again.
             }
             else
             {
-                // If no move was planned (e.g., ChasePlayer found no path, or Patroling found no walkpoint)
+                // If no move was planned (e.g., already at destination or path blocked)
                 animator.SetBool("isWalking", false);
 
-                // IMPORTANT: If we didn't move, we still occupy the old tile, so ensure it's claimed
+                // Ensure the current tile is claimed (in case the previous turn failed to set it)
                 SetMarkerOccupancy(oldGrid, true);
             }
         }
@@ -185,7 +184,6 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-
     public void Patroling()
     {
 
@@ -193,11 +191,10 @@ public class EnemyAI : MonoBehaviour
 
         if (walkPointSet)
         {
-            // Vector2 targetGrid = GetGridPosition(walkPoint); // Not needed
             GameObject targetMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(GetGridPosition(walkPoint), parentRoom.gameObject);
             Marker targetMarker = (targetMarkerGO != null) ? targetMarkerGO.GetComponent<Marker>() : null;
 
-            // ⭐ FIX: Check IsOccupied on the Marker
+            // Check IsOccupied on the Marker
             if (targetMarker != null && !targetMarker.IsOccupied)
             {
                 agent.SetDestination(walkPoint);
@@ -205,6 +202,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
+                // If occupied or marker doesn't exist, search for a new point
                 walkPointSet = false;
             }
         }
@@ -241,7 +239,8 @@ public class EnemyAI : MonoBehaviour
             Vector2 gridPos = GetGridPosition(candidate);
 
             GameObject candidateMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(gridPos, parentRoom.gameObject);
-            bool isCandidateOccupied = (candidateMarkerGO != null && candidateMarkerGO.GetComponent<Marker>().IsOccupied);
+            Marker candidateMarker = (candidateMarkerGO != null) ? candidateMarkerGO.GetComponent<Marker>() : null;
+            bool isCandidateOccupied = (candidateMarker != null && candidateMarker.IsOccupied);
 
 
             // Check if on ground AND not occupied
@@ -281,9 +280,10 @@ public class EnemyAI : MonoBehaviour
         mainTarget = new Vector3(Mathf.Round(mainTarget.x), transform.position.y, Mathf.Round(mainTarget.z));
         Vector2 mainGrid = GetGridPosition(mainTarget);
 
-        // ⭐ FIX: Check IsOccupied on the Marker
+        // Check IsOccupied on the Marker
         GameObject mainTargetMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(mainGrid, parentRoom.gameObject);
-        bool isMainTargetOccupied = (mainTargetMarkerGO != null && mainTargetMarkerGO.GetComponent<Marker>().IsOccupied);
+        Marker mainTargetMarker = (mainTargetMarkerGO != null) ? mainTargetMarkerGO.GetComponent<Marker>() : null;
+        bool isMainTargetOccupied = (mainTargetMarker != null && mainTargetMarker.IsOccupied);
 
         // 🟩 Try main path first
         if (!isMainTargetOccupied)
@@ -298,10 +298,10 @@ public class EnemyAI : MonoBehaviour
         // Define all 4 cardinal step directions
         Vector3[] cardinalDirs = new Vector3[]
         {
-        new Vector3(stepSize, 0, 0),    // Right
-        new Vector3(-stepSize, 0, 0),   // Left
-        new Vector3(0, 0, stepSize),    // Forward (Z-axis)
-        new Vector3(0, 0, -stepSize)    // Backward (Z-axis)
+        new Vector3(stepSize, 0, 0),     // Right
+        new Vector3(-stepSize, 0, 0),    // Left
+        new Vector3(0, 0, stepSize),     // Forward (Z-axis)
+        new Vector3(0, 0, -stepSize)     // Backward (Z-axis)
         };
 
         float bestDist = Mathf.Infinity;
@@ -317,7 +317,8 @@ public class EnemyAI : MonoBehaviour
 
             // 1. Check if the target marker is occupied
             GameObject candidateMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(grid, parentRoom.gameObject);
-            bool isCandidateOccupied = (candidateMarkerGO != null && candidateMarkerGO.GetComponent<Marker>().IsOccupied);
+            Marker candidateMarker = (candidateMarkerGO != null) ? candidateMarkerGO.GetComponent<Marker>() : null;
+            bool isCandidateOccupied = (candidateMarker != null && candidateMarker.IsOccupied);
 
             if (isCandidateOccupied) continue;
 
