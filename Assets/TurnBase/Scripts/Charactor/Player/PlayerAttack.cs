@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
+// Removed unnecessary 'using' statements like Unity.VisualScripting and UnityEditor
 
 public class PlayerAttack : MonoBehaviour
 {
     public static PlayerAttack Instance;
+
+    // --- NEW: Static variable to hold the currently selected target ---
+    public static Transform selectedEnemyTarget = null;
+    // This will hold the Transform of the enemy the player clicked on.
+
     public float attackRange = 1.5f;
     public int attackDamage = 20;
     private Animator animator;
@@ -26,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
     }
     void Start()
     {
-        
+
         animator = GetComponentInChildren<Animator>();
         player = GetComponent<PlayerController>();
     }
@@ -37,58 +41,77 @@ public class PlayerAttack : MonoBehaviour
         {
             return;
         }
-        
-        // Check for enemies in range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsEnemy);
 
-        // Only proceed if there is at least one enemy found
-        if (hitEnemies.Length > 0)
+        // --- MODIFIED: Check if an enemy is selected ---
+        if (selectedEnemyTarget != null)
         {
-            // ✅ Find the closest enemy
-            Collider closestEnemy = hitEnemies[0];
-            float closestDist = Vector3.Distance(transform.position, closestEnemy.transform.position);
+            float distanceToTarget = Vector3.Distance(transform.position, selectedEnemyTarget.position);
 
-            foreach (Collider enemy in hitEnemies)
+            // --- MODIFIED: Check if the selected enemy is in range ---
+            if (distanceToTarget <= attackRange)
             {
-                float dist = Vector3.Distance(transform.position, enemy.transform.position);
-                if (dist < closestDist)
+                // ✅ Face the selected enemy
+                Vector3 dir = (selectedEnemyTarget.position - transform.position).normalized;
+                dir.y = 0; // keep rotation flat on ground
+                if (dir != Vector3.zero)
                 {
-                    closestEnemy = enemy;
-                    closestDist = dist;
+                    transform.rotation = Quaternion.LookRotation(dir);
+                }
+
+                // Get the EnemyData component from the selected target
+                EnemyData enemyData = selectedEnemyTarget.GetComponent<EnemyData>();
+
+                if (enemyData != null)
+                {
+                    // ✅ Damage the selected enemy
+                    Debug.Log("Hit " + selectedEnemyTarget.name);
+                    enemyData.EnemyTakeDamage(attackDamage * 10);
+
+                    // --- Attack successful: Play animation and proceed with turn logic ---
+
+                    if (animator != null)
+                    {
+                        animator.SetTrigger("Attacking");
+                        animator.applyRootMotion = false;
+                    }
+
+                    playerAttacked++;
+
+                    if (playerAttacked >= playerAttackPoint)
+                    {
+                        StartCoroutine(SwitchTurn());
+                    }
+
+                    // Optional: Deselect the enemy after attacking
+                    DeselectEnemy();
+                }
+                else
+                {
+                    Debug.LogError("Selected enemy is missing EnemyData component!");
+                    DeselectEnemy();
                 }
             }
-
-            // ✅ Face the closest enemy
-            Vector3 dir = (closestEnemy.transform.position - transform.position).normalized;
-            dir.y = 0; // keep rotation flat on ground
-            if (dir != Vector3.zero)
+            else
             {
-                transform.rotation = Quaternion.LookRotation(dir);
-            }
-
-            // ✅ Damage that enemy
-            Debug.Log("Hit " + closestEnemy.name);
-            closestEnemy.GetComponent<EnemyData>().EnemyTakeDamage(attackDamage * 10);
-
-            // --- Attack successful: Play animation and proceed with turn logic ---
-
-            if (animator != null)
-            {
-                animator.SetTrigger("Attacking");
-                animator.applyRootMotion = false;
-            }
-
-            playerAttacked++;
-
-            if (playerAttacked >= playerAttackPoint)
-            {
-                StartCoroutine(SwitchTurn());
+                Debug.Log("Selected enemy is out of range!");
             }
         }
         else
         {
-            // Optional: Add a debug log or sound effect for a failed attack attempt
-            Debug.Log("No enemy in range to attack.");
+            // Optional: Add a debug log for not having a target
+            Debug.Log("Please select an enemy target first.");
+        }
+    }
+
+    // --- NEW: Method to clear the selected target (call this after an attack or turn end) ---
+    public static void DeselectEnemy()
+    {
+        if (selectedEnemyTarget != null)
+        {
+            // You might want to add visual feedback here, e.g., turn off a selection ring
+            // Example: selectedEnemyTarget.GetComponent<EnemySelection>()?.SetSelectedVisual(false);
+            selectedEnemyTarget = null;
+            Debug.Log("Enemy Deselected.");
         }
     }
 
@@ -96,7 +119,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (AtkArea != null)
         {
-            AtkArea.SetActive(true); 
+            AtkArea.SetActive(true);
         }
     }
 
@@ -104,13 +127,16 @@ public class PlayerAttack : MonoBehaviour
     {
         if (AtkArea != null)
         {
-            AtkArea.SetActive(false); 
+            AtkArea.SetActive(false);
         }
+        // Deselect when the player attack component is disabled
+        DeselectEnemy();
     }
+
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.isInTurnSystem)
+
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) && TurnManager.Instance.isInTurnSystem)
         {
             Attack();
         }
@@ -128,15 +154,14 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(5f);
         player.alreadyAttack = true;
         GameManager.Instance.CheckEnemys();
-        
+
     }
     public void ResetAttackStatus()
     {
         hasAttackedThisTurn = false;
-        playerAttacked = 0; 
+        playerAttacked = 0;
+        DeselectEnemy(); // Also deselect enemy on turn reset
         Debug.Log("Player attack status reset for the new turn.");
     }
 
 }
-
-

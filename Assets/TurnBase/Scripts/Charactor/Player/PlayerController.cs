@@ -238,9 +238,17 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    // Inside PlayerController.cs, replace the Update() method:
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)
+        // Existing H key logic...
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            playerData.Healing(20);
+        }
+
+        // --- LEFT-CLICK (Movement) Logic ---
+        if (Input.GetMouseButtonDown(0) // LEFT CLICK
             && playerData.playerMoveState == PlayerMoveState.Stand
             && !EventSystem.current.IsPointerOverGameObject()
             && !alreadyWalk)
@@ -251,28 +259,53 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
             {
+                // ... (Movement logic remains here) ...
+
+                // If movement is successful, deselect any enemy
+                PlayerAttack.DeselectEnemy();
+
                 GameObject clickedTile = hit.collider.gameObject;
                 Vector3 tilePosition = clickedTile.transform.position;
 
-                // 🛑 NEW CHECK: Check for enemies at the clicked tile's position
-                // Use a small radius (e.g., 0.1f) to check if an enemy is precisely on the tile.
+                // Enemy blocking check remains here...
                 Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 1f, Enemy);
-
                 if (enemiesOnTile.Length > 0)
                 {
-                    // Enemy is on the tile, so prevent movement
                     Debug.Log("Cannot move to this tile. An enemy is there.");
-                    return; // Stop execution, don't start the MoveToCell coroutine
+                    return;
                 }
 
-                // If no enemy is found, proceed with movement
                 StartCoroutine(MoveToCell(clickedTile));
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
+        // ------------------------------------------------------------------
+        // --- NEW: RIGHT-CLICK (Enemy Selection) Logic ---
+        // ------------------------------------------------------------------
+        if (Input.GetMouseButtonDown(1) // RIGHT CLICK
+            && !EventSystem.current.IsPointerOverGameObject()
+            && TurnManager.Instance != null
+            && TurnManager.Instance.currentPhase == Phase.Player)
         {
-            playerData.Healing(20);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            // Raycast against the Enemy layer
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, Enemy))
+            {
+                // Check if we hit an enemy
+                if (hit.collider.GetComponent<EnemySelection>() != null || (Enemy.value & (1 << hit.collider.gameObject.layer)) > 0)
+                {
+                    // Deselect the old target
+                    PlayerAttack.DeselectEnemy();
+
+                    // Set the new target
+                    PlayerAttack.selectedEnemyTarget = hit.collider.transform;
+                    Debug.Log(hit.collider.name + " selected as target using Right Click.");
+                }
+            }
         }
+
+        // Update for Spacebar/Attack Button remains in PlayerAttack.cs
     }
 }
