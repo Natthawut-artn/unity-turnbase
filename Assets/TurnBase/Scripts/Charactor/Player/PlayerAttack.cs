@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-// Removed unnecessary 'using' statements like Unity.VisualScripting and UnityEditor
+// Removed unused UnityEditor and Unity.VisualScripting references
 
 public class PlayerAttack : MonoBehaviour
 {
     public static PlayerAttack Instance;
 
-    // --- NEW: Static variable to hold the currently selected target ---
-    public static Transform selectedEnemyTarget = null;
-    // This will hold the Transform of the enemy the player clicked on.
+    // --- NEW STATE VARIABLES for Targeting Mode (Option 2) ---
+    [Header("Targeting State")]
+    public bool isTargetingMode = false;
+    // This variable stores the Transform of the confirmed target until the attack sequence is complete.
+    public Transform currentSelectedEnemy = null;
 
     public float attackRange = 1.5f;
     private Animator animator;
@@ -29,96 +30,145 @@ public class PlayerAttack : MonoBehaviour
     {
         Instance = this;
     }
+
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
         player = GetComponent<PlayerController>();
         skillBook = GetComponent<SkillBook>();
         playerData = GetComponent<PlayerData>();
+        SetTargetingVisuals(false); // Ensure visuals are off at start
     }
 
-    public void Attack()
+    // --- NEW HELPER: Manages the visual indicator on the enemy ---
+    private void SetEnemyIndicator(Transform enemy, bool active)
+    {
+        if (enemy == null) return;
+
+        // IMPORTANT: Looks for a child GameObject named "SelectionIndicator"
+        Transform indicator = enemy.Find("SelectionIndicator");
+        if (indicator != null)
+        {
+            indicator.gameObject.SetActive(active);
+        }
+        else
+        {
+            Debug.LogWarning($"Enemy {enemy.name} is missing a child GameObject named 'SelectionIndicator'. Cannot set visual.");
+        }
+    }
+
+    /// <summary>
+    /// Replaces the old Attack() method. Toggles the targeting state when Spacebar is pressed.
+    /// </summary>
+    public void ToggleTargetingMode()
+    {
+        if (hasAttackedThisTurn || TurnManager.Instance.currentPhase != Phase.Player)
+        {
+            if (hasAttackedThisTurn) Debug.Log("Already attacked this turn.");
+            return;
+        }
+
+        // --- DESELECTION LOGIC (Manual Cancel) ---
+        if (isTargetingMode)
+        {
+            // Clear the indicator if the user presses Spacebar to cancel targeting
+            SetEnemyIndicator(currentSelectedEnemy, false);
+            currentSelectedEnemy = null;
+        }
+
+        // Toggle the state
+        isTargetingMode = !isTargetingMode;
+        SetTargetingVisuals(isTargetingMode);
+
+        if (isTargetingMode)
+        {
+            Debug.Log("Entered Targeting Mode. Left-Click an enemy to attack.");
+        }
+        else
+        {
+            Debug.Log("Exited Targeting Mode.");
+        }
+    }
+
+    /// <summary>
+    /// The actual damage execution, called by PlayerController after a mouse click on an enemy.
+    /// </summary>
+    /// <param name="target">The Transform of the clicked enemy.</param>
+    public void ConfirmAttack(Transform target)
     {
         if (hasAttackedThisTurn || TurnManager.Instance.currentPhase != Phase.Player)
         {
             return;
         }
-        
-        // --- MODIFIED: Check if an enemy is selected ---
-        if (selectedEnemyTarget != null)
+
+        currentSelectedEnemy = target; // Store reference for use in SwitchTurn/Cleanup
+
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+        if (distanceToTarget <= attackRange)
         {
-            float distanceToTarget = Vector3.Distance(transform.position, selectedEnemyTarget.position);
-
-            // --- MODIFIED: Check if the selected enemy is in range ---
-            if (distanceToTarget <= attackRange)
+            // ✅ Face the selected enemy
+            Vector3 dir = (target.position - transform.position).normalized;
+            dir.y = 0; // keep rotation flat on ground
+            if (dir != Vector3.zero)
             {
-                // ✅ Face the selected enemy
-                Vector3 dir = (selectedEnemyTarget.position - transform.position).normalized;
-                dir.y = 0; // keep rotation flat on ground
-                if (dir != Vector3.zero)
-                {
-                    transform.rotation = Quaternion.LookRotation(dir);
-                }
+                transform.rotation = Quaternion.LookRotation(dir);
+            }
 
-                // Get the EnemyData component from the selected target
-                EnemyData enemyData = selectedEnemyTarget.GetComponent<EnemyData>();
+            // --- SHOW INDICATOR ON TARGET ---
+            SetEnemyIndicator(target, true);
 
-                if (enemyData != null)
-                {
-                    // ✅ Damage the selected enemy
-                    Debug.Log("Hit " + selectedEnemyTarget.name);
+            Debug.Log("Attack confirmed against " + target.name + ". Initiating animation.");
 
-                    // --- Attack successful: Play animation and proceed with turn logic ---
+            // --- Attack successful: Play animation and proceed with turn logic ---
+            if (animator != null)
+            {
+                animator.SetTrigger("Attacking");
+                animator.applyRootMotion = false;
+            }
 
-                    if (animator != null)
-                    {
-                        animator.SetTrigger("Attacking");
-                        animator.applyRootMotion = false;
-                    }
+            playerAttacked++;
 
-                    playerAttacked++;
-
-                    if (playerAttacked >= playerAttackPoint)
-                    {
-                        StartCoroutine(SwitchTurn(selectedEnemyTarget));
-                    }
-
-                    // Optional: Deselect the enemy after attacking
-                    DeselectEnemy();
-                }
-                else
-                {
-                    Debug.LogError("Selected enemy is missing EnemyData component!");
-                    DeselectEnemy();
-                }
+            // Start the coroutine to handle damage, skill, and turn switch
+            Collider targetCollider = target.GetComponent<Collider>();
+            if (targetCollider != null)
+            {
+                StartCoroutine(SwitchTurn(targetCollider));
             }
             else
             {
-                Debug.Log("Selected enemy is out of range!");
+                Debug.LogError("Target enemy is missing a Collider component!");
+                // Clean up visual state if attack failed due to missing component
+                SetEnemyIndicator(target, false);
+                currentSelectedEnemy = null;
             }
+
+            // Exit targeting mode immediately upon initiating attack
+            isTargetingMode = false;
+            SetTargetingVisuals(false);
         }
         else
         {
-            // Optional: Add a debug log for not having a target
-            Debug.Log("Please select an enemy target first.");
+            Debug.Log("Target is out of range (" + distanceToTarget.ToString("F1") + "m). Attack failed.");
+            // Reset targeting mode
+            isTargetingMode = false;
+            SetTargetingVisuals(false);
+            currentSelectedEnemy = null;
         }
     }
 
-    // --- NEW: Method to clear the selected target (call this after an attack or turn end) ---
-    public static void DeselectEnemy()
+    private void SetTargetingVisuals(bool active)
     {
-        if (selectedEnemyTarget != null)
+        if (AtkArea != null)
         {
-            // You might want to add visual feedback here, e.g., turn off a selection ring
-            // Example: selectedEnemyTarget.GetComponent<EnemySelection>()?.SetSelectedVisual(false);
-            selectedEnemyTarget = null;
-            Debug.Log("Enemy Deselected.");
+            // Activates the visual indicator for attack range
+            AtkArea.SetActive(active);
         }
     }
 
     private void OnEnable()
     {
-        if (AtkArea != null)
+        if (AtkArea != null && isTargetingMode)
         {
             AtkArea.SetActive(true);
         }
@@ -126,24 +176,26 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDisable()
     {
-        if (AtkArea != null)
-        {
-            AtkArea.SetActive(false);
-        }
-        // Deselect when the player attack component is disabled
-        DeselectEnemy();
+        SetTargetingVisuals(false);
+        // Clean up indicator on the enemy if the PlayerAttack script is disabled
+        SetEnemyIndicator(currentSelectedEnemy, false);
+        isTargetingMode = false;
+        currentSelectedEnemy = null;
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) && TurnManager.Instance.isInTurnSystem)
+        // Spacebar now calls the toggle function to enter/exit targeting
+        // Note: The old Input.GetKeyDown(KeyCode.Mouse0) is removed here
+        if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.isInTurnSystem)
         {
-            Attack();
+            ToggleTargetingMode();
         }
 
         if (Input.GetKeyDown(KeyCode.M) && TurnManager.Instance.isInTurnSystem)
         {
-            if (!skillBook.skillsSet[0].isActivate)
+            // Skill activation logic (assuming skillBook is not null)
+            if (skillBook != null && !skillBook.skillsSet[0].isActivate)
             {
                 skillBook.skillsSet[0].UseSkill(gameObject);
             }
@@ -156,25 +208,50 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    IEnumerator SwitchTurn(Transform closestEnemy)
+    IEnumerator SwitchTurn(Collider targetCollider)
     {
         hasAttackedThisTurn = true;
+
+        // Wait for animation to finish
         yield return new WaitForSeconds(5f);
-        closestEnemy.gameObject.GetComponent<EnemyData>().EnemyTakeDamage(playerData.currentATK);
-        if (playerData.ishavebuff)
+
+        // --- Damage application ---
+        EnemyData enemyData = targetCollider.GetComponent<EnemyData>();
+        if (enemyData != null)
         {
-            skillBook.skillsSet[0].Activate(closestEnemy.gameObject , gameObject);
+            enemyData.EnemyTakeDamage(playerData.currentATK);
         }
+
+        // --- Skill Activation Logic ---
+        if (playerData.ishavebuff && skillBook != null)
+        {
+            skillBook.skillsSet[0].Activate(targetCollider.gameObject, gameObject);
+        }
+
+        // --- HIDE INDICATOR ON TARGET ---
+        SetEnemyIndicator(targetCollider.transform, false);
+
+        // --- Turn completion logic ---
         player.alreadyAttack = true;
         GameManager.Instance.CheckEnemys();
 
-    }
-    public void ResetAttackStatus()
-    {
-        hasAttackedThisTurn = false;
-        playerAttacked = 0;
-        DeselectEnemy(); // Also deselect enemy on turn reset
-        Debug.Log("Player attack status reset for the new turn.");
+        currentSelectedEnemy = null; // Clear target after turn actions complete
     }
 
+    public void ResetAttackStatus()
+    {
+        // --- HIDE INDICATOR ON TARGET ---
+        // Safety check to ensure any previously selected indicator is turned off
+        if (currentSelectedEnemy != null)
+        {
+            SetEnemyIndicator(currentSelectedEnemy, false);
+        }
+
+        hasAttackedThisTurn = false;
+        playerAttacked = 0;
+        isTargetingMode = false;
+        SetTargetingVisuals(false);
+        currentSelectedEnemy = null;
+        Debug.Log("Player attack status reset for the new turn.");
+    }
 }

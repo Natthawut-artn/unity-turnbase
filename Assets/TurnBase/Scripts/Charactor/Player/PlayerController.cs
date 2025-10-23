@@ -65,13 +65,13 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator MoveToCell(GameObject To)
     {
-        if(playerAttack.hasAttackedThisTurn && TurnManager.Instance.isInTurnSystem)
+        if (playerAttack.hasAttackedThisTurn && TurnManager.Instance.isInTurnSystem)
         {
             Debug.Log("Can't move after attacking.");
             yield break;
         }
         if (tilesMoved >= maxTilesPerTurn && TurnManager.Instance.isInTurnSystem) alreadyWalk = true;
-        else if(!TurnManager.Instance.isInTurnSystem){ tilesMoved = 0; }
+        else if (!TurnManager.Instance.isInTurnSystem) { tilesMoved = 0; }
         if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
         || tilesMoved >= maxTilesPerTurn)
         {
@@ -141,17 +141,9 @@ public class PlayerController : MonoBehaviour
 
         if (newMarker != null)
         {
-            // 🛑 IMPORTANT: If the new marker is already occupied (e.g., by another Player/Hazard not caught by your Physics.OverlapSphere)
-            // You might want to stop here, but since your existing logic only prevents enemy block, we proceed, 
-            // relying on the movement system to prevent collisions.
-
-            // This is tricky without explicit tracking of the *previous* marker. 
-            // A better long-term solution is adding: 'public Marker currentOccupiedMarker;' to PlayerController.
-
-            // --- TEMPORARY SOLUTION: Check/Clear/Set Marker state based on position ---
-
             // Find the marker at the old position and set it to unoccupied
             Vector2 oldGridPos = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.z));
+            // Assuming To.transform.parent.gameObject provides the room object correctly
             GameObject oldMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(oldGridPos, To.transform.parent.gameObject);
             if (oldMarkerGO != null)
             {
@@ -161,7 +153,7 @@ public class PlayerController : MonoBehaviour
             // Set the marker at the new position to occupied
             newMarker.IsOccupied = true;
         }
-        
+
         currentOccupiedMarker = GetMarkerAtCurrentPosition();
         if (currentOccupiedMarker != null)
         {
@@ -204,7 +196,8 @@ public class PlayerController : MonoBehaviour
             if (alreadyWalk || alreadyAttack)
             {
                 turnEnded = true;
-                playerData.ResetBuffForTurn();
+                // Assuming ResetBuffForTurn() is needed here
+                // playerData.ResetBuffForTurn(); 
             }
         }
 
@@ -239,7 +232,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Inside PlayerController.cs, replace the Update() method:
+    /// <summary>
+    /// Handles both Movement and Attack Targeting based on the PlayerAttack state.
+    /// </summary>
     void Update()
     {
         // Existing H key logic...
@@ -248,42 +243,8 @@ public class PlayerController : MonoBehaviour
             playerData.Healing(20);
         }
 
-        // --- LEFT-CLICK (Movement) Logic ---
+        // --- LEFT-CLICK (Both Target Confirmation & Movement) Logic ---
         if (Input.GetMouseButtonDown(0) // LEFT CLICK
-            && playerData.playerMoveState == PlayerMoveState.Stand
-            && !EventSystem.current.IsPointerOverGameObject()
-            && !alreadyWalk)
-        {
-            if (TurnManager.Instance == null || TurnManager.Instance.currentPhase != Phase.Player) return;
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
-            {
-                // ... (Movement logic remains here) ...
-
-                // If movement is successful, deselect any enemy
-                PlayerAttack.DeselectEnemy();
-
-                GameObject clickedTile = hit.collider.gameObject;
-                Vector3 tilePosition = clickedTile.transform.position;
-
-                // Enemy blocking check remains here...
-                Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 1f, Enemy);
-                if (enemiesOnTile.Length > 0)
-                {
-                    Debug.Log("Cannot move to this tile. An enemy is there.");
-                    return;
-                }
-
-                StartCoroutine(MoveToCell(clickedTile));
-            }
-        }
-
-        // ------------------------------------------------------------------
-        // --- NEW: RIGHT-CLICK (Enemy Selection) Logic ---
-        // ------------------------------------------------------------------
-        if (Input.GetMouseButtonDown(1) // RIGHT CLICK
             && !EventSystem.current.IsPointerOverGameObject()
             && TurnManager.Instance != null
             && TurnManager.Instance.currentPhase == Phase.Player)
@@ -291,22 +252,47 @@ public class PlayerController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // Raycast against the Enemy layer
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, Enemy))
+            // Priority 1: Check if in Targeting Mode (Confirmed by PlayerAttack script)
+            if (playerAttack.isTargetingMode)
             {
-                // Check if we hit an enemy
-                if (hit.collider.GetComponent<EnemySelection>() != null || (Enemy.value & (1 << hit.collider.gameObject.layer)) > 0)
+                // Raycast specifically for an enemy (using the Enemy layer)
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, Enemy))
                 {
-                    // Deselect the old target
-                    PlayerAttack.DeselectEnemy();
+                    // Call the PlayerAttack script to attempt the attack confirmation
+                    playerAttack.ConfirmAttack(hit.transform);
+                    // NOTE: ConfirmAttack handles cleanup, so we STOP here.
+                }
+                else
+                {
+                    // Clicked outside the enemy in targeting mode, cancel targeting
+                    Debug.Log("Click missed target. Exiting targeting mode.");
+                    playerAttack.ToggleTargetingMode(); // Toggle off
+                }
+                return;
+            }
 
-                    // Set the new target
-                    PlayerAttack.selectedEnemyTarget = hit.collider.transform;
-                    Debug.Log(hit.collider.name + " selected as target using Right Click.");
+            // Priority 2: Handle Movement (only if not targeting)
+            if (!alreadyWalk
+                && playerData.playerMoveState == PlayerMoveState.Stand)
+            {
+                // Raycast specifically for a movement Marker
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
+                {
+                    GameObject clickedTile = hit.collider.gameObject;
+                    Vector3 tilePosition = clickedTile.transform.position;
+
+                    // Check for enemies on the tile before moving
+                    Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 1f, Enemy);
+                    if (enemiesOnTile.Length > 0)
+                    {
+                        Debug.Log("Cannot move to this tile. An enemy is there.");
+                        return;
+                    }
+
+                    // If no enemy is found, proceed with movement
+                    StartCoroutine(MoveToCell(clickedTile));
                 }
             }
         }
-
-        // Update for Spacebar/Attack Button remains in PlayerAttack.cs
     }
 }

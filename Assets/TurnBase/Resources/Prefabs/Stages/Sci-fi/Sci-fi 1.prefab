@@ -22124,6 +22124,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6990780085477869608}
     m_Modifications:
+    - target: {fileID: 774000712328993893, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 835156149811266833, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
