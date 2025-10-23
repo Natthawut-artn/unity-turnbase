@@ -171,11 +171,6 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        if (enemyData.isOnVenom)
-        {
-            enemyData.Venom();
-        }
-
         if (playerInAttackRange && this != null)
         {
             AttackPlayer();

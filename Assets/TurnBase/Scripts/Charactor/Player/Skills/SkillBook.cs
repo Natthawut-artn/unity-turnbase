@@ -13,6 +13,7 @@ public class SkillBook : MonoBehaviour
 
         if (gameObject.name == "Support(Clone)")
         {
+            skillsSet.Add(new Frostbite());
         }
 
         if (gameObject.name == "Protector(Clone)")

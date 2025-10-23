@@ -33,6 +33,7 @@ public class CharactorInheritance : MonoBehaviour
     // Bypass Defence
     public int BypassDef_Venom = 0;
     public int BypassDef_BloodFlowing = 0;
+    public int BypassDef_Frost = 0;
 
     // Venom status (debuff)
     public bool isOnVenom = false;
@@ -41,6 +42,11 @@ public class CharactorInheritance : MonoBehaviour
 
     // Blood Flowing (debuff)
     public bool isOnBloodFlowing = false;
+
+    // Frost (debuff)
+    public bool isOnFrost = false;
+    public int FrostTurnAmount = 0;
+    public int FrostDGM = 0;
 
     // normal atk buff
     public bool ishavebuff = false;
@@ -127,6 +133,27 @@ public class CharactorInheritance : MonoBehaviour
     {
         TakeDamage(Damage);
         Debug.Log($"Blood Flowing activate DGM : {Damage}");
+    }
+
+    public void Frost(int TurnAmount = 0 , int Damage = 0 , bool isThisTurn = false)
+    {
+        if (Damage == 0 && TurnAmount == 0)
+        {
+            Damage = FrostDGM;
+            TurnAmount = FrostTurnAmount;
+        }
+        else
+        {
+            FrostDGM = Damage;
+            FrostTurnAmount = TurnAmount;
+        }
+
+        if (isThisTurn) return;
+        
+        TakeDamage(Damage);
+        FrostTurnAmount -= 1;
+        Debug.Log($"Frost activate DGM : {Damage} TurnAmount : {FrostTurnAmount}");
+        if (FrostTurnAmount <= 0) { isOnFrost = false; FrostDGM = 0; FrostTurnAmount = 0; }
     }
 
     public void ResetBuffForTurn()

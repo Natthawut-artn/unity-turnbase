@@ -87,7 +87,22 @@ public class TurnManager : MonoBehaviour
 
         foreach (EnemyAI enemy in enemies)
         {
-            yield return StartCoroutine(enemy.TakeTurn());
+            EnemyData enemyData = enemy.GetComponent<EnemyData>();
+
+            if (enemyData.isOnFrost)
+            {
+                enemyData.Frost();
+            }
+            else
+            {
+                yield return StartCoroutine(enemy.TakeTurn());
+            }
+
+            // check venom debuff
+            if (enemyData.isOnVenom)
+            {
+                enemyData.Venom();
+            }
         }
 
         Debug.Log("Enemy Phase ended, switching to Player Phase");
@@ -115,11 +130,27 @@ public class TurnManager : MonoBehaviour
         {
             PlayerController controller = player.GetComponent<PlayerController>();
             PlayerAttack attack = player.GetComponent<PlayerAttack>();
+            PlayerData playerData = player.GetComponent<PlayerData>();
             controller.enabled = true;
             attack.enabled = true;
-            yield return StartCoroutine(controller.TakeTurn());
+
+            if (playerData.isOnFrost)
+            {
+                playerData.Frost();
+            }
+            else
+            {
+                yield return StartCoroutine(controller.TakeTurn());
+            }
+
             controller.enabled = false;
             attack.enabled = false;
+
+            // check venom debuff
+            if (playerData.isOnVenom)
+            {
+                playerData.Venom();
+            }
         }
 
         yield return null;

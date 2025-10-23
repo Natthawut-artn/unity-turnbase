@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CarnageSlice : Skill
 {
-    int TurnAmount = 5;
     int BypassDef_BloodFlowing = 70;
 
     public CarnageSlice()
@@ -31,7 +30,7 @@ public class CarnageSlice : Skill
         if (playerData.BuffAmountTarget <= 0) return;
         playerData.BuffAmountTarget--;
         playerData.ActivateInThisTurn = true;
-        playerData.BypassDef_BloodFlowing += 70;
+        playerData.BypassDef_BloodFlowing += BypassDef_BloodFlowing;
         if (playerData.BuffAmountTarget <= 0) { playerData.ishavebuff = false; }
         
         int enemyDef = enemyData.Defense + GameManager.Instance.BloodFlowing;
