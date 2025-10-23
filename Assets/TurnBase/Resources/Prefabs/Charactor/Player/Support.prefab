@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 9222638081031574525}
   - component: {fileID: 6207096322058030402}
   - component: {fileID: 7615382071091227466}
+  - component: {fileID: 7508011062500228400}
   m_Layer: 7
   m_Name: Support
   m_TagString: Player
@@ -183,11 +184,21 @@ MonoBehaviour:
   Defense: 5
   CritRate: 7
   CritDGM: 7
+  SkillPoint: 10
   currentHP: 0
   currentATK: 0
   currentDefense: 0
   currentCritRate: 0
   currentCritDGM: 0
+  currentSkillPoint: 0
+  isOnBloodFlowing: 0
+  bloodFlowingTurnAmount: 0
+  bloodFlowingDGMPerTurn: 0
+  ishavebuff: 0
+  BuffAmountTarget: 0
+  Shield: 0
+  BuffShieldAmountTurn: 0
+  ActivateInThisTurn: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
   playerMoveState: 0
@@ -216,7 +227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 10
-  attackDamage: 10
   playerAttackPoint: 1
   playerAttacked: 0
   hasAttackedThisTurn: 0
@@ -237,6 +247,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RelicsInPocket: []
+--- !u!114 &7508011062500228400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463451174537426559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cd77f561e53444899856462c54d7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3578353346640417125
 PrefabInstance:
   m_ObjectHideFlags: 0

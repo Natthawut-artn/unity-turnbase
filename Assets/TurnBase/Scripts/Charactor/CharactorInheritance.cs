@@ -39,6 +39,10 @@ public class CharactorInheritance : MonoBehaviour
     public bool ishavebuff = false;
     public int BuffAmountTarget = 0;
 
+    // Buff
+    public int Shield = 0;
+    public int BuffShieldAmountTurn = 0;
+
     public bool ActivateInThisTurn = false;
 
     void Awake()
@@ -53,12 +57,33 @@ public class CharactorInheritance : MonoBehaviour
 
     public void TakeDamage(int Damage)
     {
-        currentHP -= Damage;
-        if (currentHP <= 0)
+        if (Shield > 0)
         {
-            currentHP = 0;
-            Die();
+            if (Damage <= Shield)
+            {
+                Shield -= Damage;
+            }
+            else if (Damage > Shield)
+            {
+                Damage -= Shield;
+                currentHP -= Damage;
+                if (currentHP <= 0)
+                {
+                    currentHP = 0;
+                    Die();
+                }
+            }
         }
+        else
+        {
+            currentHP -= Damage;
+            if (currentHP <= 0)
+            {
+                currentHP = 0;
+                Die();
+            }
+        }
+        
     }
 
     public void Healing(int Heal)
@@ -106,6 +131,17 @@ public class CharactorInheritance : MonoBehaviour
         else if (BuffAmountTarget <= 0)
         {
             ishavebuff = false;
+        }
+
+        if (BuffShieldAmountTurn > 0)
+        {
+            BuffShieldAmountTurn--;
+            Debug.Log($"Shield {BuffShieldAmountTurn} turn more left");
+        }
+
+        if (BuffShieldAmountTurn <= 0)
+        {
+            Shield = 0;
         }
     }
 

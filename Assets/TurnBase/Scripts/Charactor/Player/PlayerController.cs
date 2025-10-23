@@ -204,9 +204,6 @@ public class PlayerController : MonoBehaviour
             if (alreadyWalk || alreadyAttack)
             {
                 turnEnded = true;
-            }
-            if (alreadyAttack)
-            {
                 playerData.ResetBuffForTurn();
             }
         }

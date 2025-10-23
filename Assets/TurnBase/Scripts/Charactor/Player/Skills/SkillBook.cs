@@ -17,6 +17,7 @@ public class SkillBook : MonoBehaviour
 
         if (gameObject.name == "Protector(Clone)")
         {
+            skillsSet.Add(new SpiritShield());
         }
     }
 }

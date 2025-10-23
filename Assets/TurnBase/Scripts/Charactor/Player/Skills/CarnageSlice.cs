@@ -15,6 +15,7 @@ public class CarnageSlice : Skill
     public override void UseSkill(GameObject player)
     {
         PlayerData playerData = player?.GetComponent<PlayerData>();
+        if(playerData.currentSkillPoint < UseSkillPoints){ Debug.Log("not enough skill point"); return; }
         playerData.ishavebuff = true;
         playerData.BuffAmountTarget = 3;
         playerData.currentSkillPoint -= UseSkillPoints;
