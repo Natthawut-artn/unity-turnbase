@@ -17,6 +17,8 @@ public class CarnageSlice : Skill
         PlayerData playerData = player?.GetComponent<PlayerData>();
         playerData.ishavebuff = true;
         playerData.BuffAmountTarget = 3;
+        playerData.currentSkillPoint -= UseSkillPoints;
+        isActivate = true;
     }
 
     public override void Activate(GameObject enemy, GameObject player)
@@ -35,5 +37,7 @@ public class CarnageSlice : Skill
         int DGM = (int)Mathf.Round(BaseATK) + (int)Mathf.Round(MaxHpDGM);
 
         enemyData.BloodFlowing(DGM, TurnAmount);
+
+        isActivate = false;
     }
 }

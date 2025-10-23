@@ -119,7 +119,10 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.M) && TurnManager.Instance.isInTurnSystem)
         {
-            skillBook.skillsSet[0].UseSkill(gameObject);
+            if (!skillBook.skillsSet[0].isActivate)
+            {
+                skillBook.skillsSet[0].UseSkill(gameObject);
+            }
         }
     }
 

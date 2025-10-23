@@ -187,11 +187,19 @@ MonoBehaviour:
   Defense: 5
   CritRate: 7
   CritDGM: 7
+  SkillPoint: 10
   currentHP: 0
   currentATK: 0
   currentDefense: 0
   currentCritRate: 0
   currentCritDGM: 0
+  currentSkillPoint: 0
+  isOnBloodFlowing: 0
+  bloodFlowingTurnAmount: 0
+  bloodFlowingDGMPerTurn: 0
+  ishavebuff: 0
+  BuffAmountTarget: 0
+  ActivateInThisTurn: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
   playerMoveState: 0
@@ -220,7 +228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 2
-  attackDamage: 20
   playerAttackPoint: 1
   playerAttacked: 0
   hasAttackedThisTurn: 0
