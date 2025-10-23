@@ -30,10 +30,17 @@ public class CharactorInheritance : MonoBehaviour
     public int currentCritDGM;
     public int currentSkillPoint;
 
-    // blood flowing status (debuff)
+    // Bypass Defence
+    public int BypassDef_Venom = 0;
+    public int BypassDef_BloodFlowing = 0;
+
+    // Venom status (debuff)
+    public bool isOnVenom = false;
+    public int VenomTurnAmount = 0;
+    public int VenomDGMPerTurn = 0;
+
+    // Blood Flowing (debuff)
     public bool isOnBloodFlowing = false;
-    public int bloodFlowingTurnAmount = 0;
-    public int bloodFlowingDGMPerTurn = 0;
 
     // normal atk buff
     public bool ishavebuff = false;
@@ -96,24 +103,30 @@ public class CharactorInheritance : MonoBehaviour
         Debug.Log($"Player get Heal : {Heal}, HP {currentHP}");
     }
 
-    public void BloodFlowing(int Damage = 0, int TurnAmount = 0)
+    public void Venom(int Damage = 0, int TurnAmount = 0)
     {
         if (Damage == 0 && TurnAmount == 0)
         {
-            Damage = bloodFlowingDGMPerTurn;
-            TurnAmount = bloodFlowingTurnAmount;
+            Damage = VenomDGMPerTurn;
+            TurnAmount = VenomTurnAmount;
         }
         else
         {
-            bloodFlowingDGMPerTurn = Damage;
-            bloodFlowingTurnAmount = TurnAmount;
+            VenomDGMPerTurn = Damage;
+            VenomTurnAmount = TurnAmount;
         }
 
-        if (isOnBloodFlowing == false) { return; }
+        if (isOnVenom == false) { return; }
         TakeDamage(Damage);
-        bloodFlowingTurnAmount -= 1;
-        Debug.Log($"Blood Flowing activate DGM : {Damage} TurnAmount : {bloodFlowingTurnAmount}");
-        if (bloodFlowingTurnAmount <= 0) { isOnBloodFlowing = false; bloodFlowingDGMPerTurn = 0; bloodFlowingTurnAmount = 0; }
+        VenomTurnAmount -= 1;
+        Debug.Log($"Venom activate DGM : {Damage} TurnAmount : {VenomTurnAmount}");
+        if (VenomTurnAmount <= 0) { isOnVenom = false; VenomDGMPerTurn = 0; VenomTurnAmount = 0; }
+    }
+
+    public void BloodFlowing(int Damage)
+    {
+        TakeDamage(Damage);
+        Debug.Log($"Blood Flowing activate DGM : {Damage}");
     }
 
     public void ResetBuffForTurn()

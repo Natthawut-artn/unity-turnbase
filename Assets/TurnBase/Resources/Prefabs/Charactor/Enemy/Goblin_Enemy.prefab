@@ -75,12 +75,27 @@ MonoBehaviour:
   heroclass: 3
   HP: 100
   ATK: 20
-  MagicATK: 0
-  Defense: 0
+  Defense: 10
   CritRate: 0
   CritDGM: 0
-  Speed: 0
+  SkillPoint: 0
   currentHP: 0
+  currentATK: 0
+  currentDefense: 0
+  currentCritRate: 0
+  currentCritDGM: 0
+  currentSkillPoint: 0
+  BypassDef_Venom: 0
+  BypassDef_BloodFlowing: 0
+  isOnVenom: 0
+  VenomTurnAmount: 0
+  VenomDGMPerTurn: 0
+  isOnBloodFlowing: 0
+  ishavebuff: 0
+  BuffAmountTarget: 0
+  Shield: 0
+  BuffShieldAmountTurn: 0
+  ActivateInThisTurn: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
   playerMoveState: 0
@@ -128,6 +143,7 @@ MonoBehaviour:
   attackRange: 2
   playerInSightRange: 0
   playerInAttackRange: 0
+  parentRoom: {fileID: 0}
 --- !u!195 &7994987525031586110
 NavMeshAgent:
   m_ObjectHideFlags: 0

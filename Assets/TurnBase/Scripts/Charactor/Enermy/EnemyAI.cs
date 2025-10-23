@@ -171,9 +171,9 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        if (enemyData.isOnBloodFlowing)
+        if (enemyData.isOnVenom)
         {
-            enemyData.BloodFlowing();
+            enemyData.Venom();
         }
 
         if (playerInAttackRange && this != null)

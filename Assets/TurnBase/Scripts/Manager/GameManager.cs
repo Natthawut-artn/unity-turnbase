@@ -43,6 +43,13 @@ public class GameManager : MonoBehaviour
     private List<GameObject> Friends = new List<GameObject>();
     private const string BGManager_Path = "Prefabs/Board/SFXManager";
 
+    // Base Def Debuff status
+    public int Venom = 100;
+    public int Fire = 100;
+    public int BloodFlowing = 140;
+    public int Frost = 100;
+    public int Death = 200;
+
 
     public void StartGame()
     {
