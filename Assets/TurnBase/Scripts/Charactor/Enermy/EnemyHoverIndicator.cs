@@ -7,17 +7,22 @@ public class EnemyHoverIndicator : MonoBehaviour
     [Tooltip("The child GameObject to enable/disable when hovering. This should be a UNIQUE visual, separate from any selection or attack indicator.")]
     public GameObject hoverVisual;
 
-    // NEW: We will filter the raycast to only hit objects on the "Enemy" layer.
     private LayerMask enemyLayerMask;
 
-    private PlayerAttack playerAttack;
+    // Cached reference for the currently targeting PlayerAttack component to avoid constant lookups.
+    private PlayerAttack cachedAttacker;
+
     private bool isCurrentlyHovering = false;
     private Camera mainCamera;
+
+    // Performance optimization: FindObjectsOfType is expensive. Only run it every N frames.
+    private int frameCounter = 0;
+    // Check for active attacker once every 10 frames (~6 times per second). Adjust this number higher (e.g., 20) if lag persists.
+    private const int ATTACKER_UPDATE_FREQUENCY = 10;
 
     void Start()
     {
         // Find the LayerMask for the "Enemy" layer
-        // CRITICAL: Ensure you have created a layer named "Enemy" in the Unity Editor.
         enemyLayerMask = LayerMask.GetMask("Enemy");
         if (enemyLayerMask == 0)
         {
@@ -28,20 +33,6 @@ public class EnemyHoverIndicator : MonoBehaviour
         if (mainCamera == null)
         {
             Debug.LogError(gameObject.name + ": Hover Indicator: Could not find Main Camera.");
-        }
-
-        GameObject playerGO = GameObject.FindWithTag("Player");
-        if (playerGO != null)
-        {
-            playerAttack = playerGO.GetComponent<PlayerAttack>();
-            if (playerAttack == null)
-            {
-                Debug.LogError(gameObject.name + ": Hover Indicator: Could not find PlayerAttack component on the GameObject tagged 'Player'.");
-            }
-        }
-        else
-        {
-            Debug.LogError(gameObject.name + ": Hover Indicator: Could not find any GameObject with the tag 'Player'.");
         }
 
         if (hoverVisual == null)
@@ -56,33 +47,77 @@ public class EnemyHoverIndicator : MonoBehaviour
 
     private void SetHoverVisual(bool active)
     {
-        if (hoverVisual == null || playerAttack == null || TurnManager.Instance == null)
+        // Use the cachedAttacker
+        if (hoverVisual == null || cachedAttacker == null || TurnManager.Instance == null)
         {
+            hoverVisual.SetActive(false);
             return;
         }
 
         // The two conditions required to show the hover visual:
-        bool isTargeting = playerAttack.isTargetingMode;
+        bool isTargeting = cachedAttacker.isTargetingMode;
         bool isPlayerTurn = TurnManager.Instance.currentPhase == Phase.Player;
 
-        bool canShowVisual = isTargeting && isPlayerTurn;
+        bool canShowVisual = active && isTargeting && isPlayerTurn;
 
-        if (active && canShowVisual)
+        hoverVisual.SetActive(canShowVisual);
+    }
+
+    // New method to perform the expensive attacker lookup, only called periodically
+    private void UpdateAttackerCache()
+    {
+        if (TurnManager.Instance.currentPhase != Phase.Player)
         {
-            hoverVisual.SetActive(true);
-            // We can now remove the diagnostic logs since the layer mask should fix the issue
-            // Debug.Log(gameObject.name + " Raycast Success: Visual ON. Targeting: " + isTargeting + ", Player Turn: " + isPlayerTurn);
+            // If it's not the player phase, clear the cache.
+            cachedAttacker = null;
+            return;
         }
-        else
+
+        // Find the currently targeting PlayerAttack component.
+        // This is the expensive call we want to limit.
+        PlayerAttack[] allPlayerAttacks = FindObjectsOfType<PlayerAttack>();
+        cachedAttacker = null;
+
+        foreach (PlayerAttack pa in allPlayerAttacks)
         {
-            hoverVisual.SetActive(false);
+            if (pa.isTargetingMode)
+            {
+                cachedAttacker = pa;
+                break;
+            }
+        }
+
+        // Safety fallback: If no one is targeting but it's the player phase, 
+        // cache the first player to handle hover detection logic checks.
+        if (cachedAttacker == null && allPlayerAttacks.Length > 0)
+        {
+            cachedAttacker = allPlayerAttacks[0];
         }
     }
 
     // Manual Raycasting to detect hover state (more reliable than OnMouseEnter)
     void Update()
     {
-        if (playerAttack == null || mainCamera == null) return;
+        if (mainCamera == null || TurnManager.Instance == null) return;
+
+        // --- 0. Performance Optimization: Update cached attacker periodically ---
+        frameCounter++;
+        if (frameCounter >= ATTACKER_UPDATE_FREQUENCY)
+        {
+            UpdateAttackerCache();
+            frameCounter = 0;
+        }
+
+        // --- Check if we have an active attacker to proceed ---
+        if (cachedAttacker == null)
+        {
+            if (isCurrentlyHovering)
+            {
+                isCurrentlyHovering = false;
+                hoverVisual.SetActive(false);
+            }
+            return;
+        }
 
         // 1. Check if the pointer is currently over a UI element (skip 3D interaction)
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
@@ -95,7 +130,7 @@ public class EnemyHoverIndicator : MonoBehaviour
             return;
         }
 
-        // 2. Perform the manual Raycast check - **NOW USING LAYERMASK**
+        // 2. Perform the manual Raycast check
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -107,7 +142,6 @@ public class EnemyHoverIndicator : MonoBehaviour
             {
                 if (!isCurrentlyHovering)
                 {
-                    // Debug.Log("RAYCAST HIT: " + gameObject.name + ". Attempting to show visual.");
                     isCurrentlyHovering = true;
                     SetHoverVisual(true);
                 }
@@ -132,7 +166,7 @@ public class EnemyHoverIndicator : MonoBehaviour
         }
 
         // Safety check to ensure the visual is disabled if targeting mode ends
-        if (hoverVisual != null && hoverVisual.activeSelf && !playerAttack.isTargetingMode)
+        if (hoverVisual != null && hoverVisual.activeSelf && !cachedAttacker.isTargetingMode)
         {
             hoverVisual.SetActive(false);
             isCurrentlyHovering = false; // Reset hover state if mode is canceled
