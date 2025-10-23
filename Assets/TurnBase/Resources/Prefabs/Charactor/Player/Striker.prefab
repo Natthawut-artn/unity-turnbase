@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5948001022607545465}
   - component: {fileID: 264284988394025276}
   - component: {fileID: 2766345508550396763}
+  - component: {fileID: 2625679881926845606}
   m_Layer: 7
   m_Name: Striker
   m_TagString: Player
@@ -240,6 +241,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RelicsInPocket: []
+--- !u!114 &2625679881926845606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5207896117774643598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cd77f561e53444899856462c54d7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5882130471537878189
 GameObject:
   m_ObjectHideFlags: 0

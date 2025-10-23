@@ -172,6 +172,11 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
+        if (enemyData.isOnBloodFlowing)
+        {
+            enemyData.BloodFlowing();
+        }
+
         if (playerInAttackRange && this != null)
         {
             AttackPlayer();

@@ -9,13 +9,14 @@ public class PlayerAttack : MonoBehaviour
 {
     public static PlayerAttack Instance;
     public float attackRange = 1.5f;
-    public int attackDamage = 20;
     private Animator animator;
     private PlayerController player;
     public int playerAttackPoint = 1;
     public int playerAttacked = 0;
     public bool hasAttackedThisTurn = false;
     public GameObject AtkArea;
+    private SkillBook skillBook;
+    private PlayerData playerData;
 
 
     public LayerMask WhatIsEnemy;
@@ -26,9 +27,10 @@ public class PlayerAttack : MonoBehaviour
     }
     void Start()
     {
-        
         animator = GetComponentInChildren<Animator>();
         player = GetComponent<PlayerController>();
+        skillBook = GetComponent<SkillBook>();
+        playerData = GetComponent<PlayerData>();
     }
 
     public void Attack()
@@ -38,7 +40,6 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
         
-        // Check for enemies in range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsEnemy);
 
         // Only proceed if there is at least one enemy found
@@ -68,7 +69,6 @@ public class PlayerAttack : MonoBehaviour
 
             // ✅ Damage that enemy
             Debug.Log("Hit " + closestEnemy.name);
-            closestEnemy.GetComponent<EnemyData>().EnemyTakeDamage(attackDamage * 10);
 
             // --- Attack successful: Play animation and proceed with turn logic ---
 
@@ -82,7 +82,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (playerAttacked >= playerAttackPoint)
             {
-                StartCoroutine(SwitchTurn());
+                StartCoroutine(SwitchTurn(closestEnemy));
             }
         }
         else
@@ -104,15 +104,22 @@ public class PlayerAttack : MonoBehaviour
     {
         if (AtkArea != null)
         {
-            AtkArea.SetActive(false); 
+            AtkArea.SetActive(false);
         }
     }
+    
+
     void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.isInTurnSystem)
         {
             Attack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.M) && TurnManager.Instance.isInTurnSystem)
+        {
+            skillBook.skillsSet[0].UseSkill(gameObject);
         }
     }
 
@@ -122,10 +129,15 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    IEnumerator SwitchTurn()
+    IEnumerator SwitchTurn(Collider closestEnemy)
     {
         hasAttackedThisTurn = true;
         yield return new WaitForSeconds(5f);
+        closestEnemy.GetComponent<EnemyData>().EnemyTakeDamage(playerData.currentATK);
+        if (playerData.ishavebuff)
+        {
+            skillBook.skillsSet[0].Activate(closestEnemy.gameObject , gameObject);
+        }
         player.alreadyAttack = true;
         GameManager.Instance.CheckEnemys();
         

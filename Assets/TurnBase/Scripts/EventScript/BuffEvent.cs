@@ -109,11 +109,11 @@ public class BuffEvent : MonoBehaviour
             }
         }
 
-        var attack = player.GetComponent<PlayerAttack>();
+        var attack = player.GetComponent<PlayerData>();
         if (attack != null)
         {
-            attack.attackDamage += 100;
-            Debug.Log("Buff applied! Player damage = " + attack.attackDamage);
+            attack.currentATK += 100;
+            Debug.Log("Buff applied! Player damage = " + attack.currentATK);
             alreadyBuffed = true;
         }
         else

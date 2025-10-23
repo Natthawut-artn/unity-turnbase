@@ -205,6 +205,10 @@ public class PlayerController : MonoBehaviour
             {
                 turnEnded = true;
             }
+            if (alreadyAttack)
+            {
+                playerData.ResetBuffForTurn();
+            }
         }
 
         FinishedTurn();

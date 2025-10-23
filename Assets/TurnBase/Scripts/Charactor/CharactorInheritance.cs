@@ -28,6 +28,17 @@ public class CharactorInheritance : MonoBehaviour
     public int currentCritRate;
     public int currentCritDGM;
 
+    // blood flowing status (debuff)
+    public bool isOnBloodFlowing = false;
+    public int bloodFlowingTurnAmount = 0;
+    public int bloodFlowingDGMPerTurn = 0;
+
+    // normal atk buff
+    public bool ishavebuff = false;
+    public int BuffAmountTarget = 0;
+
+    public bool ActivateInThisTurn = false;
+
     void Awake()
     {
         currentHP = HP;
@@ -57,9 +68,42 @@ public class CharactorInheritance : MonoBehaviour
         Debug.Log($"Player get Heal : {Heal}, HP {currentHP}");
     }
 
-    public void ReceiveCC(float Time)
+    public void BloodFlowing(int Damage = 0, int TurnAmount = 0)
     {
+        if (Damage == 0 && TurnAmount == 0)
+        {
+            Damage = bloodFlowingDGMPerTurn;
+            TurnAmount = bloodFlowingTurnAmount;
+        }
+        else
+        {
+            bloodFlowingDGMPerTurn = Damage;
+            bloodFlowingTurnAmount = TurnAmount;
+        }
 
+        if (isOnBloodFlowing == false) { return; }
+        TakeDamage(Damage);
+        bloodFlowingTurnAmount -= 1;
+        Debug.Log($"Blood Flowing activate DGM : {Damage} TurnAmount : {bloodFlowingTurnAmount}");
+        if (bloodFlowingTurnAmount <= 0) { isOnBloodFlowing = false; bloodFlowingDGMPerTurn = 0; bloodFlowingTurnAmount = 0; }
+    }
+
+    public void ResetBuffForTurn()
+    {
+        if (ishavebuff && BuffAmountTarget > 0 && !ActivateInThisTurn)
+        {
+            BuffAmountTarget--;
+            Debug.Log($"{BuffAmountTarget} targer more left");
+        }
+        else if (ishavebuff && BuffAmountTarget > 0 && ActivateInThisTurn)
+        {
+            Debug.Log($"{BuffAmountTarget} targer more left");
+            ActivateInThisTurn = false;
+        }
+        else if (BuffAmountTarget <= 0)
+        {
+            ishavebuff = false;
+        }
     }
 
     public void Die()
@@ -89,6 +133,9 @@ public class CharactorInheritance : MonoBehaviour
         PlayerData playerData = GetComponent<PlayerData>();
         playerData.playerMoveState = PlayerMoveState.Die;
         yield return new WaitForSeconds(0.75f);
-        SettingPopupController.Show();
+        if (GameManager.Instance.Players_alive.Count <= 0)
+        {
+            SettingPopupController.Show();
+        }
     }
 }
