@@ -11,7 +11,10 @@ public class EnemySkillDecider : MonoBehaviour
     private FrostveilPrison frostveilPrison;
     private SilentFang silentFang;
     private Venomous venomous;
-    private PowerSlam powerSlam; // Reference for the PowerSlam skill
+    private PowerSlam powerSlam;
+
+    // NEW: Reference for the Earthshatter skill
+    private Earthshatter earthshatter;
 
     [HideInInspector] public string EnemyType;
 
@@ -26,7 +29,9 @@ public class EnemySkillDecider : MonoBehaviour
         silentFang = GetComponent<SilentFang>();
         venomous = GetComponent<Venomous>();
 
-        powerSlam = GetComponent<PowerSlam>(); // Initialize PowerSlam reference
+        powerSlam = GetComponent<PowerSlam>();
+        // NEW: Initialize Earthshatter reference
+        earthshatter = GetComponent<Earthshatter>();
     }
 
     /// <summary>
@@ -70,8 +75,25 @@ public class EnemySkillDecider : MonoBehaviour
             yield break;
         }
 
-        // --- 1. POWER SLAM CHECK (EnemyType: Tank - Highest priority named check) ---
-        // If the enemy is explicitly defined as a "Tank"
+        // --- 1. EARTHSHATTER CHECK (EnemyType: Colossus - High Priority Damage) ---
+        if (EnemyType == "Golem" && earthshatter != null)
+        {
+            int skillCost = earthshatter.skillCost;
+
+            if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
+            {
+                if (earthshatter.IsPlayerInAttackRange())
+                {
+                    yield return StartCoroutine(earthshatter.ExecuteSkill());
+
+                    SkillExecutedThisTurn = true;
+                    yield break;
+                }
+            }
+        }
+
+
+        // --- 2. POWER SLAM CHECK (EnemyType: Minotaur - High Priority Damage) ---
         if (EnemyType == "Minotaur" && powerSlam != null)
         {
             int skillCost = powerSlam.skillCost;
@@ -88,11 +110,10 @@ public class EnemySkillDecider : MonoBehaviour
             }
         }
 
-        // --- 2. UNTYPED FALLBACK CHECKS (Highest Priority: General Damage) ---
-        // Checks if EnemyType is empty/null, indicating a generic minion/untagged enemy.
+        // --- 3. UNTYPED FALLBACK CHECKS (Highest Priority: General Damage) ---
         if (string.IsNullOrEmpty(EnemyType))
         {
-            // 2a. Check for PowerSlam as the primary default skill (Direct Damage)
+            // 3a. Check for PowerSlam as the primary default skill (Direct Damage)
             if (powerSlam != null)
             {
                 int skillCost = powerSlam.skillCost;
@@ -108,7 +129,7 @@ public class EnemySkillDecider : MonoBehaviour
                 }
             }
 
-            // 2b. Check for Venomous as a secondary default skill (Status Damage)
+            // 3b. Check for Venomous as a secondary default skill (Status Damage)
             if (venomous != null)
             {
                 if (!IsAnyPlayerUnderStatus("isOnVenom"))
@@ -129,12 +150,12 @@ public class EnemySkillDecider : MonoBehaviour
         }
 
 
-        // --- 3. NAMED STATUS CHECKS (Assassin, Mage, Slime) ---
+        // --- 4. NAMED STATUS CHECKS (Assassin, Mage, Slime) ---
 
-        // SILENT FANG CHECK (EnemyType: Assassin)
+        // SILENT FANG CHECK (EnemyType: Mimic)
         if (EnemyType == "Mimic" && silentFang != null)
         {
-            if (!IsAnyPlayerUnderStatus("isOnBloodFlowing")) // Check is reversed since we removed the check from above
+            if (!IsAnyPlayerUnderStatus("isOnBloodFlowing"))
             {
                 int skillCost = silentFang.skillCost;
 
