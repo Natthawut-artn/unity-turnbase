@@ -136,6 +136,20 @@ public class EnemySkillDecider : MonoBehaviour
         // --- 4. UNTYPED FALLBACK CHECKS ---
         if (string.IsNullOrEmpty(EnemyType))
         {
+            if(earthshatter != null)
+            {
+                // 4a. Check for Earthshatter as the primary default skill (AOE Damage)
+                int skillCost = earthshatter.skillCost;
+                if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
+                {
+                    if (earthshatter.IsPlayerInAttackRange())
+                    {
+                        yield return StartCoroutine(earthshatter.ExecuteSkill());
+                        SkillExecutedThisTurn = true;
+                        yield break;
+                    }
+                }
+            }
             // 4a. Check for PowerSlam as the primary default skill (Direct Damage)
             if (powerSlam != null)
             {
