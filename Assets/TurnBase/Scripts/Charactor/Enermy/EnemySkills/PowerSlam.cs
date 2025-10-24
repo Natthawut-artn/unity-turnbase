@@ -100,4 +100,9 @@ public class PowerSlam : MonoBehaviour
         EnemySkillPoint.Instance.currentSkillPointPool += skillCost;
         Debug.Log("PowerSlam missed all targets. Cost refunded.");
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, AOE_RADIUS);
+    }
 }

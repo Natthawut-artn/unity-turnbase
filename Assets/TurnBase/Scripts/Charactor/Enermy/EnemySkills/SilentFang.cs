@@ -90,4 +90,10 @@ public class SilentFang : MonoBehaviour
             Debug.Log("Silent Fang failed to hit any player. Cost refunded to Global SP Pool.");
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, AOE_RADIUS);
+    }
 }

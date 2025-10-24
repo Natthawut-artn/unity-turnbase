@@ -108,4 +108,10 @@ public class Earthshatter : MonoBehaviour
         // Skill succeeded (points were spent and damage was dealt)
         // No refund needed
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, AOE_RADIUS);
+    }
 }

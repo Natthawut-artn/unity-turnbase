@@ -100,4 +100,9 @@ public class ToxicFragment : MonoBehaviour
             Debug.Log("Toxic Fragment failed to hit any player. Cost refunded to Global SP Pool.");
         }
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, AOE_RADIUS);
+    }
 }
