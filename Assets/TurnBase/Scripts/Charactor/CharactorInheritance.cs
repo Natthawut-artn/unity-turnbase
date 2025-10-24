@@ -56,8 +56,6 @@ public class CharactorInheritance : MonoBehaviour
     public int Shield = 0;
     public int BuffShieldAmountTurn = 0;
 
-    public bool ActivateInThisTurn = false;
-
     void Awake()
     {
         currentHP = HP;
@@ -109,7 +107,7 @@ public class CharactorInheritance : MonoBehaviour
         Debug.Log($"Player get Heal : {Heal}, HP {currentHP}");
     }
 
-    public void Venom(int Damage = 0, int TurnAmount = 0)
+    public void Venom(int Damage = 0, int TurnAmount = 0, bool isThisTurn = false)
     {
         if (Damage == 0 && TurnAmount == 0)
         {
@@ -122,7 +120,8 @@ public class CharactorInheritance : MonoBehaviour
             VenomTurnAmount = TurnAmount;
         }
 
-        if (isOnVenom == false) { return; }
+        if (isThisTurn) { return; }
+
         TakeDamage(Damage);
         VenomTurnAmount -= 1;
         Debug.Log($"Venom activate DGM : {Damage} TurnAmount : {VenomTurnAmount}");
@@ -158,15 +157,14 @@ public class CharactorInheritance : MonoBehaviour
 
     public void ResetBuffForTurn()
     {
-        if (ishavebuff && BuffAmountTarget > 0 && !ActivateInThisTurn)
+        if (ishavebuff && BuffAmountTarget > 0)
         {
             BuffAmountTarget--;
             Debug.Log($"{BuffAmountTarget} targer more left");
         }
-        else if (ishavebuff && BuffAmountTarget > 0 && ActivateInThisTurn)
+        else if (ishavebuff && BuffAmountTarget > 0)
         {
             Debug.Log($"{BuffAmountTarget} targer more left");
-            ActivateInThisTurn = false;
         }
         else if (BuffAmountTarget <= 0)
         {
