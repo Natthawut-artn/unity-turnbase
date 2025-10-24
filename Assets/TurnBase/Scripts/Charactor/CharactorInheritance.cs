@@ -183,7 +183,7 @@ public class CharactorInheritance : MonoBehaviour
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         string side;
         if (heroclass == HeroClass.Enemy)
@@ -193,6 +193,7 @@ public class CharactorInheritance : MonoBehaviour
             enemyAI.enabled = false;
             GameManager.Instance.Enemys_alive.Remove(enemyAI.gameObject);
             Destroy(gameObject, 1f);
+            
         }
         else
         {

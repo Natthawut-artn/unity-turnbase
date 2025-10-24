@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 364832683}
   - component: {fileID: 364832684}
   - component: {fileID: 364832685}
+  - component: {fileID: 364832686}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -269,6 +270,19 @@ MonoBehaviour:
   currentPhase: 0
   CurrentPlayer: {fileID: 0}
   isInTurnSystem: 0
+--- !u!114 &364832686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364832682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3238ba6d7c46f6b4a9bde133a8b96c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSkillPointPool: 5
 --- !u!1001 &366604625
 PrefabInstance:
   m_ObjectHideFlags: 0

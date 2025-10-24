@@ -15,6 +15,10 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Room and Enemy Settings")]
     public string RoomName;
+
+    [Tooltip("The unique string identifier for the enemy type (e.g., 'Slime', 'Goblin').")]
+    public string EnemyTypeName; // NEW FIELD for skill checks
+
     public string EnemyPrefabPath = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
     public List<EnemySpawnData> SpawnPositions = new List<EnemySpawnData>();
     public Vector3 SpawnOffset = new Vector3(0f, 1.49f, 0f);
@@ -72,7 +76,7 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (EnemySpawnData spawnData in SpawnPositions)
         {
-            // Snap to nearest whole grid so minor decimal errors don�t cause misses
+            // Snap to nearest whole grid so minor decimal errors don’t cause misses
             Vector2 roundedGrid = new Vector2(Mathf.Round(spawnData.GridPosition.x), Mathf.Round(spawnData.GridPosition.y));
             Vector3 worldPos = BoardManager.Instance.GetMarkerWorldPosition(roundedGrid, targetRoom);
 
@@ -84,16 +88,22 @@ public class EnemySpawner : MonoBehaviour
 
             Vector3 spawnPos = worldPos + SpawnOffset;
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-            enemy.name = $"Enemy_{roundedGrid.x}_{roundedGrid.y}";
+            enemy.name = $"{EnemyTypeName}_{roundedGrid.x}_{roundedGrid.y}"; // Sets name based on type
             GameManager.Instance.Enemys_alive.Add(enemy);
-            
+
             Room roomComponent = targetRoom.GetComponent<Room>();
 
-            CharactorInheritance charactorData = enemy.GetComponent<CharactorInheritance>();
+            // --- FIX: Pass EnemyTypeName to the Skill Decider ---
+            EnemySkillDecider skillDecider = enemy.GetComponent<EnemySkillDecider>();
+            if (skillDecider != null)
+            {
+                skillDecider.EnemyType = EnemyTypeName;
+            }
+            // --- END FIX ---
 
+            CharactorInheritance charactorData = enemy.GetComponent<CharactorInheritance>();
             if (charactorData != null && charactorData.heroclass == HeroClass.Boss)
             {
-                // 2. Pass the instantiated boss object to the BossHPBarController
                 if (BossHPBarController.Instance != null)
                 {
                     BossHPBarController.Instance.SetBossObject(enemy);
@@ -101,7 +111,6 @@ public class EnemySpawner : MonoBehaviour
                 }
                 else
                 {
-                    // This warning means your HP Bar UI isn't active/ready in the scene
                     Debug.LogWarning("Boss spawned but BossHPBarController.Instance is null. Ensure the HP Bar UI is active.");
                 }
             }
@@ -115,7 +124,6 @@ public class EnemySpawner : MonoBehaviour
             BossController boss = enemy.GetComponent<BossController>();
             if (boss != null)
             {
-                // This assigns the room reference, which BossController.Start() will use
                 boss.parentRoom = roomComponent;
             }
 
