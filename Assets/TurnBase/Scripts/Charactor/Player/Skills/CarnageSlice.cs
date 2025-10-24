@@ -29,7 +29,6 @@ public class CarnageSlice : Skill
 
         if (playerData.BuffAmountTarget <= 0) return;
         playerData.BuffAmountTarget--;
-        playerData.ActivateInThisTurn = true;
         playerData.BypassDef_BloodFlowing += BypassDef_BloodFlowing;
         if (playerData.BuffAmountTarget <= 0) { playerData.ishavebuff = false; }
         
