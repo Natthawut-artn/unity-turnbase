@@ -115,6 +115,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 232003685122246813, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2982828457581919325}
+    - targetCorrespondingSourceObject: {fileID: 232003685122246813, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7528804623913307718}
+    - targetCorrespondingSourceObject: {fileID: 232003685122246813, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5568212816253601831}
   m_SourcePrefab: {fileID: 100100000, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
 --- !u!1 &473092757814048701 stripped
 GameObject:
@@ -182,6 +188,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverVisual: {fileID: 4377111882601294215}
+--- !u!114 &-7528804623913307718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473092757814048701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0628db6e488ff214baacdeb3717442f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyType: 
+  SkillExecutedThisTurn: 0
+--- !u!114 &-5568212816253601831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473092757814048701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55199712edc5c4d4db884f92b6c2d3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillCost: 1
+  venomTurns: 5
+  damagePercentage: 0.1
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &1492285345232249195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1233235165750042187, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}

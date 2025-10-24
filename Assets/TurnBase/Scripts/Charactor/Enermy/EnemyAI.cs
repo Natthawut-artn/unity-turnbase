@@ -5,18 +5,22 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    private EnemySkillDecider skillDecider; // NEW: Reference for skill usage
+    private EnemySkillDecider skillDecider;
     private Vector2 currentGridPos;
     public static EnemyAI Instance;
     public NavMeshAgent agent;
     public Transform Player;
     public float StoppingDistance = 2f;
 
-    public LayerMask WhatIsGround, WhatIsPlayer, WhatIsEnemy; // WhatIsEnemy added for targeting check
+    [Header("Enemy Avoidance")]
+    [Tooltip("Radius around the candidate tile to check for other friendly units, preventing crowding.")]
+    public float CrowdingRadius = 1.0f; // NEW PROPERTY
+
+    public LayerMask WhatIsGround, WhatIsPlayer, WhatIsEnemy;
 
     public Vector3 walkPoint;
     bool walkPointSet;
-    public float stepSize = 2f;    // Grid step size
+    public float stepSize = 2f;
 
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -34,19 +38,14 @@ public class EnemyAI : MonoBehaviour
         Instance = this;
         agent = GetComponent<NavMeshAgent>();
 
-        // --- Initialization Fix ---
         skillDecider = GetComponent<EnemySkillDecider>();
-        // --- End Initialization Fix ---
 
-        // Find the initial player target (though this is updated dynamically in TakeTurn)
         GameObject playerGO = GameObject.FindWithTag("Player");
         if (playerGO != null)
         {
             Player = playerGO.transform;
         }
 
-
-        // Disable auto rotation
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
@@ -60,23 +59,25 @@ public class EnemyAI : MonoBehaviour
             enemyData.currentHP = enemyData.HP;
         }
 
-        // Register starting position
         currentGridPos = GetGridPosition(transform.position);
-
         SetMarkerOccupancy(currentGridPos, true);
     }
+
     void Start()
     {
-        // Player reference is now found dynamically or in Awake, cleaning up Start redundancy
         animator = GetComponentInChildren<Animator>();
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+        // Gizmos.color = Color.blue;
+        // Gizmos.DrawWireSphere(transform.position, CrowdingRadius); // Uncomment to visualize crowding area
     }
+
     private void SetMarkerOccupancy(Vector2 gridPos, bool isOccupied)
     {
         if (parentRoom == null || BoardManager.Instance == null) return;
@@ -88,17 +89,19 @@ public class EnemyAI : MonoBehaviour
             if (marker != null)
             {
                 marker.IsOccupied = isOccupied;
-                Debug.Log($"Marker {gridPos} set to {isOccupied}");
             }
         }
     }
+
     private Vector2 GetGridPosition(Vector3 worldPos)
     {
         return new Vector2(Mathf.Round(worldPos.x), Mathf.Round(worldPos.z));
     }
 
-    // NEW: Helper function to check if a tile is occupied by another unit
-    private bool IsGridOccupied(Vector2 gridPos)
+    /// <summary>
+    /// Checks if the tile at gridPos is claimed by any unit *other* than this enemy.
+    /// </summary>
+    private bool IsTileClaimedByOtherUnit(Vector2 gridPos)
     {
         if (parentRoom == null || BoardManager.Instance == null) return false;
 
@@ -106,12 +109,32 @@ public class EnemyAI : MonoBehaviour
         if (markerGO != null)
         {
             Marker marker = markerGO.GetComponent<Marker>();
-            // True if occupied AND the position is not the enemy's current position
+            // 1. Is the marker occupied at all?
             if (marker != null && marker.IsOccupied)
             {
-                // This check is a final failsafe, as the movement should check occupancy via the marker.
-                // However, we ensure the enemy isn't checking its own current position as "occupied" for a move calculation.
-                return gridPos != currentGridPos;
+                // 2. Is the occupied position NOT our current position?
+                return gridPos != GetGridPosition(transform.position);
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if the tile at the given position is too close to another friendly enemy unit.
+    /// Uses the public CrowdingRadius.
+    /// </summary>
+    private bool IsTileAttackRangeOccupied(Vector3 position)
+    {
+        // Check for other enemies within the CrowdingRadius
+        // Ensure WhatIsEnemy LayerMask is set correctly!
+        Collider[] hitEnemies = Physics.OverlapSphere(position, CrowdingRadius, WhatIsEnemy);
+
+        foreach (Collider collider in hitEnemies)
+        {
+            // Ignore ourselves if we are part of the overlap test (unlikely, but safe)
+            if (collider.gameObject != gameObject)
+            {
+                return true;
             }
         }
         return false;
@@ -122,34 +145,30 @@ public class EnemyAI : MonoBehaviour
     {
         if (agent == null || enemyData.currentHP <= 0) yield break;
 
-        // 1. DYNAMICALLY FIND PLAYER TARGET (since players can die/switch)
-        // Find the first alive player unit
+        // 1. DYNAMICALLY FIND PLAYER TARGET & CAMERA SET
         GameObject targetPlayerGO = GameObject.FindWithTag("Player");
         if (targetPlayerGO != null)
         {
             Player = targetPlayerGO.transform;
+            MainCamera.Instance.SetPlayer(gameObject.transform);
         }
         else
         {
-            // If no player found, skip turn
             yield break;
         }
-        
-        MainCamera.Instance.SetPlayer(gameObject.transform);
-        
+
+        // 2. SKILL DECISION CHECK (PRIORITY 1)
         if (skillDecider != null)
         {
-            // Execute the Decider's coroutine and WAIT for it to finish.
             yield return StartCoroutine(skillDecider.DecideAndExecuteSkill());
 
-            // CRITICAL FIX: Check the flag set by the Decider to end the turn.
             if (skillDecider.SkillExecutedThisTurn)
             {
                 yield break; // Skill was used, turn is over.
             }
         }
-       
 
+        // 3. REGULAR ATTACK/MOVEMENT FLOW
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
 
@@ -157,7 +176,6 @@ public class EnemyAI : MonoBehaviour
 
         if (playerInAttackRange)
         {
-            // Attack and end turn
             AttackPlayer();
             yield return new WaitForSeconds(1.5f);
             yield break;
@@ -168,37 +186,33 @@ public class EnemyAI : MonoBehaviour
         {
             if (agent == null) yield break;
 
-            // 1. DETERMINE MOVEMENT DESTINATION
+            // DETERMINE MOVEMENT DESTINATION
             if (!playerInSightRange)
                 Patroling();
-            else // playerInSightRange (Chase)
+            else
                 ChasePlayer();
 
             Vector3 intendedDestination = agent.destination;
             Vector2 targetGrid = GetGridPosition(intendedDestination);
 
-            // 2. CHECK IF A MOVE WAS PLANNED (destination changed from current position)
-            bool isMoving = targetGrid != oldGrid;
+            // CHECK IF A MOVE WAS PLANNED 
+            Vector2 oldGridPos = GetGridPosition(transform.position);
+            bool isMoving = targetGrid != oldGridPos;
 
-            // 3. FINAL CANCELLATION CHECK: Is the target spot occupied by another unit?
-            if (isMoving && IsGridOccupied(targetGrid))
+            // FINAL CANCELLATION CHECK: Tile Claiming
+            if (isMoving && IsTileClaimedByOtherUnit(targetGrid))
             {
-                // Cancel the move, stay put, but don't skip the turn (it just won't move)
-                isMoving = false;
-                agent.SetDestination(transform.position);
-                Debug.Log(gameObject.name + " blocked from moving to " + targetGrid + ". Staying put.");
+                isMoving = false; // Cancel the move
+                agent.SetDestination(transform.position); // Stay put
             }
 
             if (isMoving)
             {
-                // 4. RESERVE NEW TILE AND RELEASE OLD TILE
+                // RESERVE NEW TILE AND RELEASE OLD TILE
                 SetMarkerOccupancy(targetGrid, true);
-
-                // Release the old tile ONLY IF we are moving to a DIFFERENT tile
                 SetMarkerOccupancy(oldGrid, false);
 
-
-                // 5. EXECUTE MOVEMENT
+                // EXECUTE MOVEMENT
                 float maxTime = 2f;
                 float timer = 0f;
 
@@ -216,23 +230,19 @@ public class EnemyAI : MonoBehaviour
                 if (agent == null) yield break;
                 animator.SetBool("isWalking", false);
 
-                // 6. FIX: SNAP TO GRID
-                // Force position to the precise grid center of the intended destination
+                // SNAP TO GRID
                 transform.position = new Vector3(
                     Mathf.Round(transform.position.x),
                     transform.position.y,
                     Mathf.Round(transform.position.z)
                 );
 
-                // 7. Update the current grid position variable to the final landed spot
+                // Update the current grid position variable
                 currentGridPos = GetGridPosition(transform.position);
-
             }
             else
             {
-                // If no move was planned (e.g., already at destination or path blocked)
                 animator.SetBool("isWalking", false);
-                // Ensure the current tile is claimed
                 SetMarkerOccupancy(oldGrid, true);
             }
         }
@@ -246,16 +256,16 @@ public class EnemyAI : MonoBehaviour
         if (walkPointSet)
         {
             Vector2 targetGrid = GetGridPosition(walkPoint);
+            Vector3 candidatePos = new Vector3(targetGrid.x, transform.position.y, targetGrid.y);
 
-            // Check if occupied BEFORE setting destination
-            if (!IsGridOccupied(targetGrid))
+            // Check stacking AND crowding before setting destination
+            if (!IsTileClaimedByOtherUnit(targetGrid) && !IsTileAttackRangeOccupied(candidatePos))
             {
                 agent.SetDestination(walkPoint);
                 animator.SetBool("isWalking", true);
             }
             else
             {
-                // If occupied, search for a new point
                 walkPointSet = false;
             }
         }
@@ -291,8 +301,10 @@ public class EnemyAI : MonoBehaviour
 
             Vector2 gridPos = GetGridPosition(candidate);
 
-            // Check if on ground AND not occupied
-            if (Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround) && !IsGridOccupied(gridPos))
+            // Check if on ground, NOT occupied, AND NOT crowded
+            if (Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround) &&
+                !IsTileClaimedByOtherUnit(gridPos) &&
+                !IsTileAttackRangeOccupied(candidate))
             {
                 walkPoint = candidate;
                 walkPointSet = true;
@@ -306,9 +318,10 @@ public class EnemyAI : MonoBehaviour
 
     public void ChasePlayer()
     {
+        if (Player == null) return;
+
         float distance = Vector3.Distance(transform.position, Player.position);
 
-        // If the enemy is close enough to attack range, stay put
         if (distance <= StoppingDistance)
         {
             agent.SetDestination(transform.position);
@@ -316,15 +329,13 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        Vector3 direction = (Player.position - transform.position).normalized;
-
         // Define all 4 cardinal step directions
         Vector3[] cardinalDirs = new Vector3[]
         {
-            new Vector3(stepSize, 0, 0),    // Right
-            new Vector3(-stepSize, 0, 0),   // Left
-            new Vector3(0, 0, stepSize),    // Forward (Z-axis)
-            new Vector3(0, 0, -stepSize)    // Backward (Z-axis)
+            new Vector3(stepSize, 0, 0),
+            new Vector3(-stepSize, 0, 0),
+            new Vector3(0, 0, stepSize),
+            new Vector3(0, 0, -stepSize)
         };
 
         float bestDist = Mathf.Infinity;
@@ -338,19 +349,20 @@ public class EnemyAI : MonoBehaviour
             candidate = new Vector3(Mathf.Round(candidate.x), transform.position.y, Mathf.Round(candidate.z));
             Vector2 grid = GetGridPosition(candidate);
 
-            // 1. Check if the target marker is occupied (by another unit)
-            if (IsGridOccupied(grid)) continue;
+            // 1. Check stacking
+            if (IsTileClaimedByOtherUnit(grid)) continue;
 
-            // 2. Check if the candidate spot is on the ground/valid walk point
+            // 2. Check overcrowding
+            if (IsTileAttackRangeOccupied(candidate)) continue;
+
+            // 3. Check if valid ground
             if (!Physics.Raycast(candidate, -transform.up, 2f, WhatIsGround)) continue;
 
-            // 3. Find the tile that results in the shortest distance to the player (modified logic)
             float candidateDist = Vector3.Distance(candidate, Player.position);
 
-            // We only care about tiles that are strictly closer to the player than the current position.
+            // We only move if it brings us strictly closer to the player
             if (candidateDist < distance)
             {
-                // 4. Find the closest valid, unoccupied point to the player
                 if (candidateDist < bestDist)
                 {
                     bestDist = candidateDist;
@@ -377,21 +389,44 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackPlayer()
     {
+        if (Player == null) return;
+
         agent.SetDestination(transform.position);
         Vector3 targetPos = new Vector3(Player.position.x, transform.position.y, Player.position.z);
         transform.LookAt(targetPos);
+
         if (!alreadyAttacked)
         {
             animator.SetTrigger("isAttack");
 
+            int baseDamage = 10;
+
             Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsPlayer);
             foreach (Collider player in hitEnemies)
             {
-                Debug.Log("Hit " + player.name);
-                player.GetComponent<PlayerData>().TakeDamage(10);
-                HPBarsHUDController.Update();
+                if (player.TryGetComponent(out PlayerData playerData))
+                {
+                    // --- FIX: Implement Dual-Action Attack ---
+
+                    // 1. Always deal the base damage.
+                    playerData.TakeDamage(baseDamage);
+                    HPBarsHUDController.Update();
+                    // 2. Conditionally activate the synergy effect.
+                    if (playerData.isOnBloodFlowing)
+                    {
+                        // This method is assumed to apply the bonus damage/effect and handle status cleanup.
+                        playerData.BloodFlowing(baseDamage);
+                        HPBarsHUDController.Update();
+                        Debug.Log($"Blood Flowing synergy triggered on {player.name}.");
+
+                        playerData.isOnBloodFlowing = false;
+                        Debug.Log("Blood Flowing status consumed and reset.");
+                    }
+
+                    // --- END FIX ---
+                }
             }
-            Debug.Log("Attacking Player");
+
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -414,30 +449,20 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        // Destroy if room is unplaying
         if (parentRoom == null || parentRoom.roomState == RoomState.UnPlaying)
         {
             DestroySelf();
         }
 
-        // Destroy if player goes back to hub
         if (GameManager.Instance != null && AppStateManager.appState == AppState.Hub)
         {
             DestroySelf();
         }
     }
 
-    // This method MUST be public so EnemyData.Die() can call it for cleanup.
     public void DestroySelf()
     {
         SetMarkerOccupancy(currentGridPos, false);
-        // Delaying destruction slightly to allow other turn logic to finish
         Destroy(gameObject, 0.1f);
-    }
-
-    private void OnDestroy()
-    {
-        // This is a safety measure. The primary release should happen in DestroySelf().
-        SetMarkerOccupancy(currentGridPos, false);
     }
 }

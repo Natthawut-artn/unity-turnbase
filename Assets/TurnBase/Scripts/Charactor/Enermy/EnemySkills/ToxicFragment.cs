@@ -75,6 +75,7 @@ public class ToxicFragment : MonoBehaviour
                 if (targetPlayer.heroclass != HeroClass.Enemy && targetPlayer.heroclass != HeroClass.Boss)
                 {
                     targetPlayer.TakeDamage(skillDamage);
+                    HPBarsHUDController.Update();
                     playersHit++;
                 }
             }

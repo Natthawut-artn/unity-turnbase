@@ -8,26 +8,55 @@ public class EnemySkillDecider : MonoBehaviour
 {
     private EnemyData enemyData;
     private ToxicFragment toxicFragment;
+    private FrostveilPrison frostveilPrison;
+    private SilentFang silentFang;
+    private Venomous venomous;
+    private PowerSlam powerSlam; // Reference for the PowerSlam skill
 
     [HideInInspector] public string EnemyType;
 
-    // NEW FLAG: Signals to the EnemyAI that a skill was successfully executed and the turn should end.
+    // FLAG: Signals to the EnemyAI that a skill was successfully executed and the turn should end.
     [HideInInspector] public bool SkillExecutedThisTurn = false;
 
     void Awake()
     {
         enemyData = GetComponent<EnemyData>();
         toxicFragment = GetComponent<ToxicFragment>();
+        frostveilPrison = GetComponent<FrostveilPrison>();
+        silentFang = GetComponent<SilentFang>();
+        venomous = GetComponent<Venomous>();
+
+        powerSlam = GetComponent<PowerSlam>(); // Initialize PowerSlam reference
+    }
+
+    /// <summary>
+    /// Helper to check if ANY player in the game currently has a specific status flag set.
+    /// (Required to prevent wasting status effects)
+    /// </summary>
+    private bool IsAnyPlayerUnderStatus(string statusName)
+    {
+        PlayerData[] allPlayers = FindObjectsOfType<PlayerData>();
+
+        foreach (PlayerData player in allPlayers)
+        {
+            // Uses reflection to safely access boolean status flags by string name.
+            System.Reflection.FieldInfo field = player.GetType().GetField(statusName);
+            if (field != null && field.FieldType == typeof(bool))
+            {
+                if ((bool)field.GetValue(player))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /// <summary>
     /// Checks the enemy's type and attempts to use the appropriate skill if conditions are met.
-    /// This method is now a COROUTINE to allow it to wait for the skill execution time.
     /// </summary>
-    /// <returns>IEnumerator to execute the skill and wait for it to finish.</returns>
     public IEnumerator DecideAndExecuteSkill()
     {
-        // Reset the flag before running any logic
         SkillExecutedThisTurn = false;
 
         if (enemyData == null || EnemySkillPoint.Instance == null)
@@ -35,26 +64,126 @@ public class EnemySkillDecider : MonoBehaviour
             yield break;
         }
 
-        // 1. Slime Check: Only execute if the enemy is a "Slime"
-        if (EnemyType == "Slime" && toxicFragment != null)
+        // Check if this unit is the Boss and skip all minion logic
+        if (enemyData.heroclass == HeroClass.Boss)
         {
-            // Check global cost before attempting skill
-            int skillCost = toxicFragment.skillCost;
+            yield break;
+        }
+
+        // --- 1. POWER SLAM CHECK (EnemyType: Tank - Highest priority named check) ---
+        // If the enemy is explicitly defined as a "Tank"
+        if (EnemyType == "Minotaur" && powerSlam != null)
+        {
+            int skillCost = powerSlam.skillCost;
+
             if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
             {
-                // Check if the skill can hit a target
-                if (toxicFragment.IsPlayerInAttackRange())
+                if (powerSlam.IsPlayerInAttackRange())
                 {
-                    // CRITICAL FIX: Use yield return StartCoroutine to execute the skill and WAIT for it to finish.
-                    yield return StartCoroutine(toxicFragment.ExecuteSkill());
+                    yield return StartCoroutine(powerSlam.ExecuteSkill());
 
-                    // Mark as successful after the skill coroutine is complete
                     SkillExecutedThisTurn = true;
                     yield break;
                 }
             }
         }
 
-        // If no skill was used, the coroutine ends immediately.
+        // --- 2. UNTYPED FALLBACK CHECKS (Highest Priority: General Damage) ---
+        // Checks if EnemyType is empty/null, indicating a generic minion/untagged enemy.
+        if (string.IsNullOrEmpty(EnemyType))
+        {
+            // 2a. Check for PowerSlam as the primary default skill (Direct Damage)
+            if (powerSlam != null)
+            {
+                int skillCost = powerSlam.skillCost;
+
+                if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
+                {
+                    if (powerSlam.IsPlayerInAttackRange())
+                    {
+                        yield return StartCoroutine(powerSlam.ExecuteSkill());
+                        SkillExecutedThisTurn = true;
+                        yield break;
+                    }
+                }
+            }
+
+            // 2b. Check for Venomous as a secondary default skill (Status Damage)
+            if (venomous != null)
+            {
+                if (!IsAnyPlayerUnderStatus("isOnVenom"))
+                {
+                    int skillCost = venomous.skillCost;
+
+                    if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
+                    {
+                        if (venomous.IsPlayerInAttackRange())
+                        {
+                            yield return StartCoroutine(venomous.ExecuteSkill());
+                            SkillExecutedThisTurn = true;
+                            yield break;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // --- 3. NAMED STATUS CHECKS (Assassin, Mage, Slime) ---
+
+        // SILENT FANG CHECK (EnemyType: Assassin)
+        if (EnemyType == "Mimic" && silentFang != null)
+        {
+            if (!IsAnyPlayerUnderStatus("isOnBloodFlowing")) // Check is reversed since we removed the check from above
+            {
+                int skillCost = silentFang.skillCost;
+
+                if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
+                {
+                    if (silentFang.IsPlayerInAttackRange())
+                    {
+                        yield return StartCoroutine(silentFang.ExecuteSkill());
+                        SkillExecutedThisTurn = true;
+                        yield break;
+                    }
+                }
+            }
+        }
+
+        // FROSTVEIL PRISON CHECK (EnemyType: Mage)
+        if (EnemyType == "Mage" && frostveilPrison != null)
+        {
+            if (!IsAnyPlayerUnderStatus("isOnFrost"))
+            {
+                int skillCost = frostveilPrison.skillCost;
+
+                if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
+                {
+                    if (frostveilPrison.IsPlayerInAttackRange())
+                    {
+                        yield return StartCoroutine(frostveilPrison.ExecuteSkill());
+                        SkillExecutedThisTurn = true;
+                        yield break;
+                    }
+                }
+            }
+        }
+
+        // TOXIC FRAGMENT CHECK (EnemyType: Slime)
+        if (EnemyType == "Slime" && toxicFragment != null)
+        {
+            int skillCost = toxicFragment.skillCost;
+
+            if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
+            {
+                if (toxicFragment.IsPlayerInAttackRange())
+                {
+                    yield return StartCoroutine(toxicFragment.ExecuteSkill());
+
+                    SkillExecutedThisTurn = true;
+                    yield break;
+                }
+            }
+        }
     }
 }
