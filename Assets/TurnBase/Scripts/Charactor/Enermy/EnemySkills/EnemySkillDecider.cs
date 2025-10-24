@@ -12,9 +12,10 @@ public class EnemySkillDecider : MonoBehaviour
     private SilentFang silentFang;
     private Venomous venomous;
     private PowerSlam powerSlam;
-
-    // NEW: Reference for the Earthshatter skill
     private Earthshatter earthshatter;
+
+    // NEW: Reference for the CultistEmber skill
+    private CultistEmber cultistEmber;
 
     [HideInInspector] public string EnemyType;
 
@@ -30,8 +31,9 @@ public class EnemySkillDecider : MonoBehaviour
         venomous = GetComponent<Venomous>();
 
         powerSlam = GetComponent<PowerSlam>();
-        // NEW: Initialize Earthshatter reference
         earthshatter = GetComponent<Earthshatter>();
+
+        cultistEmber = GetComponent<CultistEmber>(); // Initialize Cultist Ember
     }
 
     /// <summary>
@@ -75,7 +77,7 @@ public class EnemySkillDecider : MonoBehaviour
             yield break;
         }
 
-        // --- 1. EARTHSHATTER CHECK (EnemyType: Colossus - High Priority Damage) ---
+        // --- 1. EARTHSHATTER CHECK (EnemyType: Golem) ---
         if (EnemyType == "Golem" && earthshatter != null)
         {
             int skillCost = earthshatter.skillCost;
@@ -93,7 +95,7 @@ public class EnemySkillDecider : MonoBehaviour
         }
 
 
-        // --- 2. POWER SLAM CHECK (EnemyType: Minotaur - High Priority Damage) ---
+        // --- 2. POWER SLAM CHECK (EnemyType: Minotaur) ---
         if (EnemyType == "Minotaur" && powerSlam != null)
         {
             int skillCost = powerSlam.skillCost;
@@ -110,10 +112,31 @@ public class EnemySkillDecider : MonoBehaviour
             }
         }
 
-        // --- 3. UNTYPED FALLBACK CHECKS (Highest Priority: General Damage) ---
+        // --- 3. CULTIST EMBER CHECK (EnemyType: Cultist - New Status Check) ---
+        if (EnemyType == "Cultist" && cultistEmber != null)
+        {
+            if (!IsAnyPlayerUnderStatus("isOnBurning")) // Prevent wasting status
+            {
+                int skillCost = cultistEmber.skillCost;
+
+                if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
+                {
+                    if (cultistEmber.IsPlayerInAttackRange())
+                    {
+                        yield return StartCoroutine(cultistEmber.ExecuteSkill());
+
+                        SkillExecutedThisTurn = true;
+                        yield break;
+                    }
+                }
+            }
+        }
+
+
+        // --- 4. UNTYPED FALLBACK CHECKS ---
         if (string.IsNullOrEmpty(EnemyType))
         {
-            // 3a. Check for PowerSlam as the primary default skill (Direct Damage)
+            // 4a. Check for PowerSlam as the primary default skill (Direct Damage)
             if (powerSlam != null)
             {
                 int skillCost = powerSlam.skillCost;
@@ -129,7 +152,7 @@ public class EnemySkillDecider : MonoBehaviour
                 }
             }
 
-            // 3b. Check for Venomous as a secondary default skill (Status Damage)
+            // 4b. Check for Venomous as a secondary default skill (Status Damage)
             if (venomous != null)
             {
                 if (!IsAnyPlayerUnderStatus("isOnVenom"))
@@ -150,7 +173,7 @@ public class EnemySkillDecider : MonoBehaviour
         }
 
 
-        // --- 4. NAMED STATUS CHECKS (Assassin, Mage, Slime) ---
+        // --- 5. NAMED STATUS CHECKS (Assassin, Mage, Slime) ---
 
         // SILENT FANG CHECK (EnemyType: Mimic)
         if (EnemyType == "Mimic" && silentFang != null)

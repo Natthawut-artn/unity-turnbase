@@ -103,6 +103,10 @@ public class TurnManager : MonoBehaviour
             {
                 enemyData.Venom();
             }
+            if (enemyData.isOnBurning)
+            {
+                enemyData.Burning();
+            }
         }
 
         Debug.Log("Enemy Phase ended, switching to Player Phase");
@@ -150,6 +154,10 @@ public class TurnManager : MonoBehaviour
             if (playerData.isOnVenom)
             {
                 playerData.Venom();
+            }
+            if (playerData.isOnBurning)
+            {
+                playerData.Burning();
             }
         }
 

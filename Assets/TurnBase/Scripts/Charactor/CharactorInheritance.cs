@@ -40,6 +40,11 @@ public class CharactorInheritance : MonoBehaviour
     public int VenomTurnAmount = 0;
     public int VenomDGMPerTurn = 0;
 
+    // Burn status (debuff)
+    public bool isOnBurning = false;
+    public int BurnTurnAmount = 0;
+    public int BurnDGMPerTurn = 0;
+
     // Blood Flowing (debuff)
     public bool isOnBloodFlowing = false;
 
@@ -126,6 +131,28 @@ public class CharactorInheritance : MonoBehaviour
         VenomTurnAmount -= 1;
         Debug.Log($"Venom activate DGM : {Damage} TurnAmount : {VenomTurnAmount}");
         if (VenomTurnAmount <= 0) { isOnVenom = false; VenomDGMPerTurn = 0; VenomTurnAmount = 0; }
+    }
+
+    public void Burning(int Damage = 0, int TurnAmount = 0, bool isThisTurn = false)
+    {
+        if (Damage == 0 && TurnAmount == 0)
+        {
+            Damage = BurnDGMPerTurn;
+            TurnAmount = BurnTurnAmount;
+        }
+        else
+        {
+            BurnDGMPerTurn = Damage;
+            BurnTurnAmount = TurnAmount;
+        }
+
+        if (isThisTurn) { return; }
+
+        TakeDamage(Damage);
+        HPBarsHUDController.Update();
+        BurnTurnAmount -= 1;
+        Debug.Log($"Venom activate DGM : {Damage} TurnAmount : {VenomTurnAmount}");
+        if (BurnTurnAmount <= 0) { isOnBurning = false; BurnDGMPerTurn = 0; BurnTurnAmount = 0; }
     }
 
     public void BloodFlowing(int Damage)
