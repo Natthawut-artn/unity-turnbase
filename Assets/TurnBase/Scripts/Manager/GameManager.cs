@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
         HPBarsHUDController.Show();
         PlayersInfoHUDController.Show();
         PocketHUDController.Show();
+        ServiceLocator.Get<SkillPointsHUD>().Show();
         GameObject MainPlayer = Players_alive[0];
         GameObject LeftPos = MainPlayer.transform.Find("Left").gameObject;
         GameObject RightPos = MainPlayer.transform.Find("Right").gameObject;
@@ -171,6 +172,7 @@ public class GameManager : MonoBehaviour
         PlayersInfoHUDController.Hide();
         ServiceLocator.Get<RelicInstPopup>().Hide();
         ServiceLocator.Get<RelicUnInstPopup>().Hide();
+        ServiceLocator.Get<SkillPointsHUD>().Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();
@@ -261,8 +263,8 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SpawnEnemy();
-            TurnManager.Instance.EndTurn();
+            SkillPointsManager.ReceiveSkillPoint(1);
+            ServiceLocator.Get<SkillPointsHUD>().Update();
         }
 
         if (Input.GetKeyDown(KeyCode.W))

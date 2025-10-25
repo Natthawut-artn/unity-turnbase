@@ -14,14 +14,13 @@ public class Frostbite : Skill
     
     public override void UseSkill(GameObject player = null)
     {
-        PlayerData playerData = player.GetComponent<PlayerData>();
-
-        if (playerData.currentSkillPoint < UseSkillPoints) { Debug.Log("not enough skill point"); return; }
-        playerData.currentSkillPoint -= UseSkillPoints;
+        if (SkillPointsManager.currentSkillPoint < UseSkillPoints) { Debug.Log("not enough skill point"); return; }
+        SkillPointsManager.UseSkillPoint(UseSkillPoints);
         Debug.Log("Use Frostbite");
 
         PlayerController controller = player.GetComponent<PlayerController>();
-        Collider[] hits = Physics.OverlapBox(player.transform.position, new Vector3(10f,2f,10f) , fixedRotation, controller.Enemy);
+        Collider[] hits = Physics.OverlapBox(player.transform.position, new Vector3(10f, 2f, 10f), fixedRotation, controller.Enemy);
+        if (hits.Length == 0) return;
         GameObject target = hits[0].gameObject;
         Activate(target , player);
     }

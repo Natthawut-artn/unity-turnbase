@@ -20,7 +20,6 @@ public class CharactorInheritance : MonoBehaviour
     public int Defense;
     public int CritRate;
     public int CritDGM;
-    public int SkillPoint;
 
     // curruent
     public int currentHP;
@@ -28,7 +27,6 @@ public class CharactorInheritance : MonoBehaviour
     public int currentDefense;
     public int currentCritRate;
     public int currentCritDGM;
-    public int currentSkillPoint;
 
     // Bypass Defence
     public int BypassDef_Venom = 0;
@@ -68,7 +66,6 @@ public class CharactorInheritance : MonoBehaviour
         currentDefense = Defense;
         currentCritRate = CritRate;
         currentCritDGM = CritDGM;
-        currentSkillPoint = SkillPoint;
     }
 
     public void TakeDamage(int Damage)

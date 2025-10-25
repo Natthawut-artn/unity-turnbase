@@ -27,6 +27,7 @@ public static class PlayerOptionHUDController
         },
         () =>{
             skillBook.skillsSet[0].UseSkill(Player);
+            ServiceLocator.Get<SkillPointsHUD>().Show();
         } , skill);
 
         ServiceLocator.Get<PlayerOptionHUD>().Show(data);

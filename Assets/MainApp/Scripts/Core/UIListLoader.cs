@@ -8,7 +8,8 @@ public class UIListLoader
         new HpBarsHUD(),
         new PlayerOptionHUD(),
         new PlayersInfoHUD(),
-        new PocketHUD()
+        new PocketHUD(),
+        new SkillPointsHUD()
     };
     public List<object> PopUps { get; private set; } = new List<object>()
     {
