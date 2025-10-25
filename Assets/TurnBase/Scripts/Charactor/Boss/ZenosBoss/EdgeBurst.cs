@@ -6,7 +6,7 @@ public class EdgeBurst : MonoBehaviour
 {
     // Changed to generic CharactorInheritance to grab stats from EnemyData or BossData
     private EnemyData enemyData;
-
+    public bool playerTriggeredSkill = false;
     [Header("Skill Parameters")]
     [Tooltip("The range (in units) within which a player must be to trigger this skill.")]
     public float UsageRange = 10f;
@@ -80,8 +80,9 @@ public class EdgeBurst : MonoBehaviour
         // 1. Find the nearest player within the trigger range
         Transform target = FindNearestPlayer();
 
-        if (target == null)
+        if (target == null || !playerTriggeredSkill)
         {
+            playerTriggeredSkill = false;
             yield break;
         }
 
@@ -97,6 +98,7 @@ public class EdgeBurst : MonoBehaviour
         if (TileDamageMultipliers == null || TileDamageMultipliers.Length < AttackRangeTiles)
         {
             Debug.LogError($"Frontal Smash: Falloff array must be at least {AttackRangeTiles} elements long!");
+            playerTriggeredSkill = false;
             yield break;
         }
 
@@ -130,6 +132,7 @@ public class EdgeBurst : MonoBehaviour
                     Debug.Log($"Smash Hit {hitCollider.name} at Tile {tileDistance} for {finalDamage} damage.");
                 }
             }
+            playerTriggeredSkill = false;
         }
 
         // 5. Final Pause and Cleanup

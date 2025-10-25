@@ -130,6 +130,7 @@ public class TurnManager : MonoBehaviour
 
         TurnCycleCount++;
 
+        
         currentPhase = Phase.Player;
 
         EndTurn();
@@ -179,6 +180,8 @@ public class TurnManager : MonoBehaviour
         }
 
         yield return null;
+
+        
 
         TriggerBossTurnEndSkills();
 
