@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class EdgeBurst : MonoBehaviour
 {
-    private BossData bossEnemyData;
+    // Changed to generic CharactorInheritance to grab stats from EnemyData or BossData
+    private CharactorInheritance characterStats;
 
     [Header("Skill Parameters")]
-    [Tooltip("The range (in tiles/units) within which a player must be to trigger this counter-skill.")]
-    public float UsageRange = 10f; // 5 tiles equivalent if stepSize is 2
+    [Tooltip("The range (in units) within which a player must be to trigger this skill.")]
+    public float UsageRange = 10f;
 
     [Tooltip("Number of tiles the frontal attack extends.")]
     public int AttackRangeTiles = 10;
@@ -30,14 +31,18 @@ public class EdgeBurst : MonoBehaviour
 
     private void Awake()
     {
-        // BossData is assumed to inherit CharactorInheritance to get the ATK stat
-        bossEnemyData = GetComponent<BossData>();
+        // FIX: Use CharactorInheritance, which EnemyData and BossData both inherit from.
+        characterStats = GetComponent<CharactorInheritance>();
+
+        if (characterStats == null)
+        {
+            Debug.LogError("FrontalSmash requires a CharactorInheritance component (EnemyData or BossData) to function.");
+        }
     }
 
     /// <summary>
-    /// Finds the nearest active player's transform.
+    /// Finds the nearest active player's transform within the UsageRange.
     /// </summary>
-    /// <returns>Transform of the nearest player, or null.</returns>
     private Transform FindNearestPlayer()
     {
         float shortestDistance = Mathf.Infinity;
@@ -63,41 +68,40 @@ public class EdgeBurst : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks conditions, rotates the boss to the nearest target, and executes the line attack.
+    /// Checks conditions, rotates the unit to the nearest target, and executes the line attack.
     /// </summary>
     public IEnumerator CheckAndExecuteSkill()
     {
-        if (bossEnemyData == null)
+        if (characterStats == null)
         {
-            Debug.LogError("BossSkill_FrontalSmash failed: Boss is missing BossData component.");
             yield break;
         }
 
         // 1. Find the nearest player within the trigger range
         Transform target = FindNearestPlayer();
 
-        // If no player is found within the UsageRange, the skill is not used.
         if (target == null)
         {
             yield break;
         }
 
-        // 2. CRITICAL: Rotate the boss instantly to face the target.
+        // 2. Rotate the unit instantly to face the target.
         Vector3 lookPos = target.position - transform.position;
         lookPos.y = 0;
         transform.rotation = Quaternion.LookRotation(lookPos);
 
-        // 3. Pause for an initial wind-up animation
+        // 3. Wind-up animation pause
         yield return new WaitForSeconds(0.5f);
 
-        // 4. EXECUTE ATTACK LOGIC (Array-Based Falloff)
+        // 4. EXECUTE ATTACK LOGIC
         if (TileDamageMultipliers == null || TileDamageMultipliers.Length < AttackRangeTiles)
         {
             Debug.LogError($"Frontal Smash: Falloff array must be at least {AttackRangeTiles} elements long!");
             yield break;
         }
 
-        float maxDamage = (float)bossEnemyData.ATK;
+        // Use the current ATK stat from the inherited component
+        float maxDamage = (float)characterStats.ATK;
         int playersHitCount = 0;
 
         // Iterate through each tile along the frontal path
@@ -108,7 +112,6 @@ public class EdgeBurst : MonoBehaviour
 
             int finalDamage = Mathf.RoundToInt(maxDamage * damageMultiplier);
 
-            // Calculate the position of the current tile check (based on the new forward direction)
             Vector3 checkPosition = transform.position + transform.forward * (tileDistance * GridStepSize);
 
             // Find and Damage Targets at this tile position
@@ -123,24 +126,20 @@ public class EdgeBurst : MonoBehaviour
                     targetPlayer.TakeDamage(finalDamage);
                     playersHitCount++;
 
-                    Debug.Log($"Smash Hit {hitCollider.name} at Tile {tileDistance} for {finalDamage} damage (x{damageMultiplier:F2}).");
+                    Debug.Log($"Smash Hit {hitCollider.name} at Tile {tileDistance} for {finalDamage} damage.");
                 }
             }
         }
 
         // 5. Final Pause and Cleanup
         yield return new WaitForSeconds(SkillPauseDuration);
-
-        if (playersHitCount == 0)
-        {
-            Debug.Log("Frontal Smash missed all targets.");
-        }
     }
 
     private void OnDrawGizmos()
     {
-        // Visualize the attack range in the editor
         Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, UsageRange);
+        Gizmos.color = Color.yellow;
         for (int tileDistance = 1; tileDistance <= AttackRangeTiles; tileDistance++)
         {
             Vector3 checkPosition = transform.position + transform.forward * (tileDistance * GridStepSize);
