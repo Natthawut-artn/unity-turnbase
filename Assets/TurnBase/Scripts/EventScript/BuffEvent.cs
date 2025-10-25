@@ -65,61 +65,35 @@ public class BuffEvent : MonoBehaviour
     {
         if (healed) return;
 
-        // ⭐ THE FIX: Check if the player object still exists before accessing its components.
-        if (player == null)
+        foreach (GameObject player in GameManager.Instance.Players_alive)
         {
-            // Attempt to find the player again. This handles scene transitions or respawns.
-            player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) continue;
 
-            if (player == null)
+            var health = player.GetComponent<PlayerData>();
+            if (health != null)
             {
-                // If we still can't find the player, log the warning and exit.
-                Debug.LogWarning("Cannot apply buff: Player object is missing or has been destroyed.");
-                return;
+                health.currentHP += 50;
+                Debug.Log($"Buff applied! {player.name} health = {health.currentHP}");
             }
         }
-
-        var health = player.GetComponent<PlayerData>();
-        if (health != null)
-        {
-            health.currentHP += 50;
-            Debug.Log("Buff applied! Player damage = " + health.currentHP);
-            healed = true;
-        }
-        else
-        {
-            Debug.LogWarning("PlayerAttack component not found on Player!");
-        }
+        healed = true;
     }
     private void BuffPlayer()
     {
         if (alreadyBuffed) return;
 
-        // ⭐ THE FIX: Check if the player object still exists before accessing its components.
-        if (player == null)
+        foreach (GameObject player in GameManager.Instance.Players_alive)
         {
-            // Attempt to find the player again. This handles scene transitions or respawns.
-            player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) continue;
 
-            if (player == null)
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
             {
-                // If we still can't find the player, log the warning and exit.
-                Debug.LogWarning("Cannot apply buff: Player object is missing or has been destroyed.");
-                return;
+                attack.currentATK += 100;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentATK}");
             }
         }
-
-        var attack = player.GetComponent<PlayerData>();
-        if (attack != null)
-        {
-            attack.currentATK += 100;
-            Debug.Log("Buff applied! Player damage = " + attack.currentATK);
-            alreadyBuffed = true;
-        }
-        else
-        {
-            Debug.LogWarning("PlayerAttack component not found on Player!");
-        }
+        alreadyBuffed = true;
     }
 
     public void PlayAnimationText()
