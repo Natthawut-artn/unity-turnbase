@@ -18,7 +18,7 @@ public class RelicPocketPopup : IUIElement
     }
     public Data data;
     public List<GameObject> pocket = new List<GameObject>();
-    private const string Emthy_Path = "Graphic2D/Mini_background";
+    private const string Emthy_Path = "Graphic2D/Relic_BoxIn";
 
     public GameObject SelfGameObject
     {
@@ -71,7 +71,7 @@ public class RelicPocketPopup : IUIElement
             data.Close?.Invoke();
         });
         List<RelicData> relics = RelicStroageManager.RelicsInUserPocket;
-        GameObject Pocket = _selfGameObject.transform.Find("RelicList").gameObject;
+        GameObject Pocket = _selfGameObject.transform.Find("RelicList/Contents").gameObject;
         for (int i = 0; i < Pocket.transform.childCount; i++)
         {
             pocket.Add(Pocket.transform.GetChild(i).gameObject);
@@ -79,7 +79,7 @@ public class RelicPocketPopup : IUIElement
         for (int i = 0; i < relics.Count; i++)
         {
             Sprite sprite = relics[i].RelicSprite;
-            Image image = pocket[i].GetComponent<Image>();
+            Image image = pocket[i].transform.Find("Image").GetComponent<Image>();
             image.sprite = sprite;
         }
 
@@ -101,7 +101,7 @@ public class RelicPocketPopup : IUIElement
         Debug.Log(relics.Count);
         for (int i = 0; i < pocket.Count; i++)
         {
-            Image image = pocket[i].GetComponent<Image>();
+            Image image = pocket[i].transform.Find("Image").GetComponent<Image>();
             if (i < relics.Count)
             {
                 image.sprite = relics[i].RelicSprite;

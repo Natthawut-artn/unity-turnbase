@@ -6,7 +6,7 @@ public static class RelicStroageManager
     public static List<RelicData> RelicsInUserPocket = new List<RelicData>();
     public static void ReceiveRelic(RelicData relic)
     {
-        if(RelicsInUserPocket.Count >= 15){ return; }
+        if(RelicsInUserPocket.Count >= 12){ return; }
         RelicsInUserPocket.Add(relic);
     }
     public static void ResetRelics()
