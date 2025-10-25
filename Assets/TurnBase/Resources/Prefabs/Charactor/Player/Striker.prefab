@@ -200,6 +200,9 @@ MonoBehaviour:
   isOnVenom: 0
   VenomTurnAmount: 0
   VenomDGMPerTurn: 0
+  isOnBurning: 0
+  BurnTurnAmount: 0
+  BurnDGMPerTurn: 0
   isOnBloodFlowing: 0
   isOnFrost: 0
   FrostTurnAmount: 0
@@ -237,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTargetingMode: 0
   currentSelectedEnemy: {fileID: 0}
-  attackRange: 2
+  attackRange: 2.5
   playerAttackPoint: 1
   playerAttacked: 0
   hasAttackedThisTurn: 0

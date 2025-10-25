@@ -191,14 +191,23 @@ MonoBehaviour:
   currentCritRate: 0
   currentCritDGM: 0
   currentSkillPoint: 0
+  BypassDef_Venom: 0
+  BypassDef_BloodFlowing: 0
+  BypassDef_Frost: 0
+  isOnVenom: 0
+  VenomTurnAmount: 0
+  VenomDGMPerTurn: 0
+  isOnBurning: 0
+  BurnTurnAmount: 0
+  BurnDGMPerTurn: 0
   isOnBloodFlowing: 0
-  bloodFlowingTurnAmount: 0
-  bloodFlowingDGMPerTurn: 0
+  isOnFrost: 0
+  FrostTurnAmount: 0
+  FrostDGM: 0
   ishavebuff: 0
   BuffAmountTarget: 0
   Shield: 0
   BuffShieldAmountTurn: 0
-  ActivateInThisTurn: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
   playerMoveState: 0
@@ -226,7 +235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5587d6de486901b46a5ee65e7e7d6e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 2
+  isTargetingMode: 0
+  currentSelectedEnemy: {fileID: 0}
+  attackRange: 2.5
   playerAttackPoint: 1
   playerAttacked: 0
   hasAttackedThisTurn: 0

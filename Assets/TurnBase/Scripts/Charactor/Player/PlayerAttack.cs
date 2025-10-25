@@ -6,13 +6,12 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public static PlayerAttack Instance;
-
+    
     // --- NEW STATE VARIABLES for Targeting Mode (Option 2) ---
     [Header("Targeting State")]
     public bool isTargetingMode = false;
     // This variable stores the Transform of the confirmed target until the attack sequence is complete.
     public Transform currentSelectedEnemy = null;
-
     public float attackRange = 1.5f;
     private Animator animator;
     private PlayerController player;
@@ -198,6 +197,17 @@ public class PlayerAttack : MonoBehaviour
             if (skillBook != null && !skillBook.skillsSet[0].isActivate)
             {
                 skillBook.skillsSet[0].UseSkill(gameObject);
+                EdgeBurst[] smashSkills = FindObjectsOfType<EdgeBurst>();
+                foreach (EdgeBurst skill in smashSkills)
+                {
+                    // Check if the enemy owning the skill is alive and enabled
+                    if (skill != null && skill.enabled && skill.gameObject.activeInHierarchy)
+                    {
+                        // Set the flag on each enemy with the skill
+                        skill.playerTriggeredSkill = true;
+                        Debug.Log($"Notified {skill.gameObject.name} that player used a skill.");
+                    }
+                }
             }
         }
     }
