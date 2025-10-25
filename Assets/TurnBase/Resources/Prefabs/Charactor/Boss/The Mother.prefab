@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1321180747241032501}
   - component: {fileID: 7543379208738471625}
   - component: {fileID: -5118679279084328150}
+  - component: {fileID: 1178954849990054336}
   m_Layer: 0
   m_Name: The Mother
   m_TagString: Boss
@@ -245,3 +246,22 @@ MonoBehaviour:
   TentaclePrefabPath: Prefabs/Charactor/Boss/Tentacles
   MaxTentaclesToSpawn: 1200
   SpawnOffset: {x: 0, y: 3.9, z: 0}
+--- !u!114 &1178954849990054336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622140568727621501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd6350168ebc6542acbce92dd327769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillRange: 10
+  damageAmount: 300
+  cooldownTurns: 5
+  skillPauseDuration: 1.5
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
