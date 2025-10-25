@@ -10,10 +10,14 @@ public class PlayerOptionHUD : IUIElement
     {
         public Delegate.CallBack Skip;
         public Delegate.CallBack Attack;
-        public Data(Delegate.CallBack skip, Delegate.CallBack attack)
+        public Delegate.CallBack UseSkill;
+        public Skill Skill;
+        public Data(Delegate.CallBack skip, Delegate.CallBack attack , Delegate.CallBack useSkill , Skill skill)
         {
             Skip = skip;
             Attack = attack;
+            UseSkill = useSkill;
+            Skill = skill;
         }
     }
     public Data data;
@@ -67,6 +71,11 @@ public class PlayerOptionHUD : IUIElement
         {
             Button button = _selfGameObject.transform.GetChild(i).GetComponent<Button>();
             buttons.Add(button);
+            if(i == 2)
+            {
+                Image image = button.transform.Find("Image").GetComponent<Image>();
+                image.sprite = Resources.Load<Sprite>(data.Skill?.SkillSprite_Path);
+            }
         }
 
         buttons[0].onClick.AddListener(() =>
@@ -76,6 +85,11 @@ public class PlayerOptionHUD : IUIElement
         buttons[1].onClick.AddListener(() =>
         {
             data.Skip?.Invoke();
+        });
+        buttons[2].onClick.AddListener(() =>
+        {
+            data.UseSkill?.Invoke();
+            buttons[2].interactable = false;
         });
     }
 }

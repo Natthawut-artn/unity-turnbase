@@ -100,7 +100,7 @@ public class PlayersInfoPopup : IUIElement
                 {
                     if (j < relics.Count)
                     {
-                        Image image = pocket.transform.GetChild(j).GetComponent<Image>();
+                        Image image = pocket.transform.GetChild(j).transform.Find("Image").GetComponent<Image>();
                         image.sprite = relics[j].RelicSprite;
                     }
                     int index1 = i;
@@ -146,7 +146,7 @@ public class PlayersInfoPopup : IUIElement
                 List<RelicData> relics = relicsStoage.RelicsInPocket;
                 for (int j = 0; j < pocket.childCount; j++)
                 {
-                    Image image = pocket.transform.GetChild(j).GetComponent<Image>();
+                    Image image = pocket.transform.GetChild(j).transform.Find("Image").GetComponent<Image>();
                     if (j < relics.Count)
                     {
                         
