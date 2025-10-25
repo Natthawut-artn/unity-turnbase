@@ -238,10 +238,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5587d6de486901b46a5ee65e7e7d6e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillUsedLastTurn: 0
   isTargetingMode: 0
   currentSelectedEnemy: {fileID: 0}
-  attackRange: 2
+  attackRange: 2.5
   playerAttackPoint: 1
   playerAttacked: 0
   hasAttackedThisTurn: 0
