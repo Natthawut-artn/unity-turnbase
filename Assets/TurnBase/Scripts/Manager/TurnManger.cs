@@ -83,12 +83,29 @@ public class TurnManager : MonoBehaviour
     {
         Debug.Log("Enemy Phase started");
 
-        EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
+        // --- OLD CODE (Causes Crash) ---
+        // EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
+        // foreach (EnemyAI enemy in enemies) 
+        // {
+        //     EnemyData enemyData = enemy.GetComponent<EnemyData>();
+        // --- END OLD CODE ---
 
-        foreach (EnemyAI enemy in enemies)
+        // --- NEW CODE (Defensive Loop) ---
+        List<GameObject> enemies = GameManager.Instance.Enemys_alive;
+        for (int i = 0; i < enemies.Count; i++)
         {
-            EnemyData enemyData = enemy.GetComponent<EnemyData>();
+            GameObject enemyGO = enemies[i];
+            // CRITICAL: Check if the enemy object has been destroyed mid-turn
+            if (enemyGO == null) continue;
 
+            EnemyAI enemy = enemyGO.GetComponent<EnemyAI>();
+            EnemyData enemyData = enemyGO.GetComponent<EnemyData>();
+
+            // Double check components and data before proceeding
+            if (enemy == null || enemyData == null) continue;
+            // --- End NEW CODE ---
+
+            // check frost debuff
             if (enemyData.isOnFrost)
             {
                 enemyData.Frost();
