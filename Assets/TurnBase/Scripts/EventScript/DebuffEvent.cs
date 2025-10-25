@@ -45,33 +45,19 @@ public class DebuffEvent : MonoBehaviour
     {
         if (alreadyBuffed) return;
 
-        // ⭐ THE FIX: Check if the player object still exists before accessing its components.
-        if (player == null)
+        foreach (GameObject player in GameManager.Instance.Players_alive)
         {
-            // Attempt to find the player again. This handles scene transitions or respawns.
-            player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) continue;
 
-            if (player == null)
+            var health = player.GetComponent<PlayerData>();
+            if (health != null)
             {
-                // If we still can't find the player, log the warning and exit.
-                Debug.LogWarning("Cannot apply buff: Player object is missing or has been destroyed.");
-                return;
+                health.currentHP = 50;
+                Debug.Log($"Debuff Applied {player.name}'s Health = {health.currentHP}");
+                HPBarsHUDController.Update();
             }
         }
-
-        var health = player.GetComponent<PlayerData>();
-        if (health != null)
-        {
-            health.currentHP = 50;
-            Debug.Log("Debuff Applied Player Health = " + health.currentHP);
-            // Assuming HPBarsHUDController.Update() is a static method
-            HPBarsHUDController.Update(); 
-            alreadyBuffed = true;
-        }
-        else
-        {
-            Debug.LogWarning("PlayerData component not found on Player!");
-        }
+        alreadyBuffed = true;
     }
 
     public void PlayAnimationText()

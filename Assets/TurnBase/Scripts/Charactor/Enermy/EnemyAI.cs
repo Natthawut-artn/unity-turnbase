@@ -140,21 +140,40 @@ public class EnemyAI : MonoBehaviour
         return false;
     }
 
+    private Transform FindNearestPlayer()
+    {
+        float shortestDistance = Mathf.Infinity;
+        Transform nearestPlayer = null;
 
+        if (GameManager.Instance == null || GameManager.Instance.Players_alive == null) return null;
+
+        foreach (GameObject playerGO in GameManager.Instance.Players_alive)
+        {
+            if (playerGO == null) continue;
+
+            float distance = Vector3.Distance(transform.position, playerGO.transform.position);
+
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                nearestPlayer = playerGO.transform;
+            }
+        }
+        return nearestPlayer;
+    }
     public IEnumerator TakeTurn()
     {
         if (agent == null || enemyData.currentHP <= 0) yield break;
 
-        // 1. DYNAMICALLY FIND PLAYER TARGET & CAMERA SET
-        GameObject targetPlayerGO = GameObject.FindWithTag("Player");
-        if (targetPlayerGO != null)
+        Player = FindNearestPlayer(); // Line 92: Assigns the nearest player's Transform
+
+        if (Player != null)
         {
-            Player = targetPlayerGO.transform;
-            MainCamera.Instance.SetPlayer(gameObject.transform);
+            MainCamera.Instance.SetPlayer(gameObject.transform); // Only set camera if a target was found
         }
         else
         {
-            yield break;
+            yield break; // No players found in the game manager list, end turn
         }
 
         // 2. SKILL DECISION CHECK (PRIORITY 1)
