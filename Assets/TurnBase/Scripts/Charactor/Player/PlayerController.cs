@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 🛑 Enemy blocking?
-        Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 2f, Enemy);
+        Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 0.5f, Enemy);
         if (hitEnemies.Length > 0)
         {
             Debug.Log("Enemy blocking path → stop movement.");
@@ -282,7 +282,7 @@ public class PlayerController : MonoBehaviour
                     Vector3 tilePosition = clickedTile.transform.position;
 
                     // Check for enemies on the tile before moving
-                    Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 1f, Enemy);
+                    Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 0.5f, Enemy);
                     if (enemiesOnTile.Length > 0)
                     {
                         Debug.Log("Cannot move to this tile. An enemy is there.");
