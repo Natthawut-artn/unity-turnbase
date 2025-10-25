@@ -7,6 +7,7 @@ public class EdgeBurst : MonoBehaviour
     // Changed to generic CharactorInheritance to grab stats from EnemyData or BossData
     private EnemyData enemyData;
     public bool playerTriggeredSkill = false;
+    public static bool DidExecuteSuccessfully = false;
     [Header("Skill Parameters")]
     [Tooltip("The range (in units) within which a player must be to trigger this skill.")]
     public float UsageRange = 10f;
@@ -72,8 +73,10 @@ public class EdgeBurst : MonoBehaviour
     /// </summary>
     public IEnumerator CheckAndExecuteSkill()
     {
+        DidExecuteSuccessfully = false;
         if (enemyData == null)
         {
+            playerTriggeredSkill = false;
             yield break;
         }
 
@@ -132,9 +135,10 @@ public class EdgeBurst : MonoBehaviour
                     Debug.Log($"Smash Hit {hitCollider.name} at Tile {tileDistance} for {finalDamage} damage.");
                 }
             }
-            playerTriggeredSkill = false;
+            
         }
-
+        DidExecuteSuccessfully = true;
+        playerTriggeredSkill = false;
         // 5. Final Pause and Cleanup
         yield return new WaitForSeconds(SkillPauseDuration);
     }
