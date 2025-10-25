@@ -312,6 +312,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 232003685122246813, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6823002556149551550}
+    - targetCorrespondingSourceObject: {fileID: 232003685122246813, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1120055538293259202}
   m_SourcePrefab: {fileID: 100100000, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
 --- !u!4 &4881130107405198294 stripped
 Transform:
@@ -410,6 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fce824e7a6d6b4cba5bb06a20f5a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTriggeredSkill: 0
   UsageRange: 10
   AttackRangeTiles: 10
   TileDamageMultipliers:
@@ -426,6 +430,24 @@ MonoBehaviour:
   GridStepSize: 2
   HitCheckRadius: 0.5
   SkillPauseDuration: 1
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &1120055538293259202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879496861355603200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f04adebf2c5c94baf4c83169075007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerRange: 5
+  DamagePercentage: 0.5
+  SkillPauseDuration: 1.5
   targetLayer:
     serializedVersion: 2
     m_Bits: 128

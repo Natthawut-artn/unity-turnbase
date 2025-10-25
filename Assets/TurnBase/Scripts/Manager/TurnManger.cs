@@ -181,16 +181,33 @@ public class TurnManager : MonoBehaviour
 
         yield return null;
 
-        
 
-        TriggerBossTurnEndSkills();
+        yield return StartCoroutine(TriggerBossTurnEndSkills());
 
         currentPhase = Phase.Enemy;
         EndTurn();
     }
 
-    private void TriggerBossTurnEndSkills()
+    private IEnumerator TriggerBossTurnEndSkills()
     {
+        MultipleSlash[] slashSkills = FindObjectsOfType<MultipleSlash>();
+
+        foreach (MultipleSlash slashSkill in slashSkills)
+        {
+            // Check if the enemy is alive and the skill component exists
+            if (slashSkill != null && slashSkill.enabled && slashSkill.gameObject.activeInHierarchy)
+            {
+                // Get the EnemyData/CharactorInheritance to check HP
+                CharactorInheritance stats = slashSkill.GetComponent<CharactorInheritance>();
+                if (stats != null && stats.currentHP > 0)
+                {
+                    // Start the skill's check coroutine. 
+                    // The skill itself handles range checking and execution.
+                    yield return StartCoroutine(slashSkill.CheckAndExecuteSkill());
+                    Debug.Log($"TurnManager triggered CheckAndExecuteSkill for {slashSkill.gameObject.name}");
+                }
+            }
+        }
         // Find the boss (assuming it has BossData)
         BossData bossData = FindObjectOfType<BossData>();
 
