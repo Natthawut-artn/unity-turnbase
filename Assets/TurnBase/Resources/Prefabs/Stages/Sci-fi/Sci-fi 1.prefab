@@ -21839,11 +21839,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnOffset.y
-      value: 5.49
+      value: 3.15
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyPrefabPath
-      value: Prefabs/Charactor/Boss/The Mother
+      value: Prefabs/Charactor/Boss/Zenos the fallen knight
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.size
@@ -21852,6 +21852,10 @@ PrefabInstance:
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: SpawnPositions.Array.data[0].GridPosition.y
+      value: 32
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
