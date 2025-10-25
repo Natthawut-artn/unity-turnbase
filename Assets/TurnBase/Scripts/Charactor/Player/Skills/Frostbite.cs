@@ -7,7 +7,7 @@ public class Frostbite : Skill
     public Frostbite()
     {
         SkillName = "Frostbite";
-        SkillSprite_Path = "";
+        SkillSprite_Path = "Graphic2D/Skill/Cryomancer4";
         Description = "";
         UseSkillPoints = 1;
     }

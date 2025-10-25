@@ -6,13 +6,16 @@ public static class PlayerOptionHUDController
     {
         GameObject Player = MainCamera.Instance.Player.gameObject;
         PlayerAttack pa = Player.GetComponent<PlayerAttack>();
+        SkillBook skillBook = Player.GetComponent<SkillBook>();
+
+        Skill skill = skillBook.skillsSet[0];
+
         PlayerOptionHUD.Data data = new PlayerOptionHUD.Data(() =>
         {
             Player.GetComponent<PlayerController>().SkipTurn();
         },
         () =>
         {
-            // --- MODIFIED: Switch from Attack() to ToggleTargetingMode() ---
             if (pa != null)
             {
                 pa.ToggleTargetingMode();
@@ -21,7 +24,10 @@ public static class PlayerOptionHUDController
             {
                 Debug.LogError("PlayerAttack component not found on player!");
             }
-        });
+        },
+        () =>{
+            skillBook.skillsSet[0].UseSkill(Player);
+        } , skill);
 
         ServiceLocator.Get<PlayerOptionHUD>().Show(data);
     }
