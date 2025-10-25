@@ -209,6 +209,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2956364612708525998, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+      propertyPath: m_Radius
+      value: 0.894712
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956364612708525998, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+      propertyPath: m_Center.x
+      value: 0.0022858381
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956364612708525998, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -412,7 +420,7 @@ MonoBehaviour:
   SkillPauseDuration: 1
   targetLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!1001 &7224665035869595100
 PrefabInstance:
   m_ObjectHideFlags: 0

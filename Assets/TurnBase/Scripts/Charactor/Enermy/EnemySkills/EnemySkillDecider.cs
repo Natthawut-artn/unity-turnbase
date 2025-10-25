@@ -1,9 +1,6 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
-/// <summary>
-/// Handles decision logic for unique skills based on the enemy type set by the spawner.
-/// </summary>
 public class EnemySkillDecider : MonoBehaviour
 {
     private EnemyData enemyData;
@@ -14,8 +11,8 @@ public class EnemySkillDecider : MonoBehaviour
     private PowerSlam powerSlam;
     private Earthshatter earthshatter;
 
-    // NEW: Reference for the CultistEmber skill
-    private CultistEmber cultistEmber;
+    // NEW: Reference for the FrontalSmash skill
+    private EdgeBurst Edgeburst;
 
     [HideInInspector] public string EnemyType;
 
@@ -33,12 +30,12 @@ public class EnemySkillDecider : MonoBehaviour
         powerSlam = GetComponent<PowerSlam>();
         earthshatter = GetComponent<Earthshatter>();
 
-        cultistEmber = GetComponent<CultistEmber>(); // Initialize Cultist Ember
+        // NEW: Initialize FrontalSmash reference
+        Edgeburst = GetComponent<EdgeBurst>();
     }
 
     /// <summary>
     /// Helper to check if ANY player in the game currently has a specific status flag set.
-    /// (Required to prevent wasting status effects)
     /// </summary>
     private bool IsAnyPlayerUnderStatus(string statusName)
     {
@@ -77,7 +74,21 @@ public class EnemySkillDecider : MonoBehaviour
             yield break;
         }
 
-        // --- 1. EARTHSHATTER CHECK (EnemyType: Golem) ---
+        // --- 1. FRONTAL SMASH CHECK (EnemyType: Miniboss - Highest Priority) ---
+        // This is a direct attack and should execute if a player is in range.
+        if (EnemyType == "Zenos" && Edgeburst != null)
+        {
+            if (Edgeburst.FindNearestPlayer() != null) // Check if any player is in range (using skill's internal range)
+            {
+                // This skill does not require SP deduction from the Global Pool. It's a special ability.
+                yield return StartCoroutine(Edgeburst.CheckAndExecuteSkill());
+
+                SkillExecutedThisTurn = true;
+                yield break;
+            }
+        }
+
+        // --- 2. EARTHSHATTER CHECK (EnemyType: Golem) ---
         if (EnemyType == "Golem" && earthshatter != null)
         {
             int skillCost = earthshatter.skillCost;
@@ -94,8 +105,7 @@ public class EnemySkillDecider : MonoBehaviour
             }
         }
 
-
-        // --- 2. POWER SLAM CHECK (EnemyType: Minotaur) ---
+        // --- 3. POWER SLAM CHECK (EnemyType: Minotaur) ---
         if (EnemyType == "Minotaur" && powerSlam != null)
         {
             int skillCost = powerSlam.skillCost;
@@ -112,44 +122,9 @@ public class EnemySkillDecider : MonoBehaviour
             }
         }
 
-        // --- 3. CULTIST EMBER CHECK (EnemyType: Cultist - New Status Check) ---
-        if (EnemyType == "Cultist" && cultistEmber != null)
-        {
-            if (!IsAnyPlayerUnderStatus("isOnBurning")) // Prevent wasting status
-            {
-                int skillCost = cultistEmber.skillCost;
-
-                if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
-                {
-                    if (cultistEmber.IsPlayerInAttackRange())
-                    {
-                        yield return StartCoroutine(cultistEmber.ExecuteSkill());
-
-                        SkillExecutedThisTurn = true;
-                        yield break;
-                    }
-                }
-            }
-        }
-
-
         // --- 4. UNTYPED FALLBACK CHECKS ---
         if (string.IsNullOrEmpty(EnemyType))
         {
-            if(earthshatter != null)
-            {
-                // 4a. Check for Earthshatter as the primary default skill (AOE Damage)
-                int skillCost = earthshatter.skillCost;
-                if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
-                {
-                    if (earthshatter.IsPlayerInAttackRange())
-                    {
-                        yield return StartCoroutine(earthshatter.ExecuteSkill());
-                        SkillExecutedThisTurn = true;
-                        yield break;
-                    }
-                }
-            }
             // 4a. Check for PowerSlam as the primary default skill (Direct Damage)
             if (powerSlam != null)
             {

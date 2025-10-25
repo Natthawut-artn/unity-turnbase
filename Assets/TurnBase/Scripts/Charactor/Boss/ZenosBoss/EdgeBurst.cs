@@ -5,7 +5,7 @@ using UnityEngine;
 public class EdgeBurst : MonoBehaviour
 {
     // Changed to generic CharactorInheritance to grab stats from EnemyData or BossData
-    private CharactorInheritance characterStats;
+    private EnemyData enemyData;
 
     [Header("Skill Parameters")]
     [Tooltip("The range (in units) within which a player must be to trigger this skill.")]
@@ -32,9 +32,9 @@ public class EdgeBurst : MonoBehaviour
     private void Awake()
     {
         // FIX: Use CharactorInheritance, which EnemyData and BossData both inherit from.
-        characterStats = GetComponent<CharactorInheritance>();
+        enemyData = GetComponent<EnemyData>();
 
-        if (characterStats == null)
+        if (enemyData == null)
         {
             Debug.LogError("FrontalSmash requires a CharactorInheritance component (EnemyData or BossData) to function.");
         }
@@ -43,7 +43,7 @@ public class EdgeBurst : MonoBehaviour
     /// <summary>
     /// Finds the nearest active player's transform within the UsageRange.
     /// </summary>
-    private Transform FindNearestPlayer()
+    public Transform FindNearestPlayer()
     {
         float shortestDistance = Mathf.Infinity;
         Transform nearestPlayer = null;
@@ -72,7 +72,7 @@ public class EdgeBurst : MonoBehaviour
     /// </summary>
     public IEnumerator CheckAndExecuteSkill()
     {
-        if (characterStats == null)
+        if (enemyData == null)
         {
             yield break;
         }
@@ -101,7 +101,7 @@ public class EdgeBurst : MonoBehaviour
         }
 
         // Use the current ATK stat from the inherited component
-        float maxDamage = (float)characterStats.ATK;
+        float maxDamage = (float)enemyData.ATK;
         int playersHitCount = 0;
 
         // Iterate through each tile along the frontal path
@@ -124,6 +124,7 @@ public class EdgeBurst : MonoBehaviour
                     if (targetPlayer.currentHP <= 0) continue;
 
                     targetPlayer.TakeDamage(finalDamage);
+                    HPBarsHUDController.Update();
                     playersHitCount++;
 
                     Debug.Log($"Smash Hit {hitCollider.name} at Tile {tileDistance} for {finalDamage} damage.");
