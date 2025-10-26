@@ -190,6 +190,21 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator TriggerBossTurnEndSkills()
     {
+        ApocalypeBloom[] bloomSkills = FindObjectsOfType<ApocalypeBloom>();
+        foreach (ApocalypeBloom bloomSkill in bloomSkills)
+        {
+            if (bloomSkill != null && bloomSkill.enabled && bloomSkill.gameObject.activeInHierarchy)
+            {
+                CharactorInheritance stats = bloomSkill.GetComponent<CharactorInheritance>();
+                if (stats != null && stats.currentHP > 0)
+                {
+                    // ExecuteSkill checks cooldown internally
+                    yield return StartCoroutine(bloomSkill.ExecuteSkill()); // <-- EXECUTE CALL HERE and WAIT
+                }
+            }
+        }
+
+
         MultipleSlash[] slashSkills = FindObjectsOfType<MultipleSlash>();
 
         foreach (MultipleSlash slashSkill in slashSkills)
