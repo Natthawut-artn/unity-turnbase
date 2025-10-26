@@ -248,6 +248,7 @@ public class PlayerAttack : MonoBehaviour
             // Destroy the effect after a duration
             Destroy(effectInstance, effectDuration);
             Debug.Log($"Spawned support attack effect on {targetCollider.name}");
+            yield return new WaitForSeconds(1f);
         }
         // --- Skill Activation Logic ---
         if (playerData.ishavebuff && skillBook != null)
