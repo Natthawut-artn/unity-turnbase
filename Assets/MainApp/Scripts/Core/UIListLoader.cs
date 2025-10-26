@@ -9,7 +9,8 @@ public class UIListLoader
         new PlayerOptionHUD(),
         new PlayersInfoHUD(),
         new PocketHUD(),
-        new SkillPointsHUD()
+        new SkillPointsHUD(),
+        new TurnHUD()
     };
     public List<object> PopUps { get; private set; } = new List<object>()
     {

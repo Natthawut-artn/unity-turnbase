@@ -182,6 +182,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator TakeTurn()
     {
         MainCamera.Instance.SetPlayer(gameObject.transform);
+        ServiceLocator.Get<SkillPointsHUD>().Show();
         PlayerOptionHUDController.Show();
 
         bool turnEnded = false;

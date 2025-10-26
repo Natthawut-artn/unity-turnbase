@@ -40,6 +40,8 @@ public class TurnManager : MonoBehaviour
         isInTurnSystem = false;
         currentPhase = Phase.Player;
         PlayerOptionHUDController.Hide();
+        ServiceLocator.Get<SkillPointsHUD>().Hide();
+        ServiceLocator.Get<TurnHUD>().Hide();
         List<GameObject> players = GameManager.Instance.Players_alive;
 
         for (int i = 0; i < players.Count; i++)
@@ -71,11 +73,12 @@ public class TurnManager : MonoBehaviour
         if (currentPhase == Phase.Player)
         {
             playersPhaseCoroutine = StartCoroutine(PlayersPhase());
-            
+            ServiceLocator.Get<TurnHUD>().Show();
         }
         else
         {
             enemyPhaseCoroutine = StartCoroutine(EnemyPhase());
+            ServiceLocator.Get<TurnHUD>().Show();
         }
     }
 

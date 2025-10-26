@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
             {
                 StartCoroutine(StartTheGame());
                 SFXManager.Instance.Play(SFX.Stages);
+                SkillPointsManager.ReceiveSkillPoint(3);
             }
         }
     }
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartTheGame()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         ReleasePlayers();
     }
 
@@ -129,7 +130,6 @@ public class GameManager : MonoBehaviour
         HPBarsHUDController.Show();
         PlayersInfoHUDController.Show();
         PocketHUDController.Show();
-        ServiceLocator.Get<SkillPointsHUD>().Show();
         GameObject MainPlayer = Players_alive[0];
         GameObject LeftPos = MainPlayer.transform.Find("Left").gameObject;
         GameObject RightPos = MainPlayer.transform.Find("Right").gameObject;
@@ -173,10 +173,12 @@ public class GameManager : MonoBehaviour
         ServiceLocator.Get<RelicInstPopup>().Hide();
         ServiceLocator.Get<RelicUnInstPopup>().Hide();
         ServiceLocator.Get<SkillPointsHUD>().Hide();
+        ServiceLocator.Get<TurnHUD>().Hide();
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();
         SFXManager.Instance.Play(SFX.Hub);
+        SkillPointsManager.ResetSkillPonit();
     }
 
     public void CheckEnemys()
@@ -187,8 +189,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void TeleportFriends()
+    public IEnumerator TeleportFriends()
     {
+        for (int i = 0; i < 5; i++)
+        {
+            yield return null;
+        }
+
         int playerCount = Players_alive.Count;
         int friendCount = Friends.Count;
 
@@ -198,8 +205,8 @@ public class GameManager : MonoBehaviour
 
             GameObject player = Players_alive[i];
             Vector3 newPos = Friends[i - 1].transform.position;
-            RoundToHalf(newPos.x);
-            RoundToHalf(newPos.z);
+            newPos.x = RoundToHalf(newPos.x);
+            newPos.z = RoundToHalf(newPos.z);
 
             var cc = player.GetComponent<PlayerController>();
             var rb = player.GetComponent<Rigidbody>();
@@ -208,7 +215,6 @@ public class GameManager : MonoBehaviour
             {
                 cc.enabled = false;
                 player.transform.position = newPos;
-                cc.enabled = true;
             }
             else if (rb != null)
             {

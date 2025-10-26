@@ -28,12 +28,12 @@ public class Room : MonoBehaviour
             if (roomState == RoomState.UnPlaying)
             {
                 roomState = RoomState.Playing;
-                GameManager.Instance.TeleportFriends();
+                StartCoroutine(GameManager.Instance.TeleportFriends());
             }
             else if (roomState == RoomState.Clear)
             {
                 roomState = RoomState.CanExit;
-                GameManager.Instance.TeleportFriends();
+                StartCoroutine(GameManager.Instance.TeleportFriends());
             }
         }
 
