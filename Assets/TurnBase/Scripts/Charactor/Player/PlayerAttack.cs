@@ -256,9 +256,11 @@ public class PlayerAttack : MonoBehaviour
             skillBook.skillsSet[0].Activate(targetCollider.gameObject, gameObject);
         }
 
-        // --- HIDE INDICATOR ON TARGET ---
-        SetEnemyIndicator(targetCollider.transform, false);
-
+        if(targetCollider != null)
+        {
+            SetEnemyIndicator(targetCollider.transform, false);
+        }
+            
         // --- Turn completion logic ---
         player.alreadyAttack = true;
         GameManager.Instance.CheckEnemys();
