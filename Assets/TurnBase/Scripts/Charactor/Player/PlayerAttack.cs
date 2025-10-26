@@ -223,7 +223,7 @@ public class PlayerAttack : MonoBehaviour
         hasAttackedThisTurn = true;
 
         // Wait for animation to finish
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
 
         // --- Damage application ---
         EnemyData enemyData = targetCollider.GetComponent<EnemyData>();

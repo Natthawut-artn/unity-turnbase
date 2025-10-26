@@ -187,13 +187,11 @@ MonoBehaviour:
   Defense: 5
   CritRate: 7
   CritDGM: 7
-  SkillPoint: 10
   currentHP: 0
   currentATK: 0
   currentDefense: 0
   currentCritRate: 0
   currentCritDGM: 0
-  currentSkillPoint: 0
   BypassDef_Venom: 0
   BypassDef_BloodFlowing: 0
   BypassDef_Frost: 0
@@ -400,7 +398,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6738203429579057476, guid: e3d23be273d508a439e8f0c7819b791d, type: 3}
+    - {fileID: 6497206480781189589, guid: e3d23be273d508a439e8f0c7819b791d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3d23be273d508a439e8f0c7819b791d, type: 3}
