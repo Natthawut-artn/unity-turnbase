@@ -234,6 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5587d6de486901b46a5ee65e7e7d6e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  supportAttackEffectPrefab: {fileID: 480868938121380045, guid: f9acc6aed4f57f6438d542209c19efda, type: 3}
+  effectDuration: 2
   isTargetingMode: 0
   currentSelectedEnemy: {fileID: 0}
   attackRange: 10

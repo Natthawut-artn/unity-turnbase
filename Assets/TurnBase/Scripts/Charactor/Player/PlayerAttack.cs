@@ -6,7 +6,12 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public static PlayerAttack Instance;
-    
+
+    [Header("Support Character Effect")]
+    [Tooltip("Prefab of the sword effect to spawn on the enemy for Support characters.")]
+    public GameObject supportAttackEffectPrefab; // NEW: Prefab reference
+    [Tooltip("How long the sword effect stays before being destroyed.")]
+    public float effectDuration = 2.0f; // NEW: Duration for the effect
     // --- NEW STATE VARIABLES for Targeting Mode (Option 2) ---
     [Header("Targeting State")]
     public bool isTargetingMode = false;
@@ -231,7 +236,19 @@ public class PlayerAttack : MonoBehaviour
         {
             enemyData.EnemyTakeDamage(playerData.currentATK);
         }
+        if (playerData != null && gameObject.name.Contains("Support") && supportAttackEffectPrefab != null)
+        {
+            // Instantiate the effect at the enemy's position + a slight offset if needed
+            Vector3 spawnPosition = targetCollider.transform.position + Vector3.up * 1.0f; // Example offset
+            GameObject effectInstance = Instantiate(supportAttackEffectPrefab, spawnPosition, Quaternion.identity);
 
+            // Ensure the effect plays towards the player or has a fixed rotation
+            effectInstance.transform.LookAt(transform.position + Vector3.up * 1.0f); // Make it look towards the attacker slightly elevated
+
+            // Destroy the effect after a duration
+            Destroy(effectInstance, effectDuration);
+            Debug.Log($"Spawned support attack effect on {targetCollider.name}");
+        }
         // --- Skill Activation Logic ---
         if (playerData.ishavebuff && skillBook != null)
         {
