@@ -10,6 +10,8 @@ public static class PlayersInfoPopupController
         {
             PlayersInfoHUDController.Show();
             PocketHUDController.Show();
+            PlayerOptionHUDController.Show();
+            ServiceLocator.Get<SkillPointsHUD>().Show();
             Hide();
         }, (PlayerIndex, RelicIndex) =>
         {
