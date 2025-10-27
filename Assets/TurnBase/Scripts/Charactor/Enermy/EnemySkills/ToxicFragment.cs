@@ -18,7 +18,7 @@ public class ToxicFragment : MonoBehaviour
     // NOTE: Set the correct LayerMask for players in the Unity Inspector
     public LayerMask targetLayer;
     
-    public Animator animator;
+    Animator animator;
     private void Awake()
     {
         enemyData = GetComponent<EnemyData>();
