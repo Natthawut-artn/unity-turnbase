@@ -20,9 +20,11 @@ public class CultistEmber : MonoBehaviour
     private const float AOE_RADIUS = 2.8f;
     public LayerMask targetLayer;
 
+    Animator animator;
     private void Awake()
     {
         enemyData = GetComponent<EnemyData>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     /// <summary>
@@ -91,7 +93,8 @@ public class CultistEmber : MonoBehaviour
         if (playersHit > 0)
         {
             // Wait for the skill animation/effect time
-            yield return new WaitForSeconds(1.5f);
+            animator.SetTrigger("isSkill2");
+            yield return new WaitForSeconds(2.5f);
         }
         else
         {

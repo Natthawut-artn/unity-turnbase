@@ -34,6 +34,7 @@ public class Frostbite : Skill
         Debug.Log((int)DGM);
 
         enemyData.isOnFrost = true;
+        enemyData.FrostEffect.SetActive(true);
         enemyData.Frost(1 , (int)DGM , true);
     }
 }

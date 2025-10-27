@@ -17,10 +17,12 @@ public class ToxicFragment : MonoBehaviour
 
     // NOTE: Set the correct LayerMask for players in the Unity Inspector
     public LayerMask targetLayer;
-
+    
+    Animator animator;
     private void Awake()
     {
         enemyData = GetComponent<EnemyData>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     /// <summary>
@@ -84,6 +86,7 @@ public class ToxicFragment : MonoBehaviour
         // --- 3. Pause for Animation/Effect ---
         // This is where the camera holds on the enemy!
         Debug.Log(gameObject.name + " used Toxic Fragment! Waiting " + skillPauseDuration + "s.");
+        animator.SetTrigger("isSkill");
         yield return new WaitForSeconds(skillPauseDuration);
 
 

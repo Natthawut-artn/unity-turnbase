@@ -247,7 +247,7 @@ MonoBehaviour:
   - {x: 18, y: 17}
   Players_alive: []
   Enemys_alive: []
-  Room: Room9
+  Room: Room1
   EnemySpawnPoint: {x: 0, y: 0}
   relic: {fileID: 11400000, guid: db43b37036670734a8a8854143c3aefb, type: 2}
   Venom: 100
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3238ba6d7c46f6b4a9bde133a8b96c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSkillPointPool: 5
+  currentSkillPointPool: 0
 --- !u!1001 &366604625
 PrefabInstance:
   m_ObjectHideFlags: 0

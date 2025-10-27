@@ -19,11 +19,12 @@ public class Venomous : MonoBehaviour
     // AoE Detection
     private const float AOE_RADIUS = 2.8f;
     public LayerMask targetLayer;
-
+    Animator animator;
     private void Awake()
     {
         // Get the specific EnemyData component from this GameObject
         enemyData = GetComponent<EnemyData>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     /// <summary>
@@ -92,6 +93,7 @@ public class Venomous : MonoBehaviour
         if (playersHit > 0)
         {
             // Wait for the skill animation/effect time
+            animator.SetTrigger("isSkill");
             yield return new WaitForSeconds(1.5f);
         }
         else

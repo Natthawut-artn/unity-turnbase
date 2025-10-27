@@ -23,10 +23,12 @@ public class FrostveilPrison : MonoBehaviour
     // NOTE: Set the correct LayerMask for players in the Unity Inspector
     public LayerMask targetLayer;
 
+    Animator animator;
     private void Awake()
     {
         // Get the specific EnemyData component from this GameObject
         enemyData = GetComponent<EnemyData>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     /// <summary>
@@ -91,6 +93,7 @@ public class FrostveilPrison : MonoBehaviour
 
                     // b) Apply Frost Status (assuming PlayerData inherits status fields/methods)
                     targetPlayer.isOnFrost = true;
+                    targetPlayer.FrostEffect.SetActive(true);
                     targetPlayer.Frost(frostTurns, baseDamage, true); // Assuming this applies the initial effect and sets up the debuff
 
                     Debug.Log(gameObject.name + " froze " + hitCollider.name + " for " + baseDamage + " damage.");
@@ -100,7 +103,8 @@ public class FrostveilPrison : MonoBehaviour
         }
 
         // --- 4. Pause for Animation/Effect ---
-        yield return new WaitForSeconds(1.5f); // Pause for effect visibility
+        animator.SetTrigger("isSkill1");
+        yield return new WaitForSeconds(2.5f); // Pause for effect visibility
 
         // 5. Final Check: Refund if the skill hit nothing
         if (playersHit > 0)

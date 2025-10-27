@@ -18,9 +18,11 @@ public class SilentFang : MonoBehaviour
     [Tooltip("LayerMask containing only Player units.")]
     public LayerMask targetLayer;
 
+    Animator animator;
     private void Awake()
     {
         enemyData = GetComponent<EnemyData>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     /// <summary>
@@ -80,6 +82,7 @@ public class SilentFang : MonoBehaviour
         }
 
         // --- 3. Wait for Animation/Effect Duration ---
+        animator.SetTrigger("isSkill");
         yield return new WaitForSeconds(1.5f);
 
         // --- 4. Final Check ---

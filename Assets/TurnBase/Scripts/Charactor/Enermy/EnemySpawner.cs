@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject targetRoom;
     private bool hasSpawned = false;
-
+    private EnemySkillPoint enemySkillPoint;
     private void Awake()
     {
         Instance = this;
@@ -35,6 +35,10 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         StartCoroutine(WaitForBoardManager());
+        if(enemySkillPoint == null)
+        {
+            enemySkillPoint = FindObjectOfType<EnemySkillPoint>();
+        }    
     }
 
     private IEnumerator WaitForBoardManager()
@@ -55,6 +59,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemies()
     {
+        enemySkillPoint.currentSkillPointPool = 5;
         if (hasSpawned)
         {
             Debug.Log($"EnemySpawner: Enemies already spawned in {RoomName}");
