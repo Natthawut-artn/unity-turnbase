@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce15f830953ca14881b2ac992ad8a2e, type: 3}
   m_Name: Elemental Core
   m_EditorClassIdentifier: 
-  RelicName: 
-  RelicSprite: {fileID: 0}
-  HP: 0
+  RelicName: 'Elemental Core '
+  RelicSprite: {fileID: 21300000, guid: d2c69a8f762225241a1c510b0f776ce7, type: 3}
+  HP: 5
   ATK: 0
-  Defense: 0
-  CritRate: 0
-  CritDGM: 0
+  Defense: 3
+  CritRate: 3
+  CritDGM: 5

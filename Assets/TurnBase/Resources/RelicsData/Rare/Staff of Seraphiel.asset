@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Staff of Seraphiel
   m_EditorClassIdentifier: 
   RelicName: 'Staff of Seraphiel '
-  RelicSprite: {fileID: 0}
-  HP: 0
+  RelicSprite: {fileID: 21300000, guid: e6ff08ca21f5c4352887243b40c87a9b, type: 3}
+  HP: 10
   ATK: 0
   Defense: 0
-  CritRate: 0
+  CritRate: 10
   CritDGM: 0

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce15f830953ca14881b2ac992ad8a2e, type: 3}
   m_Name: Windstrider Jian
   m_EditorClassIdentifier: 
-  RelicName: 
-  RelicSprite: {fileID: 0}
+  RelicName: 'Windstrider Jian '
+  RelicSprite: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
   HP: 0
-  ATK: 0
+  ATK: 20
   Defense: 0
   CritRate: 0
   CritDGM: 0

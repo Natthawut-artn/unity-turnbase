@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce15f830953ca14881b2ac992ad8a2e, type: 3}
   m_Name: Cube of Infinity
   m_EditorClassIdentifier: 
-  RelicName: 
-  RelicSprite: {fileID: 0}
+  RelicName: 'Cube of Infinity '
+  RelicSprite: {fileID: 21300000, guid: 18fc40f417b1ae547987e1ee3883fd84, type: 3}
   HP: 0
   ATK: 0
   Defense: 0
-  CritRate: 0
+  CritRate: 20
   CritDGM: 0
