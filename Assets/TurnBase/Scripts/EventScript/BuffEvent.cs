@@ -89,7 +89,7 @@ public class BuffEvent : MonoBehaviour
             var attack = player.GetComponent<PlayerData>();
             if (attack != null)
             {
-                attack.currentATK += 100;
+                attack.currentATK += 35;
                 Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentATK}");
             }
         }
