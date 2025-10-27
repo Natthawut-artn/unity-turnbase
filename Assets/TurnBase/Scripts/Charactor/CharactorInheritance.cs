@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum HeroClass
 {
@@ -217,7 +218,6 @@ public class CharactorInheritance : MonoBehaviour
             enemyAI.enabled = false;
             GameManager.Instance.Enemys_alive.Remove(enemyAI.gameObject);
             Destroy(gameObject, 1f);
-            
         }
         else
         {
@@ -234,9 +234,12 @@ public class CharactorInheritance : MonoBehaviour
         playerController.enabled = false;
         PlayerData playerData = GetComponent<PlayerData>();
         playerData.playerMoveState = PlayerMoveState.Die;
-        yield return new WaitForSeconds(0.75f);
-        if (GameManager.Instance.Players_alive.Count <= 0)
+        GameManager.Instance.Players_alive.Remove(playerData.gameObject);
+        Destroy(gameObject , 1.5f);
+        yield return new WaitForSeconds(1f);
+        if (!GameManager.Instance.Players_alive.Any())
         {
+            TurnManager.Instance.StopTurnBaseSystem();
             SettingPopupController.Show();
         }
     }

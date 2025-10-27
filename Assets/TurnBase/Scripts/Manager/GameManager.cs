@@ -309,12 +309,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y))
         {
             Debug.Log("Get Relic");
-            foreach (string relic in relicDatas_Path)
-            {
-                RelicData relicData = Resources.Load<RelicData>(relic);
-                RelicStroageManager.RelicsInUserPocket.Add(relicData);
-                RelicPocketPopupController.Update();
-            }
+            RelicStroageManager.RandomRelic();
+            RelicPocketPopupController.Update();
         }
     }
 }
