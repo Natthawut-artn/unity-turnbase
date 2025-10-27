@@ -179,6 +179,7 @@ public class GameManager : MonoBehaviour
         StartGame();
         SFXManager.Instance.Play(SFX.Hub);
         SkillPointsManager.ResetSkillPonit();
+        RelicStroageManager.ResetRelics();
     }
 
     public void CheckEnemys()
@@ -186,6 +187,7 @@ public class GameManager : MonoBehaviour
         if (!Enemys_alive.Any())
         {
             TurnManager.Instance.StopTurnBaseSystem();
+            RelicStroageManager.RandomRelic();
         }
     }
 
@@ -258,6 +260,7 @@ public class GameManager : MonoBehaviour
         SettingHUDController.Show();
         GameObject SFXGameObjetc = Instantiate(Resources.Load<GameObject>(BGManager_Path));
         SFXManager.Instance.Play(SFX.Hub);
+        RelicStroageManager.Init();
     }
 
     void Update()

@@ -19,7 +19,8 @@ public class UIListLoader
         new PlayersInfoPopup(),
         new RelicPocketPopup(),
         new RelicInstPopup(),
-        new RelicUnInstPopup()
+        new RelicUnInstPopup(),
+        new AnnouncerPopup()
     };
     public List<object> Pages { get; private set; } = new List<object>()
     {
