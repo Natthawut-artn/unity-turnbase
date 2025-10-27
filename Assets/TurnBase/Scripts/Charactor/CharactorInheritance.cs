@@ -50,6 +50,7 @@ public class CharactorInheritance : MonoBehaviour
     public bool isOnFrost = false;
     public int FrostTurnAmount = 0;
     public int FrostDGM = 0;
+    public GameObject FrostEffect;
 
     // normal atk buff
     public bool ishavebuff = false;
@@ -176,7 +177,7 @@ public class CharactorInheritance : MonoBehaviour
         TakeDamage(Damage);
         FrostTurnAmount -= 1;
         Debug.Log($"Frost activate DGM : {Damage} TurnAmount : {FrostTurnAmount}");
-        if (FrostTurnAmount <= 0) { isOnFrost = false; FrostDGM = 0; FrostTurnAmount = 0; }
+        if (FrostTurnAmount <= 0) { isOnFrost = false; FrostDGM = 0; FrostTurnAmount = 0; FrostEffect.SetActive(false); }
     }
 
     public void ResetBuffForTurn()
