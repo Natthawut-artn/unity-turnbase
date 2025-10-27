@@ -14,21 +14,23 @@ public static class RelicStroageManager
     public static int LegentRate = 10;
     public static void Init()
     {
-        Object[] assets = Resources.LoadAll(folderNormal, typeof(Object));
+        Object[] Normalassets = Resources.LoadAll(folderNormal, typeof(Object));
+        Object[] Rareassets = Resources.LoadAll(folderRare, typeof(Object));
+        Object[] Legentassets = Resources.LoadAll(folderLegent, typeof(Object));
 
-        foreach (var asset in assets)
+        foreach (var asset in Normalassets)
         {
             string path = folderNormal + "/" + asset.name;
             normalPaths.Add(path);
             // Debug.Log($"Loaded assets from {path}");
         }
-        foreach (var asset in assets)
+        foreach (var asset in Rareassets)
         {
             string path = folderRare + "/" + asset.name;
             rarePaths.Add(path);
             // Debug.Log($"Loaded assets from {path}");
         }
-        foreach (var asset in assets)
+        foreach (var asset in Legentassets)
         {
             string path = folderLegent + "/" + asset.name;
             legentPaths.Add(path);
@@ -48,7 +50,7 @@ public static class RelicStroageManager
 
     public static void RandomRelic()
     {
-        RelicData relic = null;
+        RelicData relic;
         int number = Random.Range(1, NormalRate + RareRate + LegentRate);
         if (number <= NormalRate)
         {
@@ -58,9 +60,15 @@ public static class RelicStroageManager
         {
             relic = RandomRareRelic();
         }
-        else if (number <= NormalRate + RareRate + LegentRate)
+        else
         {
             relic = RandomLegentRelic();
+        }
+
+        if (relic == null)
+        {
+            Debug.LogError("RandomRelic() failed: relic is null!");
+            return;
         }
 
         ReceiveRelic(relic);
@@ -71,20 +79,50 @@ public static class RelicStroageManager
 
     public static RelicData RandomNormalRelic()
     {
+        if (normalPaths == null || normalPaths.Count == 0)
+        {
+            Debug.LogError("normalPaths is empty!");
+            return null;
+        }
+
         int number = Random.Range(0, normalPaths.Count);
         RelicData relic = Resources.Load<RelicData>(normalPaths[number]);
+
+        if (relic == null)
+            Debug.LogError($"Failed to load Normal Relic at path: {normalPaths[number]}");
+        
         return relic;
     }
     public static RelicData RandomRareRelic()
     {
+        if (rarePaths == null || rarePaths.Count == 0)
+        {
+            Debug.LogError("normalPaths is empty!");
+            return null;
+        }
+
         int number = Random.Range(0, rarePaths.Count);
         RelicData relic = Resources.Load<RelicData>(rarePaths[number]);
+
+        if (relic == null)
+            Debug.LogError($"Failed to load Normal Relic at path: {rarePaths[number]}");
+        
         return relic;
     }
     public static RelicData RandomLegentRelic()
     {
+        if (legentPaths == null || legentPaths.Count == 0)
+        {
+            Debug.LogError("normalPaths is empty!");
+            return null;
+        }
+
         int number = Random.Range(0, legentPaths.Count);
         RelicData relic = Resources.Load<RelicData>(legentPaths[number]);
+
+        if (relic == null)
+            Debug.LogError($"Failed to load Normal Relic at path: {legentPaths[number]}");
+
         return relic;
     }
     

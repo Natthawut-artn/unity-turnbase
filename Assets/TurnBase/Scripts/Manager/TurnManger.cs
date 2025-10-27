@@ -62,6 +62,7 @@ public class TurnManager : MonoBehaviour
         }
 
         SFXManager.Instance.Play(SFX.Stages);
+        GameManager.Instance.ReleasePlayers();
 
         Debug.Log("Stop turnbase");
     }

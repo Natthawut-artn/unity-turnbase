@@ -45,8 +45,8 @@ public class RelicUnInstPopup : IUIElement
             return;
 
         _selfGameObject.SetActive(false);
-        Object.Destroy(_selfGameObject);
-        _selfGameObject = null;
+        // Object.Destroy(_selfGameObject);
+        // _selfGameObject = null;
     }
 
     public void Show()
@@ -57,11 +57,18 @@ public class RelicUnInstPopup : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/Popups/RelicUnInstPopup")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/Popups/RelicUnInstPopup")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas0.transform, false);
+        }
+        else
+        {
+            _selfGameObject.SetActive(true);
+        }
 
         RelicsStoage Pocket = data.RelicsStoage;
         RelicData relicData = data.Relic;

@@ -17,7 +17,7 @@ public class PlayersInfoPopup : IUIElement
         }
     }
     public Data data;
-    private const string Emthy_Path = "Graphic2D/Mini_background";
+    private const string Emthy_Path = "Graphic2D/Profile_Relic_Slot";
     private List<GameObject> infos;
 
     public GameObject SelfGameObject
@@ -215,6 +215,7 @@ public class PlayersInfoPopup : IUIElement
 
     public void Update()
     {
+        if (_selfGameObject == null) return;
         ShowInfoPage(infos[0],infos[1]);
     }
 }
