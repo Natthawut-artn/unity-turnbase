@@ -7,6 +7,8 @@ public static class PlayersInfoHUDController
         PlayersInfoHUD.Data data = new PlayersInfoHUD.Data(() =>
         {
             PlayersInfoPopupController.Show();
+            PlayerOptionHUDController.Hide();
+            ServiceLocator.Get<SkillPointsHUD>().Hide();
             PocketHUDController.Hide();
             Hide();
         });

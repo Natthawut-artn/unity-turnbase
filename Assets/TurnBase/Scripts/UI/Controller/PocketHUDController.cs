@@ -7,6 +7,8 @@ public static class PocketHUDController
         PocketHUD.Data data = new PocketHUD.Data(() =>
         {
             RelicPocketPopupController.Show();
+            PlayerOptionHUDController.Hide();
+            ServiceLocator.Get<SkillPointsHUD>().Hide();
             PlayersInfoHUDController.Hide();
             Hide();
         });
