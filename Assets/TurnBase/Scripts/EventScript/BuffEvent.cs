@@ -73,6 +73,7 @@ public class BuffEvent : MonoBehaviour
             if (health != null)
             {
                 health.currentHP += 50;
+                HPBarsHUDController.Update();
                 Debug.Log($"Buff applied! {player.name} health = {health.currentHP}");
             }
         }
