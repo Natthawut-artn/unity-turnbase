@@ -142,6 +142,8 @@ public class TurnManager : MonoBehaviour
 
     public IEnumerator PlayersPhase()
     {
+        SkillPointsManager.ReceiveSkillPoint(1);
+
         List<GameObject> players = GameManager.Instance.Players_alive;
 
         foreach (GameObject player in players)
