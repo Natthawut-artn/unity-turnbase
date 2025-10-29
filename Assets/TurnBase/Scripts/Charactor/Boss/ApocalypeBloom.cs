@@ -26,6 +26,7 @@ public class ApocalypeBloom : MonoBehaviour
     public int currentCooldown = 0; // Starts ready to use
 
     Animator animator;
+
     private void Awake()
     {
         characterStats = GetComponent<CharactorInheritance>();
@@ -34,6 +35,7 @@ public class ApocalypeBloom : MonoBehaviour
             Debug.LogError("ApocalypeBloom requires a CharactorInheritance component (EnemyData or BossData).");
         }
         animator = GetComponentInChildren<Animator>();
+       
     }
 
     /// <summary>
@@ -98,7 +100,7 @@ public class ApocalypeBloom : MonoBehaviour
 
         // --- Execute the Attack ---
         Animator animator = GetComponentInChildren<Animator>();
-        if (animator != null) animator.SetTrigger("ApocalypeBloomAttack"); // Use your animation trigger name
+        if (animator != null) animator.SetTrigger("Skill"); // Use your animation trigger name
 
         // Focus camera on the unit using the skill
         MainCamera.Instance.SetPlayer(gameObject.transform);
@@ -112,7 +114,7 @@ public class ApocalypeBloom : MonoBehaviour
             if (player != null && player.currentHP > 0) // Double check target validity
             {
                 player.TakeDamage(damageAmount);
-                HPBarsHUDController.Update();
+                HPBarsHUDController.Update(); // Update HP bar UI
                 Debug.Log($"ApocalypeBloom hit {player.name} for {damageAmount} damage.");
             }
         }
@@ -121,7 +123,7 @@ public class ApocalypeBloom : MonoBehaviour
         currentCooldown = cooldownTurns;
         Debug.Log($"{gameObject.name} ApocalypeBloom used. Cooldown set to {currentCooldown} turns.");
 
-        animator.SetTrigger("Skill");
+        
         // Wait for the skill animation/effect to visually complete
         yield return new WaitForSeconds(skillPauseDuration);
     }
