@@ -108,6 +108,11 @@ public class TurnManager : MonoBehaviour
             // Double check components and data before proceeding
             if (enemy == null || enemyData == null) continue;
             // --- End NEW CODE ---
+            ApocalypeBloom bloomSkill = enemyGO.GetComponent<ApocalypeBloom>(); // Get component
+            if (bloomSkill != null)
+            {
+                bloomSkill.DecrementCooldown(); // <-- DECREMENT CALL HERE
+            }
 
             // check frost debuff
             if (enemyData.isOnFrost)

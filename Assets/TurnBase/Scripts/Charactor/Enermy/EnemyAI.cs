@@ -481,6 +481,7 @@ public class EnemyAI : MonoBehaviour
 
     public void DestroySelf()
     {
+
         SetMarkerOccupancy(currentGridPos, false);
         Destroy(gameObject, 0.1f);
     }

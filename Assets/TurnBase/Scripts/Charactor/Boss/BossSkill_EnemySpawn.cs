@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class BossSkill_EnemySpawn : MonoBehaviour
 {
+    
     // --- Skill Activation & Boss Setup ---
     [Header("Skill Activation & Boss Setup")]
     public float ActivationRange = 10f;
     public string BossRoomName = "BossRoom";
-    public Transform PlayerTransform;
+    
 
     [Tooltip("Reference to the script that handles the 70% HP phase change.")]
     [Header("Phase Change Reference")]
@@ -34,6 +35,7 @@ public class BossSkill_EnemySpawn : MonoBehaviour
     private bool _isInitialTriggered = false;
     private bool _isPhaseTwoReady = false;
 
+    private Transform PlayerTransform;
     void Start()
     {
         bossEnemyData = GetComponent<BossData>();
@@ -72,52 +74,74 @@ public class BossSkill_EnemySpawn : MonoBehaviour
 
     private IEnumerator SkillLoop()
     {
-        while (true)
+        while (true) // Loop indefinitely
         {
-            yield return new WaitForSeconds(SkillCooldownTime);
+            yield return new WaitForSeconds(SkillCooldownTime); // Wait for cooldown
 
-            if (PlayerTransform == null || targetRoom == null || _onInitialCooldown)
+            // --- FIX: Dynamically find Player if reference is lost ---
+            if (PlayerTransform == null)
+            {
+                // Attempt to find the player GameObject using its tag
+                GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+                if (playerObj != null)
+                {
+                    // If found, update the reference
+                    PlayerTransform = playerObj.transform;
+                    Debug.Log("BossSkill_EnemySpawn re-acquired PlayerTransform.");
+                }
+                else
+                {
+                    // If STILL no player found (e.g., game over, scene transition)
+                    Debug.LogWarning("BossSkill_EnemySpawn: No active player found. Pausing spawn checks.");
+                    continue; // Skip the rest of this loop iteration and try again next cooldown
+                }
+            }
+            // --- END FIX ---
+
+
+            // Check other essential conditions (room ready, initial cooldown passed)
+            if (targetRoom == null || _onInitialCooldown)
             {
                 continue;
             }
 
-            // 1. PHASE TWO ACTIVATION CHECK
+            // --- PHASE TWO ACTIVATION CHECK ---
+            // (Check if boss HP is below 70% and transition if needed)
             if (!_isPhaseTwoReady && bossEnemyData != null && HealthThresholdSkill != null)
             {
                 float activationHealth = bossEnemyData.HP * 0.7f;
-
                 if (bossEnemyData.currentHP <= activationHealth)
                 {
-                    // 1a. NEW: Clear all enemies spawned by this script
-                    ClearSpawnedMinions();
-
-                    // 1b. Enable the new script, which disables THIS script in its OnEnable.
-                    HealthThresholdSkill.enabled = true;
-                    Debug.Log("Boss HP is below 70%. **Cleared Phase 1 minions** and enabling Phase Two skill.");
-
+                    ClearSpawnedMinions();          // Clear existing minions
+                    HealthThresholdSkill.enabled = true; // Enable the Phase 2 script
+                    Debug.Log("Boss HP below 70%. Transitioning to Phase Two.");
                     _isPhaseTwoReady = true;
-                    yield break;
+                    StopCoroutine(SkillLoop()); // Stop this Phase 1 loop
+                    yield break; // Exit this coroutine permanently
                 }
             }
 
-            // 2. ORIGINAL PHASE ONE LOGIC (Respawn Check)
-            CleanupMinionList();
+            // --- PHASE ONE RESPAWN LOGIC ---
+            CleanupMinionList(); // Remove any destroyed minions from the tracking list
 
-            float distanceToPlayer = Vector3.Distance(this.transform.position, PlayerTransform.position);
-            int currentMinionCount = _spawnedMinions.Count;
+            // Check distance to the (now confirmed non-null) player
+            float distanceToPlayer = Vector3.Distance(transform.position, PlayerTransform.position);
+            int currentMinionCount = _spawnedMinions.Count; // Get count AFTER cleanup
 
             bool isPlayerInRange = distanceToPlayer <= ActivationRange;
-            bool isRespawnNeeded = currentMinionCount <= 1;
+            bool isRespawnNeeded = currentMinionCount <= 1; // Respawn if 0 or 1 minions remain
 
+            // Initial spawn trigger (only happens once when player enters range)
             if (!_isInitialTriggered && isPlayerInRange)
             {
                 _isInitialTriggered = true;
-                ExecuteSkill();
+                ExecuteSkill(); // Spawn initial wave
             }
+            // Respawn trigger (happens repeatedly if minions are killed)
             else if (_isInitialTriggered && isRespawnNeeded)
             {
-                Debug.Log($"Minion count is low ({currentMinionCount}). Triggering respawn skill.");
-                ExecuteSkill();
+                Debug.Log($"Minion count low ({currentMinionCount}). Triggering respawn.");
+                ExecuteSkill(); // Spawn reinforcement wave
             }
         }
     }

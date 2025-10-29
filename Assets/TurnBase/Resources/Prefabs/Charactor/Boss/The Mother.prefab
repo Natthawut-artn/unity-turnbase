@@ -151,6 +151,7 @@ MonoBehaviour:
   isOnFrost: 0
   FrostTurnAmount: 0
   FrostDGM: 0
+  FrostEffect: {fileID: 0}
   ishavebuff: 0
   BuffAmountTarget: 0
   Shield: 0
@@ -186,8 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivationRange: 10
   BossRoomName: Room9
-  PlayerTransform: {fileID: 0}
   HealthThresholdSkill: {fileID: 0}
+  MinionTypeName: Spider
   MinSpawnCount: 3
   MaxSpawnCount: 5
   SkillCooldownTime: 2
@@ -365,7 +366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1740872947779304428, guid: b4f5f86f91abc004ca220af38152a06b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.04
+      value: -0.49
       objectReference: {fileID: 0}
     - target: {fileID: 1740872947779304428, guid: b4f5f86f91abc004ca220af38152a06b, type: 3}
       propertyPath: m_LocalPosition.z
