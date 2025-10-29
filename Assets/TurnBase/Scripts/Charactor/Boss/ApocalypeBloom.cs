@@ -17,14 +17,15 @@ public class ApocalypeBloom : MonoBehaviour
     public int cooldownTurns = 5;
 
     [Tooltip("Time the camera should hold after the attack animation finishes.")]
-    public float skillPauseDuration = 1.5f;
+    public float skillPauseDuration = 2f;
 
     [Tooltip("LayerMask containing only Player units.")]
     public LayerMask targetLayer;
 
     // --- Cooldown Tracking ---
-    private int currentCooldown = 0; // Starts ready to use
+    public int currentCooldown = 0; // Starts ready to use
 
+    Animator animator;
     private void Awake()
     {
         characterStats = GetComponent<CharactorInheritance>();
@@ -32,6 +33,7 @@ public class ApocalypeBloom : MonoBehaviour
         {
             Debug.LogError("ApocalypeBloom requires a CharactorInheritance component (EnemyData or BossData).");
         }
+        animator = GetComponentInChildren<Animator>();
     }
 
     /// <summary>
@@ -119,6 +121,7 @@ public class ApocalypeBloom : MonoBehaviour
         currentCooldown = cooldownTurns;
         Debug.Log($"{gameObject.name} ApocalypeBloom used. Cooldown set to {currentCooldown} turns.");
 
+        animator.SetTrigger("Skill");
         // Wait for the skill animation/effect to visually complete
         yield return new WaitForSeconds(skillPauseDuration);
     }

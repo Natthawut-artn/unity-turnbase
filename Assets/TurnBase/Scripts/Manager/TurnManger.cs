@@ -102,18 +102,19 @@ public class TurnManager : MonoBehaviour
             // CRITICAL: Check if the enemy object has been destroyed mid-turn
             if (enemyGO == null) continue;
 
-            EnemyAI enemy = enemyGO.GetComponent<EnemyAI>();
-            EnemyData enemyData = enemyGO.GetComponent<EnemyData>();
-
-            // Double check components and data before proceeding
-            if (enemy == null || enemyData == null) continue;
-            // --- End NEW CODE ---
             ApocalypeBloom bloomSkill = enemyGO.GetComponent<ApocalypeBloom>(); // Get component
             if (bloomSkill != null)
             {
                 bloomSkill.DecrementCooldown(); // <-- DECREMENT CALL HERE
             }
 
+            EnemyAI enemy = enemyGO.GetComponent<EnemyAI>();
+            EnemyData enemyData = enemyGO.GetComponent<EnemyData>();
+
+            // Double check components and data before proceeding
+            if (enemy == null || enemyData == null) continue;
+            // --- End NEW CODE ---
+      
             // check frost debuff
             if (enemyData.isOnFrost)
             {
