@@ -261,6 +261,7 @@ public class GameManager : MonoBehaviour
         GameObject SFXGameObjetc = Instantiate(Resources.Load<GameObject>(BGManager_Path));
         SFXManager.Instance.Play(SFX.Hub);
         RelicStroageManager.Init();
+        BrokenRelicManager.Init();
     }
 
     void Update()

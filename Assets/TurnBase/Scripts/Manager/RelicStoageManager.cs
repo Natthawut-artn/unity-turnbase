@@ -22,19 +22,16 @@ public static class RelicStroageManager
         {
             string path = folderNormal + "/" + asset.name;
             normalPaths.Add(path);
-            // Debug.Log($"Loaded assets from {path}");
         }
         foreach (var asset in Rareassets)
         {
             string path = folderRare + "/" + asset.name;
             rarePaths.Add(path);
-            // Debug.Log($"Loaded assets from {path}");
         }
         foreach (var asset in Legentassets)
         {
             string path = folderLegent + "/" + asset.name;
             legentPaths.Add(path);
-            // Debug.Log($"Loaded assets from {path}");
         }
     }
     public static List<RelicData> RelicsInUserPocket = new List<RelicData>();
