@@ -140,6 +140,12 @@ public class ApocalypeBloom : MonoBehaviour
         }
         return foundPlayers;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, skillRange);
+    }
 }
 
 
