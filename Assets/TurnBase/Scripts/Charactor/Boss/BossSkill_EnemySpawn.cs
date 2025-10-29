@@ -36,6 +36,8 @@ public class BossSkill_EnemySpawn : MonoBehaviour
     private bool _isPhaseTwoReady = false;
 
     private Transform PlayerTransform;
+
+    
     void Start()
     {
         bossEnemyData = GetComponent<BossData>();
@@ -51,7 +53,7 @@ public class BossSkill_EnemySpawn : MonoBehaviour
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj != null) PlayerTransform = playerObj.transform;
         }
-
+        
         StartCoroutine(WaitForBoardManagerAndSetup());
     }
 
@@ -142,6 +144,7 @@ public class BossSkill_EnemySpawn : MonoBehaviour
             {
                 Debug.Log($"Minion count low ({currentMinionCount}). Triggering respawn.");
                 ExecuteSkill(); // Spawn reinforcement wave
+                
             }
         }
     }
@@ -182,6 +185,7 @@ public class BossSkill_EnemySpawn : MonoBehaviour
 
     public void ExecuteSkill()
     {
+       
         ApplySelfDamage();
         int enemiesToSpawn = Random.Range(MinSpawnCount, MaxSpawnCount + 1);
         GameObject enemyPrefab = Resources.Load<GameObject>(EnemyPrefabPath);
@@ -205,8 +209,8 @@ public class BossSkill_EnemySpawn : MonoBehaviour
             SetupMinion(enemy, spawnData.GridPosition);
             successfullySpawned++;
         }
-
         
+
     }
 
     private void ApplySelfDamage()

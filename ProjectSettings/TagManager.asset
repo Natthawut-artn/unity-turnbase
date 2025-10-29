@@ -8,6 +8,7 @@ TagManager:
   - Door
   - PanelEvent
   - Boss
+  - BossSkillText
   layers:
   - Default
   - TransparentFX
