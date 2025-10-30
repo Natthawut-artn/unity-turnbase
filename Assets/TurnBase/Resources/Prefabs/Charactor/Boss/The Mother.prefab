@@ -138,7 +138,7 @@ MonoBehaviour:
   Defense: 0
   CritRate: 0
   CritDGM: 0
-  currentHP: 1000
+  currentHP: 0
   currentATK: 0
   currentDefense: 0
   currentCritRate: 0
@@ -179,9 +179,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56bc7951f667994fa99db1103a36a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: The Mother
   charactorInheritance: {fileID: 6522489536722666268}
   parentRoom: {fileID: 0}
   stepSize: 2
+  swapForm: {fileID: 0}
+  bossData: {fileID: 6522489536722666268}
 --- !u!114 &1321180747241032501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivationRange: 20
   BossRoomName: Room9
-  HealthThresholdSkill: {fileID: 0}
+  HealthThresholdSkill: {fileID: 7543379208738471625}
   MinSpawnCount: 3
   MaxSpawnCount: 5
   SkillCooldownTime: 2

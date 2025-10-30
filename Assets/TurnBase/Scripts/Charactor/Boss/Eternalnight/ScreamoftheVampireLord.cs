@@ -104,7 +104,7 @@ public class ScreamoftheVampireLord : MonoBehaviour
         // 4. Focus Camera & Play Animation
         MainCamera.Instance.SetPlayer(gameObject.transform);
         Animator animator = GetComponentInChildren<Animator>();
-        if (animator != null) animator.SetTrigger("ScreamAttack"); // Use your animation trigger
+        if (animator != null) animator.SetTrigger("Skill1"); // Use your animation trigger
 
         // Wait for wind-up animation
         yield return new WaitForSeconds(0.5f);

@@ -90,7 +90,7 @@ public class CrimsonDevourer : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(lookPos);
 
         Animator animator = GetComponentInChildren<Animator>();
-        if (animator != null) animator.SetTrigger("CrimsonDevourerAttack"); // Use your animation trigger
+        if (animator != null) animator.SetTrigger("Skill3"); // Use your animation trigger
 
         // Wait for wind-up animation
         yield return new WaitForSeconds(0.5f);

@@ -264,6 +264,10 @@ PrefabInstance:
       propertyPath: Defense
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6649235045174896270, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+      propertyPath: heroclass
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7994987525031586110, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       propertyPath: m_Speed
       value: 5
@@ -527,6 +531,7 @@ MonoBehaviour:
   charactorInheritance: {fileID: 1073757949973666579}
   parentRoom: {fileID: 0}
   stepSize: 2
+  swapForm: {fileID: 0}
 --- !u!1001 &7224665035869595100
 PrefabInstance:
   m_ObjectHideFlags: 0

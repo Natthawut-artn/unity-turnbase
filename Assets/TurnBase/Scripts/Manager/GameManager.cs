@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
     }
-
+    
+    public static bool IsBossSwapping = false;
     public GameObject Player;
     public GameObject CurrentStage;
     public LayerMask MarkerLayer;
@@ -184,7 +185,11 @@ public class GameManager : MonoBehaviour
 
     public void CheckEnemys()
     {
-        if (!Enemys_alive.Any())
+        if (!Enemys_alive.Any() && Room == "Room9")
+        {
+            TurnManager.Instance.StopTurnBaseSystem();
+        }
+        else if (!Enemys_alive.Any())
         {
             TurnManager.Instance.StopTurnBaseSystem();
             RelicStroageManager.RandomRelic();

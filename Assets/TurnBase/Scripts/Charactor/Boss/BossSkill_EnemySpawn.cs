@@ -217,7 +217,7 @@ public class BossSkill_EnemySpawn : MonoBehaviour
     {
         if (bossEnemyData == null) return;
         int damageAmount = Mathf.CeilToInt(bossEnemyData.HP * 0.05f);
-        bossEnemyData.TakeDamage(damageAmount);
+        bossEnemyData.BossTakeDamage(damageAmount);
     }
 
     private void SetupMinion(GameObject enemy, Vector2 gridPosition)

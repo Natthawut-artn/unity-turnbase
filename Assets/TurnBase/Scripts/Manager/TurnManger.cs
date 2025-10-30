@@ -96,25 +96,21 @@ public class TurnManager : MonoBehaviour
 
         // --- NEW CODE (Defensive Loop) ---
         List<GameObject> enemies = GameManager.Instance.Enemys_alive;
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = enemies.Count - 1; i >= 0; i--)
         {
+            if (i >= enemies.Count) continue; // List size might have changed
             GameObject enemyGO = enemies[i];
-            // CRITICAL: Check if the enemy object has been destroyed mid-turn
             if (enemyGO == null) continue;
 
+            EnemyAI enemyAI = enemyGO.GetComponent<EnemyAI>();
+            EnemyData enemyData = enemyGO.GetComponent<EnemyData>();
+            if (enemyAI == null || enemyData == null) continue;
+            
             ApocalypeBloom bloomSkill = enemyGO.GetComponent<ApocalypeBloom>(); // Get component
             if (bloomSkill != null)
             {
                 bloomSkill.DecrementCooldown(); // <-- DECREMENT CALL HERE
             }
-
-            EnemyAI enemy = enemyGO.GetComponent<EnemyAI>();
-            EnemyData enemyData = enemyGO.GetComponent<EnemyData>();
-
-            // Double check components and data before proceeding
-            if (enemy == null || enemyData == null) continue;
-            // --- End NEW CODE ---
-      
             // check frost debuff
             if (enemyData.isOnFrost)
             {
@@ -122,9 +118,13 @@ public class TurnManager : MonoBehaviour
             }
             else
             {
-                yield return StartCoroutine(enemy.TakeTurn());
+                yield return StartCoroutine(enemyAI.TakeTurn());
             }
-
+            if (enemyGO == null)
+            {
+                Debug.LogWarning("Enemy was destroyed during TakeTurn(). Skipping rest of its phase.");
+                continue; // Go to the next enemy in the loop
+            }
             // check venom debuff
             if (enemyData.isOnVenom)
             {
@@ -200,6 +200,7 @@ public class TurnManager : MonoBehaviour
         EndTurn();
     }
 
+    
     private IEnumerator TriggerBossTurnEndSkills()
     {
         ApocalypeBloom[] bloomSkills = FindObjectsOfType<ApocalypeBloom>();
@@ -215,7 +216,32 @@ public class TurnManager : MonoBehaviour
                 }
             }
         }
-
+        BloodClawDominion[] clawSkills = FindObjectsOfType<BloodClawDominion>();
+        foreach (BloodClawDominion clawSkill in clawSkills)
+        {
+            if (clawSkill != null && clawSkill.enabled && clawSkill.gameObject.activeInHierarchy)
+            {
+                CharactorInheritance stats = clawSkill.GetComponent<CharactorInheritance>();
+                if (stats != null && stats.currentHP > 0)
+                {
+                    // ExecuteSkill checks all conditions (range, player count, SP) internally
+                    yield return StartCoroutine(clawSkill.CheckAndExecuteSkill());
+                }
+            }
+        }
+        CrimsonBeam[] beamSkills = FindObjectsOfType<CrimsonBeam>();
+        foreach (CrimsonBeam beamSkill in beamSkills)
+        {
+            if (beamSkill != null && beamSkill.enabled && beamSkill.gameObject.activeInHierarchy)
+            {
+                CharactorInheritance stats = beamSkill.GetComponent<CharactorInheritance>();
+                if (stats != null && stats.currentHP > 0)
+                {
+                    // ExecuteSkill checks all conditions (range, player count, SP) internally
+                    yield return StartCoroutine(beamSkill.CheckAndExecuteSkill());
+                }
+            }
+        }
         ScreamoftheVampireLord[] screamSkills = FindObjectsOfType<ScreamoftheVampireLord>();
         foreach (ScreamoftheVampireLord screamSkill in screamSkills)
         {

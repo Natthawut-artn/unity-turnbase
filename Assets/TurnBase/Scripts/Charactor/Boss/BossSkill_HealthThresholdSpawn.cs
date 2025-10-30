@@ -111,10 +111,9 @@ public class BossSkill_HealthThresholdSpawn : MonoBehaviour
             return;
         }
 
-        if (isInitialTrigger)
-        {
-            ApplySelfDamage();
-        }
+        
+       ApplySelfDamage();
+        
 
         if (targetRoom == null)
         {
@@ -161,7 +160,7 @@ public class BossSkill_HealthThresholdSpawn : MonoBehaviour
     {
         if (bossEnemyData == null) return;
         int damageAmount = Mathf.CeilToInt(bossEnemyData.HP * 0.1f);
-        bossEnemyData.TakeDamage(damageAmount);
+        bossEnemyData.BossTakeDamage(damageAmount);
         Debug.Log($"Boss took {damageAmount} damage for Phase Two activation.");
     }
 
