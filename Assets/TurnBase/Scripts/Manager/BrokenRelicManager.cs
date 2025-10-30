@@ -31,7 +31,7 @@ public static class BrokenRelicManager
     {
         if (BrokenRelicPocket.Count >= 30) { return; }
 
-        int num = Random.Range(0, BrokenRelicPocket.Count);
+        int num = Random.Range(0, list_path.Count);
 
         RelicData brokenRelic = Resources.Load<RelicData>(list_path[num]);
 
