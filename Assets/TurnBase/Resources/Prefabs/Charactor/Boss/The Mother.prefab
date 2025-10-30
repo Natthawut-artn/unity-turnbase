@@ -152,6 +152,9 @@ MonoBehaviour:
   isOnBurning: 0
   BurnTurnAmount: 0
   BurnDGMPerTurn: 0
+  isOnDefenseDebuff: 0
+  DefenseDebuffTurnAmount: 0
+  DefenseDebuffAmount: 0
   isOnBloodFlowing: 0
   isOnFrost: 0
   FrostTurnAmount: 0
@@ -176,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56bc7951f667994fa99db1103a36a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charactorInheritance: {fileID: 6522489536722666268}
   parentRoom: {fileID: 0}
   stepSize: 2
 --- !u!114 &1321180747241032501

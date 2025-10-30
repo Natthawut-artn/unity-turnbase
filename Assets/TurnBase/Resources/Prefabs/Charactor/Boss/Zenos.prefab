@@ -325,7 +325,21 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 232003685122246813, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7559841595331401641}
+    - targetCorrespondingSourceObject: {fileID: 232003685122246813, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6316869886510616582}
   m_SourcePrefab: {fileID: 100100000, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+--- !u!114 &1073757949973666579 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6649235045174896270, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+  m_PrefabInstance: {fileID: 5953781942105472413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879496861355603200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4675d5363f652d4fb5d2a529a507723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4881130107405198294 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1233235165750042187, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
@@ -498,6 +512,21 @@ MonoBehaviour:
   critRateBuff: 20
   critDmgBuff: 40
   crystalsToDestroy: 2
+--- !u!114 &6316869886510616582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879496861355603200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56bc7951f667994fa99db1103a36a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charactorInheritance: {fileID: 1073757949973666579}
+  parentRoom: {fileID: 0}
+  stepSize: 2
 --- !u!1001 &7224665035869595100
 PrefabInstance:
   m_ObjectHideFlags: 0

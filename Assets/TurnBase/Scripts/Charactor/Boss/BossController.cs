@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
+    public CharactorInheritance charactorInheritance;
     public static BossController Instance;
     // Tracks occupied grid positions (X,Z) - COPIED FROM ENEMYAI
     private Vector2 currentGridPos;
@@ -99,7 +100,7 @@ public class BossController : MonoBehaviour
 
         // 3. ⭐ Boss Death Check (You need to implement the HP/death check here)
         // Example check, assuming a component named BossData handles HP
-        if (GetComponent<BossData>()?.currentHP <= 0)
+        if (charactorInheritance.currentHP <= 0)
         {
             BossController bossController = GetComponent<BossController>();
             GameManager.Instance.Enemys_alive.Remove(bossController.gameObject);
