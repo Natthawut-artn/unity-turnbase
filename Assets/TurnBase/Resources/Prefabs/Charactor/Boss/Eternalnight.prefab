@@ -496,10 +496,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56bc7951f667994fa99db1103a36a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: Eternalnight
   charactorInheritance: {fileID: 888839950332125064}
   parentRoom: {fileID: 0}
   stepSize: 5
   swapForm: {fileID: -2854764064770742006}
+  bossData: {fileID: 0}
 --- !u!1001 &6738914172805654723
 PrefabInstance:
   m_ObjectHideFlags: 0

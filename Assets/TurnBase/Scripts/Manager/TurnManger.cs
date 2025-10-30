@@ -203,6 +203,34 @@ public class TurnManager : MonoBehaviour
     
     private IEnumerator TriggerBossTurnEndSkills()
     {
+        
+        CrimsonDevourer[] devourerSkills = FindObjectsOfType<CrimsonDevourer>();
+        foreach (CrimsonDevourer devourSkill in devourerSkills)
+        {
+            if (devourSkill != null && devourSkill.enabled && devourSkill.gameObject.activeInHierarchy)
+            {
+                CharactorInheritance stats = devourSkill.GetComponent<CharactorInheritance>();
+                if (stats != null && stats.currentHP > 0)
+                {
+                    // ExecuteSkill checks all conditions (range, player count, SP) internally
+                    yield return StartCoroutine(devourSkill.CheckAndExecuteSkill());
+                }
+            }
+        }
+        
+        BloodveilSaber[] saberSkills = FindObjectsOfType<BloodveilSaber>();
+        foreach (BloodveilSaber saberSkill in saberSkills)
+        {
+            if (saberSkill != null && saberSkill.enabled && saberSkill.gameObject.activeInHierarchy)
+            {
+                CharactorInheritance stats = saberSkill.GetComponent<CharactorInheritance>();
+                if (stats != null && stats.currentHP > 0)
+                {
+                    // ExecuteSkill checks all conditions (range, player count, SP) internally
+                    yield return StartCoroutine(saberSkill.CheckAndExecuteSkill());
+                }
+            }
+        }
         ApocalypeBloom[] bloomSkills = FindObjectsOfType<ApocalypeBloom>();
         foreach (ApocalypeBloom bloomSkill in bloomSkills)
         {
@@ -301,6 +329,6 @@ public class TurnManager : MonoBehaviour
                 tentacleSkill.CheckSkillTrigger();
             }
         }
-
+        yield return null;
     }
 }

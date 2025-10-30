@@ -302,6 +302,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 232003685122246813, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8214689177540818451}
+    - targetCorrespondingSourceObject: {fileID: 232003685122246813, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5425226172237513163}
   m_SourcePrefab: {fileID: 100100000, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
 --- !u!114 &888839950332125064 stripped
 MonoBehaviour:
@@ -433,10 +436,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56bc7951f667994fa99db1103a36a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: Eternalnight
   charactorInheritance: {fileID: 888839950332125064}
   parentRoom: {fileID: 0}
   stepSize: 5
   swapForm: {fileID: 0}
+  bossData: {fileID: 0}
 --- !u!114 &8214689177540818451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +463,28 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
+  DidExecuteSuccessfully: 0
+--- !u!114 &-5425226172237513163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992920209328550299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae5b95310e2b754298df2b17434e843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safeZoneRadius: 5
+  skillCost: 0
+  hitCount: 6
+  damagePercentage: 0.5
+  timeBetweenHits: 0.3
+  skillPauseDuration: 1.5
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   DidExecuteSuccessfully: 0
 --- !u!1001 &6738914172805654723
 PrefabInstance:
