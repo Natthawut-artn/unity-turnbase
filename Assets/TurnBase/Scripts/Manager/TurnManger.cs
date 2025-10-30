@@ -235,6 +235,19 @@ public class TurnManager : MonoBehaviour
                 }
             }
         }
+        WorldBreaker[] breakerSkills = FindObjectsOfType<WorldBreaker>();
+        foreach (WorldBreaker breakerSkill in breakerSkills)
+        {
+            if (breakerSkill != null && breakerSkill.enabled && breakerSkill.gameObject.activeInHierarchy)
+            {
+                CharactorInheritance stats = breakerSkill.GetComponent<CharactorInheritance>();
+                if (stats != null && stats.currentHP > 0)
+                {
+                    // ExecuteSkill checks all conditions (range, player count, SP) internally
+                    yield return StartCoroutine(breakerSkill.CheckAndExecuteSkill());
+                }
+            }
+        }
         // Find the boss (assuming it has BossData)
         BossData bossData = FindObjectOfType<BossData>();
 

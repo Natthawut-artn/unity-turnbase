@@ -20765,7 +20765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: 
+      value: Zenos
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnOffset.y
@@ -20773,7 +20773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyPrefabPath
-      value: Prefabs/Charactor/Boss/The Mother
+      value: Prefabs/Charactor/Boss/Zenos
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.size
@@ -20781,11 +20781,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
-      value: 22
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.y
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[1].GridPosition.x
@@ -21225,7 +21225,11 @@ PrefabInstance:
     - target: {fileID: 3629275935737642338, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 8527187578457921795}
+      objectReference: {fileID: 8649845425762138816}
+    - target: {fileID: 3629275935737642338, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DisableThisEvent
+      objectReference: {fileID: 0}
     - target: {fileID: 3881081863473797762, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 800
@@ -21361,7 +21365,11 @@ PrefabInstance:
     - target: {fileID: 4878844991098730108, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 8527187578457921795}
+      objectReference: {fileID: 1271147282391325003}
+    - target: {fileID: 4878844991098730108, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DisableThisEvent
+      objectReference: {fileID: 0}
     - target: {fileID: 4878844991098730108, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
@@ -21373,7 +21381,15 @@ PrefabInstance:
     - target: {fileID: 6319217404820916009, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 8527187578457921795}
+      objectReference: {fileID: 2630484772383639215}
+    - target: {fileID: 6319217404820916009, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6319217404820916009, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DisableThisEvent
+      objectReference: {fileID: 0}
     - target: {fileID: 7680103738328999840, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -21414,6 +21430,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 8527187578457921795}
+    - target: {fileID: 8738038248165568292, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8738038248165568292, guid: 90928a62e8bb41a478c8f30aef4b905c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
