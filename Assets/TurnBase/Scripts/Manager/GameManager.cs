@@ -254,6 +254,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void GetBrokenRelic()
+    {
+        StartCoroutine(GetReward());
+    }
+
+    IEnumerator GetReward()
+    {
+        yield return new WaitForSeconds(1f);
+        BrokenRelicManager.RandomBrokenRelic();
+        ServiceLocator.Get<ResultPopup>().Show();
+    }
+
     void Start()
     {
         StartGame();

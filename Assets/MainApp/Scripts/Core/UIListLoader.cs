@@ -20,7 +20,8 @@ public class UIListLoader
         new RelicPocketPopup(),
         new RelicInstPopup(),
         new RelicUnInstPopup(),
-        new AnnouncerPopup()
+        new AnnouncerPopup(),
+        new ResultPopup(),
     };
     public List<object> Pages { get; private set; } = new List<object>()
     {

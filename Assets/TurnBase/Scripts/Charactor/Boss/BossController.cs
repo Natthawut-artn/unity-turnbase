@@ -105,6 +105,7 @@ public class BossController : MonoBehaviour
             GameManager.Instance.Enemys_alive.Remove(bossController.gameObject);
             TurnManager.Instance?.StopTurnBaseSystem();
             DestroySelf();
+            GameManager.Instance.GetBrokenRelic();
              return;
         }
         
