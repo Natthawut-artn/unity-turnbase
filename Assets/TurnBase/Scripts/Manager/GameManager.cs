@@ -256,6 +256,9 @@ public class GameManager : MonoBehaviour
 
     public void GetBrokenRelic()
     {
+        HPBarsHUDController.Hide();
+        PocketHUDController.Hide();
+        PlayersInfoHUDController.Hide();
         StartCoroutine(GetReward());
     }
 
