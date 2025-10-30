@@ -216,6 +216,19 @@ public class TurnManager : MonoBehaviour
             }
         }
 
+        ScreamoftheVampireLord[] screamSkills = FindObjectsOfType<ScreamoftheVampireLord>();
+        foreach (ScreamoftheVampireLord screamSkill in screamSkills)
+        {
+            if (screamSkill != null && screamSkill.enabled && screamSkill.gameObject.activeInHierarchy)
+            {
+                CharactorInheritance stats = screamSkill.GetComponent<CharactorInheritance>();
+                if (stats != null && stats.currentHP > 0)
+                {
+                    // ExecuteSkill checks all conditions (range, SP) internally
+                    yield return StartCoroutine(screamSkill.CheckAndExecuteSkill());
+                }
+            }
+        }
 
         MultipleSlash[] slashSkills = FindObjectsOfType<MultipleSlash>();
 
@@ -262,5 +275,6 @@ public class TurnManager : MonoBehaviour
                 tentacleSkill.CheckSkillTrigger();
             }
         }
+
     }
 }

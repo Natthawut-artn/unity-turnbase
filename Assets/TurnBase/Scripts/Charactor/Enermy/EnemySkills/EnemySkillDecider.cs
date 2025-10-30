@@ -10,7 +10,7 @@ public class EnemySkillDecider : MonoBehaviour
     private Venomous venomous;
     private PowerSlam powerSlam;
     private Earthshatter earthshatter;
-
+    private CrimsonDevourer crimsonDevourer; // NEW: Reference for CrimsonDevourer
     // NEW: Reference for the FrontalSmash skill
     private EdgeBurst Edgeburst;
 
@@ -32,6 +32,8 @@ public class EnemySkillDecider : MonoBehaviour
 
         // NEW: Initialize FrontalSmash reference
         Edgeburst = GetComponent<EdgeBurst>();
+
+        crimsonDevourer = GetComponent<CrimsonDevourer>();
     }
 
     /// <summary>
@@ -90,7 +92,17 @@ public class EnemySkillDecider : MonoBehaviour
                 }
             }
         }
+        if (EnemyType == "Eternalnight" && crimsonDevourer != null)
+        {
+            // This skill checks its own range, conditions, and sets the success flag.
+            yield return StartCoroutine(crimsonDevourer.CheckAndExecuteSkill());
 
+            if (crimsonDevourer.DidExecuteSuccessfully)
+            {
+                SkillExecutedThisTurn = true;
+                yield break;
+            }
+        }
         // --- 2. EARTHSHATTER CHECK (EnemyType: Golem) ---
         if (EnemyType == "Golem" && earthshatter != null)
         {

@@ -43,6 +43,11 @@ public class CharactorInheritance : MonoBehaviour
     public bool isOnBurning = false;
     public int BurnTurnAmount = 0;
     public int BurnDGMPerTurn = 0;
+    
+    [Header("Defense Debuff")]
+    public bool isOnDefenseDebuff = false;
+    public int DefenseDebuffTurnAmount = 0;
+    public int DefenseDebuffAmount = 0; // Stores how much DEF was lost
 
     // Blood Flowing (debuff)
     public bool isOnBloodFlowing = false;
@@ -110,7 +115,29 @@ public class CharactorInheritance : MonoBehaviour
         }
         Debug.Log($"Player get Heal : {Heal}, HP {currentHP}");
     }
+    public void TickDefenseDebuff()
+    {
+        // Only run if the debuff is active
+        if (!isOnDefenseDebuff) return;
 
+        DefenseDebuffTurnAmount -= 1;
+        Debug.Log($"{gameObject.name} Defense Debuff Ticks. Turns remaining: {DefenseDebuffTurnAmount}");
+
+        // If the debuff has expired
+        if (DefenseDebuffTurnAmount <= 0)
+        {
+            // --- Restore Defense ---
+            isOnDefenseDebuff = false;
+            currentDefense += DefenseDebuffAmount; // Add the stored amount back
+
+            // Optional: Clamp to base Defense if needed, but adding back is usually safe
+            // if (currentDefense > Defense) currentDefense = Defense; 
+
+            Debug.Log($"<color=green>{gameObject.name} Defense Debuff wore off. Restored {DefenseDebuffAmount} DEF. Current DEF: {currentDefense}</color>");
+
+            DefenseDebuffAmount = 0; // Clear the stored amount
+        }
+    }
     public void Venom(int Damage = 0, int TurnAmount = 0, bool isThisTurn = false)
     {
         if (Damage == 0 && TurnAmount == 0)
