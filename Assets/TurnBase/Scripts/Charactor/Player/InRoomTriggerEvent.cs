@@ -30,6 +30,7 @@ public class InRoomTriggerEvent : MonoBehaviour
     {
 
         StartCoroutine(DoAnimationAndClose());
+        GameManager.Instance.ReleasePlayers();
 
     }
 

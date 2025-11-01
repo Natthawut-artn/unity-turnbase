@@ -47,7 +47,7 @@ public class BossCrystal : MonoBehaviour
         }
 
         // 5. Apply the damage. Use the correct data reference.
-        int damageAmount = 1000;
+        int damageAmount = 200;
         if (zenosData != null)
         {
             zenosData.EnemyTakeDamage(damageAmount);
