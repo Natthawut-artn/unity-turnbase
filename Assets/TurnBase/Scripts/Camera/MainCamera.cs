@@ -9,6 +9,7 @@ public class MainCamera : MonoBehaviour
     {
         Instance = this;
     }
+    private bool isFollowingPlayer = true;
     public Transform Player;
     private Vector3 offset;
     public LayerMask obstacleLayers;
@@ -24,7 +25,11 @@ public class MainCamera : MonoBehaviour
     {
         this.Player = Player;
     }
-
+    public bool IsFollowingPlayer
+    {
+        get { return isFollowingPlayer; }
+        set { isFollowingPlayer = value; }
+    }
     void Start()
     {
         if (cam == null)
@@ -43,18 +48,26 @@ public class MainCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Player == null) return;
-
-        if (transform.position != lastCameraPosition || Player.position != lastPlayerPosition)
+        if (isFollowingPlayer)
         {
-            lastCameraPosition = transform.position;
-            lastPlayerPosition = Player.position;
-            DoRaycasts();
+            if (transform.position != lastCameraPosition || Player.position != lastPlayerPosition)
+            {
+                lastCameraPosition = transform.position;
+                lastPlayerPosition = Player.position;
+                DoRaycasts();
+            }
+
+            Vector3 desiredPos = Player.position + offset;
+            transform.position = Vector3.Lerp(transform.position, desiredPos, followSpeed * Time.deltaTime);
         }
-
-        Vector3 desiredPos = Player.position + offset;
-
-        transform.position = Vector3.Lerp(transform.position, desiredPos, followSpeed * Time.deltaTime);
+        else // If not following, we still need to potentially update raycasts based on manual movement
+        {
+            if (transform.position != lastCameraPosition)
+            {
+                lastCameraPosition = transform.position;
+                DoRaycasts();
+            }
+        }
     }
 
     void DoRaycasts()

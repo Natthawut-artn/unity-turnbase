@@ -193,6 +193,7 @@ public class PlayerAttack : MonoBehaviour
         // Note: The old Input.GetKeyDown(KeyCode.Mouse0) is removed here
         if (Input.GetKeyDown(KeyCode.Space) && TurnManager.Instance.isInTurnSystem)
         {
+            MouseCameraControl.Instance.SnapToPlayer();
             ToggleTargetingMode();
         }
 
