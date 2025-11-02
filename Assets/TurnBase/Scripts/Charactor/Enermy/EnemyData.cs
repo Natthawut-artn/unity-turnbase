@@ -12,7 +12,7 @@ public class EnemyData : CharactorInheritance
     public float moveSpeed = 5f;
     public EnemyMoveState playerMoveState = EnemyMoveState.Stand;
     public string EnemyType;
-
+    public EnemyHealthBar myHealthBar;
     public void EnemyTakeDamage(int Damage)
     {
         currentHP -= Damage;

@@ -236,6 +236,7 @@ public class PlayerAttack : MonoBehaviour
         if (enemyData != null)
         {
             enemyData.EnemyTakeDamage(playerData.currentATK);
+            enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
         }
         if (playerData != null && gameObject.name.Contains("Support") && supportAttackEffectPrefab != null)
         {
