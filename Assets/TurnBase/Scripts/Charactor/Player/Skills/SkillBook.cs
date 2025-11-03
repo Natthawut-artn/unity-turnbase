@@ -9,6 +9,7 @@ public class SkillBook : MonoBehaviour
         if (gameObject.name == "Striker(Clone)")
         {
             skillsSet.Add(new CarnageSlice());
+            skillsSet.Add(new Shunpo());
         }
 
         if (gameObject.name == "Support(Clone)")

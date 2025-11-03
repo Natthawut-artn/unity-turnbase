@@ -8,6 +8,6 @@ public abstract class Skill
     public int UseSkillPoints;
     public bool isActivate = false;
 
-    public abstract void UseSkill(GameObject player);
-    public abstract void Activate(GameObject enemy, GameObject player);
+    public abstract void UseSkill(GameObject player = null);
+    public abstract void Activate(GameObject enemy = null, GameObject player = null);
 }

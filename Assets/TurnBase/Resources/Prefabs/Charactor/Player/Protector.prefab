@@ -158,9 +158,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MarkerLayer:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 8
   playerData: {fileID: 7496334762098826307}
   playerAttack: {fileID: 6182887865568508735}
+  markertarget: {x: 0, y: 0, z: 0}
+  dashSpeed: 20
+  dashDuration: 0.2
   Enemy:
     serializedVersion: 2
     m_Bits: 256
@@ -200,6 +203,9 @@ MonoBehaviour:
   isOnBurning: 0
   BurnTurnAmount: 0
   BurnDGMPerTurn: 0
+  isOnDefenseDebuff: 0
+  DefenseDebuffTurnAmount: 0
+  DefenseDebuffAmount: 0
   isOnBloodFlowing: 0
   isOnFrost: 0
   FrostTurnAmount: 0

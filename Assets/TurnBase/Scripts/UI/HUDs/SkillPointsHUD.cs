@@ -72,6 +72,7 @@ public class SkillPointsHUD : IUIElement
 
     public void Update()
     {
+        if (_selfGameObject == null) return;
         GameObject SkillPoints = _selfGameObject.transform.Find("SkillPoints").gameObject;
         int currentSkillPoint = SkillPointsManager.currentSkillPoint;
         for (int i = 0; i < SkillPoints.transform.childCount; i++)

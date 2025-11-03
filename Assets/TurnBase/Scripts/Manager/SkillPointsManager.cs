@@ -7,11 +7,13 @@ public static class SkillPointsManager
     public static void UseSkillPoint(int value)
     {
         if (currentSkillPoint >= value) { currentSkillPoint -= value; }
+        ServiceLocator.Get<SkillPointsHUD>().Update();
     }
     public static void ReceiveSkillPoint(int value)
     {
         if (currentSkillPoint < maxSkillPoint) { currentSkillPoint += value; }
         if (currentSkillPoint > maxSkillPoint) { currentSkillPoint = maxSkillPoint; }
+        ServiceLocator.Get<SkillPointsHUD>().Update();
     }
     public static void ResetSkillPonit()
     {

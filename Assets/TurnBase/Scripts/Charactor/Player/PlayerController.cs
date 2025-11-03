@@ -11,12 +11,20 @@ public class PlayerController : MonoBehaviour
         Instance = this;
         playerData = GetComponent<PlayerData>();
         playerAttack = GetComponent<PlayerAttack>();
+        skillBook = GetComponent<SkillBook>();
+        skills = skillBook.skillsSet;
     }
     private Marker currentOccupiedMarker;
 
     public LayerMask MarkerLayer;
     public PlayerData playerData;
     public PlayerAttack playerAttack;
+    private SkillBook skillBook;
+    private List<Skill> skills;
+    public Vector3 markertarget;
+    public float dashSpeed = 20f;
+    public float dashDuration = 0.2f;
+    private bool isDashing = false;
     public LayerMask Enemy;
     public bool alreadyAttack = false;
     public bool alreadyWalk = false;
@@ -25,6 +33,7 @@ public class PlayerController : MonoBehaviour
     // ✅ Movement limit
     public int maxTilesPerTurn = 4;
     public int tilesMoved = 0;
+    private HashSet<GameObject> damagedEnemies = new HashSet<GameObject>();
 
     private Marker GetMarkerAtCurrentPosition()
     {
@@ -232,6 +241,20 @@ public class PlayerController : MonoBehaviour
         if (currentOccupiedMarker != null) currentOccupiedMarker.IsOccupied = true;
     }
 
+    public void DashTo(Vector3 target)
+    {
+        markertarget = target;
+        isDashing = true;
+        StartCoroutine(StopDashAfterTime());
+    }
+
+    private IEnumerator StopDashAfterTime()
+    {
+        yield return new WaitForSeconds(dashDuration);
+        transform.position = markertarget;
+        isDashing = false;
+        damagedEnemies.Clear(); 
+    }
 
     /// <summary>
     /// Handles both Movement and Attack Targeting based on the PlayerAttack state.
@@ -242,6 +265,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             playerData.Healing(20);
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            skillBook.skillsSet[1].UseSkill();
         }
 
         // --- LEFT-CLICK (Both Target Confirmation & Movement) Logic ---
@@ -277,22 +305,74 @@ public class PlayerController : MonoBehaviour
                 && playerData.playerMoveState == PlayerMoveState.Stand)
             {
                 // Raycast specifically for a movement Marker
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, MarkerLayer))
+                if (Physics.Raycast(ray, out hit, 50, MarkerLayer))
                 {
                     GameObject clickedTile = hit.collider.gameObject;
                     Vector3 tilePosition = clickedTile.transform.position;
+                    Debug.Log($"markertarget {clickedTile.name} at {tilePosition}");
 
                     // Check for enemies on the tile before moving
                     Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 0.5f, Enemy);
                     if (enemiesOnTile.Length > 0)
                     {
-                        Debug.Log("Cannot move to this tile. An enemy is there.");
-                        return;
+                        if (gameObject.name == "Striker(Clone)")
+                        {
+                            if (skills[1].SkillName == "Shunpo" && !skills[1].isActivate)
+                            {
+                                Debug.Log("Cannot move to this tile. An enemy is there.");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("Cannot move to this tile. An enemy is there.");
+                            return;
+                        }
+                    }
+
+                    foreach (Skill skill in skills)
+                    {
+                        if (skill.SkillName == "Shunpo" && skill.isActivate)
+                        {
+                            markertarget = clickedTile.transform.position;
+                            Debug.Log($"markertarget {markertarget}");
+                            float distance = Vector3.Distance(
+                                new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z),
+                                new Vector3(markertarget.x, 0, markertarget.z)
+                            );
+                            if (distance > 8f)
+                            {
+                                Debug.Log("Too far for Shunpo");
+                                return;
+                            }
+                            skill.Activate(null, gameObject);
+                            return;
+                        }
                     }
 
                     // If no enemy is found, proceed with movement
                     StartCoroutine(MoveToCell(clickedTile));
                 }
+            }
+        }
+
+        if (isDashing)
+        {
+            Vector3 targetPos = new Vector3(markertarget.x, transform.position.y, markertarget.z);
+            transform.LookAt(targetPos);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, dashSpeed * Time.deltaTime);
+            Collider[] enemies = Physics.OverlapSphere(gameObject.transform.position, 0.5f, Enemy);
+            foreach (Collider hit in enemies)
+            {
+                if (damagedEnemies.Contains(hit.gameObject))
+                    continue;
+
+                damagedEnemies.Add(hit.gameObject);
+
+                float ATK = (50f / 100f) * (float)playerData.currentATK;
+                EnemyData enemyData = hit.GetComponent<EnemyData>();
+                enemyData.TakeDamage((int)ATK);
+                Debug.Log($"{enemyData.gameObject.name} take damage by shunpo ATK : {(int)ATK}");
             }
         }
     }

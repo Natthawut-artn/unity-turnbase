@@ -299,7 +299,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log($"Now AppState is {AppStateManager.appState}");
+            Debug.Log($"Skill point : {SkillPointsManager.currentSkillPoint}");
         }
 
         if (Input.GetKeyDown(KeyCode.E) && AppStateManager.appState == AppState.State)
