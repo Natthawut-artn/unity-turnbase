@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(Player);
+            Friends.Clear();
         }
 
         for (int i = 0; i < Players_Path.Count; i++)
