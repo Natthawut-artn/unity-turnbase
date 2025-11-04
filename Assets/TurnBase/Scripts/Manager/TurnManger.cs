@@ -95,6 +95,7 @@ public class TurnManager : MonoBehaviour
         // --- END OLD CODE ---
 
         // --- NEW CODE (Defensive Loop) ---
+        ServiceLocator.Get<SkillPointsHUD>().Hide();
         List<GameObject> enemies = GameManager.Instance.Enemys_alive;
         for (int i = enemies.Count - 1; i >= 0; i--)
         {

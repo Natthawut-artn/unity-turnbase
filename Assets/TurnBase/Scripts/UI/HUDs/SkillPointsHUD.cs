@@ -47,11 +47,15 @@ public class SkillPointsHUD : IUIElement
 
     public void Show(object rawData)
     {
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/HUDs/SkillPointsHUD")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
+        if(_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/HUDs/SkillPointsHUD")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
+        }
+        
 
         GameObject SkillPoints = _selfGameObject.transform.Find("SkillPoints").gameObject;
         int currentSkillPoint = SkillPointsManager.currentSkillPoint;
