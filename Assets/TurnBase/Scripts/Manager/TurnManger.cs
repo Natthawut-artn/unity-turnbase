@@ -160,8 +160,9 @@ public class TurnManager : MonoBehaviour
             attack.enabled = false;
         }
 
-        foreach (GameObject player in players)
+        for(int i = 0; i < GameManager.Instance.Players_alive.Count;i ++)
         {
+            GameObject player = GameManager.Instance.Players_alive[i];
             PlayerController controller = player.GetComponent<PlayerController>();
             PlayerAttack attack = player.GetComponent<PlayerAttack>();
             PlayerData playerData = player.GetComponent<PlayerData>();

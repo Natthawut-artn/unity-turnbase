@@ -90,6 +90,7 @@ public class CharactorInheritance : MonoBehaviour
                 if (currentHP <= 0)
                 {
                     currentHP = 0;
+                    HPBarsHUDController.Update();
                     Die();
                 }
             }
@@ -100,10 +101,11 @@ public class CharactorInheritance : MonoBehaviour
             if (currentHP <= 0)
             {
                 currentHP = 0;
+                HPBarsHUDController.Update();
                 Die();
             }
         }
-        
+        HPBarsHUDController.Update();
     }
 
     public void Healing(int Heal)
@@ -263,7 +265,9 @@ public class CharactorInheritance : MonoBehaviour
         PlayerData playerData = GetComponent<PlayerData>();
         playerData.playerMoveState = PlayerMoveState.Die;
         GameManager.Instance.Players_alive.Remove(playerData.gameObject);
-        Destroy(gameObject , 1.5f);
+        yield return new WaitForSeconds(1.5f);
+        GameManager.Instance.lstPlayerDie = gameObject;
+        gameObject.SetActive(false);
         yield return new WaitForSeconds(1f);
         if (!GameManager.Instance.Players_alive.Any())
         {

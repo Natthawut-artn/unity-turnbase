@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject CurrentStage;
     public LayerMask MarkerLayer;
+    public LayerMask EnemyLayer;
     public List<Vector2> PlaterSpawnPos = new List<Vector2>();
     private List<string> Players_Path = new List<string>()
     {
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     };
     public List<GameObject> Players_alive = new List<GameObject>();
     public List<GameObject> Enemys_alive = new List<GameObject>();
+    public GameObject lstPlayerDie = null;
 
     public string Room;
     private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar1";
@@ -169,6 +171,7 @@ public class GameManager : MonoBehaviour
         HPBarsHUDController.Hide();
         PlayerOptionHUDController.Hide();
         PlayersInfoHUDController.Hide();
+        PlayersInfoPopupController.Hide();
         PocketHUDController.Hide();
         RelicPocketPopupController.Hide();
         PlayersInfoHUDController.Hide();

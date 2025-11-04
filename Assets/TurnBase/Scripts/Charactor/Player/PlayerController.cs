@@ -269,7 +269,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            skillBook.skillsSet[1].UseSkill();
+            skillBook.skillsSet[1].UseSkill(gameObject);
         }
 
         // --- LEFT-CLICK (Both Target Confirmation & Movement) Logic ---
