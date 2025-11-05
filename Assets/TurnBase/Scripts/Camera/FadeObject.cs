@@ -48,20 +48,48 @@ public class FadeObject
 
     private void SetAlpha(float alpha)
     {
-        Color c = material.color;
-        c.a = alpha;
-        material.color = c;
+        if (material.HasProperty("_BaseColor"))
+        {
+            Color c = material.GetColor("_BaseColor");
+            c.a = alpha;
+            material.SetColor("_BaseColor", c);
+        }
+
+        if (material.HasProperty("_Color"))
+        {
+            Color c = material.GetColor("_Color");
+            c.a = alpha;
+            material.SetColor("_Color", c);
+        }
     }
+
 
     private void SetupMaterialForFade(Material mat)
     {
-        mat.SetFloat("_Mode", 2); // 2 = Fade
-        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        mat.SetInt("_ZWrite", 0);
-        mat.DisableKeyword("_ALPHATEST_ON");
-        mat.EnableKeyword("_ALPHABLEND_ON");
-        mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        if (mat.HasProperty("_Surface"))
+        {
+            mat.SetFloat("_Surface", 1f); // 1 = Transparent
+        }
+
+        if (mat.HasProperty("_Blend"))
+        {
+            mat.SetFloat("_Blend", 0f); // Alpha (0) = Normal blending
+        }
+
+        if (mat.HasProperty("_ZWrite"))
+        {
+            mat.SetFloat("_ZWrite", 0f); // Disable depth write
+        }
+
+        mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
         mat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+
+        if (mat.HasProperty("_BaseColor"))
+        {
+            Color baseColor = mat.GetColor("_BaseColor");
+            baseColor.a = mat.color.a; // sync กับ material.color
+            mat.SetColor("_BaseColor", baseColor);
+        }
     }
+
 }
