@@ -55,12 +55,15 @@ public class SettingPopup : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/Popups/SettingPopup")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
-
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/Popups/SettingPopup")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
+        }
+        
         Button close = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         close.onClick.AddListener(() =>
         {

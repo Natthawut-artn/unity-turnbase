@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public RelicData relic;
     private List<GameObject> Friends = new List<GameObject>();
     private const string BGManager_Path = "Prefabs/Board/SFXManager";
+    private Coroutine StartGameCoroutine;
 
     // Base Def Debuff status
     public int Venom = 100;
@@ -75,7 +76,10 @@ public class GameManager : MonoBehaviour
             SpawnPlayers();
             if (AppStateManager.appState == AppState.State)
             {
-                StartCoroutine(StartTheGame());
+                if (StartGameCoroutine == null)
+                {
+                    StartGameCoroutine = StartCoroutine(StartTheGame());
+                }
                 SFXManager.Instance.Play(SFX.Stages);
                 SkillPointsManager.ReceiveSkillPoint(3);
             }
@@ -168,6 +172,7 @@ public class GameManager : MonoBehaviour
     public void BackToTheHub()
     {
         TurnManager.Instance.StopTurnBaseSystem();
+
         HPBarsHUDController.Hide();
         PlayerOptionHUDController.Hide();
         PlayersInfoHUDController.Hide();
@@ -179,6 +184,13 @@ public class GameManager : MonoBehaviour
         ServiceLocator.Get<RelicUnInstPopup>().Hide();
         ServiceLocator.Get<SkillPointsHUD>().Hide();
         ServiceLocator.Get<TurnHUD>().Hide();
+
+        if (StartGameCoroutine != null)
+        {
+            StopCoroutine(StartGameCoroutine);
+            StartGameCoroutine = null;
+        }
+
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();
