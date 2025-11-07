@@ -235,6 +235,7 @@ public class PlayerAttack : MonoBehaviour
         EnemyData enemyData = targetCollider.GetComponent<EnemyData>();
         if (enemyData != null)
         {
+            Shake.instance.start = true;
             enemyData.EnemyTakeDamage(playerData.currentATK);
             enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
         }
