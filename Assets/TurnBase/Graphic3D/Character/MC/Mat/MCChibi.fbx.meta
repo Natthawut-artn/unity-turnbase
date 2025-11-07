@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Hair
-    second: {fileID: 2100000, guid: c55ef76ccd79d4b4dab9e58919e5b7bd, type: 2}
+    second: {fileID: 2100000, guid: fe8efa704900c0745aa7bd760c31b5e0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: base
-    second: {fileID: 2100000, guid: 6d6c15eb41044d34e9793b009a01c1b5, type: 2}
+    second: {fileID: 2100000, guid: cc09273877490b545a6363443b3bd904, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: new
-    second: {fileID: 2100000, guid: 6837d4651e6b81442838831ae8b59fb4, type: 2}
+    second: {fileID: 2100000, guid: 98803f1e550938f4a8b6e7dc97b68475, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
