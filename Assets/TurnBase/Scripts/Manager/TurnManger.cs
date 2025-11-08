@@ -16,6 +16,8 @@ public class TurnManager : MonoBehaviour
     public bool isInTurnSystem = false;
     private Coroutine enemyPhaseCoroutine;
     private Coroutine playersPhaseCoroutine;
+    public bool isTurnBuff = false;
+    public int TurnBuffAmount = 0;
 
     public int TurnCycleCount { get; private set; } = 0;
     private void Awake()
@@ -161,7 +163,7 @@ public class TurnManager : MonoBehaviour
             attack.enabled = false;
         }
 
-        for(int i = 0; i < GameManager.Instance.Players_alive.Count;i ++)
+        for (int i = 0; i < GameManager.Instance.Players_alive.Count; i++)
         {
             GameObject player = GameManager.Instance.Players_alive[i];
             PlayerController controller = player.GetComponent<PlayerController>();
@@ -190,6 +192,15 @@ public class TurnManager : MonoBehaviour
             if (playerData.isOnBurning)
             {
                 playerData.Burning();
+            }
+        }
+        if (isTurnBuff)
+        {
+            TurnBuffAmount -= 1;
+            if (TurnBuffAmount <= 0)
+            {
+                isTurnBuff = false;
+                SkillPointsManager.maxSkillPoint -= 2;
             }
         }
 

@@ -59,6 +59,8 @@ public class SkillPointsHUD : IUIElement
 
         GameObject SkillPoints = _selfGameObject.transform.Find("SkillPoints").gameObject;
         int currentSkillPoint = SkillPointsManager.currentSkillPoint;
+        int maxSkillPoints = SkillPointsManager.maxSkillPoint;
+
         for (int i = 0; i < SkillPoints.transform.childCount; i++)
         {
             GameObject SP = SkillPoints.transform.GetChild(i).gameObject;
@@ -72,6 +74,10 @@ public class SkillPointsHUD : IUIElement
                 SkillPoint.SetActive(false);
             }
         }
+        for (int i = maxSkillPoints; i < SkillPoints.transform.childCount; i++)
+        {
+            SkillPoints.transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     public void Update()
@@ -79,6 +85,7 @@ public class SkillPointsHUD : IUIElement
         if (_selfGameObject == null) return;
         GameObject SkillPoints = _selfGameObject.transform.Find("SkillPoints").gameObject;
         int currentSkillPoint = SkillPointsManager.currentSkillPoint;
+        int maxSkillPoints = SkillPointsManager.maxSkillPoint;
         for (int i = 0; i < SkillPoints.transform.childCount; i++)
         {
             GameObject SP = SkillPoints.transform.GetChild(i).gameObject;
@@ -91,6 +98,10 @@ public class SkillPointsHUD : IUIElement
             {
                 SkillPoint.SetActive(false);
             }
+        }
+        for (int i = maxSkillPoints; i < SkillPoints.transform.childCount; i++)
+        {
+            SkillPoints.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 }

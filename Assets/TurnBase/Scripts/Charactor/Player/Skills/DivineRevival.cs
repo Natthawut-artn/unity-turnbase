@@ -5,7 +5,7 @@ public class DivineRevival : Skill
 {
     public DivineRevival()
     {
-        SkillName = "DivineRevival";
+        SkillName = "Divine Revival";
         SkillSprite_Path = "";
         Description = "";
         UseSkillPoints = 2;

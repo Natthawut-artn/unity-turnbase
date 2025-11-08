@@ -15,6 +15,7 @@ public class SkillBook : MonoBehaviour
         if (gameObject.name == "Support(Clone)")
         {
             skillsSet.Add(new Frostbite());
+            skillsSet.Add(new VeilofFate());
         }
 
         if (gameObject.name == "Protector(Clone)")
