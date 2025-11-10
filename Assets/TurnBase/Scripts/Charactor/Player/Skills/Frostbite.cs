@@ -19,7 +19,7 @@ public class Frostbite : Skill
         Debug.Log("Use Frostbite");
 
         PlayerController controller = player.GetComponent<PlayerController>();
-        Collider[] hits = Physics.OverlapBox(player.transform.position, new Vector3(10f, 2f, 10f), fixedRotation, controller.Enemy);
+        Collider[] hits = Physics.OverlapBox(player.transform.position, new Vector3(5f, 1f, 5f), fixedRotation, controller.Enemy);
         if (hits.Length == 0) return;
         GameObject target = hits[0].gameObject;
         Activate(target , player);

@@ -23,10 +23,8 @@ public class Shunpo : Skill
         PlayerController controller = player.GetComponent<PlayerController>();
         if (controller == null) return;
 
-        // ใช้ตำแหน่งปลายที่เก็บไว้ใน PlayerController
-        Vector3 targetPos = controller.markertarget;
+        Vector3 targetPos = controller.markertarget.transform.position;
 
-        // เรียกให้ PlayerController จัดการ dash
         controller.DashTo(targetPos);
 
         isActivate = false;

@@ -10,6 +10,7 @@ public class SkillBook : MonoBehaviour
         {
             skillsSet.Add(new CarnageSlice());
             skillsSet.Add(new Shunpo());
+            skillsSet.Add(new SwordRain());
         }
 
         if (gameObject.name == "Support(Clone)")
