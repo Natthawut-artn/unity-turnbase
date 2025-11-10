@@ -23,6 +23,7 @@ public class SkillBook : MonoBehaviour
         {
             skillsSet.Add(new SpiritShield());
             skillsSet.Add(new DivineRevival());
+            skillsSet.Add(new WardoftheHoly());
         }
     }
 }

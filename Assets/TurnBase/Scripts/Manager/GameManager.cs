@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject CurrentStage;
     public LayerMask MarkerLayer;
+    public LayerMask PlayerLayer;
     public LayerMask EnemyLayer;
     public List<Vector2> PlaterSpawnPos = new List<Vector2>();
     private List<string> Players_Path = new List<string>()

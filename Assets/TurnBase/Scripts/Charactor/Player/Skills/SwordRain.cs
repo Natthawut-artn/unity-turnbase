@@ -36,7 +36,7 @@ public class SwordRain : Skill
 
         if (currentAttack < maxAttack)
         {
-            Collider[] hits = Physics.OverlapBox(target.transform.position, new Vector3(0.505f, 0.505f), target.transform.rotation, controller.Enemy);
+            Collider[] hits = Physics.OverlapBox(target.transform.position, new Vector3(0.505f, 0.505f , 0.505f), target.transform.rotation, controller.Enemy);
             foreach (Collider hit in hits)
             {
                 EnemyData enemyData = hit.gameObject.GetComponent<EnemyData>();

@@ -242,6 +242,9 @@ MonoBehaviour:
   MarkerLayer:
     serializedVersion: 2
     m_Bits: 8
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 128
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -275,6 +278,8 @@ MonoBehaviour:
   currentPhase: 0
   CurrentPlayer: {fileID: 0}
   isInTurnSystem: 0
+  isTurnBuff: 0
+  TurnBuffAmount: 0
 --- !u!114 &364832686
 MonoBehaviour:
   m_ObjectHideFlags: 0
