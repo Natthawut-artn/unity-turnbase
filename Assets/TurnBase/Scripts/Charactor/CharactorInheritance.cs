@@ -67,6 +67,14 @@ public class CharactorInheritance : MonoBehaviour
     public int BuffShieldAmountTurn = 0;
     public int BlockAttackAmount = 0;
 
+    public int OldHpStatus = 0;
+    public int OldATKStatus = 0;
+    public int OldDefenceStatus = 0;
+    public int OldCritRateStatus = 0;
+    public int OldCritDGMStatus = 0;
+    public bool alreadySetUp = false;
+    public int StatusBuffTurnAmount = 0;
+
     void Awake()
     {
         currentHP = HP;

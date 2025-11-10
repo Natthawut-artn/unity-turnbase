@@ -17,6 +17,7 @@ public class SkillBook : MonoBehaviour
         {
             skillsSet.Add(new Frostbite());
             skillsSet.Add(new VeilofFate());
+            skillsSet.Add(new DivineBlessing());
         }
 
         if (gameObject.name == "Protector(Clone)")
