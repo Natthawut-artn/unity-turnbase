@@ -242,6 +242,9 @@ MonoBehaviour:
   MarkerLayer:
     serializedVersion: 2
     m_Bits: 8
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 128
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 0

@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public PlayerAttack playerAttack;
     private SkillBook skillBook;
     private List<Skill> skills;
-    public Vector3 markertarget;
+    public GameObject markertarget;
     public float dashSpeed = 20f;
     public float dashDuration = 0.2f;
     private bool isDashing = false;
@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour
 
     public void DashTo(Vector3 target)
     {
-        markertarget = target;
+        markertarget.transform.position = target;
         isDashing = true;
         StartCoroutine(StopDashAfterTime());
     }
@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator StopDashAfterTime()
     {
         yield return new WaitForSeconds(dashDuration);
-        transform.position = markertarget;
+        transform.position = markertarget.transform.position;
         isDashing = false;
         damagedEnemies.Clear(); 
     }
@@ -267,9 +267,9 @@ public class PlayerController : MonoBehaviour
             playerData.Healing(20);
         }
 
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            skillBook.skillsSet[1].UseSkill(gameObject);
+            skillBook.skillsSet[2].UseSkill(gameObject);
         }
 
         // --- LEFT-CLICK (Both Target Confirmation & Movement) Logic ---
@@ -334,11 +334,11 @@ public class PlayerController : MonoBehaviour
                     {
                         if (skill.SkillName == "Shunpo" && skill.isActivate)
                         {
-                            markertarget = clickedTile.transform.position;
+                            markertarget = clickedTile;
                             Debug.Log($"markertarget {markertarget}");
                             float distance = Vector3.Distance(
                                 new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z),
-                                new Vector3(markertarget.x, 0, markertarget.z)
+                                new Vector3(markertarget.transform.position.x, 0, markertarget.transform.position.z)
                             );
                             if (distance > 8f)
                             {
@@ -351,6 +351,25 @@ public class PlayerController : MonoBehaviour
                     }
 
                     // If no enemy is found, proceed with movement
+                    foreach (Skill skill in skills)
+                    {
+                        if (skill.SkillName == "Sword Rain" && skill.isActivate)
+                        {
+                            markertarget = clickedTile;
+                            Debug.Log($"markertarget {markertarget}");
+                            float distance = Vector3.Distance(
+                                new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z),
+                                new Vector3(markertarget.transform.position.x, 0, markertarget.transform.position.z)
+                            );
+                            if (distance > 6f)
+                            {
+                                Debug.Log("Too far for Sword Rain");
+                                return;
+                            }
+                            skill.Activate(null, gameObject);
+                            return;
+                        }
+                    }
                     StartCoroutine(MoveToCell(clickedTile));
                 }
             }
@@ -358,7 +377,7 @@ public class PlayerController : MonoBehaviour
 
         if (isDashing)
         {
-            Vector3 targetPos = new Vector3(markertarget.x, transform.position.y, markertarget.z);
+            Vector3 targetPos = new Vector3(markertarget.transform.position.x, transform.position.y, markertarget.transform.position.z);
             transform.LookAt(targetPos);
             transform.position = Vector3.MoveTowards(transform.position, targetPos, dashSpeed * Time.deltaTime);
             Collider[] enemies = Physics.OverlapSphere(gameObject.transform.position, 0.5f, Enemy);

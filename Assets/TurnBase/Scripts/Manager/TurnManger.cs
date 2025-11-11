@@ -152,6 +152,7 @@ public class TurnManager : MonoBehaviour
     public IEnumerator PlayersPhase()
     {
         SkillPointsManager.ReceiveSkillPoint(1);
+        Skill skill = null;
 
         List<GameObject> players = GameManager.Instance.Players_alive;
 
@@ -161,6 +162,11 @@ public class TurnManager : MonoBehaviour
             PlayerAttack attack = player.GetComponent<PlayerAttack>();
             controller.enabled = false;
             attack.enabled = false;
+
+            if (player.name.Contains("Support"))
+            {
+                skill = player.GetComponent<SkillBook>().skillsSet[2];
+            }
         }
 
         for (int i = 0; i < GameManager.Instance.Players_alive.Count; i++)
@@ -171,6 +177,11 @@ public class TurnManager : MonoBehaviour
             PlayerData playerData = player.GetComponent<PlayerData>();
             controller.enabled = true;
             attack.enabled = true;
+            if (skill != null)
+            {
+                skill.Activate(null , player);
+            }
+
 
             if (playerData.isOnFrost)
             {

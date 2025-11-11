@@ -65,6 +65,15 @@ public class CharactorInheritance : MonoBehaviour
     // Buff
     public int Shield = 0;
     public int BuffShieldAmountTurn = 0;
+    public int BlockAttackAmount = 0;
+
+    public int OldHpStatus = 0;
+    public int OldATKStatus = 0;
+    public int OldDefenceStatus = 0;
+    public int OldCritRateStatus = 0;
+    public int OldCritDGMStatus = 0;
+    public bool alreadySetUp = false;
+    public int StatusBuffTurnAmount = 0;
 
     void Awake()
     {
@@ -77,6 +86,26 @@ public class CharactorInheritance : MonoBehaviour
 
     public void TakeDamage(int Damage)
     {
+        if (BlockAttackAmount > 0)
+        {
+            foreach (GameObject player in GameManager.Instance.Players_alive)
+            {
+                if (player.name.Contains("Protector"))
+                {
+                    float distance = Vector3.Distance(
+                        new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z),
+                        new Vector3(player.transform.position.x, 0, player.transform.position.z)
+                    );
+                    if (distance <= 3f)
+                    {
+                        BlockAttackAmount--;
+                        Debug.Log($"{gameObject.name} Block Attack from Zorya. Blocking {BlockAttackAmount} left");
+                        return;
+                    }
+                }
+            }
+        }
+        
         if (Shield > 0)
         {
             if (Damage <= Shield)
@@ -189,7 +218,7 @@ public class CharactorInheritance : MonoBehaviour
         Debug.Log($"Blood Flowing activate DGM : {Damage}");
     }
 
-    public void Frost(int TurnAmount = 0 , int Damage = 0 , bool isThisTurn = false)
+    public void Frost(int TurnAmount = 0, int Damage = 0, bool isThisTurn = false)
     {
         if (Damage == 0 && TurnAmount == 0)
         {
@@ -203,11 +232,33 @@ public class CharactorInheritance : MonoBehaviour
         }
 
         if (isThisTurn) return;
-        
+
         TakeDamage(Damage);
         FrostTurnAmount -= 1;
         Debug.Log($"Frost activate DGM : {Damage} TurnAmount : {FrostTurnAmount}");
         if (FrostTurnAmount <= 0) { isOnFrost = false; FrostDGM = 0; FrostTurnAmount = 0; FrostEffect.SetActive(false); }
+    }
+    
+    public void RemoveDebuff()
+    {
+        isOnVenom = false;
+        VenomTurnAmount = 0;
+        VenomDGMPerTurn = 0;
+
+        // Burn status (debuff)
+        isOnBurning = false;
+        BurnTurnAmount = 0;
+        BurnDGMPerTurn = 0;
+        
+        // Blood Flowing (debuff)
+        isOnBloodFlowing = false;
+
+        // Frost (debuff)
+        isOnFrost = false;
+        FrostTurnAmount = 0;
+        FrostDGM = 0;
+
+        FrostEffect.SetActive(false);
     }
 
     public void ResetBuffForTurn()
