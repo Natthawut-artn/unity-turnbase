@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public RelicData relic;
     private List<GameObject> Friends = new List<GameObject>();
     private const string BGManager_Path = "Prefabs/Board/SFXManager";
+    private const string VFXManager_Path = "Prefabs/Board/VFXManager";
     private Coroutine StartGameCoroutine;
 
     // Base Def Debuff status
@@ -296,6 +297,7 @@ public class GameManager : MonoBehaviour
         StartGame();
         SettingHUDController.Show();
         GameObject SFXGameObjetc = Instantiate(Resources.Load<GameObject>(BGManager_Path));
+        GameObject VFXGameObjetc = Instantiate(Resources.Load<GameObject>(VFXManager_Path));
         SFXManager.Instance.Play(SFX.Hub);
         RelicStroageManager.Init();
         BrokenRelicManager.Init();

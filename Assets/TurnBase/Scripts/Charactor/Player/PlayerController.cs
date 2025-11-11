@@ -206,6 +206,7 @@ public class PlayerController : MonoBehaviour
             if (alreadyWalk || alreadyAttack)
             {
                 turnEnded = true;
+                yield return new WaitForSeconds(1.25f);
                 // Assuming ResetBuffForTurn() is needed here
                 // playerData.ResetBuffForTurn(); 
             }

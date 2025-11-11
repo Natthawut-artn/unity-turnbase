@@ -236,7 +236,7 @@ public class PlayerAttack : MonoBehaviour
         if (enemyData != null)
         {
             Shake.instance.start = true;
-            enemyData.EnemyTakeDamage(playerData.currentATK);
+            enemyData.TakeDamage(playerData.currentATK);
             enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
         }
         if (playerData != null && gameObject.name.Contains("Support") && supportAttackEffectPrefab != null)
