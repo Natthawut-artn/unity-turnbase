@@ -252,7 +252,7 @@ MonoBehaviour:
   Players_alive: []
   Enemys_alive: []
   lstPlayerDie: {fileID: 0}
-  Room: Room1
+  Room: Room4
   EnemySpawnPoint: {x: 0, y: 0}
   relic: {fileID: 11400000, guid: db43b37036670734a8a8854143c3aefb, type: 2}
   Venom: 100
@@ -275,6 +275,8 @@ MonoBehaviour:
   currentPhase: 0
   CurrentPlayer: {fileID: 0}
   isInTurnSystem: 0
+  isTurnBuff: 0
+  TurnBuffAmount: 0
 --- !u!114 &364832686
 MonoBehaviour:
   m_ObjectHideFlags: 0
