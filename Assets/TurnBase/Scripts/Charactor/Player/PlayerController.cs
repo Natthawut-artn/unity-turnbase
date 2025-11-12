@@ -28,7 +28,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask Enemy;
     public bool alreadyAttack = false;
     public bool alreadyWalk = false;
+    public bool wantToSkip = false;
     private Animator animator;
+    public Coroutine playerTurn;
 
     // ✅ Movement limit
     public int maxTilesPerTurn = 4;
@@ -206,9 +208,10 @@ public class PlayerController : MonoBehaviour
             if (alreadyWalk || alreadyAttack)
             {
                 turnEnded = true;
-                yield return new WaitForSeconds(1.25f);
-                // Assuming ResetBuffForTurn() is needed here
-                // playerData.ResetBuffForTurn(); 
+                if (!wantToSkip)
+                {
+                    yield return new WaitForSeconds(1f);
+                }
             }
         }
 
@@ -221,6 +224,7 @@ public class PlayerController : MonoBehaviour
         // Reset movement for next turn
         alreadyWalk = false;
         alreadyAttack = false;
+        wantToSkip = false;
         playerAttack.ResetAttackStatus();
         playerData.playerMoveState = PlayerMoveState.Stand;
         SetAnimationState(PlayerMoveState.Stand);
@@ -232,6 +236,7 @@ public class PlayerController : MonoBehaviour
         playerAttack.ResetAttackStatus();
         alreadyAttack = true;
         alreadyWalk = true;
+        wantToSkip = true;
         tilesMoved = 0;
     }
 
@@ -308,6 +313,11 @@ public class PlayerController : MonoBehaviour
                 // Raycast specifically for a movement Marker
                 if (Physics.Raycast(ray, out hit, 50, MarkerLayer))
                 {
+                    if (!hit.collider.gameObject.name.Contains(GameManager.Instance.CurrentRoom))
+                    {
+                        Debug.Log("Cannot go to other room");
+                        return;
+                    }
                     GameObject clickedTile = hit.collider.gameObject;
                     Vector3 tilePosition = clickedTile.transform.position;
                     Debug.Log($"markertarget {clickedTile.name} at {tilePosition}");

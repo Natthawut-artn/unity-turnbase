@@ -10,12 +10,12 @@ public class DGMTxt : MonoBehaviour
     private float moveSpeed = 7.5f;
     private float FPS = 40f;
 
-    public void Play(Vector3 gameObjPos , string damage , float duration)
+    public void Play(string damage , float duration)
     {
         DGMAmount = GetComponent<TextMeshPro>();
         DGMAmount.SetText(damage);
 
-        targetPos = transform.position + (5f * Vector3.up);
+        targetPos = transform.position + (2.5f * Vector3.up);
         StartCoroutine(Animation(duration));
     }
 

@@ -15,7 +15,7 @@ public class VFXManager : MonoBehaviour
     {
         GameObject txt = Instantiate( Resources.Load<GameObject>(DGMTxt_path) , gameObjPos + ( 1f * Vector3.up), Quaternion.identity);
         DGMTxt script = txt.GetComponent<DGMTxt>();
-        script.Play(gameObjPos, DGMAmount , 1f);
+        script.Play(DGMAmount , 1f);
         Debug.Log("already show");
     }
 }
