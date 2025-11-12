@@ -9,7 +9,7 @@ public class VeilofFate : Skill
     public VeilofFate()
     {
         SkillName = "Veil of Fate";
-        SkillSprite_Path = "";
+        SkillSprite_Path = "Graphic2D/Skill/Enchanter18";
         Description = "";
         UseSkillPoints = 2;
     }

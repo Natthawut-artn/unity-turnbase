@@ -5,7 +5,7 @@ public class Shunpo : Skill
     public Shunpo()
     {
         SkillName = "Shunpo";
-        SkillSprite_Path = "";
+        SkillSprite_Path = "Graphic2D/Skill/Rogue3";
         Description = "";
         UseSkillPoints = 2;
     }
