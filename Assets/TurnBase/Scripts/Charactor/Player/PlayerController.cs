@@ -93,6 +93,10 @@ public class PlayerController : MonoBehaviour
             {
                 BoardManager.Instance.CheckPlayerOnExit(To);
             }
+            else if (room.roomState == RoomState.Visit)
+            {
+                room.roomState = RoomState.CanExit;
+            }
             BoardManager.Instance.isTransferring = false;
             yield break;
         }

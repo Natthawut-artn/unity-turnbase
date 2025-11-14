@@ -33,7 +33,7 @@ public class Room : MonoBehaviour
             }
             else if (roomState == RoomState.Clear)
             {
-                roomState = RoomState.CanExit;
+                roomState = RoomState.Visit;
                 GameManager.Instance.CurrentRoom = gameObject.name;
                 StartCoroutine(GameManager.Instance.TeleportFriends());
             }
@@ -53,7 +53,10 @@ public class Room : MonoBehaviour
             if (roomState == RoomState.CanExit)
             {
                 roomState = RoomState.Clear;
-                GameManager.Instance.CurrentRoom = gameObject.name;
+            }
+            else if (roomState == RoomState.Visit)
+            {
+                roomState = RoomState.Clear;
             }
         }
     }
