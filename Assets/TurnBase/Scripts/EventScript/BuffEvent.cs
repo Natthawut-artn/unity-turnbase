@@ -6,20 +6,170 @@ using UnityEngine.UI;
 public class BuffEvent : MonoBehaviour
 {
     private GameObject player;
+    public bool firstRelic;
+
     public bool getBuff;
+    public bool getCritBuff;
+    public bool getDefBuff;
+    public bool getHpBuffButDefDebuff;
+    public bool getAtkBuffCritDebuff;
+    public bool getCritDmgBuffHpDebuff;
+    public bool getBuffCritDmgDefDebuff;
+    public bool getAtkDebuffCritDmgBuff;
+    public bool getArelic;
+    public bool getTworelics;
+    public bool getHugeAtkBuffHPDebuff;
+    public bool getHugeCritDMGBuffDefDebuff;
+    public bool getHugeCritRateBuffATKDebuff;
     private bool alreadyBuffed = false;
+   
+
     private GameObject panelToClose; // Stores the panel reference passed from the UI
     public GameObject buffText;
     public GameObject healText;
+
     private bool getheal = false;
     private bool healed = false;
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");  
+        firstRelic = false;
     }
 
     private void Update()
     {
+        if (getHugeAtkBuffHPDebuff)
+        {
+            PlayAnimationText();
+            HughATKBuffHpDebuffPlayer();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getHugeAtkBuffHPDebuff = false;
+        }
+        if(getHugeCritDMGBuffDefDebuff)
+        {
+            PlayAnimationText();
+            HugeCritDMGBuffDefDebuff();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getHugeCritDMGBuffDefDebuff = false;
+        }
+        if(getHugeCritRateBuffATKDebuff)
+        {
+            PlayAnimationText();
+            HugeCritDMGBuffDefDebuffr();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getHugeCritRateBuffATKDebuff = false;
+        }
+        if (getTworelics)
+        {
+            PlayAnimationText();
+            GetTworelic();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getTworelics = false;
+        }
+        if(getArelic)
+        {
+            PlayAnimationText();
+            GetArelic();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getArelic = false;
+        }
+        if (getBuffCritDmgDefDebuff)
+        {
+            PlayAnimationText();
+            CritDmgdeBuffDefbuffPlayer();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getBuffCritDmgDefDebuff = false;
+        }
+        if(getAtkDebuffCritDmgBuff)
+        {
+            PlayAnimationText();
+            ATKdeBuffCritDMGbuffPlayer();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getAtkDebuffCritDmgBuff = false;
+        }
+        if (getCritDmgBuffHpDebuff)
+        {
+            PlayAnimationText();
+            CritDmgBuffHpDebuffPlayer();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getCritDmgBuffHpDebuff = false;
+        }
+        if (getAtkBuffCritDebuff)
+        {
+            PlayAnimationText();
+            AtkBuffCritDebuffPlayer();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getAtkBuffCritDebuff = false;
+        }
+        if (getHpBuffButDefDebuff)
+        {
+            PlayAnimationText();
+            HpBuffDefDebuffPlayer();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getHpBuffButDefDebuff = false;
+        }
+        if (getDefBuff)
+        {
+            PlayAnimationText();
+            BuffDefPlayer();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getDefBuff = false;
+        }
+        if (getCritBuff)
+        {
+            PlayAnimationText();
+            BuffCritPlayer();
+            if (panelToClose != null)
+            {
+                panelToClose.SetActive(false);
+                panelToClose = null;
+            }
+            getCritBuff = false;
+        }
         // Apply buff when triggered
         if (getBuff)
         {
@@ -61,6 +211,79 @@ public class BuffEvent : MonoBehaviour
         getheal = true;
         panelToClose = panelRef;
     }
+    public void Critplayer(GameObject panelRef)
+    {
+        if (getCritBuff == true) return;
+        getCritBuff = true;
+        panelToClose = panelRef;
+    }
+    public void Defplayer(GameObject panelRef)
+    {
+        if (getDefBuff == true) return;
+        getDefBuff = true;
+        panelToClose = panelRef;
+    }
+    public void HpBuffDefDebuffPlayer(GameObject panelRef)
+    {
+        if (getHpBuffButDefDebuff == true) return;
+        getHpBuffButDefDebuff = true;
+        panelToClose = panelRef;
+    }
+    public void AtkBuffCritDebuffPlayer(GameObject panelRef)
+    {
+        if (getHpBuffButDefDebuff == true) return;
+        getHpBuffButDefDebuff = true;
+        panelToClose = panelRef;
+    }
+    public void CritDmgBuffHpDebuffPlayer(GameObject panelRef)
+    {
+        if (getCritDmgBuffHpDebuff == true) return;
+        getCritDmgBuffHpDebuff = true;
+        panelToClose = panelRef;
+    }
+    public void CritDmgDeBuffDefbuffPlayer(GameObject panelRef)
+    {
+        if (getBuffCritDmgDefDebuff == true) return;
+        getBuffCritDmgDefDebuff = true;
+        panelToClose = panelRef;
+    }
+    public void AtkDeBuffCritDmgbuffPlayer(GameObject panelRef)
+    {
+        if (getAtkDebuffCritDmgBuff == true) return;
+        getAtkDebuffCritDmgBuff = true;
+        panelToClose = panelRef;
+    }
+    public void ArelicBuff(GameObject panelRef)
+    {
+        if (getArelic == true) return;
+        getArelic = true;
+        panelToClose = panelRef;
+    }
+    public void TworelicsBuff(GameObject panelRef)
+    {
+        if (getTworelics == true) return;
+        getTworelics = true;
+        panelToClose = panelRef;
+    }
+    public void HugeAtkBuffHpDebuff(GameObject panelRef)
+    {
+        if (getHugeCritDMGBuffDefDebuff == true) return;
+        getHugeCritDMGBuffDefDebuff = true;
+        panelToClose = panelRef;
+    }
+    public void HugeCritDMGBuffDefDebuff(GameObject panelRef)
+    {
+        if (getHugeAtkBuffHPDebuff == true) return;
+        getHugeAtkBuffHPDebuff = true;
+        panelToClose = panelRef;
+    }
+    public void HugeCritrateBuffATKDebuff(GameObject panelRef)
+    {
+        if (getHugeCritRateBuffATKDebuff == true) return;
+        getHugeCritRateBuffATKDebuff = true;
+        panelToClose = panelRef;
+    }
+
     public void healme()
     {
         if (healed) return;
@@ -72,7 +295,7 @@ public class BuffEvent : MonoBehaviour
             var health = player.GetComponent<PlayerData>();
             if (health != null)
             {
-                health.currentHP += 50;
+                health.HP += 10;
                 HPBarsHUDController.Update();
                 Debug.Log($"Buff applied! {player.name} health = {health.currentHP}");
             }
@@ -90,13 +313,210 @@ public class BuffEvent : MonoBehaviour
             var attack = player.GetComponent<PlayerData>();
             if (attack != null)
             {
-                attack.currentATK += 35;
+                attack.currentATK += 10;
                 Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentATK}");
             }
         }
         alreadyBuffed = true;
     }
+    private void BuffCritPlayer()
+    {
+        if (alreadyBuffed) return;
 
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.currentCritRate += 20;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentCritRate}");
+            }
+        }
+        alreadyBuffed = true;
+    }
+    private void BuffDefPlayer()
+    {
+        if (alreadyBuffed) return;
+
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.currentDefense += 10;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
+            }
+        }
+        alreadyBuffed = true;
+    }
+    private void HpBuffDefDebuffPlayer()
+    {
+        if (alreadyBuffed) return;
+
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.currentDefense -= 5;
+                attack.HP += 20;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
+            }
+        }
+        alreadyBuffed = true;
+    }
+    private void AtkBuffCritDebuffPlayer()
+    {
+        if (alreadyBuffed) return;
+
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.currentATK += 10;
+                attack.currentCritRate -= 5;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
+            }
+        }
+        alreadyBuffed = true;
+    }
+    private void CritDmgBuffHpDebuffPlayer()
+    {
+        if (alreadyBuffed) return;
+
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.HP -= 20;
+                attack.currentCritDGM += 5;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
+            }
+        }
+        alreadyBuffed = true;
+    }
+    private void CritDmgdeBuffDefbuffPlayer()
+    {
+        if (alreadyBuffed) return;
+
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.currentCritDGM -= 5;
+                attack.currentDefense += 5;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
+            }
+        }
+        alreadyBuffed = true;
+    }
+    private void ATKdeBuffCritDMGbuffPlayer()
+    {
+        if (alreadyBuffed) return;
+
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.currentATK -= 10;
+                attack.currentCritDGM += 5;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
+            }
+        }
+        alreadyBuffed = true;
+    }
+    private void GetArelic()
+    {
+        if (alreadyBuffed) return;
+        RelicStroageManager.RandomRelic();
+        alreadyBuffed = true;
+    }
+    private void GetTworelic()
+    {
+        if (alreadyBuffed) return;
+        if(!firstRelic)
+        {
+            RelicStroageManager.RandomRelic();
+            firstRelic = true;
+        }
+        else if (firstRelic)
+        {
+            RelicStroageManager.RandomRelic();
+            alreadyBuffed = true;
+        }
+    }
+    private void HughATKBuffHpDebuffPlayer()
+    {
+        if (alreadyBuffed) return;
+
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.currentATK += 30;
+                attack.currentHP -= 30;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
+            }
+        }
+        alreadyBuffed = true;
+    }
+    private void HugeCritDMGBuffDefDebuff()
+    {
+        if (alreadyBuffed) return;
+
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.currentDefense -= 20;
+                attack.currentCritDGM += 40;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
+            }
+        }
+        alreadyBuffed = true;
+    }
+    private void HugeCritDMGBuffDefDebuffr()
+    {
+        if (alreadyBuffed) return;
+
+        foreach (GameObject player in GameManager.Instance.Players_alive)
+        {
+            if (player == null) continue;
+
+            var attack = player.GetComponent<PlayerData>();
+            if (attack != null)
+            {
+                attack.currentATK -= 30;
+                attack.currentCritRate += 40;
+                Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
+            }
+        }
+        alreadyBuffed = true;
+    }
     public void PlayAnimationText()
     {
         StartCoroutine(ShowBuffText());
