@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -313,9 +314,13 @@ public class PlayerController : MonoBehaviour
                 // Raycast specifically for a movement Marker
                 if (Physics.Raycast(ray, out hit, 50, MarkerLayer))
                 {
-                    if (!hit.collider.gameObject.name.Contains(GameManager.Instance.CurrentRoom))
+                    string hitName = hit.collider.gameObject.name;
+                    string hitRoom = hitName.Split(' ').Last();
+                    string currentRoom = GameManager.Instance.CurrentRoom;
+
+                    if (hitRoom != currentRoom)
                     {
-                        Debug.Log("Cannot go to other room");
+                        Debug.Log("cannot allow");
                         return;
                     }
                     GameObject clickedTile = hit.collider.gameObject;
