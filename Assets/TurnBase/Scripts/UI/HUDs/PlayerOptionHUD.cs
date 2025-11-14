@@ -10,14 +10,19 @@ public class PlayerOptionHUD : IUIElement
     {
         public Delegate.CallBack Skip;
         public Delegate.CallBack Attack;
-        public Delegate.CallBack UseSkill;
-        public Skill Skill;
-        public Data(Delegate.CallBack skip, Delegate.CallBack attack , Delegate.CallBack useSkill , Skill skill)
+        public Delegate.CallBack UseSkill1;
+        public Delegate.CallBack UseSkill2;
+        public Delegate.CallBack UseSkill3;
+        public List<Skill> Skillset;
+        public Data(Delegate.CallBack skip, Delegate.CallBack attack,
+        Delegate.CallBack useSkill1 , Delegate.CallBack useSkill2 , Delegate.CallBack useSkill3, List<Skill> skillset)
         {
             Skip = skip;
             Attack = attack;
-            UseSkill = useSkill;
-            Skill = skill;
+            UseSkill1 = useSkill1;
+            UseSkill2 = useSkill2;
+            UseSkill3 = useSkill3;
+            Skillset = skillset;
         }
     }
     public Data data;
@@ -71,10 +76,17 @@ public class PlayerOptionHUD : IUIElement
         {
             Button button = _selfGameObject.transform.GetChild(i).GetComponent<Button>();
             buttons.Add(button);
-            if(i == 2)
+            if(i >= 2)
             {
-                Image image = button.transform.Find("Image").GetComponent<Image>();
-                image.sprite = Resources.Load<Sprite>(data.Skill?.SkillSprite_Path);
+                Image image = button.GetComponent<Image>();
+                image.sprite = Resources.Load<Sprite>(data.Skillset[i - 2]?.SkillSprite_Path);
+                button.interactable = false;
+
+                if (data.Skillset[i - 2].Unlock)
+                {
+                    button.transform.Find("Image").gameObject.SetActive(false);
+                    button.interactable = true;
+                }
             }
         }
 
@@ -88,8 +100,18 @@ public class PlayerOptionHUD : IUIElement
         });
         buttons[2].onClick.AddListener(() =>
         {
-            data.UseSkill?.Invoke();
+            data.UseSkill1?.Invoke();
             buttons[2].interactable = false;
+        });
+        buttons[3].onClick.AddListener(() =>
+        {
+            data.UseSkill2?.Invoke();
+            buttons[3].interactable = false;
+        });
+        buttons[4].onClick.AddListener(() =>
+        {
+            data.UseSkill3?.Invoke();
+            buttons[4].interactable = false;
         });
     }
 }

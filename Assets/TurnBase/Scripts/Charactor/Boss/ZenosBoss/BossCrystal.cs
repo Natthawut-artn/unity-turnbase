@@ -50,7 +50,7 @@ public class BossCrystal : MonoBehaviour
         int damageAmount = 200;
         if (zenosData != null)
         {
-            zenosData.EnemyTakeDamage(damageAmount);
+            zenosData.TakeDamage(damageAmount);
         }
         // else if (zenosBossData != null)
         // {

@@ -99,6 +99,7 @@ public class CharactorInheritance : MonoBehaviour
                     if (distance <= 3f)
                     {
                         BlockAttackAmount--;
+                        VFXManager.Instance.ShowDGMText(gameObject.transform.position , "Block");
                         Debug.Log($"{gameObject.name} Block Attack from Zorya. Blocking {BlockAttackAmount} left");
                         return;
                     }
@@ -111,11 +112,13 @@ public class CharactorInheritance : MonoBehaviour
             if (Damage <= Shield)
             {
                 Shield -= Damage;
+                VFXManager.Instance.ShowDGMText(gameObject.transform.position , "Block");
             }
             else if (Damage > Shield)
             {
                 Damage -= Shield;
                 currentHP -= Damage;
+                VFXManager.Instance.ShowDGMText(gameObject.transform.position , Damage.ToString());
                 if (currentHP <= 0)
                 {
                     currentHP = 0;
@@ -127,6 +130,7 @@ public class CharactorInheritance : MonoBehaviour
         else
         {
             currentHP -= Damage;
+            VFXManager.Instance.ShowDGMText(gameObject.transform.position , Damage.ToString());
             if (currentHP <= 0)
             {
                 currentHP = 0;

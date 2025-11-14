@@ -39,13 +39,14 @@ public class GameManager : MonoBehaviour
     public List<GameObject> Enemys_alive = new List<GameObject>();
     public GameObject lstPlayerDie = null;
 
-    public string Room;
+    public string CurrentRoom;
     private const string Avatar_Path = "Prefabs/Charactor/Player/Avatar1";
     public Vector2 EnemySpawnPoint;
     private const string Enemy_Path = "Prefabs/Charactor/Enemy/Goblin_Enemy Variant";
     public RelicData relic;
     private List<GameObject> Friends = new List<GameObject>();
     private const string BGManager_Path = "Prefabs/Board/SFXManager";
+    private const string VFXManager_Path = "Prefabs/Board/VFXManager";
     private Coroutine StartGameCoroutine;
 
     // Base Def Debuff status
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
     public void StopGame()
     {
         DestroyAll();
+        CurrentRoom = "Room1";
         Destroy(CurrentStage);
     }
 
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < Players_Path.Count; i++)
         {
-            Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlaterSpawnPos[i], BoardManager.Instance.GetRoom(Room));
+            Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(PlaterSpawnPos[i], BoardManager.Instance.GetRoom(CurrentRoom));
             Pos += new Vector3(0f, 1.49f, 0f);
 
             GameObject Player = Instantiate(Resources.Load<GameObject>(Players_Path[i]), Pos, Quaternion.identity);
@@ -162,7 +164,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(EnemySpawnPoint, BoardManager.Instance.GetRoom(Room));
+        Vector3 Pos = BoardManager.Instance.GetMarkerWorldPosition(EnemySpawnPoint, BoardManager.Instance.GetRoom(CurrentRoom));
         Pos += new Vector3(0f, 1.49f, 0f);
 
         GameObject MainEnemy = Instantiate(Resources.Load<GameObject>(Enemy_Path), Pos, Quaternion.identity);
@@ -202,7 +204,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckEnemys()
     {
-        if (!Enemys_alive.Any() && Room == "Room9")
+        if (!Enemys_alive.Any() && CurrentRoom == "Room9")
         {
             TurnManager.Instance.StopTurnBaseSystem();
         }
@@ -215,6 +217,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator TeleportFriends()
     {
+        GameObject MainPlayer = MainCamera.Instance.Player.gameObject;
         for (int i = 0; i < 5; i++)
         {
             yield return null;
@@ -249,6 +252,8 @@ public class GameManager : MonoBehaviour
             {
                 player.transform.position = newPos;
             }
+
+            player.transform.rotation = MainPlayer.transform.rotation;
 
             Debug.Log($"Teleport {player.name} to {newPos}");
         }
@@ -296,6 +301,7 @@ public class GameManager : MonoBehaviour
         StartGame();
         SettingHUDController.Show();
         GameObject SFXGameObjetc = Instantiate(Resources.Load<GameObject>(BGManager_Path));
+        GameObject VFXGameObjetc = Instantiate(Resources.Load<GameObject>(VFXManager_Path));
         SFXManager.Instance.Play(SFX.Hub);
         RelicStroageManager.Init();
         BrokenRelicManager.Init();

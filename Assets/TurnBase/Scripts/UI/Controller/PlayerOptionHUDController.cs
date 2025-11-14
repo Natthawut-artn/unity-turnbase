@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class PlayerOptionHUDController
@@ -8,7 +9,7 @@ public static class PlayerOptionHUDController
         PlayerAttack pa = Player.GetComponent<PlayerAttack>();
         SkillBook skillBook = Player.GetComponent<SkillBook>();
 
-        Skill skill = skillBook.skillsSet[0];
+        List<Skill> skillset = skillBook.skillsSet;
 
         PlayerOptionHUD.Data data = new PlayerOptionHUD.Data(() =>
         {
@@ -25,10 +26,22 @@ public static class PlayerOptionHUDController
                 Debug.LogError("PlayerAttack component not found on player!");
             }
         },
-        () =>{
+        () =>
+        {
             skillBook.skillsSet[0].UseSkill(Player);
-            ServiceLocator.Get<SkillPointsHUD>().Show();
-        } , skill);
+            ServiceLocator.Get<SkillPointsHUD>().Update();
+        },
+        () =>
+        {
+            skillBook.skillsSet[1].UseSkill(Player);
+            ServiceLocator.Get<SkillPointsHUD>().Update();
+        },
+        () =>
+        {
+            skillBook.skillsSet[2].UseSkill(Player);
+            ServiceLocator.Get<SkillPointsHUD>().Update();
+        },
+        skillset);
 
         ServiceLocator.Get<PlayerOptionHUD>().Show(data);
     }

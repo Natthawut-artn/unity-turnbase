@@ -9,7 +9,7 @@ public class SwordRain : Skill
     public SwordRain()
     {
         SkillName = "Sword Rain";
-        SkillSprite_Path = "";
+        SkillSprite_Path = "Graphic2D/Skill/Enchanter2";
         Description = "";
         UseSkillPoints = 3;
     }

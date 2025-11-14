@@ -6,7 +6,7 @@ public class WardoftheHoly : Skill
     public WardoftheHoly()
     {
         SkillName = "Ward of the Holy";
-        SkillSprite_Path = "";
+        SkillSprite_Path = "Graphic2D/Skill/Paladin14";
         Description = "";
         UseSkillPoints = 3;
     }
