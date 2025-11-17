@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6892360544729146033}
   m_Layer: 0
   m_Name: Skill1_lily
-  m_TagString: Untagged
+  m_TagString: VFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

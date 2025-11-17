@@ -16,6 +16,7 @@ public class WardoftheHoly : Skill
         if(SkillPointsManager.currentSkillPoint < UseSkillPoints){ Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
         isActivate = true;
+        VFXManager.Instance.AddVFXOnGameObject(player , VFX.Protector_Skill3);
         Activate(null , player);
     }
 

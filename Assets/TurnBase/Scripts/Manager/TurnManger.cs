@@ -160,12 +160,25 @@ public class TurnManager : MonoBehaviour
         {
             PlayerController controller = player.GetComponent<PlayerController>();
             PlayerAttack attack = player.GetComponent<PlayerAttack>();
+            PlayerData playerData = player.GetComponent<PlayerData>();
             controller.enabled = false;
             attack.enabled = false;
 
             if (player.name.Contains("Support"))
             {
                 skill = player.GetComponent<SkillBook>().skillsSet[2];
+            }
+            if (skill != null)
+            {
+                skill.Activate(null , player);
+            }
+            if (playerData.BlockAttackAmount > 0)
+            {
+                playerData.BlockAttackAmount--;
+                if (playerData.BlockAttackAmount <= 0)
+                {
+                    VFXManager.Instance.ClearVFX(player , VFX.Protector_Skill3);
+                }
             }
         }
 
@@ -177,11 +190,6 @@ public class TurnManager : MonoBehaviour
             PlayerData playerData = player.GetComponent<PlayerData>();
             controller.enabled = true;
             attack.enabled = true;
-            if (skill != null)
-            {
-                skill.Activate(null , player);
-            }
-
 
             if (playerData.isOnFrost)
             {

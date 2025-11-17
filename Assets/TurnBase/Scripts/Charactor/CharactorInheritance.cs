@@ -100,6 +100,10 @@ public class CharactorInheritance : MonoBehaviour
                     {
                         BlockAttackAmount--;
                         VFXManager.Instance.ShowDGMText(gameObject.transform.position , "Block");
+                        if (BlockAttackAmount <= 0)
+                        {
+                            VFXManager.Instance.ClearVFX(player , VFX.Protector_Skill3);
+                        }
                         Debug.Log($"{gameObject.name} Block Attack from Zorya. Blocking {BlockAttackAmount} left");
                         return;
                     }
@@ -117,6 +121,8 @@ public class CharactorInheritance : MonoBehaviour
             else if (Damage > Shield)
             {
                 Damage -= Shield;
+                Shield = 0;
+                VFXManager.Instance.ClearVFX(gameObject , VFX.Protector_Skill1);
                 currentHP -= Damage;
                 VFXManager.Instance.ShowDGMText(gameObject.transform.position , Damage.ToString());
                 if (currentHP <= 0)
@@ -130,6 +136,7 @@ public class CharactorInheritance : MonoBehaviour
         else
         {
             currentHP -= Damage;
+            VFXManager.Instance.ClearVFX(gameObject , VFX.Protector_Skill1);
             VFXManager.Instance.ShowDGMText(gameObject.transform.position , Damage.ToString());
             if (currentHP <= 0)
             {
