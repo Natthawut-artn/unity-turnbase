@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
+
 
 public class SwordRain : Skill
 {
-    private int currentAttack = 0;
     private int maxAttack = 10;
     public SwordRain()
     {
@@ -22,7 +23,7 @@ public class SwordRain : Skill
         Debug.Log($"{player.name} Use Sword Rain");
     }
 
-    public override void Activate(GameObject enemy = null, GameObject player = null)
+    public override async void Activate(GameObject enemy = null, GameObject player = null)
     {
         PlayerController controller = player.GetComponent<PlayerController>();
         GameObject target = controller.markertarget;
@@ -34,22 +35,20 @@ public class SwordRain : Skill
             damage = 1f;
         }
 
-        if (currentAttack < maxAttack)
+        VFXManager.Instance.AddVFXOnWorld(target , VFX.Striker_Skill3 , 2f);
+        for (int i = 0; i < maxAttack ; i++)
         {
-            Collider[] hits = Physics.OverlapBox(target.transform.position, new Vector3(0.505f, 0.505f , 0.505f), target.transform.rotation, controller.Enemy);
+            Collider[] hits = Physics.OverlapBox(target.transform.position, new Vector3(2f, 1f , 2f), target.transform.rotation, controller.Enemy);
             foreach (Collider hit in hits)
             {
                 EnemyData enemyData = hit.gameObject.GetComponent<EnemyData>();
                 enemyData.TakeDamage((int)damage);
+                enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
             }
-            currentAttack++;
-            if (currentAttack >= maxAttack)
-            {
-                isActivate = false;
-                currentAttack = 0;
-            }
+            await Task.Delay(100); 
         }
-        Debug.Log($"Sword Rain for {currentAttack} time");
+        isActivate = false;
+
     }
 }
  

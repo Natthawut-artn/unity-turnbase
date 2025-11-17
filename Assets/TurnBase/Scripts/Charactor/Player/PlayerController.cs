@@ -331,6 +331,26 @@ public class PlayerController : MonoBehaviour
                     Vector3 tilePosition = clickedTile.transform.position;
                     Debug.Log($"markertarget {clickedTile.name} at {tilePosition}");
 
+                    foreach (Skill skill in skills)
+                    {
+                        if (skill.SkillName == "Sword Rain" && skill.isActivate)
+                        {
+                            markertarget = clickedTile;
+                            Debug.Log($"markertarget {markertarget}");
+                            float distance = Vector3.Distance(
+                                new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z),
+                                new Vector3(markertarget.transform.position.x, 0, markertarget.transform.position.z)
+                            );
+                            if (distance > 6f)
+                            {
+                                Debug.Log("Too far for Sword Rain");
+                                return;
+                            }
+                            skill.Activate(null, gameObject);
+                            return;
+                        }
+                    }
+
                     // Check for enemies on the tile before moving
                     Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 0.5f, Enemy);
                     if (enemiesOnTile.Length > 0)
@@ -339,7 +359,6 @@ public class PlayerController : MonoBehaviour
                         {
                             if (skills[1].SkillName == "Shunpo" && !skills[1].isActivate)
                             {
-                                Debug.Log("Cannot move to this tile. An enemy is there.");
                                 return;
                             }
                         }
@@ -371,25 +390,6 @@ public class PlayerController : MonoBehaviour
                     }
 
                     // If no enemy is found, proceed with movement
-                    foreach (Skill skill in skills)
-                    {
-                        if (skill.SkillName == "Sword Rain" && skill.isActivate)
-                        {
-                            markertarget = clickedTile;
-                            Debug.Log($"markertarget {markertarget}");
-                            float distance = Vector3.Distance(
-                                new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z),
-                                new Vector3(markertarget.transform.position.x, 0, markertarget.transform.position.z)
-                            );
-                            if (distance > 6f)
-                            {
-                                Debug.Log("Too far for Sword Rain");
-                                return;
-                            }
-                            skill.Activate(null, gameObject);
-                            return;
-                        }
-                    }
                     StartCoroutine(MoveToCell(clickedTile));
                 }
             }
@@ -411,6 +411,7 @@ public class PlayerController : MonoBehaviour
                 float ATK = (50f / 100f) * (float)playerData.currentATK;
                 EnemyData enemyData = hit.GetComponent<EnemyData>();
                 enemyData.TakeDamage((int)ATK);
+                enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
                 Debug.Log($"{enemyData.gameObject.name} take damage by shunpo ATK : {(int)ATK}");
             }
         }
