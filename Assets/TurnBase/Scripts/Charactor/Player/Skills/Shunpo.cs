@@ -27,6 +27,8 @@ public class Shunpo : Skill
 
         controller.DashTo(targetPos);
 
+        VFXManager.Instance.AddVFXOnWorld(player , VFX.Striker_Skill2 , 200f);
+
         isActivate = false;
     }
 }

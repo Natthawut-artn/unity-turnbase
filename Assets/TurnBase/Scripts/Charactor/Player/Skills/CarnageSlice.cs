@@ -19,6 +19,7 @@ public class CarnageSlice : Skill
         playerData.ishavebuff = true;
         playerData.BuffAmountTarget = 3;
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
+        VFXManager.Instance.AddVFXOnGameObject(player, VFX.Striker_Skill1);
         isActivate = true;
     }
 
@@ -30,7 +31,7 @@ public class CarnageSlice : Skill
         if (playerData.BuffAmountTarget <= 0) return;
         playerData.BuffAmountTarget--;
         playerData.BypassDef_BloodFlowing += BypassDef_BloodFlowing;
-        if (playerData.BuffAmountTarget <= 0) { playerData.ishavebuff = false; }
+        if (playerData.BuffAmountTarget <= 0) { playerData.ishavebuff = false; VFXManager.Instance.ClearVFX(player);}
         
         int enemyDef = enemyData.Defense + GameManager.Instance.BloodFlowing;
         float MaxHpDGM = (5f / 100f) * (float)enemyData.HP;
@@ -41,6 +42,7 @@ public class CarnageSlice : Skill
         {
             playerData.BypassDef_BloodFlowing = 0;
             enemyData.BloodFlowing(DGM);
+            enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
         }
 
         isActivate = false;

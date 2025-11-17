@@ -9,6 +9,7 @@ TagManager:
   - PanelEvent
   - Boss
   - BossSkillText
+  - VFX
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,7 @@ public abstract class Skill
     public string Description;
     public int UseSkillPoints;
     public bool isActivate = false;
-    public bool Unlock = false;
+    public bool Unlock = true;
 
     public abstract void UseSkill(GameObject player = null);
     public abstract void Activate(GameObject enemy = null, GameObject player = null);
