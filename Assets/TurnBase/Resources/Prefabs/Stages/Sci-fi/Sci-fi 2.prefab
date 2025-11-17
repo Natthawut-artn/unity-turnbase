@@ -5161,15 +5161,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: Goblin
+      value: The Mother
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: SpawnOffset.y
+      value: 3.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Boss/The Mother
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: SpawnPositions.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
-      value: 12
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.y
-      value: 12
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[1].GridPosition.x
@@ -6483,7 +6495,14 @@ PrefabInstance:
       value: Room8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4554889409367673015, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
+    - {fileID: 6993697572134884364, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
+    - {fileID: 8656726690052144598, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
+    - {fileID: 19590169334486871, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
+    - {fileID: 2082298210609430696, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
+    - {fileID: 2088242682817912055, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
+    - {fileID: 373639114903322912, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
