@@ -117,6 +117,7 @@ public class CharactorInheritance : MonoBehaviour
             {
                 Shield -= Damage;
                 VFXManager.Instance.ShowDGMText(gameObject.transform.position , "Block");
+                VFXManager.Instance.AddVFXOnGameObject(gameObject , VFX.Hit , 2f);
             }
             else if (Damage > Shield)
             {
@@ -125,6 +126,7 @@ public class CharactorInheritance : MonoBehaviour
                 VFXManager.Instance.ClearVFX(gameObject , VFX.Protector_Skill1);
                 currentHP -= Damage;
                 VFXManager.Instance.ShowDGMText(gameObject.transform.position , Damage.ToString());
+                VFXManager.Instance.AddVFXOnGameObject(gameObject , VFX.Hit , 2f);
                 if (currentHP <= 0)
                 {
                     currentHP = 0;
@@ -136,8 +138,8 @@ public class CharactorInheritance : MonoBehaviour
         else
         {
             currentHP -= Damage;
-            VFXManager.Instance.ClearVFX(gameObject , VFX.Protector_Skill1);
             VFXManager.Instance.ShowDGMText(gameObject.transform.position , Damage.ToString());
+            VFXManager.Instance.AddVFXOnGameObject(gameObject , VFX.Hit , 2f);
             if (currentHP <= 0)
             {
                 currentHP = 0;

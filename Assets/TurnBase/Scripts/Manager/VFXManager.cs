@@ -12,6 +12,7 @@ public enum VFX
     Protector_Skill1,
     Protector_Skill2,
     Protector_Skill3,
+    Hit
 }
 
 public class VFXManager : MonoBehaviour
@@ -40,10 +41,18 @@ public class VFXManager : MonoBehaviour
         Destroy(VFX , duration);
     }
 
-    public void AddVFXOnGameObject(GameObject GameObj , VFX vFX)
+    public void AddVFXOnGameObject(GameObject GameObj , VFX vFX , float duration = 0)
     {
         GameObject VFX = Instantiate(VFXList[(int)vFX] , GameObj.transform.position , GameObj.transform.rotation);
         VFX.transform.SetParent(GameObj.transform);
+        if (duration <= 0)
+        {
+            return;
+        }
+        else
+        {
+            Destroy(VFX , duration);
+        }
     }
 
     public void ClearVFX(GameObject GameObj , VFX vFX)
