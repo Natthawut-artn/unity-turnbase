@@ -23,6 +23,7 @@ public class DivineBlessing : Skill
             PlayerData data = GameManager.Instance.Players_alive[i].GetComponent<PlayerData>();
             data.StatusBuffTurnAmount = BuffTurnAmount + 1;
         }
+        VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill3 , 2f);
         Activate(null , player);
     }
 

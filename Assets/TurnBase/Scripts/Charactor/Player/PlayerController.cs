@@ -400,7 +400,7 @@ public class PlayerController : MonoBehaviour
             Vector3 targetPos = new Vector3(markertarget.transform.position.x, transform.position.y, markertarget.transform.position.z);
             transform.LookAt(targetPos);
             transform.position = Vector3.MoveTowards(transform.position, targetPos, dashSpeed * Time.deltaTime);
-            Collider[] enemies = Physics.OverlapSphere(gameObject.transform.position, 0.5f, Enemy);
+            Collider[] enemies = Physics.OverlapSphere(gameObject.transform.position, 1.5f, Enemy);
             foreach (Collider hit in enemies)
             {
                 if (damagedEnemies.Contains(hit.gameObject))
