@@ -31,6 +31,7 @@ public class SpiritShield : Skill
             PlayerData playerData = Player.GetComponent<PlayerData>();
             playerData.BuffShieldAmountTurn = 3;
             playerData.Shield += (int)Shield;
+            VFXManager.Instance.AddVFXOnGameObject(Player , VFX.Protector_Skill1);
         }
         isActivate = false;
     }

@@ -31,7 +31,7 @@ public class CarnageSlice : Skill
         if (playerData.BuffAmountTarget <= 0) return;
         playerData.BuffAmountTarget--;
         playerData.BypassDef_BloodFlowing += BypassDef_BloodFlowing;
-        if (playerData.BuffAmountTarget <= 0) { playerData.ishavebuff = false; VFXManager.Instance.ClearVFX(player);}
+        if (playerData.BuffAmountTarget <= 0) { playerData.ishavebuff = false; VFXManager.Instance.ClearVFX(player , VFX.Striker_Skill1);}
         
         int enemyDef = enemyData.Defense + GameManager.Instance.BloodFlowing;
         float MaxHpDGM = (5f / 100f) * (float)enemyData.HP;

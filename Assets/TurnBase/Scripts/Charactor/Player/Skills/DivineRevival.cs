@@ -42,6 +42,7 @@ public class DivineRevival : Skill
                 target.SetActive(true);
                 Vector3 newPos = new Vector3(marker.transform.position.x , target.transform.position.y - 0.3f, marker.transform.position.z);
                 target.transform.position = newPos;
+                VFXManager.Instance.AddVFXOnWorld(target , VFX.Protector_Skill2 , 2f);
 
                 PlayerData playerData = target.GetComponent<PlayerData>();
                 float Hp = 0.5f * (float)playerData.HP;

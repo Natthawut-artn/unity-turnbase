@@ -9,6 +9,9 @@ public enum VFX
     Support_Skill1,
     Support_Skill2,
     Support_Skill3,
+    Protector_Skill1,
+    Protector_Skill2,
+    Protector_Skill3,
 }
 
 public class VFXManager : MonoBehaviour
@@ -43,15 +46,20 @@ public class VFXManager : MonoBehaviour
         VFX.transform.SetParent(GameObj.transform);
     }
 
-    public void ClearVFX(GameObject GameObj)
+    public void ClearVFX(GameObject GameObj , VFX vFX)
     {
-        Transform parent = GameObj.transform; 
+        GameObject prefab = VFXList[(int)vFX];
+        Debug.Log(prefab.name);
 
-        foreach (Transform child in parent.GetComponentsInChildren<Transform>())
+        foreach (Transform child in GameObj.GetComponentsInChildren<Transform>())
         {
             if (child.CompareTag("VFX"))
             {
-                Destroy(child.gameObject);
+                if (child.name.StartsWith(prefab.name)) 
+                {
+                    Destroy(child.gameObject);
+                    return;
+                }
             }
         }
     }
