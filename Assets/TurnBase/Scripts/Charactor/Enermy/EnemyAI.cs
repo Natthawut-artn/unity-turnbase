@@ -418,7 +418,7 @@ public class EnemyAI : MonoBehaviour
         {
             animator.SetTrigger("isAttack");
 
-            int baseDamage = 100;
+            int baseDamage = 10;
 
             Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, WhatIsPlayer);
             foreach (Collider player in hitEnemies)
