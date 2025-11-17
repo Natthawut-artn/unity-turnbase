@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 6877923207039546409}
   - component: {fileID: 8037413451395985188}
   - component: {fileID: 8504129860818939736}
+  - component: {fileID: 953116810501372917}
   m_Layer: 0
   m_Name: Room14
   m_TagString: Untagged
@@ -255,6 +256,19 @@ MonoBehaviour:
   ExitMarkers: []
   eventType: 0
   Doors: []
+--- !u!114 &953116810501372917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136470263780334421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 0}
 --- !u!1 &1209087041548514369
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +962,7 @@ GameObject:
   - component: {fileID: 5785794887816714143}
   - component: {fileID: 3469690616130510550}
   - component: {fileID: 7212633406931579437}
+  - component: {fileID: 970477825202227406}
   m_Layer: 0
   m_Name: Room2
   m_TagString: Untagged
@@ -969,6 +984,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5184242085110250221}
+  - {fileID: 8795109545844317594}
   m_Father: {fileID: 4304413739328500503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3469690616130510550
@@ -1008,6 +1024,19 @@ MonoBehaviour:
   ExitMarkers: []
   eventType: 0
   Doors: []
+--- !u!114 &970477825202227406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4056021221005475503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 5323009742577092498}
 --- !u!1 &4362351730170354316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,6 +1110,7 @@ GameObject:
   - component: {fileID: 368695111411269360}
   - component: {fileID: 3083848712344170192}
   - component: {fileID: 5428468422710451232}
+  - component: {fileID: 6490378643904465565}
   m_Layer: 0
   m_Name: Room8
   m_TagString: Untagged
@@ -1141,6 +1171,82 @@ MonoBehaviour:
   ExitMarkers: []
   eventType: 0
   Doors: []
+--- !u!114 &6490378643904465565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5160842308818603261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 0}
+--- !u!1 &5162798540954264722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 698955018428874754}
+  - component: {fileID: 4299980165946324414}
+  m_Layer: 6
+  m_Name: NavMesh Surface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &698955018428874754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162798540954264722}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.5152504, y: 8.515274, z: -4.0726213}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4304413739328500503}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4299980165946324414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162798540954264722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 0.1666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 7229b6c72b5199f49b81258c2efc2c04, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &5198356360504596378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,6 +1450,7 @@ GameObject:
   - component: {fileID: 535005027945859161}
   - component: {fileID: 7130098379363277674}
   - component: {fileID: 1857375813000968727}
+  - component: {fileID: 5723198210088962576}
   m_Layer: 0
   m_Name: Room6
   m_TagString: Untagged
@@ -1404,6 +1511,19 @@ MonoBehaviour:
   ExitMarkers: []
   eventType: 0
   Doors: []
+--- !u!114 &5723198210088962576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676192192349574800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 0}
 --- !u!1 &6124970102013778355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,6 +1535,7 @@ GameObject:
   - component: {fileID: 8087317441260170761}
   - component: {fileID: 2264081691219969746}
   - component: {fileID: 6653951899149842970}
+  - component: {fileID: 2348734657648119084}
   m_Layer: 0
   m_Name: Room4
   m_TagString: Untagged
@@ -1475,6 +1596,19 @@ MonoBehaviour:
   ExitMarkers: []
   eventType: 0
   Doors: []
+--- !u!114 &2348734657648119084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6124970102013778355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 0}
 --- !u!1 &6148983730029271818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,6 +1776,7 @@ Transform:
   - {fileID: 6877923207039546409}
   - {fileID: 1577520702994080540}
   - {fileID: 954845174338935825}
+  - {fileID: 698955018428874754}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5296638839314696304
@@ -1880,6 +2015,7 @@ GameObject:
   - component: {fileID: 4072733906303123778}
   - component: {fileID: 1628797489702172672}
   - component: {fileID: 8801844559865874921}
+  - component: {fileID: 7057453838226166901}
   m_Layer: 0
   m_Name: Room9
   m_TagString: Untagged
@@ -1940,6 +2076,19 @@ MonoBehaviour:
   ExitMarkers: []
   eventType: 0
   Doors: []
+--- !u!114 &7057453838226166901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098860305784587882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 0}
 --- !u!1 &7388469541871544769
 GameObject:
   m_ObjectHideFlags: 0
@@ -2131,6 +2280,7 @@ GameObject:
   - component: {fileID: 8959651785222640342}
   - component: {fileID: 5601243156610959398}
   - component: {fileID: 3381991170800725348}
+  - component: {fileID: 4505604141906692822}
   m_Layer: 0
   m_Name: Room7
   m_TagString: Untagged
@@ -2191,6 +2341,19 @@ MonoBehaviour:
   ExitMarkers: []
   eventType: 0
   Doors: []
+--- !u!114 &4505604141906692822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7819955720037624795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 0}
 --- !u!1 &8079636935074089898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,6 +2625,7 @@ GameObject:
   - component: {fileID: 272483590339778941}
   - component: {fileID: 2810927258856022206}
   - component: {fileID: 3669241735798647930}
+  - component: {fileID: 2678130727191986531}
   m_Layer: 0
   m_Name: Room3
   m_TagString: Untagged
@@ -2522,6 +2686,19 @@ MonoBehaviour:
   ExitMarkers: []
   eventType: 0
   Doors: []
+--- !u!114 &2678130727191986531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565022198266362100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 0}
 --- !u!1 &8933328965113136851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,6 +2710,7 @@ GameObject:
   - component: {fileID: 1601276057337788885}
   - component: {fileID: 3404746576775429533}
   - component: {fileID: 2523215975319415915}
+  - component: {fileID: 6822063458694131849}
   m_Layer: 0
   m_Name: Room13
   m_TagString: Untagged
@@ -2593,6 +2771,19 @@ MonoBehaviour:
   ExitMarkers: []
   eventType: 0
   Doors: []
+--- !u!114 &6822063458694131849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8933328965113136851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a42b37569a074b96398f9b291aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 0}
 --- !u!1001 &77431336170138409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2674,6 +2865,10 @@ PrefabInstance:
     - target: {fileID: 557011395025029334, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
@@ -3795,6 +3990,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8711673942896659991}
     m_Modifications:
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room6
@@ -4008,6 +4207,10 @@ PrefabInstance:
     - target: {fileID: 557011395025029334, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
@@ -4433,6 +4636,10 @@ PrefabInstance:
       propertyPath: ConnectToRoom
       value: Room13
       objectReference: {fileID: 0}
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4545085163373184698, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room10
@@ -4631,6 +4838,91 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4958134157720137197, guid: 5ba34c2c1f11fa940bf8f7cfe9f74100, type: 3}
   m_PrefabInstance: {fileID: 3798064066209190274}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4039110481425694774
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5785794887816714143}
+    m_Modifications:
+    - target: {fileID: 3616352702945752637, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_Name
+      value: EnemySpawner 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.487655
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.660894
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: RoomName
+      value: Room2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: EnemyTypeName
+      value: Goblin
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+--- !u!114 &5323009742577092498 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+  m_PrefabInstance: {fileID: 4039110481425694774}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e236eab67204e46918431cdaf1b975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8795109545844317594 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4756729322048134572, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+  m_PrefabInstance: {fileID: 4039110481425694774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4290350989796829009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4709,6 +5001,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5785794887816714143}
     m_Modifications:
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room11
@@ -4787,6 +5083,10 @@ PrefabInstance:
       propertyPath: ConnectToRoom
       value: Room2
       objectReference: {fileID: 0}
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4545085163373184698, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room3
@@ -4856,6 +5156,10 @@ PrefabInstance:
     - target: {fileID: 734775020449122468, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
       propertyPath: m_Name
       value: Room2
+      objectReference: {fileID: 0}
+    - target: {fileID: 831298903983182415, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3461808080758884722, guid: 6e25210ffee78b345a01c7e35d8fb1c8, type: 3}
       propertyPath: ConnectToRoom
@@ -5071,6 +5375,10 @@ PrefabInstance:
       propertyPath: ConnectToRoom
       value: Room7
       objectReference: {fileID: 0}
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room9
@@ -5141,6 +5449,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6877923207039546409}
     m_Modifications:
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room13
@@ -5281,6 +5593,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8959651785222640342}
     m_Modifications:
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room8
@@ -5631,6 +5947,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1577520702994080540}
     m_Modifications:
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room4
@@ -5849,6 +6169,10 @@ PrefabInstance:
       propertyPath: ConnectToRoom
       value: Room5
       objectReference: {fileID: 0}
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4545085163373184698, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room8
@@ -6062,6 +6386,10 @@ PrefabInstance:
     - target: {fileID: 557011395025029334, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
@@ -6557,6 +6885,10 @@ PrefabInstance:
       propertyPath: ConnectToRoom
       value: Room3
       objectReference: {fileID: 0}
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4545085163373184698, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room9
@@ -6630,6 +6962,10 @@ PrefabInstance:
     - target: {fileID: 557011395025029334, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom
       value: Room4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220801943460417497, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4160953358074760473, guid: 3b064b839eb9b354b88965e9b4f53e2f, type: 3}
       propertyPath: ConnectToRoom

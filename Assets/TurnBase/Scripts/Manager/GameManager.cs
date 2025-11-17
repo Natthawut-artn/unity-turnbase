@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            CurrentStage = Instantiate(Resources.Load<GameObject>("Prefabs/Stages/Sci-fi/Sci-fi 1"));
+            CurrentStage = Instantiate(Resources.Load<GameObject>("Prefabs/Stages/Sci-fi/Sci-fi 2"));
         }
 
         if (CurrentStage != null)
