@@ -107,7 +107,7 @@ public class ScreamoftheVampireLord : MonoBehaviour
         if (animator != null) animator.SetTrigger("Skill1"); // Use your animation trigger
 
         // Wait for wind-up animation
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(5f);
 
         // 5. Calculate Damage
         int damageAmount = Mathf.RoundToInt(characterStats.ATK * damagePercentage);

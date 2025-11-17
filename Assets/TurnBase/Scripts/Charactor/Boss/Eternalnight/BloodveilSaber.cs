@@ -111,10 +111,10 @@ public class BloodveilSaber : MonoBehaviour
         // 4. Focus Camera & Play Animation
         MainCamera.Instance.SetPlayer(gameObject.transform);
         Animator animator = GetComponentInChildren<Animator>();
-        if (animator != null) animator.SetTrigger("Skill3"); // Use your animation trigger
+        if (animator != null) animator.SetTrigger("Skill6"); // Use your animation trigger
 
         // Wait for wind-up animation
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(9f);
 
         // 5. Calculate Damage
         int damagePerHit = Mathf.RoundToInt(characterStats.currentATK * damagePercentage);

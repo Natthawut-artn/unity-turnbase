@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CrimsonDevourer : MonoBehaviour
 {
+    public GameObject BiteFX;
     private CharactorInheritance characterStats; // Boss's stats
 
     [Header("Skill Parameters")]
@@ -91,9 +92,8 @@ public class CrimsonDevourer : MonoBehaviour
 
         Animator animator = GetComponentInChildren<Animator>();
         if (animator != null) animator.SetTrigger("Skill3"); // Use your animation trigger
-
-        // Wait for wind-up animation
-        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(BiteAnim());
+        yield return new WaitForSeconds(5f);
 
         // 3. Calculate Damage (5% ATK)
         int damageAmount = Mathf.RoundToInt(characterStats.ATK * damagePercentage);
@@ -122,5 +122,15 @@ public class CrimsonDevourer : MonoBehaviour
         // Visualize skill range in the editor
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, skillRange);
+    }
+
+    IEnumerator BiteAnim()
+    {
+        if (BiteFX != null)
+        {
+            BiteFX.SetActive(true);
+            yield return new WaitForSeconds(1.0f);
+            BiteFX.SetActive(false);
+        }
     }
 }

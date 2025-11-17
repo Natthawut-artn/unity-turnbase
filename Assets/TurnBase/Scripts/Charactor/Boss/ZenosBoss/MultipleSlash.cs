@@ -87,10 +87,10 @@ public class MultipleSlash : MonoBehaviour
         Animator animator = GetComponentInChildren<Animator>();
         if (animator != null)
         {
-            animator.SetTrigger("MultipleSlashAttack");
+            animator.SetTrigger("Skill3");
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(3.5f);
 
         // FIX: Calculate Damage using the EnemyData reference
         int damageAmount = Mathf.RoundToInt(enemyData.ATK * DamagePercentage);

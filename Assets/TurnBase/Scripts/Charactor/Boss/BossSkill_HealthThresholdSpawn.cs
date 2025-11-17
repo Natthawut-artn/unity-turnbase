@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossSkill_HealthThresholdSpawn : MonoBehaviour
 {
+    public Animator animator;
     // --- Skill Activation & Boss Setup ---
     [Header("Skill Activation & Boss Setup")]
     [Tooltip("The name of the room the boss is currently in.")]
@@ -111,8 +112,8 @@ public class BossSkill_HealthThresholdSpawn : MonoBehaviour
             return;
         }
 
-        
-       ApplySelfDamage();
+        StartCoroutine(SpawnAnim());
+        ApplySelfDamage();
         
 
         if (targetRoom == null)
@@ -208,5 +209,10 @@ public class BossSkill_HealthThresholdSpawn : MonoBehaviour
             }
             _spawnedMinions.Clear();
         }
+    }
+    IEnumerator SpawnAnim()
+    {
+        animator.SetTrigger("Skill2");
+        yield return new WaitForSeconds(3.5f);
     }
 }

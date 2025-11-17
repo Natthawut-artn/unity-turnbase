@@ -29,7 +29,7 @@ public class EdgeBurst : MonoBehaviour
 
     [Tooltip("LayerMask containing only Player units.")]
     public LayerMask targetLayer;
-
+    public Animator animator;
     private void Awake()
     {
         // FIX: Use CharactorInheritance, which EnemyData and BossData both inherit from.
@@ -39,6 +39,8 @@ public class EdgeBurst : MonoBehaviour
         {
             Debug.LogError("FrontalSmash requires a CharactorInheritance component (EnemyData or BossData) to function.");
         }
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     /// <summary>
@@ -94,8 +96,8 @@ public class EdgeBurst : MonoBehaviour
         lookPos.y = 0;
         transform.rotation = Quaternion.LookRotation(lookPos);
 
-        // 3. Wind-up animation pause
-        yield return new WaitForSeconds(0.5f);
+        animator.SetTrigger("Skill1");
+        yield return new WaitForSeconds(3f);
 
         // 4. EXECUTE ATTACK LOGIC
         if (TileDamageMultipliers == null || TileDamageMultipliers.Length < AttackRangeTiles)

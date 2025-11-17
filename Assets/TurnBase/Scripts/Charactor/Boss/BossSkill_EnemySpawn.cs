@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossSkill_EnemySpawn : MonoBehaviour
 {
-    
+    public Animator animator;
     // --- Skill Activation & Boss Setup ---
     [Header("Skill Activation & Boss Setup")]
     public float ActivationRange = 10f;
@@ -185,7 +185,7 @@ public class BossSkill_EnemySpawn : MonoBehaviour
 
     public void ExecuteSkill()
     {
-       
+        StartCoroutine(SpawnAnim());
         ApplySelfDamage();
         int enemiesToSpawn = Random.Range(MinSpawnCount, MaxSpawnCount + 1);
         GameObject enemyPrefab = Resources.Load<GameObject>(EnemyPrefabPath);
@@ -232,7 +232,11 @@ public class BossSkill_EnemySpawn : MonoBehaviour
             enemyData.currentHP = enemyData.HP;
         }
     }
-
+    IEnumerator SpawnAnim()
+    {
+        animator.SetTrigger("Skill1");
+        yield return new WaitForSeconds(3.5f);
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

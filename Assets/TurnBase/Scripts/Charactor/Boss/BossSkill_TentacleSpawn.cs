@@ -35,6 +35,7 @@ public class BossSkill_TentacleSpawn : MonoBehaviour
     private bool _hasSetup = false;
     private bool _isSpawning = false;
 
+    public Animator animator;
     void Start()
     {
         bossEnemyData = GetComponent<BossData>();
@@ -106,6 +107,7 @@ public class BossSkill_TentacleSpawn : MonoBehaviour
 
     public void ExecuteSkill()
     {
+        StartCoroutine(SpawnAnim());
         if (targetRoomComponent == null)
         {
             Debug.LogError("ExecuteSkill called but targetRoomComponent is null. Skipping spawn.");
@@ -193,5 +195,10 @@ public class BossSkill_TentacleSpawn : MonoBehaviour
 
         Debug.Log($"Successfully spawned {successfullySpawned} tentacles. (Target: {spawnCount})");
         _isSpawning = false;
+    }
+    IEnumerator SpawnAnim()
+    {
+        animator.SetTrigger("Tentacle");
+        yield return new WaitForSeconds(3.5f);
     }
 }

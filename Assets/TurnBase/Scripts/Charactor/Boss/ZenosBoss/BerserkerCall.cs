@@ -19,13 +19,13 @@ public class BerserkerCall : MonoBehaviour
 
     // --- Component References ---
     private EnemyData enemyData; // Reference to the Boss's stats
-
+    public Animator animator;
     // --- State Tracking ---
     [Tooltip("A list of all BossCrystals this script is tracking.")]
     private List<BossCrystal> trackedCrystals;
     private int initialCrystalCount = 0;
     private bool hasBeenBuffed = false; // Flag to ensure buff only applies once
-
+    
     void Start()
     {
         // 1. Get the Boss's stats component (must be on the same GameObject)
@@ -72,12 +72,14 @@ public class BerserkerCall : MonoBehaviour
         // 5. Check the trigger condition (at least 2 destroyed)
         if (destroyedCount >= crystalsToDestroy)
         {
+            StartCoroutine(BerserkerAnim());
             ApplyBerserkerBuff();
         }
     }
 
     private void ApplyBerserkerBuff()
     {
+       
         // 6. Apply the buff to the Boss's stats
         if (enemyData != null)
         {
@@ -92,5 +94,15 @@ public class BerserkerCall : MonoBehaviour
             // Optional: Play a particle effect or sound on the boss
             // e.g., Instantiate(berserkerEffectPrefab, transform.position, Quaternion.identity);
         }
+    }
+
+    IEnumerator BerserkerAnim()
+    {
+        Animator animator = GetComponentInChildren<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("Skill4");
+        }
+        yield return new WaitForSeconds(2.5f);
     }
 }

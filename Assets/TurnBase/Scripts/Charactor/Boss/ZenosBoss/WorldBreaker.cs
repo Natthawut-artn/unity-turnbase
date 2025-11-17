@@ -28,7 +28,7 @@ public class WorldBreaker : MonoBehaviour
 
     // Flag to signal success back to the EnemySkillDecider
     [HideInInspector] public bool DidExecuteSuccessfully = false;
-
+    public Animator animator;
     private void Awake()
     {
         characterStats = GetComponent<CharactorInheritance>();
@@ -36,6 +36,8 @@ public class WorldBreaker : MonoBehaviour
         {
             Debug.LogError("WorldBreaker requires a CharactorInheritance component (EnemyData or BossData).");
         }
+
+        
     }
 
     /// <summary>
@@ -104,10 +106,10 @@ public class WorldBreaker : MonoBehaviour
         // 4. Focus Camera & Play Animation
         MainCamera.Instance.SetPlayer(gameObject.transform);
         Animator animator = GetComponentInChildren<Animator>();
-        if (animator != null) animator.SetTrigger("WorldBreakerAttack"); // Use your animation trigger
+        if (animator != null) animator.SetTrigger("Skill2"); // Use your animation trigger
 
         // Wait for wind-up animation
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(3.5f);
 
         // 5. Calculate Damage
         int damageAmount = Mathf.RoundToInt(characterStats.ATK * damagePercentage);

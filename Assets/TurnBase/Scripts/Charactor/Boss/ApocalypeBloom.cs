@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ApocalypeBloom : MonoBehaviour
 {
+    public GameObject BoomFX;
     private CharactorInheritance characterStats; // Use base class for Boss/Enemy compatibility
 
     [Header("Skill Parameters")]
@@ -100,13 +101,13 @@ public class ApocalypeBloom : MonoBehaviour
 
         // --- Execute the Attack ---
         Animator animator = GetComponentInChildren<Animator>();
-        if (animator != null) animator.SetTrigger("Skill"); // Use your animation trigger name
-
-        // Focus camera on the unit using the skill
+        if (animator != null) animator.SetTrigger("Boom"); // Use your animation trigger name
+        
+        
         MainCamera.Instance.SetPlayer(gameObject.transform);
-
-        // Wait for wind-up
-        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(SetBoomFX());
+        
+        yield return new WaitForSeconds(9f);
 
         // Apply Damage
         foreach (PlayerData player in playersInRange)
@@ -150,6 +151,13 @@ public class ApocalypeBloom : MonoBehaviour
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, skillRange);
+    }
+
+    IEnumerator SetBoomFX()
+    {
+        BoomFX.SetActive(true);
+        yield return new WaitForSeconds(9f);
+        BoomFX.SetActive(false);
     }
 }
 
