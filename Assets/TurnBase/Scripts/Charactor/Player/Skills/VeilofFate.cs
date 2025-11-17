@@ -18,6 +18,7 @@ public class VeilofFate : Skill
     {
         if (SkillPointsManager.currentSkillPoint < UseSkillPoints) { Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
+        VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill2 , 2f);
         Activate();
     }
 

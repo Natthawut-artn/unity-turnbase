@@ -6,6 +6,9 @@ public enum VFX
     Striker_Skill1,
     Striker_Skill2,
     Striker_Skill3,
+    Support_Skill1,
+    Support_Skill2,
+    Support_Skill3,
 }
 
 public class VFXManager : MonoBehaviour

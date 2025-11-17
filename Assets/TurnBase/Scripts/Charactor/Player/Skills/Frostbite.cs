@@ -20,8 +20,14 @@ public class Frostbite : Skill
 
         PlayerController controller = player.GetComponent<PlayerController>();
         Collider[] hits = Physics.OverlapBox(player.transform.position, new Vector3(5f, 1f, 5f), fixedRotation, controller.Enemy);
-        if (hits.Length == 0) return;
+        if (hits.Length == 0)
+        {
+            Debug.Log("Enemy out of Range");
+            return;
+        }
         GameObject target = hits[0].gameObject;
+        player.transform.LookAt(target.transform);
+        VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill1 , 2f);
         Activate(target , player);
     }
 
