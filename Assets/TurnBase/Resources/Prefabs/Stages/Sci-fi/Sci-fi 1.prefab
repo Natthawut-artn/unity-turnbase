@@ -22146,7 +22146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: Eternalnight
+      value: The Mother
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnOffset.y
@@ -22154,7 +22154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyPrefabPath
-      value: Prefabs/Charactor/Boss/Eternalnight
+      value: Prefabs/Charactor/Boss/The Mother
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.size
@@ -22162,11 +22162,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
-      value: 20
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.y
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[1].GridPosition.x
@@ -24876,6 +24876,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2630484772383639215}
     - target: {fileID: 2694700744828860646, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694700744828860646, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5236036106117225863}
@@ -24883,6 +24887,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1271147282391325003}
+    - target: {fileID: 2694700744828860646, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Healplayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694700744828860646, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1599455465314784130}
+    - target: {fileID: 2694700744828860646, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3521620748332971408, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
