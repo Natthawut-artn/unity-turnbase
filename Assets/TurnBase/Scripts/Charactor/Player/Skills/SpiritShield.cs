@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class SpiritShield : Skill
 {
@@ -20,8 +21,12 @@ public class SpiritShield : Skill
         Activate(null , player);
     }
 
-    public override void Activate(GameObject enemy = null, GameObject player = null)
+    public override async void Activate(GameObject enemy = null, GameObject player = null)
     {
+        PlayerController controller = player.GetComponent<PlayerController>();
+        PlayerData data = player.GetComponent<PlayerData>();
+        controller.SetAnimationState(PlayerMoveState.UseSkill2);
+        await Task.Delay(1750);
         List<GameObject> team = GameManager.Instance.Players_alive;
 
         float Shield = (75f / 100f) * (float)player.GetComponent<PlayerData>().Defense;
@@ -34,5 +39,6 @@ public class SpiritShield : Skill
             VFXManager.Instance.AddVFXOnGameObject(Player , VFX.Protector_Skill1);
         }
         isActivate = false;
+        data.playerMoveState = PlayerMoveState.Stand;
     }
 }

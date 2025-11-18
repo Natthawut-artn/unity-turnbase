@@ -35,6 +35,11 @@ public class SwordRain : Skill
             damage = 1f;
         }
 
+        controller.SetAnimationState(PlayerMoveState.UseSkill3);
+        Vector3 Dir = (target.transform.position - player.transform.position).normalized;
+        player.transform.LookAt(Dir);
+        await Task.Delay(1750);
+
         VFXManager.Instance.AddVFXOnWorld(target , VFX.Striker_Skill3 , 2f);
         for (int i = 0; i < maxAttack ; i++)
         {
@@ -48,7 +53,7 @@ public class SwordRain : Skill
             await Task.Delay(100); 
         }
         isActivate = false;
-
+        playerData.playerMoveState = PlayerMoveState.Stand;
     }
 }
  

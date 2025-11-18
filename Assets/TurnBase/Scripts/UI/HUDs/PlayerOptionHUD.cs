@@ -71,6 +71,9 @@ public class PlayerOptionHUD : IUIElement
         );
         _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
 
+        GameObject player = MainCamera.Instance.Player.gameObject;
+        PlayerData playerData = player.GetComponent<PlayerData>();
+
         List<Button> buttons = new List<Button>();
         for (int i = 0; i < _selfGameObject.transform.childCount; i++)
         {
@@ -92,24 +95,44 @@ public class PlayerOptionHUD : IUIElement
 
         buttons[0].onClick.AddListener(() =>
         {
+            if (playerData.playerMoveState == PlayerMoveState.Walk)
+            {
+                return;
+            }
             data.Attack?.Invoke();
         });
         buttons[1].onClick.AddListener(() =>
         {
+            if (playerData.playerMoveState == PlayerMoveState.Walk)
+            {
+                return;
+            }
             data.Skip?.Invoke();
         });
         buttons[2].onClick.AddListener(() =>
         {
+            if (playerData.playerMoveState == PlayerMoveState.Walk)
+            {
+                return;
+            }
             data.UseSkill1?.Invoke();
             buttons[2].interactable = false;
         });
         buttons[3].onClick.AddListener(() =>
         {
+            if (playerData.playerMoveState == PlayerMoveState.Walk)
+            {
+                return;
+            }
             data.UseSkill2?.Invoke();
             buttons[3].interactable = false;
         });
         buttons[4].onClick.AddListener(() =>
         {
+            if (playerData.playerMoveState == PlayerMoveState.Walk)
+            {
+                return;
+            }
             data.UseSkill3?.Invoke();
             buttons[4].interactable = false;
         });

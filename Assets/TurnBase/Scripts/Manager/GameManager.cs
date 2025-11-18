@@ -91,7 +91,6 @@ public class GameManager : MonoBehaviour
     public void StopGame()
     {
         DestroyAll();
-        CurrentRoom = "Room1";
         Destroy(CurrentStage);
     }
 

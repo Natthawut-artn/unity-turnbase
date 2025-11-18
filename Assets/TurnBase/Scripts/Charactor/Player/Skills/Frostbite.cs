@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class Frostbite : Skill
 {
@@ -12,7 +13,7 @@ public class Frostbite : Skill
         UseSkillPoints = 1;
     }
     
-    public override void UseSkill(GameObject player = null)
+    public override async void UseSkill(GameObject player = null)
     {
         if (SkillPointsManager.currentSkillPoint < UseSkillPoints) { Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
@@ -27,7 +28,9 @@ public class Frostbite : Skill
         }
         GameObject target = hits[0].gameObject;
         player.transform.LookAt(target.transform);
-        VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill1 , 2f);
+        controller.SetAnimationState(PlayerMoveState.UseSkill1);
+        await Task.Delay(1750);
+        VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill1 , 2f , target.transform.rotation);
         Activate(target , player);
     }
 
@@ -42,5 +45,6 @@ public class Frostbite : Skill
         enemyData.isOnFrost = true;
         enemyData.FrostEffect.SetActive(true);
         enemyData.Frost(1 , (int)DGM , true);
+        playerData.playerMoveState = PlayerMoveState.Stand;
     }
 }

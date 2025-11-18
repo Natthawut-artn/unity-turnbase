@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         return null;
     }
 
-    private void SetAnimationState(PlayerMoveState state)
+    public void SetAnimationState(PlayerMoveState state)
     {
         if (animator == null) return;
         playerData.playerMoveState = state;
@@ -71,6 +71,18 @@ public class PlayerController : MonoBehaviour
 
             case PlayerMoveState.Walk:
                 animator.SetBool("Walking", true);
+                break;
+            case PlayerMoveState.UseSkill1:
+                animator.SetTrigger("UseSkill1");
+                animator.applyRootMotion = false;
+                break;
+            case PlayerMoveState.UseSkill2:
+                animator.SetTrigger("UseSkill2");
+                animator.applyRootMotion = false;
+                break;
+            case PlayerMoveState.UseSkill3:
+                animator.SetTrigger("UseSkill3");
+                animator.applyRootMotion = false;
                 break;
         }
     }
@@ -400,7 +412,7 @@ public class PlayerController : MonoBehaviour
             Vector3 targetPos = new Vector3(markertarget.transform.position.x, transform.position.y, markertarget.transform.position.z);
             transform.LookAt(targetPos);
             transform.position = Vector3.MoveTowards(transform.position, targetPos, dashSpeed * Time.deltaTime);
-            Collider[] enemies = Physics.OverlapSphere(gameObject.transform.position, 1.5f, Enemy);
+            Collider[] enemies = Physics.OverlapSphere(gameObject.transform.position, 2.5f, Enemy);
             foreach (Collider hit in enemies)
             {
                 if (damagedEnemies.Contains(hit.gameObject))

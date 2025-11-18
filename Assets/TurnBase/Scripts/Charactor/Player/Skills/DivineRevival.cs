@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class DivineRevival : Skill
 {
@@ -11,10 +12,15 @@ public class DivineRevival : Skill
         UseSkillPoints = 2;
     }
 
-    public override void UseSkill(GameObject player = null)
+    public override async void UseSkill(GameObject player = null)
     {
         if (SkillPointsManager.currentSkillPoint < UseSkillPoints) { Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
+        PlayerController controller = player.GetComponent<PlayerController>();
+        controller.SetAnimationState(PlayerMoveState.UseSkill2);
+        await Task.Delay(1750);
+        PlayerData data = player.GetComponent<PlayerData>();
+        data.playerMoveState = PlayerMoveState.Stand;
         Activate(null , player);
     }
 

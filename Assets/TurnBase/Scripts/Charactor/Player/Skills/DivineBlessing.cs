@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class DivineBlessing : Skill
 {
@@ -13,7 +14,7 @@ public class DivineBlessing : Skill
         UseSkillPoints = 3;
     }
 
-    public override void UseSkill(GameObject player = null)
+    public override async void UseSkill(GameObject player = null)
     {
         if(SkillPointsManager.currentSkillPoint < UseSkillPoints){ Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
@@ -23,7 +24,12 @@ public class DivineBlessing : Skill
             PlayerData data = GameManager.Instance.Players_alive[i].GetComponent<PlayerData>();
             data.StatusBuffTurnAmount = BuffTurnAmount + 1;
         }
+        PlayerController controller = player.GetComponent<PlayerController>();
+        controller.SetAnimationState(PlayerMoveState.UseSkill1);
+        await Task.Delay(1750);
         VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill3 , 2f);
+        PlayerData playerData = player.GetComponent<PlayerData>();
+        playerData.playerMoveState = PlayerMoveState.Stand;
         Activate(null , player);
     }
 

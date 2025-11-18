@@ -4,7 +4,10 @@ public enum PlayerMoveState
 {
     Stand,
     Walk,
-    Die
+    Die,
+    UseSkill1,
+    UseSkill2,
+    UseSkill3,
 }
 
 public class PlayerData : CharactorInheritance

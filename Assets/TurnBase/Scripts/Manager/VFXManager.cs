@@ -35,14 +35,48 @@ public class VFXManager : MonoBehaviour
         Debug.Log("already show");
     }
 
-    public void AddVFXOnWorld(GameObject GameObj, VFX vFX , float duration)
+    public void AddVFXOnWorld(GameObject GameObj, VFX vFX , float duration , Quaternion rotation = new Quaternion())
     {
-        GameObject VFX = Instantiate(VFXList[(int)vFX] , GameObj.transform.position , GameObj.transform.rotation);
-        Destroy(VFX , duration);
+        GameObject prefab = VFXList[(int)vFX];
+        foreach (Transform child in GameObj.GetComponentsInChildren<Transform>())
+        {
+            if (child.CompareTag("VFX"))
+            {
+                if (child.name.StartsWith(prefab.name)) 
+                {
+                    Debug.Log("have VFX already");
+                    return;
+                }
+            }
+        }
+
+        GameObject VFX;
+        if (rotation != Quaternion.identity)
+        {
+            VFX = Instantiate(VFXList[(int)vFX] , GameObj.transform.position , rotation);
+        }
+        else
+        {
+            VFX = Instantiate(VFXList[(int)vFX] , GameObj.transform.position , GameObj.transform.rotation);
+        }
+        Destroy(VFX , duration);        
     }
 
     public void AddVFXOnGameObject(GameObject GameObj , VFX vFX , float duration = 0)
     {
+        GameObject prefab = VFXList[(int)vFX];
+        foreach (Transform child in GameObj.GetComponentsInChildren<Transform>())
+        {
+            if (child.CompareTag("VFX"))
+            {
+                if (child.name.StartsWith(prefab.name)) 
+                {
+                    Debug.Log("have VFX already");
+                    return;
+                }
+            }
+        }
+        
         GameObject VFX = Instantiate(VFXList[(int)vFX] , GameObj.transform.position , GameObj.transform.rotation);
         VFX.transform.SetParent(GameObj.transform);
         if (duration <= 0)
@@ -58,7 +92,6 @@ public class VFXManager : MonoBehaviour
     public void ClearVFX(GameObject GameObj , VFX vFX)
     {
         GameObject prefab = VFXList[(int)vFX];
-        Debug.Log(prefab.name);
 
         foreach (Transform child in GameObj.GetComponentsInChildren<Transform>())
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class VeilofFate : Skill
 {
@@ -14,11 +15,16 @@ public class VeilofFate : Skill
         UseSkillPoints = 2;
     }
     
-    public override void UseSkill(GameObject player = null)
+    public override async void UseSkill(GameObject player = null)
     {
         if (SkillPointsManager.currentSkillPoint < UseSkillPoints) { Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
+        PlayerController controller = player.GetComponent<PlayerController>();
+        PlayerData playerData = player.GetComponent<PlayerData>();
+        controller.SetAnimationState(PlayerMoveState.UseSkill1);
+        await Task.Delay(1750);
         VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill2 , 2f);
+        playerData.playerMoveState = PlayerMoveState.Stand;
         Activate();
     }
 
