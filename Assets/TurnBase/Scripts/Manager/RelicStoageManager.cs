@@ -6,17 +6,21 @@ public static class RelicStroageManager
     public static string folderNormal = "RelicsData/Normal";
     public static string folderRare = "RelicsData/Rare";
     public static string folderLegent = "RelicsData/Legent";
+    public static string folderAR = "RelicsData/AR";
     public static List<string> normalPaths = new List<string>();
     public static List<string> rarePaths = new List<string>();
     public static List<string> legentPaths = new List<string>();
-    public static int NormalRate = 60;
-    public static int RareRate = 30;
-    public static int LegentRate = 10;
+    public static List<string> ARPaths = new List<string>();
+    public static int NormalRate = 0;
+    public static int RareRate = 0;
+    public static int LegentRate = 0;
+    public static int ARRate = 100;
     public static void Init()
     {
         Object[] Normalassets = Resources.LoadAll(folderNormal, typeof(Object));
         Object[] Rareassets = Resources.LoadAll(folderRare, typeof(Object));
         Object[] Legentassets = Resources.LoadAll(folderLegent, typeof(Object));
+        Object[] ARassets = Resources.LoadAll(folderAR, typeof(Object));
 
         foreach (var asset in Normalassets)
         {
@@ -33,6 +37,11 @@ public static class RelicStroageManager
             string path = folderLegent + "/" + asset.name;
             legentPaths.Add(path);
         }
+        foreach (var asset in ARassets)
+        {
+            string path = folderAR + "/" + asset.name;
+            ARPaths.Add(path);
+        }
     }
     public static List<RelicData> RelicsInUserPocket = new List<RelicData>();
     public static void ReceiveRelic(RelicData relic)
@@ -48,7 +57,7 @@ public static class RelicStroageManager
     public static void RandomRelic()
     {
         RelicData relic;
-        int number = Random.Range(1, NormalRate + RareRate + LegentRate);
+        int number = Random.Range(1, NormalRate + RareRate + LegentRate + ARRate);
         if (number <= NormalRate)
         {
             relic = RandomNormalRelic();
@@ -57,9 +66,13 @@ public static class RelicStroageManager
         {
             relic = RandomRareRelic();
         }
-        else
+        else if(number <= NormalRate + RareRate + LegentRate)
         {
             relic = RandomLegentRelic();
+        }
+        else
+        {
+            relic = RandomARRelic();
         }
 
         if (relic == null)
@@ -119,6 +132,22 @@ public static class RelicStroageManager
 
         if (relic == null)
             Debug.LogError($"Failed to load Normal Relic at path: {legentPaths[number]}");
+
+        return relic;
+    }
+    public static RelicData RandomARRelic()
+    {
+        if (ARPaths == null || ARPaths.Count == 0)
+        {
+            Debug.LogError("normalPaths is empty!");
+            return null;
+        }
+
+        int number = Random.Range(0, ARPaths.Count);
+        RelicData relic = Resources.Load<RelicData>(ARPaths[number]);
+
+        if (relic == null)
+            Debug.LogError($"Failed to load Normal Relic at path: {ARPaths[number]}");
 
         return relic;
     }

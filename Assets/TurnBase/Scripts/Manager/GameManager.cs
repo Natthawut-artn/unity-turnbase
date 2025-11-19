@@ -211,6 +211,8 @@ public class GameManager : MonoBehaviour
         {
             TurnManager.Instance.StopTurnBaseSystem();
             RelicStroageManager.RandomRelic();
+            PlayerOptionHUDController.Hide();
+            ServiceLocator.Get<SkillPointsHUD>().Hide();
         }
     }
 

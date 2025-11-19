@@ -148,6 +148,7 @@ public class CharactorInheritance : MonoBehaviour
             }
         }
         HPBarsHUDController.Update();
+        GameManager.Instance.CheckEnemys();
     }
 
     public void Healing(int Heal)

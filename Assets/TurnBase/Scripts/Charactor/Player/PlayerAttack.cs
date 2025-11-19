@@ -269,7 +269,6 @@ public class PlayerAttack : MonoBehaviour
             
         // --- Turn completion logic ---
         player.alreadyAttack = true;
-        GameManager.Instance.CheckEnemys();
 
         currentSelectedEnemy = null; // Clear target after turn actions complete
     }
