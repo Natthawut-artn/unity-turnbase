@@ -37,8 +37,10 @@ public class SwordRain : Skill
 
         controller.SetAnimationState(PlayerMoveState.UseSkill3);
         Vector3 Dir = (target.transform.position - player.transform.position).normalized;
-        player.transform.LookAt(Dir);
-        await Task.Delay(1750);
+        Quaternion Rotation = Quaternion.LookRotation(Dir);
+        Rotation *= Quaternion.Euler(0, -65, 0);
+        player.transform.rotation = Rotation;
+        await Task.Delay(1500);
 
         VFXManager.Instance.AddVFXOnWorld(target , VFX.Striker_Skill3 , 2f);
         for (int i = 0; i < maxAttack ; i++)

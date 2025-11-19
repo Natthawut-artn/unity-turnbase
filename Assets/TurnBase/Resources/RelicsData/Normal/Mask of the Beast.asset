@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mask of the Beast
   m_EditorClassIdentifier: 
   RelicName: ' Mask of the Beast '
-  RelicSprite: {fileID: 21300000, guid: c46be55a65cb30e44b7c89e3c0d531da, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 7998c232c8571504589c2717d4ec1cdf, type: 3}
   HP: 0
   ATK: 0
   Defense: 0

@@ -20,17 +20,39 @@ public class Frostbite : Skill
         Debug.Log("Use Frostbite");
 
         PlayerController controller = player.GetComponent<PlayerController>();
+        GameObject target = null;
         Collider[] hits = Physics.OverlapBox(player.transform.position, new Vector3(5f, 1f, 5f), fixedRotation, controller.Enemy);
         if (hits.Length == 0)
         {
             Debug.Log("Enemy out of Range");
             return;
         }
-        GameObject target = hits[0].gameObject;
+        else
+        {
+            float closestDistance = Mathf.Infinity;
+            Collider closestHit = null;
+
+            foreach (Collider hit in hits)
+            {
+                float dist = Vector3.Distance(player.transform.position, hit.transform.position);
+
+                if (dist < closestDistance)
+                {
+                    closestDistance = dist;
+                    closestHit = hit;
+                }
+            }
+
+            if (closestHit != null)
+            {
+                target = closestHit.gameObject;
+                Debug.Log("Target: " + target.name);
+            }
+        }
         player.transform.LookAt(target.transform);
         controller.SetAnimationState(PlayerMoveState.UseSkill1);
         await Task.Delay(1750);
-        VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill1 , 2f , target.transform.rotation);
+        VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill1 , 2f , player.transform.rotation);
         Activate(target , player);
     }
 

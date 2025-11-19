@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: The Cursed Bounty
   m_EditorClassIdentifier: 
   RelicName: 'The Cursed Bounty '
-  RelicSprite: {fileID: 21300000, guid: 9afdf6922258ac748b14eea29e383ce2, type: 3}
+  RelicSprite: {fileID: 21300000, guid: ee29a0d8c49c2d340951a63222e9e173, type: 3}
   HP: 10
   ATK: 0
   Defense: 5

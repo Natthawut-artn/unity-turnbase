@@ -88,7 +88,15 @@ public class PlayerOptionHUD : IUIElement
                 if (data.Skillset[i - 2].Unlock)
                 {
                     button.transform.Find("Image").gameObject.SetActive(false);
-                    button.interactable = true;
+                    if (data.Skillset[i - 2].UseSkillPoints <= SkillPointsManager.currentSkillPoint)
+                    {
+                        button.interactable = true;
+                    }
+                    else
+                    {
+                        button.interactable = false;
+                    }
+                    
                 }
             }
         }

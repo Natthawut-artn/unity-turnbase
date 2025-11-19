@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cursed Tome of Devouring
   m_EditorClassIdentifier: 
   RelicName: 'Cursed Tome of Devouring '
-  RelicSprite: {fileID: 21300000, guid: 289d6594367ab4e63aac75fff940e68e, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 3ec4e98339cbe2b4ba151f5804e1d682, type: 3}
   HP: 10
   ATK: 0
   Defense: 0

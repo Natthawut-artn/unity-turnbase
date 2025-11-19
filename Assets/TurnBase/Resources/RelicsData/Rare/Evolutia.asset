@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Evolutia
   m_EditorClassIdentifier: 
   RelicName: 'Evolutia '
-  RelicSprite: {fileID: 21300000, guid: b11f9c52da2945740b5078d84177a9ab, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 61a4e550b5175324b88c1f9237f1abea, type: 3}
   HP: 0
   ATK: 15
   Defense: 0

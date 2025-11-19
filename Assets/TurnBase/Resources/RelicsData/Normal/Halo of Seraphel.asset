@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Halo of Seraphel
   m_EditorClassIdentifier: 
   RelicName: 'Halo of Seraphel '
-  RelicSprite: {fileID: 21300000, guid: 70a77abda853dd941a0c8debf1de9b04, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 78c9b5c905adb7a42ba6f22b6c062343, type: 3}
   HP: 10
   ATK: 0
   Defense: 0

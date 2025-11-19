@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Assassin\u2019s Legacy"
   m_EditorClassIdentifier: 
   RelicName: "Assassin\u2019s Legacy "
-  RelicSprite: {fileID: 21300000, guid: 88ded4daec4474244956c987173cb37c, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 06e0f6e17246de740a428c1bf2afbcd6, type: 3}
   HP: 0
   ATK: 0
   Defense: 0
