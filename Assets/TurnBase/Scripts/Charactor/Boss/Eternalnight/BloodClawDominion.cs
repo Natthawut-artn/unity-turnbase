@@ -115,7 +115,7 @@ public class BloodClawDominion : MonoBehaviour
         if (animator != null) animator.SetTrigger("Skill4"); // Use your animation trigger
 
         // Wait for wind-up animation
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(4.5f);
 
         // 5. Calculate Damage (based on CURRENT ATK)
         int damageAmountPerHit = Mathf.RoundToInt(characterStats.currentATK * damagePercentage);
