@@ -59,11 +59,14 @@ public class PlayersInfoPopup : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/Popups/PlayersInfoPopup")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/Popups/PlayersInfoPopup")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
+        }
 
         Button CloseBtn = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         CloseBtn.onClick.AddListener(() =>

@@ -57,12 +57,14 @@ public class RelicInstPopup : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/Popups/RelicInstPopup")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
-
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/Popups/RelicInstPopup")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
+        }
 
         RelicData relicData = RelicStroageManager.RelicsInUserPocket[data.RelicIndex];
         GameObject relicdata = _selfGameObject.transform.Find("RelicData").gameObject;
