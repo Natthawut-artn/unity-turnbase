@@ -58,12 +58,14 @@ public class BrokenRelicInstPopup : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/Popups/BRelicInstPopup")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
-
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/Popups/BRelicInstPopup")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
+        }
 
         RelicData relicData = BrokenRelicManager.BrokenRelicPocket[data.BrokenRelicIndex];
         GameObject relicdata = _selfGameObject.transform.Find("RelicData").gameObject;

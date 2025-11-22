@@ -59,12 +59,15 @@ public class RelicPocketPopup : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/Popups/RelicPocketPopup")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
-
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/Popups/RelicPocketPopup")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
+        }
+        
         Button closebtn = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         closebtn.onClick.AddListener(() =>
         {
