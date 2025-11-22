@@ -11,10 +11,10 @@ public static class RelicStroageManager
     public static List<string> rarePaths = new List<string>();
     public static List<string> legentPaths = new List<string>();
     public static List<string> ARPaths = new List<string>();
-    public static int NormalRate = 0;
-    public static int RareRate = 0;
-    public static int LegentRate = 0;
-    public static int ARRate = 100;
+    public static int NormalRate = 70;
+    public static int RareRate = 15;
+    public static int LegentRate = 10;
+    public static int ARRate = 5;
     public static void Init()
     {
         Object[] Normalassets = Resources.LoadAll(folderNormal, typeof(Object));

@@ -11,6 +11,11 @@ public static class PocketHUDController
             ServiceLocator.Get<SkillPointsHUD>().Hide();
             PlayersInfoHUDController.Hide();
             Hide();
+        },
+        () =>
+        {
+            BrokenRelicPocketController.Show();
+            Hide();
         });
 
         ServiceLocator.Get<PocketHUD>().Show(data);

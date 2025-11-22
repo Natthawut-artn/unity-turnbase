@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class DimentionDoor : MonoBehaviour
 {
+    public Theme theme;
     void OnTriggerEnter(Collider collision)
     {
         if (collision.CompareTag("Player"))
         {
-            StartGamePopupController.Show();    
+            StartGamePopupController.Show(theme);    
         }
     }
     void OnTriggerExit(Collider collision)

@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using System.IO;
+
+public enum Theme
+{
+    Scifi,
+    Medieval,
+    Victoria
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -57,7 +66,7 @@ public class GameManager : MonoBehaviour
     public int Death = 200;
 
 
-    public void StartGame()
+    public void StartGame(Theme theme = Theme.Scifi)
     {
         if (CurrentStage != null)
         {
@@ -70,7 +79,22 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            CurrentStage = Instantiate(Resources.Load<GameObject>("Prefabs/Stages/Sci-fi/Sci-fi 1"));
+            string Path = "Prefabs/Stages";
+            if (theme == Theme.Scifi)
+            {
+                Path += "/Sci-fi/Sci-fi ";
+            }
+            else if (theme == Theme.Medieval)
+            {
+                Path += "/Medieval/Medieval ";
+            }
+            else if (theme == Theme.Victoria)
+            {
+                Path += "/Victoria/Victoria ";
+            }
+            int random = Random.Range( 1 , 3);
+            Path += random.ToString();
+            CurrentStage = Instantiate(Resources.Load<GameObject>(Path));
         }
 
         if (CurrentStage != null)
@@ -145,6 +169,7 @@ public class GameManager : MonoBehaviour
         GameObject RightPos = MainPlayer.transform.Find("Right").gameObject;
         Friends.Add(LeftPos);
         Friends.Add(RightPos);
+        BrokenRelicManager.InitInStage();
     }
 
     public void DestroyAll()
@@ -199,6 +224,7 @@ public class GameManager : MonoBehaviour
         SFXManager.Instance.Play(SFX.Hub);
         SkillPointsManager.ResetSkillPonit();
         RelicStroageManager.ResetRelics();
+        PocketHUDController.Show();
     }
 
     public void CheckEnemys()

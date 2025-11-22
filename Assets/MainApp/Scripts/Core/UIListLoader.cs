@@ -22,6 +22,8 @@ public class UIListLoader
         new RelicUnInstPopup(),
         new AnnouncerPopup(),
         new ResultPopup(),
+        new BrokenRelicPocket(),
+        new BrokenRelicInstPopup()
     };
     public List<object> Pages { get; private set; } = new List<object>()
     {
