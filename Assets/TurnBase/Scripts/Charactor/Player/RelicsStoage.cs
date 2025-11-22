@@ -5,6 +5,7 @@ using UnityEngine;
 public class RelicsStoage : MonoBehaviour
 {
     public List<RelicData> RelicsInPocket = new List<RelicData>();
+    public List<RelicData> BrokenRelicsInPocket = new List<RelicData>();
     private PlayerData playerData;
 
     void Start()
@@ -29,6 +30,26 @@ public class RelicsStoage : MonoBehaviour
             relic.RemoveRelic(playerData);
             RelicsInPocket.Remove(relic);
             RelicStroageManager.RelicsInUserPocket.Add(relic);
+        }
+    }
+
+    public void InstallBrokenRelic(RelicData Relic)
+    {
+        if (BrokenRelicsInPocket.Count < 4)
+        {
+            BrokenRelicsInPocket.Add(Relic);
+            Relic.InstallRelic(playerData);
+            BrokenRelicManager.BrokenRelicPocket.Remove(Relic);
+        }
+    }
+
+    public void RemoveBrokenRelic(RelicData relic)
+    {
+        if (RelicsInPocket.Contains(relic))
+        {
+            relic.RemoveRelic(playerData);
+            BrokenRelicsInPocket.Remove(relic);
+            BrokenRelicManager.BrokenRelicPocket.Add(relic);
         }
     }
 }

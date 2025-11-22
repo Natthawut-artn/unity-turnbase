@@ -9,9 +9,11 @@ public class PocketHUD : IUIElement
     public class Data
     {
         public Delegate.CallBack ShowRelicsPoketPopup;
-        public Data(Delegate.CallBack showRelicsPocketPopup)
+        public Delegate.CallBack ShowBrokenRelicPocket;
+        public Data(Delegate.CallBack showRelicsPocketPopup , Delegate.CallBack showBrokenRelicPocket)
         {
             ShowRelicsPoketPopup = showRelicsPocketPopup;
+            ShowBrokenRelicPocket = showBrokenRelicPocket;
         }
     }
     public Data data;
@@ -61,10 +63,21 @@ public class PocketHUD : IUIElement
         _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
 
         Button button = _selfGameObject.GetComponent<Button>();
-        button.onClick.AddListener(() =>
+        if (AppStateManager.appState == AppState.Hub)
         {
-            data.ShowRelicsPoketPopup?.Invoke();
-        });
+            button.onClick.AddListener(() =>
+            {
+                data.ShowBrokenRelicPocket?.Invoke();
+            });
+        }
+        else
+        {
+            button.onClick.AddListener(() =>
+            {
+                data.ShowRelicsPoketPopup?.Invoke();
+            });
+        }
+        
     }
 }
 
