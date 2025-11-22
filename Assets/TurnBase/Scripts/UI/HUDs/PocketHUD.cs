@@ -56,12 +56,15 @@ public class PocketHUD : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/HUDs/PocketHUD")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
-
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/HUDs/PocketHUD")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
+        }
+    
         Button button = _selfGameObject.GetComponent<Button>();
         if (AppStateManager.appState == AppState.Hub)
         {

@@ -57,11 +57,15 @@ public class HpBarsHUD : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/HUDs/HpBarsHUD")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/HUDs/HpBarsHUD")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
+        }
+        
 
         for (int i = 0; i < _selfGameObject.transform.childCount; i++)
         {

@@ -54,11 +54,14 @@ public class PlayersInfoHUD : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/HUDs/PlayersInfoHUD")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/HUDs/PlayersInfoHUD")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
+        }
 
         Button button = _selfGameObject.GetComponent<Button>();
         button.onClick.AddListener(() =>

@@ -65,12 +65,15 @@ public class PlayerOptionHUD : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-              Resources.Load<GameObject>("Prefabs/UI/HUDs/PlayerOptionHUD")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
-
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/HUDs/PlayerOptionHUD")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
+        }
+        
         GameObject player = MainCamera.Instance.Player.gameObject;
         PlayerData playerData = player.GetComponent<PlayerData>();
 
