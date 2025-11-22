@@ -151,7 +151,7 @@ public class TurnManager : MonoBehaviour
 
     public IEnumerator PlayersPhase()
     {
-        SkillPointsManager.ReceiveSkillPoint(6);
+        SkillPointsManager.ReceiveSkillPoint(8);
         Skill skill = null;
 
         List<GameObject> players = GameManager.Instance.Players_alive;

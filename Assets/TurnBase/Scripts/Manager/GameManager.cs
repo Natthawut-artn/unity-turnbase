@@ -239,6 +239,11 @@ public class GameManager : MonoBehaviour
             RelicStroageManager.RandomRelic();
             PlayerOptionHUDController.Hide();
             ServiceLocator.Get<SkillPointsHUD>().Hide();
+            for (int i = 0; i < Players_alive.Count ; i++)
+            {
+                PlayerData playerData = Players_alive[i].GetComponent<PlayerData>();
+                playerData.Upgrade();
+            }
         }
     }
 
