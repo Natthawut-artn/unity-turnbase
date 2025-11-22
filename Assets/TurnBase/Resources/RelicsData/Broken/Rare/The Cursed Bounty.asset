@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cce15f830953ca14881b2ac992ad8a2e, type: 3}
-  m_Name: Pride stone
+  m_Name: The Cursed Bounty
   m_EditorClassIdentifier: 
-  RelicName: Pride stone
-  RelicSprite: {fileID: 21300000, guid: bc35d9c3fe1673942aa5700209ce005a, type: 3}
-  HP: 0
+  RelicName: 'The Cursed Bounty '
+  RelicSprite: {fileID: 21300000, guid: ee29a0d8c49c2d340951a63222e9e173, type: 3}
+  relicType: 0
+  HP: 5
   ATK: 0
-  Defense: 0
-  CritRate: 25
-  CritDGM: 0
+  Defense: 2
+  CritRate: 0
+  CritDGM: 5

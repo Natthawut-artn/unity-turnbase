@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cce15f830953ca14881b2ac992ad8a2e, type: 3}
-  m_Name: Power stone
+  m_Name: Claws of the Abyss
   m_EditorClassIdentifier: 
-  RelicName: Power stone
-  RelicSprite: {fileID: 21300000, guid: 42584ce4e99540b4fa27c380a2eda349, type: 3}
+  RelicName: 'Claws of the Abyss '
+  RelicSprite: {fileID: 21300000, guid: 816e89015ecfb3f4f9a5dec27e42400d, type: 3}
+  relicType: 0
   HP: 0
-  ATK: 25
+  ATK: 5
   Defense: 0
-  CritRate: 0
-  CritDGM: 0
+  CritRate: 2
+  CritDGM: 5
