@@ -144,6 +144,7 @@ MonoBehaviour:
   currentDefense: 0
   currentCritRate: 0
   currentCritDGM: 0
+  LV: 0
   BypassDef_Venom: 0
   BypassDef_BloodFlowing: 0
   BypassDef_Frost: 0
@@ -2293,7 +2294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1740872947779304428, guid: b4f5f86f91abc004ca220af38152a06b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.03
+      value: -0.42
       objectReference: {fileID: 0}
     - target: {fileID: 1740872947779304428, guid: b4f5f86f91abc004ca220af38152a06b, type: 3}
       propertyPath: m_LocalPosition.z

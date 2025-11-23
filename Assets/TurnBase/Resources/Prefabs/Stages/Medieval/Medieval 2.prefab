@@ -864,7 +864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7614037258697513413
 Transform:
   m_ObjectHideFlags: 0
@@ -4092,6 +4092,10 @@ PrefabInstance:
       propertyPath: RoomName
       value: Room14
       objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.487655
@@ -4810,6 +4814,10 @@ PrefabInstance:
     - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: RoomName
       value: Room8
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10631,6 +10639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner 1 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6431972912376767385, guid: 6671e4e27b13d35478ab26cb986184a7, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7679576249849887121, guid: 6671e4e27b13d35478ab26cb986184a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -127.512344
@@ -13499,6 +13511,10 @@ PrefabInstance:
       propertyPath: RoomName
       value: Room4
       objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.487655
@@ -14073,6 +14089,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5692051495500501283}
     m_Modifications:
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.487655
@@ -22161,6 +22181,10 @@ PrefabInstance:
       propertyPath: RoomName
       value: Room13
       objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.487655
@@ -22350,6 +22374,10 @@ PrefabInstance:
     - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: RoomName
       value: Room7
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25285,6 +25313,10 @@ PrefabInstance:
       propertyPath: RoomName
       value: Room3
       objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.487655
@@ -26067,6 +26099,10 @@ PrefabInstance:
     - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: RoomName
       value: Room6
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: SpawnOnStart
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
