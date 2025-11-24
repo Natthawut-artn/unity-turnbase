@@ -7,7 +7,7 @@ public class SpiritShield : Skill
     public SpiritShield()
     {
         SkillName = "Spirit Shield";
-        SkillSprite_Path = "Graphic2D/Skill/Electromancer16";
+        SkillSprite_Path = "Graphic2D/Skill/Spirit Shield";
         Description = "";
         UseSkillPoints = 1;
     }

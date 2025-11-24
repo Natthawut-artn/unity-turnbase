@@ -7,7 +7,7 @@ public class DivineRevival : Skill
     public DivineRevival()
     {
         SkillName = "Divine Revival";
-        SkillSprite_Path = "Graphic2D/Skill/Priest8";
+        SkillSprite_Path = "Graphic2D/Skill/Divine Revival";
         Description = "";
         UseSkillPoints = 2;
     }

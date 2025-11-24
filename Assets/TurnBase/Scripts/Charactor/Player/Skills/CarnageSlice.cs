@@ -7,7 +7,7 @@ public class CarnageSlice : Skill
     public CarnageSlice()
     {
         SkillName = "Carnage Slice";
-        SkillSprite_Path = "Graphic2D/Skill/Rogue11";
+        SkillSprite_Path = "Graphic2D/Skill/Carnage Slice";
         Description = "";
         UseSkillPoints = 1;
     }
