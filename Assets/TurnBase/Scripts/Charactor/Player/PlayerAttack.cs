@@ -210,7 +210,7 @@ public class PlayerAttack : MonoBehaviour
                     if (skill != null && skill.enabled && skill.gameObject.activeInHierarchy)
                     {
                         // Set the flag on each enemy with the skill
-                        skill.playerTriggeredSkill = true;
+                        
                         Debug.Log($"Notified {skill.gameObject.name} that player used a skill.");
                     }
                 }

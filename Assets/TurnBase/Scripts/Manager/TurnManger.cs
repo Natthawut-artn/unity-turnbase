@@ -236,7 +236,23 @@ public class TurnManager : MonoBehaviour
     
     private IEnumerator TriggerBossTurnEndSkills()
     {
-        
+        EdgeBurst[] edgeBurstsSkills = FindObjectsOfType<EdgeBurst>();
+        foreach (EdgeBurst edgeBurst in edgeBurstsSkills)
+        {
+            // 1. Check if the component is active
+            if (edgeBurst != null && edgeBurst.enabled && edgeBurst.gameObject.activeInHierarchy)
+            {
+                // 2. Check if the enemy is alive
+                CharactorInheritance stats = edgeBurst.GetComponent<CharactorInheritance>();
+                if (stats != null && stats.currentHP > 0)
+                {
+                    // 3. Execute the skill (it handles range checks internally) and WAIT for it to finish
+                    yield return StartCoroutine(edgeBurst.CheckAndExecuteSkill());
+                    Debug.Log($"TurnManager triggered CheckAndExecuteSkill for {edgeBurst.gameObject.name} (FrontalSmash)");
+                }
+            }
+        }
+
         CrimsonDevourer[] devourerSkills = FindObjectsOfType<CrimsonDevourer>();
         foreach (CrimsonDevourer devourSkill in devourerSkills)
         {

@@ -85,11 +85,9 @@ public class EnemySkillDecider : MonoBehaviour
                 // This skill does not require SP deduction from the Global Pool. It's a special ability.
                 yield return StartCoroutine(Edgeburst.CheckAndExecuteSkill());
 
-                if (EdgeBurst.DidExecuteSuccessfully)
-                {
-                    SkillExecutedThisTurn = true; // Signal success to EnemyAI
-                    yield break; // End turn because the skill was successful
-                }
+                SkillExecutedThisTurn = true; // Signal success to EnemyAI
+                yield break; // End turn because the skill was successful
+                
             }
         }
         
