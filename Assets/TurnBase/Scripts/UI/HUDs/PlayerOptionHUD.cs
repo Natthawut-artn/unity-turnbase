@@ -110,6 +110,7 @@ public class PlayerOptionHUD : IUIElement
             {
                 return;
             }
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             data.Attack?.Invoke();
         });
         buttons[1].onClick.AddListener(() =>
@@ -118,6 +119,7 @@ public class PlayerOptionHUD : IUIElement
             {
                 return;
             }
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             data.Skip?.Invoke();
         });
         buttons[2].onClick.AddListener(() =>
@@ -127,6 +129,7 @@ public class PlayerOptionHUD : IUIElement
                 return;
             }
             data.UseSkill1?.Invoke();
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             buttons[2].interactable = false;
         });
         buttons[3].onClick.AddListener(() =>
@@ -136,6 +139,7 @@ public class PlayerOptionHUD : IUIElement
                 return;
             }
             data.UseSkill2?.Invoke();
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             buttons[3].interactable = false;
         });
         buttons[4].onClick.AddListener(() =>
@@ -145,6 +149,7 @@ public class PlayerOptionHUD : IUIElement
                 return;
             }
             data.UseSkill3?.Invoke();
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             buttons[4].interactable = false;
         });
     }

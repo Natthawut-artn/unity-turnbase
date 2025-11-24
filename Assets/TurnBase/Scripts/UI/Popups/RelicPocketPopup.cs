@@ -71,6 +71,7 @@ public class RelicPocketPopup : IUIElement
         Button closebtn = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         closebtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             data.Close?.Invoke();
         });
         List<RelicData> relics = RelicStroageManager.RelicsInUserPocket;
@@ -92,6 +93,7 @@ public class RelicPocketPopup : IUIElement
             Button button = pocket[i].GetComponent<Button>();
             button.onClick.AddListener(() =>
             {
+                SFXManager.Instance.PlayOneShot(SFX.Hammer);
                 data.InstallRelic.Invoke(index);
             });
         }

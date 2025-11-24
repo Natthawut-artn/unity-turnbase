@@ -70,6 +70,7 @@ public class PocketHUD : IUIElement
         {
             button.onClick.AddListener(() =>
             {
+                SFXManager.Instance.PlayOneShot(SFX.Press1);
                 data.ShowBrokenRelicPocket?.Invoke();
             });
         }
@@ -77,6 +78,7 @@ public class PocketHUD : IUIElement
         {
             button.onClick.AddListener(() =>
             {
+                SFXManager.Instance.PlayOneShot(SFX.Press1);
                 data.ShowRelicsPoketPopup?.Invoke();
             });
         }

@@ -65,18 +65,21 @@ public class TutorialPage : IUIElement
         Button LeftBtn = _selfGameObject.transform.Find("Next").GetComponent<Button>();
         LeftBtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             Next();
         });
 
         Button RightBtn = _selfGameObject.transform.Find("Pers").GetComponent<Button>();
         RightBtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Press2);
             Pervious();
         });
 
         Button Confirm = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         Confirm.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             Hide();
             PocketHUDController.Show();
             SettingHUDController.Show();

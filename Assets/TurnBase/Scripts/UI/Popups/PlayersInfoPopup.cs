@@ -71,6 +71,7 @@ public class PlayersInfoPopup : IUIElement
         Button CloseBtn = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         CloseBtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             data.Close?.Invoke();
         });
         GameObject Buttons = _selfGameObject.transform.Find("Buttons").gameObject;
@@ -111,6 +112,7 @@ public class PlayersInfoPopup : IUIElement
                     Button button = pocket.transform.GetChild(j).GetComponent<Button>();
                     button.onClick.AddListener(() =>
                     {
+                        SFXManager.Instance.PlayOneShot(SFX.Press1);
                         data.CallBackWith2Ints?.Invoke(index1, index2);
                     });
                 } 
@@ -122,10 +124,12 @@ public class PlayersInfoPopup : IUIElement
         }
         buttons[0].onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             ShowInfoPage(infos[0], infos[1]);
         });
         buttons[1].onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             ShowStatusePage(infos[0], infos[1]);
         });
     }

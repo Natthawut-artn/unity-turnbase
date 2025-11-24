@@ -67,6 +67,7 @@ public class AnnouncerPopup : IUIElement
         Button close = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         close.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             Hide();
         });
 
