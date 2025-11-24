@@ -83,6 +83,8 @@ public class EdgeBurst : MonoBehaviour
         {
             animator.SetTrigger("Skill1");
         }
+
+        SFXManager.Instance?.PlayOneShot(SFX.EdgeBurst);
         yield return new WaitForSeconds(3.5f);
 
 

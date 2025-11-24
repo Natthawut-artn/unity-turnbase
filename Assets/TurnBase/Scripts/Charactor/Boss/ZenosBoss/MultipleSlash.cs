@@ -89,7 +89,8 @@ public class MultipleSlash : MonoBehaviour
         {
             animator.SetTrigger("Skill3");
         }
-
+        
+        SFXManager.Instance?.PlayOneShot(SFX.multiSlash);
         yield return new WaitForSeconds(3.5f);
 
         // FIX: Calculate Damage using the EnemyData reference

@@ -72,6 +72,7 @@ public class BerserkerCall : MonoBehaviour
         // 5. Check the trigger condition (at least 2 destroyed)
         if (destroyedCount >= crystalsToDestroy)
         {
+            SFXManager.Instance?.PlayOneShot(SFX.BerserkerCall);
             StartCoroutine(BerserkerAnim());
             ApplyBerserkerBuff();
         }

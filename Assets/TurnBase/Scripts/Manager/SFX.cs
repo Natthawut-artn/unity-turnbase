@@ -15,6 +15,10 @@ public enum SFX
   SpawnFX,
   TentaclePlunge,
   tentacleRise,
+  multiSlash,
+  WorldBreaker,
+  EdgeBurst,
+  BerserkerCall,
 }
 
 public enum Music
