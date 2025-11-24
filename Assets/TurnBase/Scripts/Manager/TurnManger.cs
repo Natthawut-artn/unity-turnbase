@@ -122,6 +122,7 @@ public class TurnManager : MonoBehaviour
             else
             {
                 yield return StartCoroutine(enemyAI.TakeTurn());
+                
             }
             if (enemyGO == null)
             {

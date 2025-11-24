@@ -232,21 +232,36 @@ public class EnemyAI : MonoBehaviour
                 SetMarkerOccupancy(oldGrid, false);
 
                 // EXECUTE MOVEMENT
+                // 1. Wait one frame to ensure NavMeshAgent starts processing the SetDestination call
+                yield return null;
+
+                // 2. Set animation ON immediately
+                animator.SetBool("isWalking", true);
+
                 float maxTime = 2f;
                 float timer = 0f;
 
-                while (agent != null && agent.pathPending == false &&
-                        agent.remainingDistance > agent.stoppingDistance + 0.05f)
+                // 3. Updated Loop Condition:
+                // Keep looping if the path is being calculated (pathPending) 
+                // OR if we still have distance to travel.
+                while (agent != null &&
+                      (agent.pathPending || agent.remainingDistance > agent.stoppingDistance + 0.05f))
                 {
                     if (this == null) yield break;
+
                     FaceMovementDirection();
+
+                    // Force animation true here ensures it stays on
                     animator.SetBool("isWalking", true);
+
                     timer += Time.deltaTime;
                     if (timer >= maxTime) break;
                     yield return null;
                 }
 
                 if (agent == null) yield break;
+
+                // Only turn off animation after the loop finishes
                 animator.SetBool("isWalking", false);
 
                 // SNAP TO GRID
@@ -265,6 +280,8 @@ public class EnemyAI : MonoBehaviour
                 SetMarkerOccupancy(oldGrid, true);
             }
         }
+
+        yield return new WaitForSeconds(1f);
     }
 
 

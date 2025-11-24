@@ -333,12 +333,11 @@ public class CharactorInheritance : MonoBehaviour
         GameManager.Instance.Players_alive.Remove(playerData.gameObject);
         yield return new WaitForSeconds(1.5f);
         GameManager.Instance.lstPlayerDie = gameObject;
-        gameObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
         if (!GameManager.Instance.Players_alive.Any())
         {
             TurnManager.Instance.StopTurnBaseSystem();
             SettingPopupController.Show();
         }
+        gameObject.SetActive(false); 
     }
 }
