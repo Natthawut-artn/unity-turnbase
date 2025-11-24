@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: "Abysswalker\u2019s Gauntlet"
   m_EditorClassIdentifier: 
   RelicName: "Abysswalker\u2019s Gauntlet "
-  RelicSprite: {fileID: 21300000, guid: ed15b73292c4ba74bbc2d78e5e23f76b, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 86aab65e9a00af3459ee88be7645ba40, type: 3}
+  relicType: 0
   HP: 0
   ATK: 5
   Defense: 0

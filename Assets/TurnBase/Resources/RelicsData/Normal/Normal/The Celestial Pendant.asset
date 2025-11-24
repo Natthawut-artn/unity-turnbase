@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: The Celestial Pendant
   m_EditorClassIdentifier: 
   RelicName: 'The Celestial Pendant '
-  RelicSprite: {fileID: 21300000, guid: 04aecfdff0f97f148a2471d73c72b606, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 8c9b99cf7b4d18f4fbac13a407a598b6, type: 3}
+  relicType: 0
   HP: 0
   ATK: 0
   Defense: 5

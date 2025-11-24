@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: "The Gentleman\u2019s Cane"
   m_EditorClassIdentifier: 
   RelicName: "The Gentleman\u2019s Cane "
-  RelicSprite: {fileID: 21300000, guid: 945c1b0b28a09334fb3414ec0636927d, type: 3}
+  RelicSprite: {fileID: 21300000, guid: edc874a49f50680449d01633d9867be2, type: 3}
+  relicType: 0
   HP: 0
   ATK: 0
   Defense: 3

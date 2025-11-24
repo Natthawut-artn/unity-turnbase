@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Elemental Core
   m_EditorClassIdentifier: 
   RelicName: 'Elemental Core '
-  RelicSprite: {fileID: 21300000, guid: 9cdd7c1c09272cd4eaef96aafb9a0188, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 0d17e33b86cdd3a449c54a5e3e68acb9, type: 3}
+  relicType: 0
   HP: 5
   ATK: 0
   Defense: 3

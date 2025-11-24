@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Celestial Tears
   m_EditorClassIdentifier: 
   RelicName: Celestial Tears
-  RelicSprite: {fileID: 21300000, guid: 6db1ecddae63dd949a1140509ec9a205, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 5019b7529a87a3046980b1055880dcaf, type: 3}
+  relicType: 0
   HP: 0
   ATK: 0
   Defense: 10

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cube of Infinity
   m_EditorClassIdentifier: 
   RelicName: 'Cube of Infinity '
-  RelicSprite: {fileID: 21300000, guid: 26d25eed1895775428e69c674feeacf5, type: 3}
+  RelicSprite: {fileID: 21300000, guid: e00a6e4e0e6bdbd4b9862398b7413bbe, type: 3}
   relicType: 0
   HP: 0
   ATK: 0

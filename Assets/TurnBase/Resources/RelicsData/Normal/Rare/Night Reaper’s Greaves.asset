@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: "Night Reaper\u2019s Greaves"
   m_EditorClassIdentifier: 
   RelicName: "Night Reaper\u2019s Greaves "
-  RelicSprite: {fileID: 21300000, guid: 82ab9248337ded14c9ee1d9a640655bc, type: 3}
+  RelicSprite: {fileID: 21300000, guid: da88b74e9a2bd52478db5646ce717b71, type: 3}
+  relicType: 0
   HP: 10
   ATK: 0
   Defense: 5
