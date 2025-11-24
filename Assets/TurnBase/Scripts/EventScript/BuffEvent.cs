@@ -456,12 +456,14 @@ public class BuffEvent : MonoBehaviour
         {
             RelicStroageManager.RandomRelic();
             firstRelic = true;
+            
+            if(firstRelic)
+            {
+                RelicStroageManager.RandomRelic();
+                alreadyBuffed = true;
+            }
         }
-        else if (firstRelic)
-        {
-            RelicStroageManager.RandomRelic();
-            alreadyBuffed = true;
-        }
+        
     }
     private void HughATKBuffHpDebuffPlayer()
     {
