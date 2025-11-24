@@ -109,6 +109,7 @@ public class WorldBreaker : MonoBehaviour
         if (animator != null) animator.SetTrigger("Skill2"); // Use your animation trigger
 
         // Wait for wind-up animation
+        SFXManager.Instance?.PlayOneShot(SFX.WorldBreaker);
         yield return new WaitForSeconds(3.5f);
 
         // 5. Calculate Damage
