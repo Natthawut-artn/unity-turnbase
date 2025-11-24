@@ -67,18 +67,21 @@ public class SettingPopup : IUIElement
         Button close = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         close.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             Hide();
         });
 
         Button confirm = _selfGameObject.transform.Find("Confirm").GetComponent<Button>();
         confirm.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             data.ConfirmCallBack?.Invoke();
         });
 
         Button tutorial = _selfGameObject.transform.Find("Tutorial").GetComponent<Button>();
         tutorial.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             ServiceLocator.Get<TutorialPage>().Show();
             SettingHUDController.Hide();
             PocketHUDController.Hide();
