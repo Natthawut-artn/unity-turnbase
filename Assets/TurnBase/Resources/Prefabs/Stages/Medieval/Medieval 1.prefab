@@ -26629,6 +26629,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Zenos The Fallen Knights
       objectReference: {fileID: 0}
+    - target: {fileID: 907999779898914877, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -96
+      objectReference: {fileID: 0}
+    - target: {fileID: 996211030216274531, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2eeb37cc86afdd546b0ed5cc589793ab, type: 3}
     - target: {fileID: 1008058900183357669, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -26705,6 +26713,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: DisableThisEvent
       objectReference: {fileID: 0}
+    - target: {fileID: 3703623018783296496, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1b9f0444f725b494fa8ccad564dacecd, type: 3}
+    - target: {fileID: 3739699919931545115, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9303f5347feec0449ae1b7eded9ac17e, type: 3}
     - target: {fileID: 3927060950565508372, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -26773,6 +26789,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: DisableThisEvent
       objectReference: {fileID: 0}
+    - target: {fileID: 4404854172534822319, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787267080059017755, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -42
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397579993443262022, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5746615316854361287, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6fc38aa32d20df4448c1c6ccc7780096, type: 3}
+    - target: {fileID: 5757129255882553063, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5781019249311409684, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -26804,6 +26840,26 @@ PrefabInstance:
     - target: {fileID: 5801462902595667714, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: DisableThisEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971206377381004816, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -53
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360459492551251492, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6863884461399627518, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 20adc41de44a5ce4cb42c7ad47c5476d, type: 3}
+    - target: {fileID: 7417861418170939281, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779126612553193766, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7815282221123202783, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -26936,6 +26992,10 @@ PrefabInstance:
     - target: {fileID: 8408240982487193526, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: DisableThisEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904782999416648731, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -81
       objectReference: {fileID: 0}
     - target: {fileID: 8941260086953137147, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
