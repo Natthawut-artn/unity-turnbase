@@ -28,6 +28,7 @@ public static class StartGamePopupController
         StartGamePopup.Data data = new StartGamePopup.Data(() =>
         {
             AppStateManager.ChangeAppState(AppState.State);
+            AppStateManager.theme = theme;
             GameManager.Instance.StartGame(theme);
             Hide();
         }, Cover , Boss);
