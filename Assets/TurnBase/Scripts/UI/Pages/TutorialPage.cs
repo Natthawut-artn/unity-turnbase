@@ -84,7 +84,10 @@ public class TutorialPage : IUIElement
             PocketHUDController.Show();
             SettingHUDController.Show();
             HPBarsHUDController.Show();
-            PlayersInfoHUDController.Show();
+            if (AppStateManager.appState == AppState.State)
+            {
+                PlayersInfoHUDController.Show();
+            }
         });
     }
 

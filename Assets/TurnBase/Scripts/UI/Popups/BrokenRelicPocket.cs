@@ -70,6 +70,7 @@ public class BrokenRelicPocket : IUIElement
         Button closebtn = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         closebtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             data.Close?.Invoke();
         });
         List<RelicData> relics = BrokenRelicManager.BrokenRelicPocket;
