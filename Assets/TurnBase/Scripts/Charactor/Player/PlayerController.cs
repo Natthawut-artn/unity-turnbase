@@ -423,7 +423,10 @@ public class PlayerController : MonoBehaviour
                 float ATK = (50f / 100f) * (float)playerData.currentATK;
                 EnemyData enemyData = hit.GetComponent<EnemyData>();
                 enemyData.TakeDamage((int)ATK);
-                enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
+                if (enemyData.myHealthBar != null)
+                {
+                    enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
+                }
                 Debug.Log($"{enemyData.gameObject.name} take damage by shunpo ATK : {(int)ATK}");
             }
         }

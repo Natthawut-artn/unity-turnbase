@@ -25,7 +25,9 @@ public class Shunpo : Skill
         PlayerData playerData = player.GetComponent<PlayerData>();
         if (controller == null) return;
 
-        Vector3 targetPos = controller.markertarget.transform.position;
+        Vector3 targetPos = new Vector3(controller.markertarget.transform.position.x , 
+        controller.transform.position.y , 
+        controller.markertarget.transform.position.z);
         Vector3 dashDir = (targetPos - player.transform.position).normalized;
         Quaternion dashRotation = Quaternion.LookRotation(dashDir);
         controller.SetAnimationState(PlayerMoveState.UseSkill2);

@@ -15,7 +15,7 @@ public static class StartGamePopupController
             Boss = mother;
             Cover = CoverMother;
         }
-        else if (theme == Theme.Medieval)
+        else if (theme == Theme.Victoria)
         {
             Boss = eternal;
             Cover = CoverEternal;
