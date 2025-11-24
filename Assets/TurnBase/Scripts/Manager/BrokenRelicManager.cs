@@ -186,16 +186,19 @@ public static class BrokenRelicManager
             {
                 List<RelicData> brokenrelics = BrokensStorage[0];
                 brokenrelics.Add(brokenrelicData);
+                BrokenRelicPocket.Remove(brokenrelicData);
             }
             else if (playername.Contains("Support"))
             {
                 List<RelicData> brokenrelics = BrokensStorage[1];
                 brokenrelics.Add(brokenrelicData);
+                BrokenRelicPocket.Remove(brokenrelicData);
             }
-            if (playername.Contains("Protector"))
+            else if (playername.Contains("Protector"))
             {
                 List<RelicData> brokenrelics = BrokensStorage[2];
                 brokenrelics.Add(brokenrelicData);
+                BrokenRelicPocket.Remove(brokenrelicData);
             }
         }
     }
