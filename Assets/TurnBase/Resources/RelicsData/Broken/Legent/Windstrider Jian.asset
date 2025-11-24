@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Windstrider Jian
   m_EditorClassIdentifier: 
   RelicName: 'Windstrider Jian '
-  RelicSprite: {fileID: 21300000, guid: 830f4794eabdbef48a2bbbf226684801, type: 3}
+  RelicSprite: {fileID: 21300000, guid: ee93829be03529f4c94f28d2de1b8a7a, type: 3}
   relicType: 0
   HP: 0
   ATK: 10

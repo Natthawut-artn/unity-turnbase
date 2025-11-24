@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Void Mantle
   m_EditorClassIdentifier: 
   RelicName: Void Mantle
-  RelicSprite: {fileID: 21300000, guid: 3f1a32eb5940fce499392aebf29f4159, type: 3}
+  RelicSprite: {fileID: 21300000, guid: c27aab3222d87eb46af7a3bf660c8a2e, type: 3}
   relicType: 1
   HP: 15
   ATK: 15

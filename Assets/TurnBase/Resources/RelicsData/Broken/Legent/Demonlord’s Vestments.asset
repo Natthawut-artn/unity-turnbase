@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Demonlord\u2019s Vestments"
   m_EditorClassIdentifier: 
   RelicName: "Demonlord\u2019s Vestments "
-  RelicSprite: {fileID: 21300000, guid: 75a603bfdad9aef40b031250d13f47a4, type: 3}
+  RelicSprite: {fileID: 21300000, guid: ba5d25acd926fae4d8e6b267c88cc805, type: 3}
   relicType: 0
   HP: 7
   ATK: 0

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: "Barbarian\u2019s Shield"
   m_EditorClassIdentifier: 
   RelicName: "Barbarian\u2019s Shield "
-  RelicSprite: {fileID: 21300000, guid: b820eeabb634bce45880e680058d491d, type: 3}
+  RelicSprite: {fileID: 21300000, guid: a3cc0363227e2c846b5cab5d3621e0cd, type: 3}
+  relicType: 0
   HP: 0
   ATK: 0
   Defense: 5

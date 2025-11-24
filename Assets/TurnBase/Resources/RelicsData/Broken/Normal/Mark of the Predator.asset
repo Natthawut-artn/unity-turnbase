@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mark of the Predator
   m_EditorClassIdentifier: 
   RelicName: ' Mark of the Predator '
-  RelicSprite: {fileID: 21300000, guid: 21648227d0e886a4d875a9c08e6fbfdc, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 76cdd8ce943bd144781c25c4633dc9cb, type: 3}
   relicType: 0
   HP: 0
   ATK: 0

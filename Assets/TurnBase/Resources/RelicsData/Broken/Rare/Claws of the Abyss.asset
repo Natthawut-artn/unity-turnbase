@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Claws of the Abyss
   m_EditorClassIdentifier: 
   RelicName: 'Claws of the Abyss '
-  RelicSprite: {fileID: 21300000, guid: 816e89015ecfb3f4f9a5dec27e42400d, type: 3}
+  RelicSprite: {fileID: 21300000, guid: d5d1f4e9dcee5c64a8a627ac45831031, type: 3}
   relicType: 0
   HP: 0
   ATK: 5

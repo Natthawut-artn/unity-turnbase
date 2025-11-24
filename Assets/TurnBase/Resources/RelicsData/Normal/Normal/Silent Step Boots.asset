@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Silent Step Boots
   m_EditorClassIdentifier: 
   RelicName: 'Silent Step Boots '
-  RelicSprite: {fileID: 21300000, guid: 862919b912a8d0c4ea569d363a5f5df1, type: 3}
+  RelicSprite: {fileID: 21300000, guid: da170d27a310f7447aee4f57068c1168, type: 3}
+  relicType: 0
   HP: 5
   ATK: 3
   Defense: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Everdawn Ring
   m_EditorClassIdentifier: 
   RelicName: 'Everdawn Ring '
-  RelicSprite: {fileID: 21300000, guid: da53e428d4137d84d985a3a3d19bfbb5, type: 3}
+  RelicSprite: {fileID: 21300000, guid: c8f64b7a1a80b4f40b233c3dbb8640bf, type: 3}
   relicType: 0
   HP: 2
   ATK: 0

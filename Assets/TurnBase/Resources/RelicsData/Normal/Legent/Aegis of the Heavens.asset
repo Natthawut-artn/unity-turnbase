@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Aegis of the Heavens
   m_EditorClassIdentifier: 
   RelicName: 'Aegis of the Heavens '
-  RelicSprite: {fileID: 21300000, guid: c37ff1b49930a3a49ba83462c47d1090, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 2054272b7ce8f9b41a58de278e68255e, type: 3}
+  relicType: 0
   HP: 0
   ATK: 0
   Defense: 10

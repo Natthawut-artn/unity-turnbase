@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Soulbind Earrings
   m_EditorClassIdentifier: 
   RelicName: 'Soulbind Earrings '
-  RelicSprite: {fileID: 21300000, guid: 5224e519c1acfc246adca8dfbe503417, type: 3}
+  RelicSprite: {fileID: 21300000, guid: c05b9ca71da8ee942a57c23337558884, type: 3}
+  relicType: 0
   HP: 10
   ATK: 0
   Defense: 0

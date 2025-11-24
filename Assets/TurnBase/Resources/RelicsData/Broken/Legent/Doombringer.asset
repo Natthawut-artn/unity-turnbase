@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Doombringer
   m_EditorClassIdentifier: 
   RelicName: 'Doombringer '
-  RelicSprite: {fileID: 21300000, guid: 71e6e7a5a26d6bc44b3cf9619559b734, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 3c7b7173de21e80458ed1db7dc23b1ed, type: 3}
   relicType: 0
   HP: 0
   ATK: 0

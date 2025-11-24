@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Hunter\u2019s Dagger"
   m_EditorClassIdentifier: 
   RelicName: "Hunter\u2019s Dagger "
-  RelicSprite: {fileID: 21300000, guid: c1209549bc7ccd045a0c7cc23fb9cfae, type: 3}
+  RelicSprite: {fileID: 21300000, guid: 610b979c7d340e54b857888994e7d6b3, type: 3}
   relicType: 0
   HP: 0
   ATK: 5
