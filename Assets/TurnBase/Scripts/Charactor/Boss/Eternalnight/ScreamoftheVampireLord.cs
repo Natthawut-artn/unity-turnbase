@@ -106,7 +106,7 @@ public class ScreamoftheVampireLord : MonoBehaviour
         Animator animator = GetComponentInChildren<Animator>();
         if (animator != null) animator.SetTrigger("Skill1"); // Use your animation trigger
 
-        // Wait for wind-up animation
+        SFXManager.Instance?.PlayOneShot(SFX.ScreamOfVampireLord);
         yield return new WaitForSeconds(5f);
 
         // 5. Calculate Damage

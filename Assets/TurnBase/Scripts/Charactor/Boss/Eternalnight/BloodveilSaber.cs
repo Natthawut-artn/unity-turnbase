@@ -113,7 +113,7 @@ public class BloodveilSaber : MonoBehaviour
         Animator animator = GetComponentInChildren<Animator>();
         if (animator != null) animator.SetTrigger("Skill6"); // Use your animation trigger
 
-        // Wait for wind-up animation
+        SFXManager.Instance?.PlayOneShot(SFX.BloodVeil);
         yield return new WaitForSeconds(9f);
 
         // 5. Calculate Damage

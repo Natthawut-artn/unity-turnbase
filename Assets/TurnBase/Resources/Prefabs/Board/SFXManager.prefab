@@ -272,6 +272,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a76afbd1edb03e6488cbf9d0e62fe2de, type: 3}
   - {fileID: 8300000, guid: 41fe389abc552ae4ea67e78dcfbfa9fb, type: 3}
   - {fileID: 8300000, guid: b0a135c19dbc2cc49909a2a583d55719, type: 3}
+  - {fileID: 8300000, guid: 9a416f6c6da0b8248ab7a66e7f4c8866, type: 3}
+  - {fileID: 8300000, guid: 22629f6fc2e09be448ef428a2aeba351, type: 3}
+  - {fileID: 8300000, guid: 2eb755b0b199df147973a9fbf331393a, type: 3}
+  - {fileID: 8300000, guid: 18bec43d8f0e6d544883633fcc33d9bb, type: 3}
+  - {fileID: 8300000, guid: 9dd5b042c99e97c44858381cd606c8be, type: 3}
   SFXVolump:
   - 1
   - 1
@@ -293,6 +298,11 @@ MonoBehaviour:
   - 1
   - 1
   - 0.5
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
   - 1
   - 1
   - 1

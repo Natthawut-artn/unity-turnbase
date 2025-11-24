@@ -114,7 +114,7 @@ public class BloodClawDominion : MonoBehaviour
         Animator animator = GetComponentInChildren<Animator>();
         if (animator != null) animator.SetTrigger("Skill4"); // Use your animation trigger
 
-        // Wait for wind-up animation
+        SFXManager.Instance?.PlayOneShot(SFX.BloodClaw);
         yield return new WaitForSeconds(4.5f);
 
         // 5. Calculate Damage (based on CURRENT ATK)
