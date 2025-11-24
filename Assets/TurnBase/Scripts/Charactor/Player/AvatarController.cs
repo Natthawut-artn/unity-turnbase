@@ -7,6 +7,7 @@ public class AvatarController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     private bool isWalking = false;
     private Animator animator;
+    public LayerMask layerMask;
 
     private void Start()
     {
@@ -48,7 +49,7 @@ public class AvatarController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isWalking && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity , layerMask))
             {
                 StartCoroutine(MoveTo(hit.point));
             }
