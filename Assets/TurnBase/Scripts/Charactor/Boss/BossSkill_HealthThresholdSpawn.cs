@@ -112,6 +112,7 @@ public class BossSkill_HealthThresholdSpawn : MonoBehaviour
             return;
         }
 
+        SFXManager.Instance.PlayOneShot(SFX.SpawnFX);
         StartCoroutine(SpawnAnim());
         ApplySelfDamage();
         

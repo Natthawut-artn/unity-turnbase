@@ -89,6 +89,7 @@ public class Tentacle : MonoBehaviour
 
         // Wait for the active duration (1.5 seconds)
         yield return new WaitForSeconds(activeDuration);
+        SFXManager.Instance?.PlayOneShot(SFX.tentacleRise);
 
         // --- PHASE 3: TENTACLE DISAPPEARS AND DESTROYS ITSELF ---
         if (tentacleRenderer != null) tentacleRenderer.enabled = false;

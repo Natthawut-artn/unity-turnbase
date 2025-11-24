@@ -106,7 +106,7 @@ public class ApocalypeBloom : MonoBehaviour
         
         MainCamera.Instance.SetPlayer(gameObject.transform);
         StartCoroutine(SetBoomFX());
-        
+        SFXManager.Instance.PlayOneShot(SFX.BossBoom);
         yield return new WaitForSeconds(9f);
 
         // Apply Damage

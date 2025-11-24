@@ -107,6 +107,7 @@ public class BossSkill_TentacleSpawn : MonoBehaviour
 
     public void ExecuteSkill()
     {
+        SFXManager.Instance.PlayOneShot(SFX.TentaclePlunge);
         StartCoroutine(SpawnAnim());
         if (targetRoomComponent == null)
         {
