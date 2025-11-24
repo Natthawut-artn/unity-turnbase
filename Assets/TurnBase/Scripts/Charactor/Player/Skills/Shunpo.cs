@@ -34,7 +34,8 @@ public class Shunpo : Skill
         player.transform.LookAt(dashDir);
         await Task.Delay(1750);
         controller.DashTo(targetPos);
-        VFXManager.Instance.AddVFXOnWorld(player , VFX.Striker_Skill2 , 2f , dashRotation);
+        VFXManager.Instance.AddVFXOnWorld(player, VFX.Striker_Skill2, 2f, dashRotation);
+        SFXManager.Instance.PlayOneShot(SFX.Dash);
         isActivate = false;
         playerData.playerMoveState = PlayerMoveState.Stand;
     }

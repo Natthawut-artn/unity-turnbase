@@ -20,6 +20,7 @@ public class WardoftheHoly : Skill
         PlayerController controller = player.GetComponent<PlayerController>();
         controller.SetAnimationState(PlayerMoveState.UseSkill3);
         await Task.Delay(2150);
+        SFXManager.Instance.PlayOneShot(SFX.BigShield);
         VFXManager.Instance.AddVFXOnGameObject(player , VFX.Protector_Skill3);
         Activate(null , player);
     }

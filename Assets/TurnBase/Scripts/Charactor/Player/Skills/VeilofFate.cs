@@ -23,6 +23,7 @@ public class VeilofFate : Skill
         PlayerData playerData = player.GetComponent<PlayerData>();
         controller.SetAnimationState(PlayerMoveState.UseSkill1);
         await Task.Delay(1750);
+        SFXManager.Instance.PlayOneShot(SFX.Veil);
         VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill2 , 2f);
         playerData.playerMoveState = PlayerMoveState.Stand;
         Activate();

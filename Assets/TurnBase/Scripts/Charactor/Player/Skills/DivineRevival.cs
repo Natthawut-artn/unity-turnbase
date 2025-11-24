@@ -18,6 +18,7 @@ public class DivineRevival : Skill
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
         PlayerController controller = player.GetComponent<PlayerController>();
         controller.SetAnimationState(PlayerMoveState.UseSkill2);
+        SFXManager.Instance.PlayOneShot(SFX.Revive);
         await Task.Delay(1750);
         PlayerData data = player.GetComponent<PlayerData>();
         data.playerMoveState = PlayerMoveState.Stand;

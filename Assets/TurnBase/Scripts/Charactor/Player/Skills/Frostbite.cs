@@ -15,6 +15,7 @@ public class Frostbite : Skill
     
     public override async void UseSkill(GameObject player = null)
     {
+        SFXManager.Instance.PlayOneShot(SFX.Freeze);
         if (SkillPointsManager.currentSkillPoint < UseSkillPoints) { Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
         Debug.Log("Use Frostbite");
