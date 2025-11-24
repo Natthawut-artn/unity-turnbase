@@ -9,9 +9,13 @@ public class StartGamePopup : IUIElement
     public class Data
     {
         public Delegate.CallBack StarGameCallBack;
-        public Data(Delegate.CallBack StarGameCallBack)
+        public string Coverpath = "";
+        public string Bosspath = "";
+        public Data(Delegate.CallBack StarGameCallBack, string coverpath, string bosspath)
         {
             this.StarGameCallBack = StarGameCallBack;
+            Coverpath = coverpath;
+            Bosspath = bosspath;
         }
     }
     public Data data;
@@ -54,16 +58,30 @@ public class StartGamePopup : IUIElement
     public void Show(object rawData)
     {
         data = (Data)rawData;
-        _selfGameObject = GameObject.Instantiate
-          (
-            Resources.Load<GameObject>("Prefabs/UI/Popups/StartGamePopup")
-        );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas2.transform, false);
-
-        Button Swift = _selfGameObject.GetComponent<Button>();
+        if (_selfGameObject == null)
+        {
+            _selfGameObject = GameObject.Instantiate
+            (
+                Resources.Load<GameObject>("Prefabs/UI/Popups/StartGamePopup")
+            );
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas2.transform, false);
+        }
+        
+        Button Swift = _selfGameObject.transform.Find("Startgame").GetComponent<Button>();
         Swift.onClick.AddListener(() =>
         {
             data.StarGameCallBack?.Invoke();
         });
+
+        Button hub = _selfGameObject.transform.Find("Hub").GetComponent<Button>();
+        hub.onClick.AddListener(() =>
+        {
+            Hide();
+        });
+
+        Image image = _selfGameObject.GetComponent<Image>();
+        image.sprite = Resources.Load<Sprite>(data.Coverpath);
+        Image boss = _selfGameObject.transform.Find("Image").GetComponent<Image>();
+        boss.sprite = Resources.Load<Sprite>(data.Bosspath);
     }
 }

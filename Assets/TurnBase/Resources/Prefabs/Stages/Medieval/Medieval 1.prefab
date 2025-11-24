@@ -1402,11 +1402,11 @@ MonoBehaviour:
   ConnectWith1: Room5
   ConnectWith2: Room6
   ExitPosRoom1:
-  - {x: 32, y: 16}
-  - {x: 32, y: 17}
+  - {x: 16, y: 32}
+  - {x: 17, y: 32}
   ExitPosRoom2:
-  - {x: 1, y: 16}
-  - {x: 1, y: 17}
+  - {x: 16, y: 1}
+  - {x: 17, y: 1}
   ExitMarkersRoom1: []
   ExitMarkersRoom2: []
 --- !u!1 &4343975617619400469
@@ -2177,15 +2177,11 @@ MonoBehaviour:
   ConnectWith1: Room3
   ConnectWith2: Room10
   ExitPosRoom1:
-  - {x: 15, y: 32}
   - {x: 16, y: 32}
   - {x: 17, y: 32}
-  - {x: 18, y: 32}
   ExitPosRoom2:
-  - {x: 15, y: 1}
   - {x: 16, y: 1}
   - {x: 17, y: 1}
-  - {x: 18, y: 1}
   ExitMarkersRoom1: []
   ExitMarkersRoom2: []
 --- !u!1 &6308903454244724566
@@ -2975,15 +2971,11 @@ MonoBehaviour:
   ConnectWith1: Room3
   ConnectWith2: Room11
   ExitPosRoom1:
-  - {x: 32, y: 15}
   - {x: 32, y: 16}
   - {x: 32, y: 17}
-  - {x: 32, y: 18}
   ExitPosRoom2:
-  - {x: 1, y: 15}
   - {x: 1, y: 16}
   - {x: 1, y: 17}
-  - {x: 1, y: 18}
   ExitMarkersRoom1: []
   ExitMarkersRoom2: []
 --- !u!1 &7937724981153922045
@@ -3333,10 +3325,10 @@ MonoBehaviour:
     - {x: 1, y: 17}
   - RoomIndex: 4
     Positions:
-    - {x: 32, y: 16}
-    - {x: 32, y: 17}
     - {x: 16, y: 32}
     - {x: 17, y: 32}
+    - {x: 32, y: 16}
+    - {x: 32, y: 17}
   - RoomIndex: 5
     Positions:
     - {x: 32, y: 16}
@@ -3568,7 +3560,7 @@ MonoBehaviour:
   - {x: 16, y: 32}
   - {x: 17, y: 32}
   ExitPosRoom2:
-  - {x: 10, y: 1}
+  - {x: 20, y: 1}
   - {x: 21, y: 1}
   ExitMarkersRoom1: []
   ExitMarkersRoom2: []
