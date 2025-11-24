@@ -81,6 +81,7 @@ public class RelicUnInstPopup : IUIElement
         Button close = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         close.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             Hide();
             ServiceLocator.Get<PlayersInfoPopup>().Update();
         });
@@ -88,6 +89,7 @@ public class RelicUnInstPopup : IUIElement
         Button confirm = _selfGameObject.transform.Find("Confirm").GetComponent<Button>();
         confirm.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Hammer);
             Pocket.RemoveRelic(relicData);
             Hide();
             ServiceLocator.Get<PlayersInfoPopup>().Update();

@@ -76,6 +76,7 @@ public class RelicInstPopup : IUIElement
         Button close = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         close.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             Hide();
         });
 
@@ -96,6 +97,7 @@ public class RelicInstPopup : IUIElement
                 int index = i;
                 InstallEachPlayer[index].onClick.AddListener(() =>
                 {
+                    SFXManager.Instance.PlayOneShot(SFX.Hammer);
                     data.Callbacks[index]?.Invoke();
                     ServiceLocator.Get<RelicPocketPopup>().Update();
                     Hide();

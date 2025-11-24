@@ -77,6 +77,7 @@ public class BrokenRelicInstPopup : IUIElement
         Button close = _selfGameObject.transform.Find("Close").GetComponent<Button>();
         close.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             Hide();
         });
 
@@ -95,6 +96,7 @@ public class BrokenRelicInstPopup : IUIElement
             int index = i;
             InstallEachPlayer[index].onClick.AddListener(() =>
             {
+                SFXManager.Instance.PlayOneShot(SFX.Hammer);
                 data.Callbacks[index]?.Invoke();
                 ServiceLocator.Get<BrokenRelicPocket>().Update();
                 Hide();
@@ -104,6 +106,7 @@ public class BrokenRelicInstPopup : IUIElement
         Button destroy = _selfGameObject.transform.Find("Destroy").GetComponent<Button>();
         destroy.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             data.Destroy?.Invoke();
             ServiceLocator.Get<BrokenRelicPocket>().Update();
             Hide();

@@ -19,6 +19,10 @@ public enum SFX
   WorldBreaker,
   EdgeBurst,
   BerserkerCall,
+  Hammer,
+  Cancel,
+  Press1,
+  Press2
 }
 
 public enum Music

@@ -66,6 +66,7 @@ public class PlayersInfoHUD : IUIElement
         Button button = _selfGameObject.GetComponent<Button>();
         button.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Press2);
             data.ShowPlayersPopup?.Invoke();
         });
     }

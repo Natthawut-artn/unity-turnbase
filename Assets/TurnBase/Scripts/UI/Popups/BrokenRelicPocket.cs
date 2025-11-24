@@ -91,6 +91,7 @@ public class BrokenRelicPocket : IUIElement
             Button button = pocket[i].GetComponent<Button>();
             button.onClick.AddListener(() =>
             {
+                SFXManager.Instance.PlayOneShot(SFX.Press1);
                 data.InstallRelic.Invoke(index);
             });
         }

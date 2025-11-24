@@ -66,6 +66,7 @@ public class SettingHUD : IUIElement
         Button button = _selfGameObject.GetComponent<Button>();
         button.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             data.SettingCallBack?.Invoke();
         });
     }
