@@ -12,9 +12,9 @@ public class ResultPopup : IUIElement
 
     private GameObject _selfGameObject;
     private IUIManager _uiManager;
-    private const string Sicfiboss = "Graphic2D/Boss/Mother";
-    private const string Victotyboss = "Graphic2D/Boss/Eternal Night";
-    private const string Medievalboss = "Graphic2D/Boss/Zenos";
+    private const string mother = "Graphic2D/Boss/Motherart";
+    private const string eternal = "Graphic2D/Boss/EternalNight-ART";
+    private const string zenos = "Graphic2D/Boss/Zenos";
 
     public void Init()
     {
@@ -52,20 +52,17 @@ public class ResultPopup : IUIElement
         _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
 
         Image boss = _selfGameObject.transform.Find("Panels/Boss/Image (1)").GetComponent<Image>();
-        if (GameManager.Instance.CurrentStage.name.Contains("Sci-fi"))
+        if (AppStateManager.theme == Theme.Scifi)
         {
-            Debug.Log("L");
-            boss.sprite = Resources.Load<Sprite>(Sicfiboss);
+            boss.sprite = Resources.Load<Sprite>(mother);
         }
-        else if (GameManager.Instance.CurrentStage.name.Contains("Victoty"))
+        else if (AppStateManager.theme == Theme.Victoria)
         {
-            Debug.Log("L");
-            boss.sprite = Resources.Load<Sprite>(Victotyboss);
+            boss.sprite = Resources.Load<Sprite>(eternal);
         }
-        else if (GameManager.Instance.CurrentStage.name.Contains("Medieval"))
+        else if(AppStateManager.theme == Theme.Medieval)
         {
-            Debug.Log("L");
-            boss.sprite = Resources.Load<Sprite>(Medievalboss);
+            boss.sprite = Resources.Load<Sprite>(zenos);
         }
 
         Image reward = _selfGameObject.transform.Find("Panels/Reward/Image").GetComponent<Image>();
