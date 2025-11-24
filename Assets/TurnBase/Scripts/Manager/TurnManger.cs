@@ -63,7 +63,7 @@ public class TurnManager : MonoBehaviour
             }
         }
 
-        SFXManager.Instance.Play(SFX.Stages);
+        SFXManager.Instance.PlayMusic(Music.Stages);
         GameManager.Instance.ReleasePlayers();
 
         Debug.Log("Stop turnbase");
@@ -72,7 +72,7 @@ public class TurnManager : MonoBehaviour
     public void EndTurn()
     {
         if (!isInTurnSystem) return;
-        SFXManager.Instance.Play(SFX.Fight);
+        SFXManager.Instance.PlayMusic(Music.Fight);
         if (currentPhase == Phase.Player)
         {
             playersPhaseCoroutine = StartCoroutine(PlayersPhase());

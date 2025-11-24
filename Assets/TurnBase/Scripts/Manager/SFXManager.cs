@@ -5,43 +5,38 @@ using UnityEngine;
 public class SFXManager : MonoBehaviour
 {
     public static SFXManager Instance;
-
     void Awake()
     {
         Instance = this;
-        audioSource = GetComponent<AudioSource>();
     }
 
-    private AudioSource audioSource;
+    public AudioSource BGMusic;
+    public AudioSource SFX;
+
+    [Header("Music")]
+    public List<AudioClip> MusicList = new List<AudioClip>();
+    public List<float> MusicVolump = new List<float>();
+
+    [Header("SFX")]
     public List<AudioClip> SFXList = new List<AudioClip>();
-    public List<float> Volump = new List<float>();
+    public List<float> SFXVolump = new List<float>();
 
-    void Start()
+    public void PlayMusic(Music music)
     {
-    }
-
-    public void Play(SFX sfx)
-    {
-        if (audioSource == null) { Debug.LogError("Have no Speaker"); return; }
-        StartCoroutine(Play((int)sfx));
-    }
-
-    IEnumerator Play(int index)
-    {
-        yield return null;
-        // audioSource.Stop();
-        audioSource.clip = SFXList[index];
-        audioSource.volume = Volump[index];
-        audioSource.Play();
+        if (BGMusic == null) { Debug.LogError("Have no Speaker"); return; }
+        BGMusic.Stop();
+        BGMusic.clip = MusicList[(int)music];
+        BGMusic.volume = MusicVolump[(int)music];
+        BGMusic.Play();
     }
 
     public void PlayOneShot(SFX sfx)
     {
-        audioSource.PlayOneShot( SFXList[(int)sfx], Volump[(int)sfx]);
+        SFX.PlayOneShot( SFXList[(int)sfx], SFXVolump[(int)sfx]);
     }
 
     public void Stop()
     {
-        audioSource.Stop();
+        BGMusic.Stop();
     }
 }
