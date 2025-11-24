@@ -929,11 +929,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6649235045174896270, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       propertyPath: HP
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6649235045174896270, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       propertyPath: ATK
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6649235045174896270, guid: 53d635f66bbebe341a85cbd39f9ed8e3, type: 3}
       propertyPath: CritDGM

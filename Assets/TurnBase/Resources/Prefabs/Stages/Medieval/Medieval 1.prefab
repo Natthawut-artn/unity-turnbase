@@ -4236,7 +4236,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: Goblin
+      value: Mimic
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Mimic
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
@@ -5691,7 +5695,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: Goblin
+      value: Golem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Golem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: SpawnPositions.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
@@ -7276,7 +7288,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: Goblin
+      value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Slime
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
@@ -12116,7 +12132,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: Goblin
+      value: Cultist
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Cultist_Ember
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
@@ -24174,7 +24194,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: Goblin
+      value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Slime
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
@@ -27822,7 +27846,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: Goblin
+      value: Minotaur
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Minotaur Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x
@@ -38199,7 +38227,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: EnemyTypeName
-      value: Goblin
+      value: Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Cultist_Frost
       objectReference: {fileID: 0}
     - target: {fileID: 8201878170701383588, guid: 0bc39228fd88f644d855978098521cc0, type: 3}
       propertyPath: SpawnPositions.Array.data[0].GridPosition.x

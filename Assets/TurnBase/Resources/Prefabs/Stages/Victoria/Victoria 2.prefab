@@ -5547,6 +5547,14 @@ PrefabInstance:
       propertyPath: SpawnOnStart
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyTypeName
+      value: Mimic
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Mimic
+      objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.487655
@@ -8246,6 +8254,14 @@ PrefabInstance:
       propertyPath: SpawnOnStart
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyTypeName
+      value: Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Cultist_Frost
+      objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.487655
@@ -8536,6 +8552,14 @@ PrefabInstance:
     - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: SpawnOnStart
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyTypeName
+      value: Minotaur
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Minotaur
       objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10725,8 +10749,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 6218496342511876618}
     m_Modifications:
     - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: RoomName
+      value: Room6
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: SpawnOnStart
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyTypeName
+      value: Cultist
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Cultist_Ember
       objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10945,6 +10981,14 @@ PrefabInstance:
     - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: SpawnOnStart
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyTypeName
+      value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Slime
       objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14246,6 +14290,14 @@ PrefabInstance:
     - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: SpawnOnStart
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyTypeName
+      value: Golem
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Golem
       objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30206,6 +30258,14 @@ PrefabInstance:
     - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: SpawnOnStart
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyTypeName
+      value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 449343588810032384, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
+      propertyPath: EnemyPrefabPath
+      value: Prefabs/Charactor/Enemy/Slime
       objectReference: {fileID: 0}
     - target: {fileID: 3885976720719601416, guid: f56a82bb55fa457498b02a6b5bc82493, type: 3}
       propertyPath: m_LocalPosition.x

@@ -10,7 +10,8 @@ public class EnemySkillDecider : MonoBehaviour
     private Venomous venomous;
     private PowerSlam powerSlam;
     private Earthshatter earthshatter;
-    
+    private CultistEmber cultistEmber;
+
     // NEW: Reference for the FrontalSmash skill
     private EdgeBurst Edgeburst;
 
@@ -164,7 +165,23 @@ public class EnemySkillDecider : MonoBehaviour
             }
         }
 
+        if (EnemyType == "Cultist" && cultistEmber != null)
+        {
+            if (!IsAnyPlayerUnderStatus("isOnBurning"))
+            {
+                int skillCost = cultistEmber.skillCost;
 
+                if (EnemySkillPoint.Instance.currentSkillPointPool >= skillCost)
+                {
+                    if (cultistEmber.IsPlayerInAttackRange())
+                    {
+                        yield return StartCoroutine(cultistEmber.ExecuteSkill());
+                        SkillExecutedThisTurn = true;
+                        yield break;
+                    }
+                }
+            }
+        }
         // --- 5. NAMED STATUS CHECKS (Assassin, Mage, Slime) ---
 
         // SILENT FANG CHECK (EnemyType: Mimic)
