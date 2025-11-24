@@ -9,6 +9,8 @@ public enum SFX
   Veil,
   BigShield,
   Revive,
+  Charge,
+  BigCharge,
 }
 
 public enum Music

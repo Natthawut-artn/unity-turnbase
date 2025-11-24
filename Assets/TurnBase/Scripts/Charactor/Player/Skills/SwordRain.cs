@@ -19,6 +19,7 @@ public class SwordRain : Skill
     {
         if (SkillPointsManager.currentSkillPoint < UseSkillPoints) { Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
+        SFXManager.Instance.PlayOneShot(SFX.BigCharge);
         isActivate = true;
         Debug.Log($"{player.name} Use Sword Rain");
     }

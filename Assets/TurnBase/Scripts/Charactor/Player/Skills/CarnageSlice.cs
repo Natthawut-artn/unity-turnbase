@@ -20,6 +20,7 @@ public class CarnageSlice : Skill
         playerData.ishavebuff = true;
         playerData.BuffAmountTarget = 3;
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
+        SFXManager.Instance.PlayOneShot(SFX.Charge);
         VFXManager.Instance.AddVFXOnGameObject(player, VFX.Striker_Skill1);
         isActivate = true;
     }
