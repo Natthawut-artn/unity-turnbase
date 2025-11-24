@@ -10,6 +10,7 @@ public static class PlayersInfoHUDController
             PlayerOptionHUDController.Hide();
             ServiceLocator.Get<SkillPointsHUD>().Hide();
             PocketHUDController.Hide();
+            HPBarsHUDController.Hide();
             Hide();
         });
 
