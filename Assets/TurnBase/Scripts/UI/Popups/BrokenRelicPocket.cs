@@ -99,7 +99,7 @@ public class BrokenRelicPocket : IUIElement
     public void Update()
     {
         if (_selfGameObject == null) return;
-        List<RelicData> relics = RelicStroageManager.RelicsInUserPocket;
+        List<RelicData> relics = BrokenRelicManager.BrokenRelicPocket;
         Debug.Log(relics.Count);
         for (int i = 0; i < pocket.Count; i++)
         {
