@@ -27,7 +27,7 @@ public class UIListLoader
     };
     public List<object> Pages { get; private set; } = new List<object>()
     {
-        
+        new TutorialPage()
     };
 
     private readonly List<IUIElement> _uiElements = new();

@@ -337,6 +337,7 @@ public class GameManager : MonoBehaviour
         SFXManager.Instance.Play(SFX.Hub);
         RelicStroageManager.Init();
         BrokenRelicManager.Init();
+        PocketHUDController.Show();
     }
 
     void Update()

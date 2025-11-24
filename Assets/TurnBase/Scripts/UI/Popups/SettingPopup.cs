@@ -76,6 +76,17 @@ public class SettingPopup : IUIElement
             data.ConfirmCallBack?.Invoke();
         });
 
+        Button tutorial = _selfGameObject.transform.Find("Tutorial").GetComponent<Button>();
+        tutorial.onClick.AddListener(() =>
+        {
+            ServiceLocator.Get<TutorialPage>().Show();
+            SettingHUDController.Hide();
+            PocketHUDController.Hide();
+            PlayersInfoHUDController.Hide();
+            HPBarsHUDController.Hide();
+            Hide();
+        });
+
         if (AppStateManager.appState == AppState.Hub)
         {
             confirm.interactable = false;
