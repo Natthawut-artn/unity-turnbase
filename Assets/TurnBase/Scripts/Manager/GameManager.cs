@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
                 {
                     StartGameCoroutine = StartCoroutine(StartTheGame());
                 }
-                SFXManager.Instance.Play(SFX.Stages);
+                SFXManager.Instance.PlayMusic(Music.Stages);
                 SkillPointsManager.ReceiveSkillPoint(3);
             }
         }
@@ -221,7 +221,7 @@ public class GameManager : MonoBehaviour
         StopGame();
         AppStateManager.ChangeAppState(AppState.Hub);
         StartGame();
-        SFXManager.Instance.Play(SFX.Hub);
+        SFXManager.Instance.PlayMusic(Music.Hub);
         SkillPointsManager.ResetSkillPonit();
         RelicStroageManager.ResetRelics();
         PocketHUDController.Show();
@@ -334,7 +334,7 @@ public class GameManager : MonoBehaviour
         SettingHUDController.Show();
         GameObject SFXGameObjetc = Instantiate(Resources.Load<GameObject>(BGManager_Path));
         GameObject VFXGameObjetc = Instantiate(Resources.Load<GameObject>(VFXManager_Path));
-        SFXManager.Instance.Play(SFX.Hub);
+        SFXManager.Instance.PlayMusic(Music.Hub);
         RelicStroageManager.Init();
         BrokenRelicManager.Init();
         PocketHUDController.Show();
