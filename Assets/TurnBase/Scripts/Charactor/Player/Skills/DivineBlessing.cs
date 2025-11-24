@@ -9,7 +9,7 @@ public class DivineBlessing : Skill
     public DivineBlessing()
     {
         SkillName = "Divine Blessing";
-        SkillSprite_Path = "Graphic2D/Skill/Arcanist15";
+        SkillSprite_Path = "Graphic2D/Skill/Divine Blessing";
         Description = "";
         UseSkillPoints = 3;
     }
