@@ -11,6 +11,10 @@ public enum SFX
   Revive,
   Charge,
   BigCharge,
+  BossBoom,
+  SpawnFX,
+  TentaclePlunge,
+  tentacleRise,
 }
 
 public enum Music

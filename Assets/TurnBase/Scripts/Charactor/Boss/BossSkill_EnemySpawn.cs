@@ -185,6 +185,7 @@ public class BossSkill_EnemySpawn : MonoBehaviour
 
     public void ExecuteSkill()
     {
+        SFXManager.Instance.PlayOneShot(SFX.SpawnFX);
         StartCoroutine(SpawnAnim());
         ApplySelfDamage();
         int enemiesToSpawn = Random.Range(MinSpawnCount, MaxSpawnCount + 1);
