@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            ServiceLocator.Get<LoadingPage>().Show();
             string Path = "Prefabs/Stages";
             if (theme == Theme.Scifi)
             {
