@@ -16,6 +16,7 @@ public class DivineBlessing : Skill
 
     public override async void UseSkill(GameObject player = null)
     {
+        
         if(SkillPointsManager.currentSkillPoint < UseSkillPoints){ Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);
         isActivate = true;
@@ -27,6 +28,7 @@ public class DivineBlessing : Skill
         PlayerController controller = player.GetComponent<PlayerController>();
         controller.SetAnimationState(PlayerMoveState.UseSkill1);
         await Task.Delay(1750);
+        SFXManager.Instance.PlayOneShot(SFX.Divine);
         VFXManager.Instance.AddVFXOnWorld(player , VFX.Support_Skill3 , 2f);
         PlayerData playerData = player.GetComponent<PlayerData>();
         playerData.playerMoveState = PlayerMoveState.Stand;

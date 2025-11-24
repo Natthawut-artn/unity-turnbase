@@ -50,7 +50,10 @@ public class SwordRain : Skill
             {
                 EnemyData enemyData = hit.gameObject.GetComponent<EnemyData>();
                 enemyData.TakeDamage((int)damage);
-                enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
+                if(enemyData.myHealthBar != null)
+                {
+                    enemyData.myHealthBar.UpdateEnemyHealthBar(enemyData.HP, enemyData.currentHP);
+                }
             }
             await Task.Delay(100); 
         }

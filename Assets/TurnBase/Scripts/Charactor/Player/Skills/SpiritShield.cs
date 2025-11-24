@@ -14,6 +14,7 @@ public class SpiritShield : Skill
 
     public override void UseSkill(GameObject player = null)
     {
+        SFXManager.Instance.PlayOneShot(SFX.ShieldBlock);
         PlayerData playerData = player?.GetComponent<PlayerData>();
         if(SkillPointsManager.currentSkillPoint < UseSkillPoints){ Debug.Log("not enough skill point"); return; }
         SkillPointsManager.UseSkillPoint(UseSkillPoints);

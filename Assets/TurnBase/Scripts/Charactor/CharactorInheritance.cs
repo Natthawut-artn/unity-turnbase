@@ -87,6 +87,7 @@ public class CharactorInheritance : MonoBehaviour
 
     public void TakeDamage(int Damage)
     {
+        SFXManager.Instance.PlayOneShot(SFX.Hit);
         if (BlockAttackAmount > 0)
         {
             foreach (GameObject player in GameManager.Instance.Players_alive)
