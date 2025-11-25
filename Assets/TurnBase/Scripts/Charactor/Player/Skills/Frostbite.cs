@@ -10,7 +10,7 @@ public class Frostbite : Skill
         SkillName = "Frostbite";
         SkillSprite_Path = "Graphic2D/Skill/Frostbite";
         Description = "";
-        UseSkillPoints = 1;
+        UseSkillPoints = 2;
     }
     
     public override async void UseSkill(GameObject player = null)
