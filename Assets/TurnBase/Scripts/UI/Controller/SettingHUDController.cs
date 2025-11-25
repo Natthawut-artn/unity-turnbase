@@ -4,7 +4,16 @@ public static class SettingHUDController
     {
         SettingHUD.Data data = new SettingHUD.Data(() =>
         {
+            if (ServiceLocator.Get<StartGamePopup>().SelfGameObject != null)
+            {
+                return;    
+            }
             SettingPopupController.Show();
+            HPBarsHUDController.Hide();
+            PlayerOptionHUDController.Hide();
+            PocketHUDController.Hide();
+            PlayersInfoHUDController.Hide();
+            ServiceLocator.Get<SkillPointsHUD>().Hide();
         });
         ServiceLocator.Get<SettingHUD>().Show(data);
     }
