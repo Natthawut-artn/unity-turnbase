@@ -93,6 +93,7 @@ public class CrimsonDevourer : MonoBehaviour
         Animator animator = GetComponentInChildren<Animator>();
         if (animator != null) animator.SetTrigger("Skill3"); // Use your animation trigger
         StartCoroutine(BiteAnim());
+        SFXManager.Instance?.PlayOneShot(SFX.CrimsonBite);
         yield return new WaitForSeconds(5f);
 
         // 3. Calculate Damage (5% ATK)

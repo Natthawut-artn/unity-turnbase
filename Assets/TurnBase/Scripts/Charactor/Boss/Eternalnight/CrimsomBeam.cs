@@ -117,7 +117,7 @@ public class CrimsonBeam : MonoBehaviour
         Animator animator = GetComponentInChildren<Animator>();
         if (animator != null) animator.SetTrigger("Skill2"); // Use your animation trigger
 
-        // Wait for wind-up animation
+        SFXManager.Instance?.PlayOneShot(SFX.CrimsonBeam);
         yield return new WaitForSeconds(5f); // 0.75s wind-up for a beam
 
         // 5. Calculate Damage & Heal amounts

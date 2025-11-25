@@ -22,7 +22,13 @@ public enum SFX
   Hammer,
   Cancel,
   Press1,
-  Press2
+  Press2,
+  CrimsonBite,
+  CrimsonBeam,
+  ScreamOfVampireLord,
+  BloodClaw,
+  BloodVeil,
+    
 }
 
 public enum Music
