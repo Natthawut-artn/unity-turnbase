@@ -51,6 +51,7 @@ public class AvatarController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity , layerMask))
             {
+                SFXManager.Instance.PlayOneShot(SFX.Press1);
                 StartCoroutine(MoveTo(hit.point));
             }
         }
