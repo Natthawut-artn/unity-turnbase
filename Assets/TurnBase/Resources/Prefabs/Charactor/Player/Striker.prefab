@@ -171,6 +171,7 @@ MonoBehaviour:
     m_Bits: 256
   alreadyAttack: 0
   alreadyWalk: 0
+  wantToSkip: 0
   maxTilesPerTurn: 16
   tilesMoved: 0
 --- !u!114 &4005674328814858402
@@ -196,6 +197,7 @@ MonoBehaviour:
   currentDefense: 0
   currentCritRate: 0
   currentCritDGM: 0
+  LV: 0
   BypassDef_Venom: 0
   BypassDef_BloodFlowing: 0
   BypassDef_Frost: 0
@@ -277,6 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RelicsInPocket: []
+  BrokenRelicsInPocket: []
 --- !u!114 &2625679881926845606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +416,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6548582673377269955, guid: e3d23be273d508a439e8f0c7819b791d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631523428357888110, guid: e3d23be273d508a439e8f0c7819b791d, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
