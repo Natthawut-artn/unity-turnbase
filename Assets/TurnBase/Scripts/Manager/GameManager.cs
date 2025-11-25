@@ -226,6 +226,7 @@ public class GameManager : MonoBehaviour
         SkillPointsManager.ResetSkillPonit();
         RelicStroageManager.ResetRelics();
         PocketHUDController.Show();
+        CurrentRoom = "Room1";
     }
 
     public void CheckEnemys()
@@ -331,6 +332,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        ServiceLocator.Get<OpenGame>().Show();
         StartGame();
         SettingHUDController.Show();
         GameObject SFXGameObjetc = Instantiate(Resources.Load<GameObject>(BGManager_Path));
