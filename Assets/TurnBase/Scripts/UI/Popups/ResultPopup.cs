@@ -73,6 +73,7 @@ public class ResultPopup : IUIElement
         Button hub = _selfGameObject.transform.Find("Button").GetComponent<Button>();
         hub.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
             GameManager.Instance.BackToTheHub();
             Hide();
         });

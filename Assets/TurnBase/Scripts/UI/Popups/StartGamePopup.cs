@@ -70,12 +70,14 @@ public class StartGamePopup : IUIElement
         Button Swift = _selfGameObject.transform.Find("Startgame").GetComponent<Button>();
         Swift.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Hammer);
             data.StarGameCallBack?.Invoke();
         });
 
         Button hub = _selfGameObject.transform.Find("Hub").GetComponent<Button>();
         hub.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlayOneShot(SFX.Cancel);
             Hide();
         });
 

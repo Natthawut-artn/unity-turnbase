@@ -333,6 +333,7 @@ public class PlayerController : MonoBehaviour
                     string hitName = hit.collider.gameObject.name;
                     string hitRoom = hitName.Split(' ').Last();
                     string currentRoom = GameManager.Instance.CurrentRoom;
+                    SFXManager.Instance.PlayOneShot(SFX.Press1);
 
                     if (hitRoom != currentRoom)
                     {
