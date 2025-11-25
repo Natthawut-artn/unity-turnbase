@@ -9,7 +9,10 @@ public class DimentionDoor : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            StartGamePopupController.Show(theme);    
+            if (ServiceLocator.Get<SettingPopup>().SelfGameObject == null)
+            {
+                StartGamePopupController.Show(theme);    
+            }
         }
     }
     void OnTriggerExit(Collider collision)

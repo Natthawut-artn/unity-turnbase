@@ -68,6 +68,19 @@ public class SettingPopup : IUIElement
         close.onClick.AddListener(() =>
         {
             SFXManager.Instance.PlayOneShot(SFX.Cancel);
+            HPBarsHUDController.Show();
+            if (AppStateManager.appState == AppState.State && TurnManager.Instance.isInTurnSystem)
+            {
+                PlayerOptionHUDController.Show();
+                PocketHUDController.Show();
+                PlayersInfoHUDController.Show();
+                ServiceLocator.Get<SkillPointsHUD>().Show();
+            }
+            else if (AppStateManager.appState == AppState.State)
+            {
+                PocketHUDController.Show();
+                PlayersInfoHUDController.Show();
+            }
             Hide();
         });
 
