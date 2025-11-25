@@ -66,6 +66,8 @@ public class PocketHUD : IUIElement
         }
     
         Button button = _selfGameObject.GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
+        
         if (AppStateManager.appState == AppState.Hub)
         {
             button.onClick.AddListener(() =>
