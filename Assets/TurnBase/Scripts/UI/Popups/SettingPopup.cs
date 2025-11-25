@@ -91,6 +91,13 @@ public class SettingPopup : IUIElement
             data.ConfirmCallBack?.Invoke();
         });
 
+        Button exit = _selfGameObject.transform.Find("Exit").GetComponent<Button>();
+        exit.onClick.AddListener(() =>
+        {
+            SFXManager.Instance.PlayOneShot(SFX.Press1);
+            Application.Quit();
+        });
+
         Button tutorial = _selfGameObject.transform.Find("Tutorial").GetComponent<Button>();
         tutorial.onClick.AddListener(() =>
         {
