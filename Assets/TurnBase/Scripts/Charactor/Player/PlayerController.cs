@@ -284,17 +284,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Existing H key logic...
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            playerData.Healing(20);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            skillBook.skillsSet[2].UseSkill(gameObject);
-        }
-
         // --- LEFT-CLICK (Both Target Confirmation & Movement) Logic ---
         if (Input.GetMouseButtonDown(0) // LEFT CLICK
             && !EventSystem.current.IsPointerOverGameObject()
