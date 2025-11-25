@@ -3,10 +3,10 @@ using UnityEngine;
 
 public static class RelicStroageManager
 {
-    public static string folderNormal = "RelicsData/Normal";
-    public static string folderRare = "RelicsData/Rare";
-    public static string folderLegent = "RelicsData/Legent";
-    public static string folderAR = "RelicsData/AR";
+    public static string folderNormal = "RelicsData/normal/Normal";
+    public static string folderRare = "RelicsData/normal/Rare";
+    public static string folderLegent = "RelicsData/normal/Legent";
+    public static string folderAR = "RelicsData/normal/AR";
     public static List<string> normalPaths = new List<string>();
     public static List<string> rarePaths = new List<string>();
     public static List<string> legentPaths = new List<string>();
