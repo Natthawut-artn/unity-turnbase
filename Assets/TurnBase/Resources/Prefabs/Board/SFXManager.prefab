@@ -238,13 +238,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f3e85d3c72fc4ab126414f46be097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userSetting: 0
+  usermusicvolume: 0
+  usersfxvolume: 0
   BGMusic: {fileID: 1624273050813635141}
   SFX: {fileID: 6652848127715511024}
   MusicList:
   - {fileID: 8300000, guid: 547b12f539cc5ab448e3b29b60e55011, type: 3}
   - {fileID: 8300000, guid: 5be79b7e84c957149b703e849e1e5752, type: 3}
   - {fileID: 8300000, guid: 5a1944aa7c9b294499f993b3c5b484f5, type: 3}
+  - {fileID: 8300000, guid: 1e2e75287c3e771428b81910ed9fe8ae, type: 3}
   MusicVolump:
+  - 1
   - 1
   - 1
   - 1

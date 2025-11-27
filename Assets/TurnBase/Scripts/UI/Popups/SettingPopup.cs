@@ -24,6 +24,8 @@ public class SettingPopup : IUIElement
 
     private GameObject _selfGameObject;
     private IUIManager _uiManager;
+    public float musicvomlump = 1f;
+    public float sfxvomlump = 1f;
 
     public void Init()
     {
@@ -81,6 +83,10 @@ public class SettingPopup : IUIElement
                 PocketHUDController.Show();
                 PlayersInfoHUDController.Show();
             }
+            else if (AppStateManager.appState == AppState.Hub)
+            {
+                PocketHUDController.Show();
+            }
             Hide();
         });
 
@@ -110,7 +116,7 @@ public class SettingPopup : IUIElement
             Hide();
         });
 
-        if (AppStateManager.appState == AppState.Hub)
+        if (AppStateManager.appState == AppState.Hub || AppStateManager.appState == AppState.Open)
         {
             confirm.interactable = false;
         }
@@ -119,5 +125,25 @@ public class SettingPopup : IUIElement
         {
             close.interactable = false;
         }
+
+        Slider music = _selfGameObject.transform.Find("Music").GetComponent<Slider>();
+        Slider sfx = _selfGameObject.transform.Find("SFX").GetComponent<Slider>();
+        music.value = musicvomlump;
+        sfx.value = sfxvomlump;
+
+        Button apply = _selfGameObject.transform.Find("Apply").GetComponent<Button>();
+        apply.onClick.AddListener(() =>
+        {
+            Slider music = _selfGameObject.transform.Find("Music").GetComponent<Slider>();
+            Slider sfx = _selfGameObject.transform.Find("SFX").GetComponent<Slider>();
+
+            musicvomlump = music.value;
+            sfxvomlump = sfx.value;
+
+            SFXManager.Instance.usermusicvolume = music.value;
+            SFXManager.Instance.usersfxvolume = sfx.value;
+            SFXManager.Instance.userSetting = true;
+            SFXManager.Instance.usersetting();
+        });
     }
 }
