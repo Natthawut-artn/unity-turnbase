@@ -161,7 +161,7 @@ MonoBehaviour:
     m_Bits: 8
   playerData: {fileID: 7496334762098826307}
   playerAttack: {fileID: 6182887865568508735}
-  markertarget: {x: 0, y: 0, z: 0}
+  markertarget: {fileID: 0}
   dashSpeed: 20
   dashDuration: 0.2
   Enemy:
@@ -169,6 +169,7 @@ MonoBehaviour:
     m_Bits: 256
   alreadyAttack: 0
   alreadyWalk: 0
+  wantToSkip: 0
   maxTilesPerTurn: 16
   tilesMoved: 0
 --- !u!114 &7496334762098826307
@@ -185,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroclass: 1
   HP: 100
-  ATK: 15
+  ATK: 10
   Defense: 20
   CritRate: 7
   CritDGM: 7
@@ -194,6 +195,7 @@ MonoBehaviour:
   currentDefense: 0
   currentCritRate: 0
   currentCritDGM: 0
+  LV: 0
   BypassDef_Venom: 0
   BypassDef_BloodFlowing: 0
   BypassDef_Frost: 0
@@ -215,6 +217,14 @@ MonoBehaviour:
   BuffAmountTarget: 0
   Shield: 0
   BuffShieldAmountTurn: 0
+  BlockAttackAmount: 0
+  OldHpStatus: 0
+  OldATKStatus: 0
+  OldDefenceStatus: 0
+  OldCritRateStatus: 0
+  OldCritDGMStatus: 0
+  alreadySetUp: 0
+  StatusBuffTurnAmount: 0
   GridPosition: {x: 0, y: 0}
   moveSpeed: 5
   playerMoveState: 0
@@ -267,6 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RelicsInPocket: []
+  BrokenRelicsInPocket: []
 --- !u!114 &1212701251545500513
 MonoBehaviour:
   m_ObjectHideFlags: 0
