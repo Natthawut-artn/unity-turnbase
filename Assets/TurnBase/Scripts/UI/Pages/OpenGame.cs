@@ -52,6 +52,9 @@ public class OpenGame : IUIElement
         hub.onClick.AddListener(() =>
         {
             SFXManager.Instance.PlayOneShot(SFX.Press1);
+            SFXManager.Instance.PlayMusic(Music.Hub);
+            PocketHUDController.Show();
+            AppStateManager.ChangeAppState(AppState.Hub);
             Hide();
         });
         Button set = _selfGameObject.transform.Find("Setting").GetComponent<Button>();

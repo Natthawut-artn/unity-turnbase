@@ -35,5 +35,6 @@ public enum Music
 {
     Hub,
     Stages,
-    Fight
+    Fight,
+    Open
 }

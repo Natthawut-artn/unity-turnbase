@@ -10,6 +10,10 @@ public class SFXManager : MonoBehaviour
         Instance = this;
     }
 
+    public bool userSetting = false;
+    public float usermusicvolume = 0f;
+    public float usersfxvolume = 0f;
+
     public AudioSource BGMusic;
     public AudioSource SFX;
 
@@ -27,16 +31,42 @@ public class SFXManager : MonoBehaviour
         BGMusic.Stop();
         BGMusic.clip = MusicList[(int)music];
         BGMusic.volume = MusicVolump[(int)music];
+        if (userSetting)
+        {
+            BGMusic.volume = usermusicvolume * MusicVolump[(int)music];
+        }
         BGMusic.Play();
     }
 
     public void PlayOneShot(SFX sfx)
     {
-        SFX.PlayOneShot( SFXList[(int)sfx], SFXVolump[(int)sfx]);
+        float volume = 1f;
+        if (userSetting)
+        {
+            volume = usersfxvolume * SFXVolump[(int)sfx];
+        }
+        SFX.PlayOneShot( SFXList[(int)sfx], volume);
     }
 
     public void Stop()
     {
         BGMusic.Stop();
+    }
+
+    public void usersetting()
+    {
+        AudioClip currentClip = BGMusic.clip;
+        int index = GetClipIndex(currentClip);
+        BGMusic.volume = usermusicvolume * MusicVolump[index];
+    }
+
+    int GetClipIndex(AudioClip clip)
+    {
+        for (int i = 0; i < MusicList.Count; i++)
+        {
+            if (MusicList[i] == clip)  
+                return i;
+        }
+        return 1;
     }
 }

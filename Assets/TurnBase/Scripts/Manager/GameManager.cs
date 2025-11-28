@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             StopGame();
         }
 
-        if (AppStateManager.appState == AppState.Hub)
+        if (AppStateManager.appState == AppState.Hub || AppStateManager.appState == AppState.Open)
         {
             CurrentStage = Instantiate(Resources.Load<GameObject>("Prefabs/Stages/Hub"));
         }
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayers()
     {
-        if (AppStateManager.appState == AppState.Hub)
+        if (AppStateManager.appState == AppState.Hub || AppStateManager.appState == AppState.Open)
         {
             Player = Instantiate(Resources.Load<GameObject>(Avatar_Path));
             MainCamera.Instance.SetPlayer(Player.transform);
@@ -337,60 +337,48 @@ public class GameManager : MonoBehaviour
         SettingHUDController.Show();
         GameObject SFXGameObjetc = Instantiate(Resources.Load<GameObject>(BGManager_Path));
         GameObject VFXGameObjetc = Instantiate(Resources.Load<GameObject>(VFXManager_Path));
-        SFXManager.Instance.PlayMusic(Music.Hub);
+        SFXManager.Instance.PlayMusic(Music.Open);
         RelicStroageManager.Init();
         BrokenRelicManager.Init();
-        PocketHUDController.Show();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            ReleasePlayers();
-        }
+        // if (Input.GetKeyDown(KeyCode.Q))
+        // {
+        //     Application.Quit();
+        // }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SkillPointsManager.ReceiveSkillPoint(1);
-            ServiceLocator.Get<SkillPointsHUD>().Update();
-        }
+        // if (Input.GetKeyDown(KeyCode.B))
+        // {
+        //     BackToTheHub();
+        // }
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Debug.Log($"Skill point : {SkillPointsManager.currentSkillPoint}");
-        }
+        // if (Input.GetKeyDown(KeyCode.W) && AppStateManager.appState == AppState.State)
+        // {
+        //     foreach (GameObject enemy in Enemys_alive)
+        //     {
+        //         Enemys_alive.Remove(enemy);
+        //         Destroy(enemy);
+        //     }
+        //     CheckEnemys();
+        // }
 
-        if (Input.GetKeyDown(KeyCode.E) && AppStateManager.appState == AppState.State)
-        {
-            BackToTheHub();
-        }
+        // if (Input.GetKeyDown(KeyCode.T))
+        // {
+        //     Debug.Log("Remove relic");
+        //     foreach (GameObject player in Players_alive)
+        //     {
+        //         RelicsStoage relicsStoage = player.GetComponent<RelicsStoage>();
+        //         relicsStoage.RemoveRelic(relic);
+        //     }
+        // }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Install relic");
-            foreach (GameObject player in Players_alive)
-            {
-                RelicsStoage relicsStoage = player.GetComponent<RelicsStoage>();
-                relicsStoage.InstallRelic(relic);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log("Remove relic");
-            foreach (GameObject player in Players_alive)
-            {
-                RelicsStoage relicsStoage = player.GetComponent<RelicsStoage>();
-                relicsStoage.RemoveRelic(relic);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            Debug.Log("Get Relic");
-            RelicStroageManager.RandomRelic();
-            RelicPocketPopupController.Update();
-        }
+        // if (Input.GetKeyDown(KeyCode.Y) && ServiceLocator.Get<AnnouncerPopup>().SelfGameObject == null)
+        // {
+        //     Debug.Log("Get Relic");
+        //     RelicStroageManager.RandomRelic();
+        //     RelicPocketPopupController.Update();
+        // }
     }
 }
