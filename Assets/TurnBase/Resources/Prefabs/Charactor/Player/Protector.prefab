@@ -228,7 +228,7 @@ MonoBehaviour:
   currentDefense: 0
   currentCritRate: 0
   currentCritDGM: 0
-  LV: 0
+  LV: 1
   BypassDef_Venom: 0
   BypassDef_BloodFlowing: 0
   BypassDef_Frost: 0
