@@ -3,6 +3,7 @@ using DelegateManager;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using System.Linq;
 
 public class PlayersInfoPopup : IUIElement
 {
@@ -48,134 +49,111 @@ public class PlayersInfoPopup : IUIElement
         _selfGameObject.SetActive(false);
         Object.Destroy(_selfGameObject);
         _selfGameObject = null;
-        infos.Clear();
+        // infos.Clear();
     }
 
     public void Show()
     {
         Show(new object());
     }
-
+        
     public void Show(object rawData)
     {
         data = (Data)rawData;
+
         if (_selfGameObject == null)
         {
-            _selfGameObject = GameObject.Instantiate
-            (
+            _selfGameObject = GameObject.Instantiate(
                 Resources.Load<GameObject>("Prefabs/UI/Popups/PlayersInfoPopup")
             );
             _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
         }
 
-        Button CloseBtn = _selfGameObject.transform.Find("Close").GetComponent<Button>();
-        CloseBtn.onClick.AddListener(() =>
+        Button closeBtn = _selfGameObject.transform.Find("Close").GetComponent<Button>();
+        closeBtn.onClick.RemoveAllListeners();
+        closeBtn.onClick.AddListener(() =>
         {
             SFXManager.Instance.PlayOneShot(SFX.Cancel);
             data.Close?.Invoke();
         });
-        GameObject Buttons = _selfGameObject.transform.Find("Buttons").gameObject;
+
+        GameObject infos = _selfGameObject.transform.Find("Infos").gameObject;
+        List<GameObject> pages = new List<GameObject>();
+        for (int i = 0; i < infos.transform.childCount; i++)
+            pages.Add(infos.transform.GetChild(i).gameObject);
+
+        GameObject buttonsObj = _selfGameObject.transform.Find("Buttons").gameObject;
         List<Button> buttons = new List<Button>();
-        for (int i = 0; i < Buttons.transform.childCount; i++)
-        {
-            Button button = Buttons.transform.GetChild(i).GetComponent<Button>();
-            buttons.Add(button);
-        }
-        GameObject Infos = _selfGameObject.transform.Find("Infos").gameObject;
-        infos = new List<GameObject>();
-        for (int i = 0; i < Infos.transform.childCount; i++)
-        {
-            GameObject gameObject = Infos.transform.GetChild(i).gameObject;
-            infos.Add(gameObject);
-        }
-        List<GameObject> Players = new List<GameObject>();
-        for (int i = 0; i < infos[0].transform.childCount; i++)
-        {
-            Players.Add(infos[0].transform.GetChild(i).gameObject);
-        }
-        for (int i = 0; i < GameManager.Instance.Players_alive.Count; i++)
-        {
-            if (Players[i].name + "(Clone)" == GameManager.Instance.Players_alive[i].name)
-            {
-                Transform pocket = Players[i].transform.Find("Relics");
-                RelicsStoage relicsStoage = GameManager.Instance.Players_alive[i].GetComponent<RelicsStoage>();
-                List<RelicData> relics = relicsStoage.RelicsInPocket;
-                for (int j = 0; j < pocket.childCount; j++)
-                {
-                    if (j < relics.Count)
-                    {
-                        Image image = pocket.transform.GetChild(j).transform.Find("Image").GetComponent<Image>();
-                        image.sprite = relics[j].RelicSprite;
-                    }
-                    int index1 = i;
-                    int index2 = j;
-                    Button button = pocket.transform.GetChild(j).GetComponent<Button>();
-                    button.onClick.AddListener(() =>
-                    {
-                        SFXManager.Instance.PlayOneShot(SFX.Press1);
-                        data.CallBackWith2Ints?.Invoke(index1, index2);
-                    });
-                } 
-            }
-        }
-        for (int i = GameManager.Instance.Players_alive.Count; i < Players.Count; i++)
-        {
-            Players[i].SetActive(false);
-        }
+        for (int i = 0; i < buttonsObj.transform.childCount; i++)
+            buttons.Add(buttonsObj.transform.GetChild(i).GetComponent<Button>());
+
+        buttons[0].onClick.RemoveAllListeners();
         buttons[0].onClick.AddListener(() =>
         {
             SFXManager.Instance.PlayOneShot(SFX.Press1);
-            ShowInfoPage(infos[0], infos[1]);
+            ShowInfoPage(pages[0], pages[1]);
         });
+
+        buttons[1].onClick.RemoveAllListeners();
         buttons[1].onClick.AddListener(() =>
         {
             SFXManager.Instance.PlayOneShot(SFX.Press1);
-            ShowStatusePage(infos[0], infos[1]);
+            ShowStatusePage(pages[0], pages[1]);
         });
+
+        ShowInfoPage(pages[0], pages[1]);
     }
-    
+        
     public void ShowInfoPage(GameObject infoPage, GameObject statusPage)
     {
         infoPage.SetActive(true);
         statusPage.SetActive(false);
 
-        List<GameObject> Players = new List<GameObject>();
+        // หา PlayerSlot ทั้งหมด
+        List<GameObject> slots = new List<GameObject>();
         for (int i = 0; i < infoPage.transform.childCount; i++)
+            slots.Add(infoPage.transform.GetChild(i).gameObject);
+
+        for (int i = 0; i < slots.Count; i++)
         {
-            Players.Add(infoPage.transform.GetChild(i).gameObject);
-        }
-        for (int i = 0; i < GameManager.Instance.Players_alive.Count; i++)
-        {
-            if (Players[i].name + "(Clone)" == GameManager.Instance.Players_alive[i].name)
+            GameObject uiSlot = slots[i];
+            string slotName = uiSlot.name;
+
+            GameObject player = GameManager.Instance.Players_alive
+                .FirstOrDefault(p => p.name.StartsWith(slotName));
+
+            if (player == null)
             {
-                Transform pocket = Players[i].transform.Find("Relics");
-                RelicsStoage relicsStoage = GameManager.Instance.Players_alive[i].GetComponent<RelicsStoage>();
-                List<RelicData> relics = relicsStoage.RelicsInPocket;
-                for (int j = 0; j < pocket.childCount; j++)
-                {
-                    Image image = pocket.transform.GetChild(j).transform.Find("Image").GetComponent<Image>();
-                    if (j < relics.Count)
-                    {
-                        
-                        image.sprite = relics[j].RelicSprite;
-                    }
-                    else
-                    {
-                        image.sprite = Resources.Load<Sprite>(Emthy_Path);
-                    }
-                    int index1 = i;
-                    int index2 = j;
-                    Button button = pocket.transform.GetChild(j).GetComponent<Button>();
-                    button.onClick.AddListener(() =>
-                    {
-                        data.CallBackWith2Ints?.Invoke(index1, index2);
-                    });
-                } 
+                uiSlot.SetActive(false);
+                continue;
             }
-        }
-        for (int i = GameManager.Instance.Players_alive.Count; i < Players.Count; i++)
-        {
-            Players[i].SetActive(false);
+
+            uiSlot.SetActive(true);
+
+            // Update Relics
+            Transform pocket = uiSlot.transform.Find("Relics");
+            var relics = player.GetComponent<RelicsStoage>().RelicsInPocket;
+
+            for (int j = 0; j < pocket.childCount; j++)
+            {
+                Transform child = pocket.GetChild(j);
+                Image img = child.Find("Image").GetComponent<Image>();
+
+                if (j < relics.Count)
+                    img.sprite = relics[j].RelicSprite;
+                else
+                    img.sprite = Resources.Load<Sprite>(Emthy_Path);
+
+                int slotIndex = i;
+                int relicIndex = j;
+
+                Button btn = child.GetComponent<Button>();
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(() =>
+                {
+                    data.CallBackWith2Ints?.Invoke(slotIndex, relicIndex);
+                });
+            }
         }
     }
 
@@ -184,39 +162,40 @@ public class PlayersInfoPopup : IUIElement
         infoPage.SetActive(false);
         statusPage.SetActive(true);
 
-        List<GameObject> Statuses = new List<GameObject>();
+        List<GameObject> slots = new List<GameObject>();
         for (int i = 0; i < statusPage.transform.childCount; i++)
-        {
-            Statuses.Add(statusPage.transform.GetChild(i).gameObject);
-        }
-        for (int i = 0; i < GameManager.Instance.Players_alive.Count; i++)
-        {
-            if (Statuses[i].name + "(Clone)" == GameManager.Instance.Players_alive[i].name)
-            {
-                Debug.Log(Statuses[i].name);
-                PlayerData playerData = GameManager.Instance.Players_alive[i].GetComponent<PlayerData>();
-                string status =
-                $"Hp : {playerData.currentHP}\n" +
-                $"ATK : {playerData.currentATK}\n" +
-                $"Defense : {playerData.currentDefense}\n" +
-                $"Crit Rate : {playerData.currentCritRate}\n" +
-                $"Crit DGM : {playerData.currentCritDGM}\n"
-                ;
+            slots.Add(statusPage.transform.GetChild(i).gameObject);
 
-                TextMeshProUGUI text = Statuses[i].transform.Find("Text (TMP) (2)").GetComponent<TextMeshProUGUI>();
-                if (text == null)
-                {
-                    Debug.Log("Null");
-                }
-                else
-                {
-                    text.SetText(status);
-                }
-            }
-        }
-        for (int i = GameManager.Instance.Players_alive.Count; i < Statuses.Count; i++)
+        for (int i = 0; i < slots.Count; i++)
         {
-            Statuses[i].SetActive(false);
+            GameObject uiSlot = slots[i];
+            string slotName = uiSlot.name;
+
+            GameObject player = GameManager.Instance.Players_alive
+                .FirstOrDefault(p => p.name.StartsWith(slotName));
+
+            if (player == null)
+            {
+                uiSlot.SetActive(false);
+                continue;
+            }
+
+            uiSlot.SetActive(true);
+
+            PlayerData pd = player.GetComponent<PlayerData>();
+
+            string status =
+                $"Hp : {pd.currentHP}\n" +
+                $"ATK : {pd.currentATK}\n" +
+                $"Defense : {pd.currentDefense}\n" +
+                $"Crit Rate : {pd.currentCritRate}\n" +
+                $"Crit DGM : {pd.currentCritDGM}\n";
+
+            TextMeshProUGUI txt = uiSlot.transform
+                .Find("Text (TMP) (2)")
+                .GetComponent<TextMeshProUGUI>();
+
+            txt.SetText(status);
         }
     }
 
