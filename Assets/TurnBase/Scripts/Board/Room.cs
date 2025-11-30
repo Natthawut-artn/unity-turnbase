@@ -29,13 +29,13 @@ public class Room : MonoBehaviour
             {
                 roomState = RoomState.Playing;
                 GameManager.Instance.CurrentRoom = gameObject.name;
-                StartCoroutine(GameManager.Instance.TeleportFriends());
+                StartCoroutine(GameManager.Instance.TeleportFriends(other.gameObject.name));
             }
             else if (roomState == RoomState.Clear)
             {
                 roomState = RoomState.Visit;
                 GameManager.Instance.CurrentRoom = gameObject.name;
-                StartCoroutine(GameManager.Instance.TeleportFriends());
+                StartCoroutine(GameManager.Instance.TeleportFriends(other.gameObject.name));
             }
         }
 

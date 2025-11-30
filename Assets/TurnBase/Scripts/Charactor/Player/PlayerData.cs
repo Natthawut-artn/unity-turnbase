@@ -20,11 +20,12 @@ public class PlayerData : CharactorInheritance
     void Start()
     {
         skillBook = GetComponent<SkillBook>();
+        LV += 1;
     }
 
     public void Upgrade()
     {
-        LV++;
+        LV += 1;
         if(LV >= 3)
         {
             skillBook.skillsSet[0].Unlock = true;
@@ -33,7 +34,7 @@ public class PlayerData : CharactorInheritance
         {
             skillBook.skillsSet[1].Unlock = true;
         }
-        else if (LV >= 3)
+        else if (LV >= 9)
         {
             skillBook.skillsSet[2].Unlock = true;
         }

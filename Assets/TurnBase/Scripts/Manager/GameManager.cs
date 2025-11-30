@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
         "RelicsData/RevenCrew"
     };
+    private GameObject referencePlayer;
     public List<GameObject> Players_alive = new List<GameObject>();
     public List<GameObject> Enemys_alive = new List<GameObject>();
     public GameObject lstPlayerDie = null;
@@ -108,7 +109,7 @@ public class GameManager : MonoBehaviour
                     StartGameCoroutine = StartCoroutine(StartTheGame());
                 }
                 SFXManager.Instance.PlayMusic(Music.Stages);
-                SkillPointsManager.ReceiveSkillPoint(3);
+                SkillPointsManager.ReceiveSkillPoint(8);
             }
         }
     }
@@ -149,8 +150,15 @@ public class GameManager : MonoBehaviour
                 MainCamera.Instance.SetPlayer(Player.transform);
             }
         }
+        for (int j = 0; j < Players_alive.Count ; j++)
+        {
+            PlayerData PlayerData = Players_alive[j].GetComponent<PlayerData>();
+            PlayerData.Upgrade();
+        }
         StartCoroutine(Wait());
         TurnManager.Instance.StopTurnBaseSystem();
+        StartCoroutine(TeleportFriends(Players_alive[0].name));
+
     }
 
     IEnumerator StartTheGame()
@@ -162,16 +170,14 @@ public class GameManager : MonoBehaviour
     IEnumerator Wait()
     {
         yield return null;
+
         HPBarsHUDController.Show();
         PlayersInfoHUDController.Show();
         PocketHUDController.Show();
-        GameObject MainPlayer = Players_alive[0];
-        GameObject LeftPos = MainPlayer.transform.Find("Left").gameObject;
-        GameObject RightPos = MainPlayer.transform.Find("Right").gameObject;
-        Friends.Add(LeftPos);
-        Friends.Add(RightPos);
+
         BrokenRelicManager.InitInStage();
     }
+
 
     public void DestroyAll()
     {
@@ -248,14 +254,32 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    public IEnumerator TeleportFriends()
+    public IEnumerator TeleportFriends(string referenceName)
     {
-        GameObject MainPlayer = MainCamera.Instance.Player.gameObject;
         for (int i = 0; i < 5; i++)
-        {
             yield return null;
+
+        GameObject referencePlayer = Players_alive
+            .Find(p => p != null && p.name == referenceName);
+
+        if (referencePlayer == null)
+        {
+            Debug.LogError($"TeleportFriends: No player found with name {referenceName}");
+            yield break;
         }
+
+        Transform left  = referencePlayer.transform.Find("Left");
+        Transform right = referencePlayer.transform.Find("Right");
+
+        if (left == null || right == null)
+        {
+            Debug.LogError("Reference player missing Left/Right transform!");
+            yield break;
+        }
+
+        Friends.Clear();
+        Friends.Add(left.gameObject);
+        Friends.Add(right.gameObject);
 
         int playerCount = Players_alive.Count;
         int friendCount = Friends.Count;
@@ -265,7 +289,10 @@ public class GameManager : MonoBehaviour
             if (i - 1 >= friendCount) break;
 
             GameObject player = Players_alive[i];
+            if (player == null) continue;
+
             Vector3 newPos = Friends[i - 1].transform.position;
+
             newPos.x = RoundToHalf(newPos.x);
             newPos.z = RoundToHalf(newPos.z);
 
@@ -287,7 +314,7 @@ public class GameManager : MonoBehaviour
                 player.transform.position = newPos;
             }
 
-            player.transform.rotation = MainPlayer.transform.rotation;
+            player.transform.rotation = referencePlayer.transform.rotation;
 
             Debug.Log($"Teleport {player.name} to {newPos}");
         }
