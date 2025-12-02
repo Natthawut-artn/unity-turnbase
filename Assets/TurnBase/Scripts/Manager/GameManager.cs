@@ -150,11 +150,6 @@ public class GameManager : MonoBehaviour
                 MainCamera.Instance.SetPlayer(Player.transform);
             }
         }
-        for (int i = 0; i < Players_alive.Count ; i++)
-        {
-            PlayerData playerData = Players_alive[i].GetComponent<PlayerData>();
-            playerData.Upgrade();
-        }
         StartCoroutine(Wait());
         TurnManager.Instance.StopTurnBaseSystem();
         StartCoroutine(TeleportFriends(Players_alive[0].name));
@@ -174,6 +169,11 @@ public class GameManager : MonoBehaviour
         HPBarsHUDController.Show();
         PlayersInfoHUDController.Show();
         PocketHUDController.Show();
+        for (int i = 0; i < Players_alive.Count ; i++)
+        {
+            PlayerData playerData = Players_alive[i].GetComponent<PlayerData>();
+            playerData.Upgrade();
+        }
 
         BrokenRelicManager.InitInStage();
     }

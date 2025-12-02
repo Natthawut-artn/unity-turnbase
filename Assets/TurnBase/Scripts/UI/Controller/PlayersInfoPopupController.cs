@@ -10,9 +10,12 @@ public static class PlayersInfoPopupController
         {
             PlayersInfoHUDController.Show();
             PocketHUDController.Show();
-            PlayerOptionHUDController.Show();
             HPBarsHUDController.Show();
-            ServiceLocator.Get<SkillPointsHUD>().Show();
+            if (TurnManager.Instance.isInTurnSystem)
+            {
+                PlayerOptionHUDController.Show();
+                ServiceLocator.Get<SkillPointsHUD>().Show();
+            }
             Hide();
         }, (PlayerIndex, RelicIndex) =>
         {

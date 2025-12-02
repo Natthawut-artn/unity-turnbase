@@ -13,8 +13,8 @@ public static class RelicPocketPopupController
             if (TurnManager.Instance.isInTurnSystem)
             {
                 PlayerOptionHUDController.Show();
+                ServiceLocator.Get<SkillPointsHUD>().Show();
             }
-            ServiceLocator.Get<SkillPointsHUD>().Show();
             Hide();
         } , (index) =>
         {
