@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroclass: 0
   HP: 100
-  ATK: 15
+  ATK: 25
   Defense: 5
   CritRate: 7
   CritDGM: 7
@@ -197,7 +197,7 @@ MonoBehaviour:
   currentDefense: 0
   currentCritRate: 0
   currentCritDGM: 0
-  LV: 1
+  LV: 0
   BypassDef_Venom: 0
   BypassDef_BloodFlowing: 0
   BypassDef_Frost: 0

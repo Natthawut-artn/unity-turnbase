@@ -60,7 +60,7 @@ public class SettingHUD : IUIElement
             (
                 Resources.Load<GameObject>("Prefabs/UI/HUDs/SettingHUD")
             );
-            _selfGameObject.transform.SetParent(CanvasManager.Canvas1.transform, false);
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas4.transform, false);
         }
 
         Button button = _selfGameObject.GetComponent<Button>();

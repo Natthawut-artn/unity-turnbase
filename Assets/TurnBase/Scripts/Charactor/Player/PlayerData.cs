@@ -25,15 +25,15 @@ public class PlayerData : CharactorInheritance
     public void Upgrade()
     {
         LV += 1;
-        if(LV >= 9)
+        if(LV >= 6)
         {
             skillBook.skillsSet[2].Unlock = true;
         }
-        else if (LV >= 6)
+        else if (LV >= 3)
         {
             skillBook.skillsSet[1].Unlock = true;
         }
-        else if (LV >= 3)
+        else if (LV >= 1)
         {
             skillBook.skillsSet[0].Unlock = true;
         }
