@@ -84,7 +84,7 @@ public class VFXManager : MonoBehaviour
         }
         else
         {
-            GameObject parent = GameObj.transform.Find("MCChibi/SWORD").gameObject;
+            GameObject parent = GameObj.transform.Find("MCChibi/Armature/Bone.L/Bone.001.L/Bone.003.L/Bone.004.L/Bone.005.L/Bone.005.L.003/Bone.005.L.008").gameObject;
             VFX.transform.SetParent(parent.transform);
         }
         if (duration <= 0)
