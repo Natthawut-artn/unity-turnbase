@@ -64,7 +64,7 @@ public class OpenGame : IUIElement
             SettingPopupController.Show();
         });
         Button exit = _selfGameObject.transform.Find("Exit").GetComponent<Button>();
-        set.onClick.AddListener(() =>
+        exit.onClick.AddListener(() =>
         {
             SFXManager.Instance.PlayOneShot(SFX.Press1);
             Application.Quit();

@@ -78,7 +78,15 @@ public class VFXManager : MonoBehaviour
         }
         
         GameObject VFX = Instantiate(VFXList[(int)vFX] , GameObj.transform.position , GameObj.transform.rotation);
-        VFX.transform.SetParent(GameObj.transform);
+        if (!GameObj.name.StartsWith("Striker"))
+        {
+            VFX.transform.SetParent(GameObj.transform);
+        }
+        else
+        {
+            GameObject parent = GameObj.transform.Find("MCChibi/SWORD").gameObject;
+            VFX.transform.SetParent(parent.transform);
+        }
         if (duration <= 0)
         {
             return;

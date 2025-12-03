@@ -150,11 +150,6 @@ public class GameManager : MonoBehaviour
                 MainCamera.Instance.SetPlayer(Player.transform);
             }
         }
-        for (int j = 0; j < Players_alive.Count ; j++)
-        {
-            PlayerData PlayerData = Players_alive[j].GetComponent<PlayerData>();
-            PlayerData.Upgrade();
-        }
         StartCoroutine(Wait());
         TurnManager.Instance.StopTurnBaseSystem();
         StartCoroutine(TeleportFriends(Players_alive[0].name));

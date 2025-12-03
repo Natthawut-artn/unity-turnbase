@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public bool alreadyWalk = false;
     public bool wantToSkip = false;
     private Animator animator;
-    public Coroutine playerTurn;
+    public Coroutine moveToCell;
 
     // ✅ Movement limit
     public int maxTilesPerTurn = 4;
@@ -94,116 +94,91 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Can't move after attacking.");
             yield break;
         }
-        if (tilesMoved >= maxTilesPerTurn && TurnManager.Instance.isInTurnSystem) alreadyWalk = true;
-        else if (!TurnManager.Instance.isInTurnSystem) { tilesMoved = 0; }
-        if ((transform.position.x == To.transform.position.x && transform.position.z == To.transform.position.z)
-        || tilesMoved >= maxTilesPerTurn)
-        {
-            SetAnimationState(PlayerMoveState.Stand);
-            Room room = To.GetComponentInParent<Room>();
-            if (room.roomState == RoomState.CanExit)
-            {
-                BoardManager.Instance.CheckPlayerOnExit(To);
-            }
-            else if (room.roomState == RoomState.Visit)
-            {
-                room.roomState = RoomState.CanExit;
-            }
-            BoardManager.Instance.isTransferring = false;
-            yield break;
-        }
-        if (currentOccupiedMarker != null)
-        {
-            currentOccupiedMarker.IsOccupied = false;
-            currentOccupiedMarker = null; // Clear reference until new one is acquired
-        }
-        Vector3 targetPos = transform.position;
 
-        if (Mathf.Abs(To.transform.position.x - transform.position.x) > 0.01f)
+        if (!TurnManager.Instance.isInTurnSystem)
+            tilesMoved = 0;
+
+        Collider[] enemyHits = new Collider[4];
+
+        while (true)
         {
+            Vector3 current = transform.position;
+            Vector3 target = To.transform.position;
+
+            if ((Mathf.Abs(current.x - target.x) < 0.01f &&
+                Mathf.Abs(current.z - target.z) < 0.01f)
+                || tilesMoved >= maxTilesPerTurn)
+            {
+                SetAnimationState(PlayerMoveState.Stand);
+
+                Room room = To.GetComponentInParent<Room>();
+                if (room != null)
+                {
+                    if (room.roomState == RoomState.CanExit)
+                        BoardManager.Instance.CheckPlayerOnExit(To);
+                    else if (room.roomState == RoomState.Visit)
+                        room.roomState = RoomState.CanExit;
+                }
+
+                BoardManager.Instance.isTransferring = false;
+                yield break;
+            }
+
+            Vector3 nextPos = current;
+
+            if (Mathf.Abs(target.x - current.x) > 0.01f)
+            {
+                int dirX = (target.x > current.x) ? 1 : -1;
+                nextPos = current + new Vector3(dirX, 0, 0);
+                transform.rotation = Quaternion.LookRotation(new Vector3(dirX, 0, 0));
+            }
+            else if (Mathf.Abs(target.z - current.z) > 0.01f)
+            {
+                int dirZ = (target.z > current.z) ? 1 : -1;
+                nextPos = current + new Vector3(0, 0, dirZ);
+                transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, dirZ));
+            }
+
+            int foundEnemies = Physics.OverlapSphereNonAlloc(nextPos, 0.5f, enemyHits, Enemy);
+            if (foundEnemies > 0)
+            {
+                Debug.Log("Enemy blocking path → stop movement.");
+                SetAnimationState(PlayerMoveState.Stand);
+
+                currentOccupiedMarker = GetMarkerAtCurrentPosition();
+                if (currentOccupiedMarker != null)
+                    currentOccupiedMarker.IsOccupied = true;
+
+                yield break;
+            }
+
             SetAnimationState(PlayerMoveState.Walk);
-            int x = (To.transform.position.x > transform.position.x) ? 1 : -1;
-            targetPos = transform.position + new Vector3(x, 0, 0);
 
-            Vector3 dir = new Vector3(x, 0, 0);
-            transform.rotation = Quaternion.LookRotation(dir);
-            // ✅ Move smoothly
-            while (Vector3.Distance(transform.position, targetPos) > 0.01f)
+            while (Vector3.Distance(transform.position, nextPos) > 0.01f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, playerData.moveSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    nextPos,
+                    playerData.moveSpeed * Time.deltaTime
+                );
                 yield return null;
             }
-            transform.position = targetPos;
-        }
-        else if (Mathf.Abs(To.transform.position.z - transform.position.z) > 0.01f)
-        {
-            SetAnimationState(PlayerMoveState.Walk);
-            int z = (To.transform.position.z > transform.position.z) ? 1 : -1;
-            targetPos = transform.position + new Vector3(0, 0, z);
 
-            Vector3 dir = new Vector3(0, 0, z);
-            transform.rotation = Quaternion.LookRotation(dir);
+            transform.position = nextPos;
 
-            // ✅ Move smoothly
-            while (Vector3.Distance(transform.position, targetPos) > 0.01f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, playerData.moveSpeed * Time.deltaTime);
-                yield return null;
-            }
-            transform.position = targetPos;
-        }
+            if (currentOccupiedMarker != null)
+                currentOccupiedMarker.IsOccupied = false;
 
-        // 🛑 Enemy blocking?
-        Collider[] hitEnemies = Physics.OverlapSphere(targetPos, 0.5f, Enemy);
-        if (hitEnemies.Length > 0)
-        {
-            Debug.Log("Enemy blocking path → stop movement.");
-            SetAnimationState(PlayerMoveState.Stand);
             currentOccupiedMarker = GetMarkerAtCurrentPosition();
-            if (currentOccupiedMarker != null) currentOccupiedMarker.IsOccupied = true;
+            if (currentOccupiedMarker != null)
+                currentOccupiedMarker.IsOccupied = true;
 
-            yield break;
-        }
+            if (TurnManager.Instance.isInTurnSystem)
+                tilesMoved++;
 
-        Marker newMarker = To.GetComponent<Marker>();
 
-        if (newMarker != null)
-        {
-            // Find the marker at the old position and set it to unoccupied
-            Vector2 oldGridPos = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.z));
-            // Assuming To.transform.parent.gameObject provides the room object correctly
-            GameObject oldMarkerGO = BoardManager.Instance.GetMarkerGameObjectAtGrid(oldGridPos, To.transform.parent.gameObject);
-            if (oldMarkerGO != null)
-            {
-                oldMarkerGO.GetComponent<Marker>().IsOccupied = false;
-            }
-
-            // Set the marker at the new position to occupied
-            newMarker.IsOccupied = true;
-        }
-
-        currentOccupiedMarker = GetMarkerAtCurrentPosition();
-        if (currentOccupiedMarker != null)
-        {
-            currentOccupiedMarker.IsOccupied = true;
-        }
-        // ✅ Count tile
-        tilesMoved++;
-
-        // Update grid position (directly based on difference)
-        playerData.GridPosition.x = Mathf.RoundToInt(transform.position.x);
-        playerData.GridPosition.y = Mathf.RoundToInt(transform.position.z);
-
-        if (tilesMoved >= maxTilesPerTurn ||
-        Vector3.Distance(transform.position, To.transform.position) < 0.01f)
-        {
-            Debug.Log("Used all moves or reached destination → switching turn.");
-            SetAnimationState(PlayerMoveState.Stand);
-        }
-        else
-        {
-            // Continue toward destination if not final cell
-            StartCoroutine(MoveToCell(To));
+            playerData.GridPosition.x = Mathf.RoundToInt(nextPos.x);
+            playerData.GridPosition.y = Mathf.RoundToInt(nextPos.z);
         }
     }
 
@@ -392,7 +367,7 @@ public class PlayerController : MonoBehaviour
                     }
 
                     // If no enemy is found, proceed with movement
-                    StartCoroutine(MoveToCell(clickedTile));
+                    moveToCell = StartCoroutine(MoveToCell(clickedTile));
                 }
             }
         }
