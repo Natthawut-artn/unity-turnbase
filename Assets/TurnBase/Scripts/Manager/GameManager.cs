@@ -150,6 +150,11 @@ public class GameManager : MonoBehaviour
                 MainCamera.Instance.SetPlayer(Player.transform);
             }
         }
+        for (int i = 0; i < Players_alive.Count ; i++)
+        {
+            PlayerData playerData = Players_alive[i].GetComponent<PlayerData>();
+            playerData.Upgrade();
+        }
         StartCoroutine(Wait());
         TurnManager.Instance.StopTurnBaseSystem();
         StartCoroutine(TeleportFriends(Players_alive[0].name));
@@ -364,43 +369,43 @@ public class GameManager : MonoBehaviour
         BrokenRelicManager.Init();
     }
 
-    void Update()
-    {
-        // if (Input.GetKeyDown(KeyCode.Q))
-        // {
-        //     Application.Quit();
-        // }
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Q))
+    //     {
+    //         Application.Quit();
+    //     }
 
-        // if (Input.GetKeyDown(KeyCode.B))
-        // {
-        //     BackToTheHub();
-        // }
+    //     if (Input.GetKeyDown(KeyCode.B))
+    //     {
+    //         BackToTheHub();
+    //     }
 
-        // if (Input.GetKeyDown(KeyCode.W) && AppStateManager.appState == AppState.State)
-        // {
-        //     foreach (GameObject enemy in Enemys_alive)
-        //     {
-        //         Enemys_alive.Remove(enemy);
-        //         Destroy(enemy);
-        //     }
-        //     CheckEnemys();
-        // }
+    //     if (Input.GetKeyDown(KeyCode.W) && AppStateManager.appState == AppState.State)
+    //     {
+    //         foreach (GameObject enemy in Enemys_alive)
+    //         {
+    //             Enemys_alive.Remove(enemy);
+    //             Destroy(enemy);
+    //         }
+    //         CheckEnemys();
+    //     }
 
-        // if (Input.GetKeyDown(KeyCode.T))
-        // {
-        //     Debug.Log("Remove relic");
-        //     foreach (GameObject player in Players_alive)
-        //     {
-        //         RelicsStoage relicsStoage = player.GetComponent<RelicsStoage>();
-        //         relicsStoage.RemoveRelic(relic);
-        //     }
-        // }
+    //     if (Input.GetKeyDown(KeyCode.T))
+    //     {
+    //         Debug.Log("Remove relic");
+    //         foreach (GameObject player in Players_alive)
+    //         {
+    //             RelicsStoage relicsStoage = player.GetComponent<RelicsStoage>();
+    //             relicsStoage.RemoveRelic(relic);
+    //         }
+    //     }
 
-        // if (Input.GetKeyDown(KeyCode.Y) && ServiceLocator.Get<AnnouncerPopup>().SelfGameObject == null)
-        // {
-        //     Debug.Log("Get Relic");
-        //     RelicStroageManager.RandomRelic();
-        //     RelicPocketPopupController.Update();
-        // }
-    }
+    //     if (Input.GetKeyDown(KeyCode.Y) && ServiceLocator.Get<AnnouncerPopup>().SelfGameObject == null)
+    //     {
+    //         Debug.Log("Get Relic");
+    //         RelicStroageManager.RandomRelic();
+    //         RelicPocketPopupController.Update();
+    //     }
+    // }
 }

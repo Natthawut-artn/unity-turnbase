@@ -46,7 +46,7 @@ public class OpenGame : IUIElement
           (
               Resources.Load<GameObject>("Prefabs/UI/Pages/OpenGame")
         );
-        _selfGameObject.transform.SetParent(CanvasManager.Canvas4.transform, false);
+        _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
 
         Button hub = _selfGameObject.transform.Find("startgame").GetComponent<Button>();
         hub.onClick.AddListener(() =>
@@ -57,9 +57,10 @@ public class OpenGame : IUIElement
             AppStateManager.ChangeAppState(AppState.Hub);
             Hide();
         });
-        Button set = _selfGameObject.transform.Find("Setting").GetComponent<Button>();
-        set.onClick.AddListener(() =>
+        Button Setting = _selfGameObject.transform.Find("Setting").GetComponent<Button>();
+        Setting.onClick.AddListener(() =>
         {
+            Debug.Log("Setting");
             SFXManager.Instance.PlayOneShot(SFX.Press1);
             SettingPopupController.Show();
         });

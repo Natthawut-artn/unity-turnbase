@@ -63,7 +63,7 @@ public class SettingPopup : IUIElement
             (
                 Resources.Load<GameObject>("Prefabs/UI/Popups/SettingPopup")
             );
-            _selfGameObject.transform.SetParent(CanvasManager.Canvas3.transform, false);
+            _selfGameObject.transform.SetParent(CanvasManager.Canvas4.transform, false);
         }
         
         Button close = _selfGameObject.transform.Find("Close").GetComponent<Button>();
