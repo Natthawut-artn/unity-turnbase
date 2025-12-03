@@ -326,11 +326,6 @@ public class PlayerController : MonoBehaviour
                                 return;
                             }
                         }
-                        else
-                        {
-                            Debug.Log("Cannot move to this tile. An enemy is there.");
-                            return;
-                        }
                     }
 
                     foreach (Skill skill in skills)
