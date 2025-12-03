@@ -7885,7 +7885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8227867401802654901, guid: ed0d788de54f8454f9e03c7b172b5888, type: 3}
       propertyPath: ConnectToRoom
-      value: Room13
+      value: Room2
       objectReference: {fileID: 0}
     - target: {fileID: 8235739104659901854, guid: ed0d788de54f8454f9e03c7b172b5888, type: 3}
       propertyPath: m_Layer

@@ -28,7 +28,7 @@ public class CharactorInheritance : MonoBehaviour
     public int currentDefense;
     public int currentCritRate;
     public int currentCritDGM;
-    public int LV;
+    public int LV = 1;
 
     // Bypass Defence
     public int BypassDef_Venom = 0;
