@@ -156,7 +156,18 @@ public class DebuffEvent : MonoBehaviour
             var health = player.GetComponent<PlayerData>();
             if (health != null)
             {
-                health.currentATK -= 10;
+                if (health.currentATK > 0)
+                {
+                    health.currentATK -= 10;
+                    if (health.currentATK < 0)
+                    {
+                        health.currentATK = 0; // Ensure ATK does not go below 0
+                    }
+                }
+                else
+                {
+                    Debug.Log("ATK cannot be decreased further.");
+                }
                 Debug.Log($"Debuff Applied {player.name}'s Health = {health.currentATK}");
                 HPBarsHUDController.Update();
             }
@@ -208,7 +219,18 @@ public class DebuffEvent : MonoBehaviour
             var health = player.GetComponent<PlayerData>();
             if (health != null)
             {
-                health.currentATK -= 10;
+                if (health.currentATK > 0)
+                {
+                    health.currentATK -= 10;
+                    if (health.currentATK < 0)
+                    {
+                        health.currentATK = 0; // Ensure ATK does not go below 0
+                    }
+                }
+                else
+                {
+                    Debug.Log("ATK cannot be decreased further.");
+                }
                 health.currentCritDGM -= 10;
                 health.currentDefense -= 10;
                 health.currentCritRate -= 10;
@@ -229,7 +251,18 @@ public class DebuffEvent : MonoBehaviour
             var health = player.GetComponent<PlayerData>();
             if (health != null)
             {
-                health.currentATK -= 5;
+                if (health.currentATK > 0)
+                {
+                    health.currentATK -= 5;
+                    if (health.currentATK < 0)
+                    {
+                        health.currentATK = 0; // Ensure ATK does not go below 0
+                    }
+                }
+                else
+                {
+                    Debug.Log("ATK cannot be decreased further.");
+                }
                 health.currentCritDGM -= 5;
                 health.currentDefense -= 5;
                 health.currentCritRate -= 5;

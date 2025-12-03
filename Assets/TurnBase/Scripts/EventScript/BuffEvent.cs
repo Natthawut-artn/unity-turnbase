@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -436,7 +437,18 @@ public class BuffEvent : MonoBehaviour
             var attack = player.GetComponent<PlayerData>();
             if (attack != null)
             {
-                attack.currentATK -= 10;
+                if(attack.currentATK > 0) 
+                { 
+                    attack.currentATK -= 10;
+                    if (attack.currentATK < 0)
+                    {
+                        attack.currentATK = 0; // Ensure ATK does not go below 0
+                    }
+                }
+                else
+                {
+                    Debug.Log("ATK cannot be decreased further.");
+                }
                 attack.currentCritDGM += 5;
                 Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
             }
@@ -512,7 +524,18 @@ public class BuffEvent : MonoBehaviour
             var attack = player.GetComponent<PlayerData>();
             if (attack != null)
             {
-                attack.currentATK -= 30;
+                if (attack.currentATK > 0)
+                {
+                    attack.currentATK -= 30;
+                    if (attack.currentATK < 0)
+                    {
+                        attack.currentATK = 0; // Ensure ATK does not go below 0
+                    }
+                }
+                else
+                {
+                    Debug.Log("ATK cannot be decreased further.");
+                }
                 attack.currentCritRate += 40;
                 Debug.Log($"Buff applied! {player.name}'s ATK = {attack.currentDefense}");
             }
