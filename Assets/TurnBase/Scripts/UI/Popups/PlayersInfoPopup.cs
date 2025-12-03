@@ -189,7 +189,8 @@ public class PlayersInfoPopup : IUIElement
                 $"ATK : {pd.currentATK}\n" +
                 $"Defense : {pd.currentDefense}\n" +
                 $"Crit Rate : {pd.currentCritRate}\n" +
-                $"Crit DGM : {pd.currentCritDGM}\n";
+                $"Crit DMG : {pd.currentCritDGM}\n" +  
+                $"Level : {pd.LV}\n";  
 
             TextMeshProUGUI txt = uiSlot.transform
                 .Find("Text (TMP) (2)")
