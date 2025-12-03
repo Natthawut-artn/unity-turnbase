@@ -73,11 +73,11 @@ public class RelicData : ScriptableObject
             break;
         }
 
-        if (player.currentHP < 0) player.currentHP = 0;
-        if (player.currentATK < 0) player.currentATK = 0;
-        if (player.currentDefense < 0) player.currentDefense = 0;
-        if (player.currentCritRate < 0) player.currentCritRate = 0;
-        if (player.currentCritDGM < 0) player.currentCritDGM = 0;
+        if (player.currentHP < 1) player.currentHP = 1;
+        if (player.currentATK < 1) player.currentATK = 1;
+        if (player.currentDefense < 1) player.currentDefense = 1;
+        if (player.currentCritRate < 1) player.currentCritRate = 1;
+        if (player.currentCritDGM < 1) player.currentCritDGM = 1;
     }
 
     public string GetInfo()
