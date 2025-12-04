@@ -263,8 +263,9 @@ public class BuffEvent : MonoBehaviour
     public void TworelicsBuff(GameObject panelRef)
     {
         if (getTworelics == true) return;
-        getTworelics = true;
         panelToClose = panelRef;
+        getTworelics = true;
+        
     }
     public void HugeAtkBuffHpDebuff(GameObject panelRef)
     {
@@ -464,18 +465,17 @@ public class BuffEvent : MonoBehaviour
     private void GetTworelic()
     {
         if (alreadyBuffed) return;
-        if(!firstRelic)
-        {
-            RelicStroageManager.RandomRelic();
-            firstRelic = true;
-            
-            if(firstRelic)
-            {
-                RelicStroageManager.RandomRelic();
-                alreadyBuffed = true;
-            }
-        }
-        
+        // 2. Just call the function twice
+        RelicStroageManager.RandomRelic();
+        RelicStroageManager.RandomRelic();
+
+        // 3. Mark as done
+        alreadyBuffed = true;
+
+        // Optional: Log it so you can see it in console
+        Debug.Log("Two Relics Given!");
+       
+
     }
     private void HughATKBuffHpDebuffPlayer()
     {
