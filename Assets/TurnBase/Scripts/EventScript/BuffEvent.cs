@@ -28,6 +28,11 @@ public class BuffEvent : MonoBehaviour
     private GameObject panelToClose; // Stores the panel reference passed from the UI
     public GameObject buffText;
     public GameObject healText;
+    public GameObject DefText;
+    public GameObject CRtext;
+    public GameObject CDtext;
+    public GameObject GARtext;
+    public GameObject GTRtext;
 
     private bool getheal = false;
     private bool healed = false;
@@ -74,7 +79,7 @@ public class BuffEvent : MonoBehaviour
         }
         if (getTworelics)
         {
-            PlayAnimationText();
+            PlayGTRAnimationText();
             GetTworelic();
             if (panelToClose != null)
             {
@@ -85,7 +90,7 @@ public class BuffEvent : MonoBehaviour
         }
         if(getArelic)
         {
-            PlayAnimationText();
+            PlayGARAnimationText();
             GetArelic();
             if (panelToClose != null)
             {
@@ -151,7 +156,7 @@ public class BuffEvent : MonoBehaviour
         }
         if (getDefBuff)
         {
-            PlayAnimationText();
+            PlayDefAnimationText();
             BuffDefPlayer();
             if (panelToClose != null)
             {
@@ -162,7 +167,7 @@ public class BuffEvent : MonoBehaviour
         }
         if (getCritBuff)
         {
-            PlayAnimationText();
+            PlayCRAnimationText();
             BuffCritPlayer();
             if (panelToClose != null)
             {
@@ -550,6 +555,26 @@ public class BuffEvent : MonoBehaviour
     {
         StartCoroutine(ShowHealText());
     }
+    public void PlayDefAnimationText()
+    {
+        StartCoroutine(ShowDefText());
+    }
+    public void PlayCRAnimationText()
+    {
+        StartCoroutine(ShowCRText());
+    }
+    public void PlayCDAnimationText()
+    {
+        StartCoroutine(ShowCDText());
+    }
+    public void PlayGARAnimationText()
+    {
+        StartCoroutine(ShowGARText());
+    }
+    public void PlayGTRAnimationText()
+    {
+        StartCoroutine(ShowGTRText());
+    }
     IEnumerator ShowBuffText()
     {
         buffText.SetActive(true);
@@ -561,5 +586,35 @@ public class BuffEvent : MonoBehaviour
         healText.SetActive(true);
         yield return new WaitForSeconds(4f);
         healText.SetActive(false);
+    }
+    IEnumerator ShowDefText()
+    {
+        DefText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        DefText.SetActive(false);
+    }
+    IEnumerator ShowCRText()
+    {
+        CRtext.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        CRtext.SetActive(false);
+    }
+    IEnumerator ShowCDText()
+    {
+        CDtext.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        CDtext.SetActive(false);
+    }
+    IEnumerator ShowGARText()
+    {
+        GARtext.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        GARtext.SetActive(false);
+    }
+    IEnumerator ShowGTRText()
+    {
+        GTRtext.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        GTRtext.SetActive(false);
     }
 }
