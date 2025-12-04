@@ -316,17 +316,17 @@ public class PlayerController : MonoBehaviour
                     }
 
                     // Check for enemies on the tile before moving
-                    Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 0.5f, Enemy);
-                    if (enemiesOnTile.Length > 0)
-                    {
-                        if (gameObject.name == "Striker(Clone)")
-                        {
-                            if (skills[1].SkillName == "Shunpo" && !skills[1].isActivate)
-                            {
-                                return;
-                            }
-                        }
-                    }
+                    //Collider[] enemiesOnTile = Physics.OverlapSphere(tilePosition, 0.5f, Enemy);
+                    //if (enemiesOnTile.Length > 0)
+                    //{
+                    //    if (gameObject.name == "Striker(Clone)")
+                    //    {
+                    //        if (skills[1].SkillName == "Shunpo" && !skills[1].isActivate)
+                    //        {
+                    //            return;
+                    //        }
+                    //    }
+                    //}
 
                     foreach (Skill skill in skills)
                     {
