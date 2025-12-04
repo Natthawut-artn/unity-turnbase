@@ -21735,6 +21735,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlobeforEvent
       objectReference: {fileID: 0}
+    - target: {fileID: 6512021123033731436, guid: 500d7e1c6784cca46af2369069590b42, type: 3}
+      propertyPath: EventPanel
+      value: 
+      objectReference: {fileID: 6845218258690047763}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21998,7 +22002,7 @@ PrefabInstance:
     - target: {fileID: 4808021955952937674, guid: 1e98abab0d89909419461a80d9a18004, type: 3}
       propertyPath: debuffText
       value: 
-      objectReference: {fileID: 7843201637252820322}
+      objectReference: {fileID: 0}
     - target: {fileID: 5356358471931998696, guid: 1e98abab0d89909419461a80d9a18004, type: 3}
       propertyPath: m_Name
       value: Buff/DebuffCollector
@@ -22006,11 +22010,11 @@ PrefabInstance:
     - target: {fileID: 6169369646255483419, guid: 1e98abab0d89909419461a80d9a18004, type: 3}
       propertyPath: buffText
       value: 
-      objectReference: {fileID: 3053031286187098103}
+      objectReference: {fileID: 0}
     - target: {fileID: 6169369646255483419, guid: 1e98abab0d89909419461a80d9a18004, type: 3}
       propertyPath: healText
       value: 
-      objectReference: {fileID: 5284921464820159625}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27073,24 +27077,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6360459492551251492, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
   m_PrefabInstance: {fileID: 8125586564941243411}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3053031286187098103 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6529491765766364132, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
-  m_PrefabInstance: {fileID: 8125586564941243411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4550482132188861172 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5757129255882553063, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
-  m_PrefabInstance: {fileID: 8125586564941243411}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5284921464820159625 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4148996130877943962, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
-  m_PrefabInstance: {fileID: 8125586564941243411}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7843201637252820322 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2025291315066243441, guid: a020ec1d24bd35244b6f8b4536997768, type: 3}
   m_PrefabInstance: {fileID: 8125586564941243411}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8328676575642534824
