@@ -34,6 +34,18 @@ public class BuffEvent : MonoBehaviour
     public GameObject GARtext;
     public GameObject GTRtext;
 
+    //BuffandDebuffGameobject
+
+    public GameObject AtkBuffCRDebuffText;
+    public GameObject AtkbuffHpDebuffText;
+    public GameObject AtkDebffCrBuffText;
+    public GameObject CDBuffAtkDebuffText;
+    public GameObject DefBuffCDDebuffText;
+    public GameObject DefDebuffCDbuffText;
+    public GameObject HpBuffCDDebuffText;
+    public GameObject HpBuffDefDebuff;
+    public GameObject HpDebuffCDbuff;
+
     private bool getheal = false;
     private bool healed = false;
     private void Start()
@@ -46,7 +58,7 @@ public class BuffEvent : MonoBehaviour
     {
         if (getHugeAtkBuffHPDebuff)
         {
-            PlayAnimationText();
+            PlayAtkBuffHpDebuffAnimationText();
             HughATKBuffHpDebuffPlayer();
             if (panelToClose != null)
             {
@@ -57,7 +69,7 @@ public class BuffEvent : MonoBehaviour
         }
         if(getHugeCritDMGBuffDefDebuff)
         {
-            PlayAnimationText();
+            PlayDefbuffCDDebuffText();
             HugeCritDMGBuffDefDebuff();
             if (panelToClose != null)
             {
@@ -68,7 +80,7 @@ public class BuffEvent : MonoBehaviour
         }
         if(getHugeCritRateBuffATKDebuff)
         {
-            PlayAnimationText();
+            PlayatkDebuffCRbuffText();
             HugeCritDMGBuffDefDebuffr();
             if (panelToClose != null)
             {
@@ -101,7 +113,7 @@ public class BuffEvent : MonoBehaviour
         }
         if (getBuffCritDmgDefDebuff)
         {
-            PlayAnimationText();
+            PlaydefDebuffCDbuffText();
             CritDmgdeBuffDefbuffPlayer();
             if (panelToClose != null)
             {
@@ -112,7 +124,7 @@ public class BuffEvent : MonoBehaviour
         }
         if(getAtkDebuffCritDmgBuff)
         {
-            PlayAnimationText();
+            PlayCDbuffATKDebuffText();  
             ATKdeBuffCritDMGbuffPlayer();
             if (panelToClose != null)
             {
@@ -123,7 +135,7 @@ public class BuffEvent : MonoBehaviour
         }
         if (getCritDmgBuffHpDebuff)
         {
-            PlayAnimationText();
+            PlayHpDebuffCDbuffText();
             CritDmgBuffHpDebuffPlayer();
             if (panelToClose != null)
             {
@@ -134,7 +146,7 @@ public class BuffEvent : MonoBehaviour
         }
         if (getAtkBuffCritDebuff)
         {
-            PlayAnimationText();
+            PlayAtkBuffCRDebuffAnimationText();
             AtkBuffCritDebuffPlayer();
             if (panelToClose != null)
             {
@@ -145,7 +157,7 @@ public class BuffEvent : MonoBehaviour
         }
         if (getHpBuffButDefDebuff)
         {
-            PlayAnimationText();
+            PlayHpbuffDefDebuffText();
             HpBuffDefDebuffPlayer();
             if (panelToClose != null)
             {
@@ -616,5 +628,98 @@ public class BuffEvent : MonoBehaviour
         GTRtext.SetActive(true);
         yield return new WaitForSeconds(4f);
         GTRtext.SetActive(false);
+    }
+    //BuffAndDebuffTextAnim
+
+    public void PlayAtkBuffCRDebuffAnimationText()
+    {
+        StartCoroutine(atkBuffCRDebuffText());
+    }
+    public void PlayAtkBuffHpDebuffAnimationText()
+    {
+        StartCoroutine(atkBuffHpDebuffText());
+    }
+    public void PlayatkDebuffCRbuffText()
+    {
+        StartCoroutine(atkDebuffCRbuffText());
+    }
+    public void PlayCDbuffATKDebuffText()
+    {
+        StartCoroutine(CDbuffATKDebuffText());
+    }
+    public void PlayDefbuffCDDebuffText()
+    {
+        StartCoroutine(DefbuffCDDebuffText());
+    }
+    public void PlaydefDebuffCDbuffText()
+    {
+        StartCoroutine(defDebuffCDbuffText());
+    }
+    public void PlayHpbuffCDDebuffText()
+    {
+        StartCoroutine(HpbuffCDDebuffText());
+    }
+    public void PlayHpbuffDefDebuffText()
+    {
+        StartCoroutine(HpbuffDefDebuffText());
+    }
+    public void PlayHpDebuffCDbuffText()
+    {
+        StartCoroutine(HpDebuffCDbuffText());
+    }
+    IEnumerator atkBuffCRDebuffText()
+    {
+        AtkBuffCRDebuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        AtkBuffCRDebuffText.SetActive(false);
+    }
+    IEnumerator atkBuffHpDebuffText()
+    {
+        AtkbuffHpDebuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        AtkbuffHpDebuffText.SetActive(false);
+    }
+    IEnumerator atkDebuffCRbuffText()
+    {
+        AtkDebffCrBuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        AtkDebffCrBuffText.SetActive(false);
+    }
+
+    IEnumerator CDbuffATKDebuffText()
+    {
+        CDBuffAtkDebuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        CDBuffAtkDebuffText.SetActive(false);
+    }
+    IEnumerator DefbuffCDDebuffText()
+    {
+        DefBuffCDDebuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        DefBuffCDDebuffText.SetActive(false);
+    }
+    IEnumerator defDebuffCDbuffText()
+    {
+        DefDebuffCDbuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        DefDebuffCDbuffText.SetActive(false);
+    }
+    IEnumerator HpbuffCDDebuffText()
+    {
+        HpBuffCDDebuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        HpBuffCDDebuffText.SetActive(false);
+    }
+    IEnumerator HpbuffDefDebuffText()
+    {
+        HpBuffDefDebuff.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        HpBuffDefDebuff.SetActive(false);
+    }
+    IEnumerator HpDebuffCDbuffText()
+    {
+        HpDebuffCDbuff.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        HpDebuffCDbuff.SetActive(false);
     }
 }

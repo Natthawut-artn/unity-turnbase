@@ -13,7 +13,12 @@ public class DebuffEvent : MonoBehaviour
     public bool getsmallDebuffAllstatus;
     private bool alreadyBuffed = false;
     private GameObject panelToClose; // Stores the panel reference passed from the UI
+    
     public GameObject debuffText;
+    public GameObject AtkdebuffText;
+    public GameObject DefdebuffText;
+    public GameObject AllStatusDebuffText;
+    public GameObject CritDebuffText;
 
     private void Start()
     {
@@ -25,7 +30,7 @@ public class DebuffEvent : MonoBehaviour
     {
         if(getsmallDebuffAllstatus)
         {
-            PlayAnimationText();
+            PlayAllStatusAnimationText();
             smallDebuffAllstatus();
             if (panelToClose != null)
             {
@@ -36,7 +41,7 @@ public class DebuffEvent : MonoBehaviour
         }
         if (getDebuffAllstatus)
         {
-            PlayAnimationText();
+            PlayAllStatusAnimationText();
             DebuffAllstatus();
             if (panelToClose != null)
             {
@@ -47,7 +52,7 @@ public class DebuffEvent : MonoBehaviour
         }
         if (getCritDeBuff)
         {
-            PlayAnimationText();
+            PlayCritAnimationText();
             DeBuffCritPlayer();
             if (panelToClose != null)
             {
@@ -58,7 +63,7 @@ public class DebuffEvent : MonoBehaviour
         }
         if (getDefDeBuff)
         {
-            PlayAnimationText();
+            PlayDefAnimationText();
             DeBuffDefPlayer();
             if (panelToClose != null)
             {
@@ -69,7 +74,7 @@ public class DebuffEvent : MonoBehaviour
         }
         if (getAtkDeBuff)
         {
-            PlayAnimationText();
+            PlayAtkAnimationText();
             DeBuffAtkPlayer();
 
             if (panelToClose != null)
@@ -278,11 +283,50 @@ public class DebuffEvent : MonoBehaviour
     {
         StartCoroutine(ShowBuffText());
     }
-
+    public void PlayAtkAnimationText()
+    {
+        StartCoroutine(ShowAtkDeBuffText());
+    }
+    public void PlayDefAnimationText()
+    {
+        StartCoroutine(ShowDefDeBuffText());
+    }
+    public void PlayAllStatusAnimationText()
+    {
+        StartCoroutine(ShowAllStatusDeBuffText());
+    }
+    public void PlayCritAnimationText()
+    {
+        StartCoroutine(CritDeBuffText());
+    }
     private IEnumerator ShowBuffText()
     {
         debuffText.SetActive(true);
         yield return new WaitForSeconds(4f);
         debuffText.SetActive(false);
+    }
+    private IEnumerator ShowAtkDeBuffText()
+    {
+        AtkdebuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        AtkdebuffText.SetActive(false);
+    }
+    private IEnumerator ShowDefDeBuffText()
+    {
+        DefdebuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        DefdebuffText.SetActive(false);
+    }
+    private IEnumerator ShowAllStatusDeBuffText()
+    {
+        AllStatusDebuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        AllStatusDebuffText.SetActive(false);
+    }
+    private IEnumerator CritDeBuffText()
+    {
+        CritDebuffText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        CritDebuffText.SetActive(false);
     }
 }

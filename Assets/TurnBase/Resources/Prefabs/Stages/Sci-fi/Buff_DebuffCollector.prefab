@@ -46,9 +46,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbcc89eece2f7a4abc04804ae14535c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstRelic: 0
   getBuff: 0
-  buffText: {fileID: 0}
-  healText: {fileID: 0}
+  getCritBuff: 0
+  getDefBuff: 0
+  getHpBuffButDefDebuff: 0
+  getAtkBuffCritDebuff: 0
+  getCritDmgBuffHpDebuff: 0
+  getBuffCritDmgDefDebuff: 0
+  getAtkDebuffCritDmgBuff: 0
+  getArelic: 0
+  getTworelics: 0
+  getHugeAtkBuffHPDebuff: 0
+  getHugeCritDMGBuffDefDebuff: 0
+  getHugeCritRateBuffATKDebuff: 0
+  buffText: {fileID: 7665422527483149275, guid: 50e46ff33c47da241b1bef17126eed95, type: 3}
+  healText: {fileID: 8447430002709369180, guid: 1e033c23afb23a841972596651d66e38, type: 3}
+  DefText: {fileID: 7665422527483149275, guid: 21e98ec68338f3f4d89efd1b68e94c3e, type: 3}
+  CRtext: {fileID: 7665422527483149275, guid: 1ed5d6db2f1a3d443a0eb3bec29c2ed2, type: 3}
+  CDtext: {fileID: 7665422527483149275, guid: 639c5551fd23eb54bb1888571be99cc6, type: 3}
+  GARtext: {fileID: 7665422527483149275, guid: f3ef457d4cfa43d449388e9bf907d2dd, type: 3}
+  GTRtext: {fileID: 7665422527483149275, guid: f3ef457d4cfa43d449388e9bf907d2dd, type: 3}
+  AtkBuffCRDebuffText: {fileID: 7665422527483149275, guid: 51f8f3a1e0daecb46b57e0abe247369a, type: 3}
+  AtkbuffHpDebuffText: {fileID: 7665422527483149275, guid: 85a0a9a69dad27f4e8fbfb9c760e472f, type: 3}
+  AtkDebffCrBuffText: {fileID: 7665422527483149275, guid: 1a781e9a7775be44f922f38bfb9d4efa, type: 3}
+  CDBuffAtkDebuffText: {fileID: 7665422527483149275, guid: 0bd8b62acaffac94c951431e9a330d4a, type: 3}
+  DefBuffCDDebuffText: {fileID: 7665422527483149275, guid: c570df477e860644cbcd89ef11db2cf8, type: 3}
+  DefDebuffCDbuffText: {fileID: 7665422527483149275, guid: cbfbeed429acf774387fc3a4078e9720, type: 3}
+  HpBuffCDDebuffText: {fileID: 7665422527483149275, guid: 6352748cdc4341d4287aafdc32645e29, type: 3}
+  HpBuffDefDebuff: {fileID: 7665422527483149275, guid: 2c7f421045c0e47499a9f93b1cab532e, type: 3}
+  HpDebuffCDbuff: {fileID: 7665422527483149275, guid: 3c8732ac240bfce42a646b215aa5ec0d, type: 3}
 --- !u!114 &4808021955952937674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +89,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getDeBuff: 0
-  debuffText: {fileID: 0}
+  getAtkDeBuff: 0
+  getDefDeBuff: 0
+  getCritDeBuff: 0
+  getDebuffAllstatus: 0
+  getsmallDebuffAllstatus: 0
+  debuffText: {fileID: 8346957264804000491, guid: 0c2bd8ada84c82b4d95cda23261b0655, type: 3}
+  AtkdebuffText: {fileID: 7665422527483149275, guid: 1c412d938f414344c8d79ed5c6e55ace, type: 3}
+  DefdebuffText: {fileID: 8346957264804000491, guid: 79bae4bb7d25f3b489c11309e79ca8b9, type: 3}
+  AllStatusDebuffText: {fileID: 8346957264804000491, guid: 895a7a39e2669014eb6fd1b8de61a2b7, type: 3}
+  CritDebuffText: {fileID: 8346957264804000491, guid: be016f6bf7eea66458bcac56b26a7d26, type: 3}
 --- !u!114 &4161431807647664631
 MonoBehaviour:
   m_ObjectHideFlags: 0
