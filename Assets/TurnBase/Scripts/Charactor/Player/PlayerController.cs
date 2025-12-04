@@ -139,19 +139,6 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, dirZ));
             }
 
-            int foundEnemies = Physics.OverlapSphereNonAlloc(nextPos, 0.5f, enemyHits, Enemy);
-            if (foundEnemies > 0)
-            {
-                Debug.Log("Enemy blocking path → stop movement.");
-                SetAnimationState(PlayerMoveState.Stand);
-
-                currentOccupiedMarker = GetMarkerAtCurrentPosition();
-                if (currentOccupiedMarker != null)
-                    currentOccupiedMarker.IsOccupied = true;
-
-                yield break;
-            }
-
             SetAnimationState(PlayerMoveState.Walk);
 
             while (Vector3.Distance(transform.position, nextPos) > 0.01f)
@@ -338,11 +325,6 @@ public class PlayerController : MonoBehaviour
                             {
                                 return;
                             }
-                        }
-                        else
-                        {
-                            Debug.Log("Cannot move to this tile. An enemy is there.");
-                            return;
                         }
                     }
 
