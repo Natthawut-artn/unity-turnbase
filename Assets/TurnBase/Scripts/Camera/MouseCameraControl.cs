@@ -37,6 +37,7 @@ public class MouseCameraControl : MonoBehaviour
             {
                 dragOrigin = ray.GetPoint(entry);
             }
+            ServiceLocator.Get<LockCamHUD>().Show();
         }
 
         // Panning logic while the button is held
@@ -57,6 +58,7 @@ public class MouseCameraControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SnapToPlayer();
+            ServiceLocator.Get<LockCamHUD>().Hide();
         }
     }
     
